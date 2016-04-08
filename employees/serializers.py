@@ -17,7 +17,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
                   'last_month_score',
                   'current_month_score',
                   'level',
-                  'total_score',
+                  'score',
                   'categories',
                   'is_active',
                   'last_login')

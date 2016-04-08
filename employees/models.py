@@ -19,7 +19,7 @@ class Employee(AbstractUser):
     last_month_score = models.PositiveIntegerField(default=0)
     current_month_score = models.PositiveIntegerField(default=0)
     level = models.PositiveIntegerField(default=0)
-    total_score = models.PositiveIntegerField(default=0)
+    score = models.PositiveIntegerField(default=0)
     avatar = models.ImageField(upload_to='avatar', null=True, blank=True)
     categories = models.ManyToManyField('categories.Category', blank=True)
 

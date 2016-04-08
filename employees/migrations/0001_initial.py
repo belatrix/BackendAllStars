@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 ('last_month_score', models.PositiveIntegerField(default=0)),
                 ('current_month_score', models.PositiveIntegerField(default=0)),
                 ('level', models.PositiveIntegerField(default=0)),
-                ('total_score', models.PositiveIntegerField(default=0)),
+                ('score', models.PositiveIntegerField(default=0)),
                 ('avatar', models.ImageField(blank=True, null=True, upload_to='avatar')),
                 ('categories', models.ManyToManyField(blank=True, to='categories.Category')),
                 ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),

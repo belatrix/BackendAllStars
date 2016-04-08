@@ -7,7 +7,7 @@ class RoleAdmin(admin.ModelAdmin):
 
 
 class EmployeeAdmin(admin.ModelAdmin):
-    list_display = ("username", "first_name", "last_name", "email", 'level', 'total_score',)
+    list_display = ("username", "first_name", "last_name", "email", 'level', 'score',)
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password')}),
         ('Personal info', {'fields': ('first_name',
@@ -19,7 +19,7 @@ class EmployeeAdmin(admin.ModelAdmin):
         ('Personal score', {'fields': ('last_month_score',
                                        'current_month_score',
                                        'level',
-                                       'total_score')}),
+                                       'score')}),
         ('Permissions', {'fields': ('groups',
                                     'user_permissions',
                                     'is_superuser',
