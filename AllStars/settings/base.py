@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'categories',
     'employees',
+    'stars',
 ]
 
 MIDDLEWARE_CLASSES = [
