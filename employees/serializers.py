@@ -33,4 +33,4 @@ class EmployeeListSerializer(serializers.ModelSerializer):
                   'last_name',
                   'level',
                   'avatar',
-                  'total_score')
+                  'score')
