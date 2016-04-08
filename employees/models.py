@@ -21,4 +21,5 @@ class Employee(AbstractUser):
     level = models.PositiveIntegerField(default=0)
     total_score = models.PositiveIntegerField(default=0)
     avatar = models.ImageField(upload_to='avatar', null=True, blank=True)
+    categories = models.ManyToManyField('categories.Category', blank=True)
 
