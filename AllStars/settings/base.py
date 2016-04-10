@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_framework_swagger',
     'categories',
     'employees',
@@ -53,6 +54,15 @@ MIDDLEWARE_CLASSES = [
 ]
 
 ROOT_URLCONF = 'AllStars.urls'
+
+# REST
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
 
 # USER MODEL
 AUTH_USER_MODEL = "employees.Employee"
