@@ -66,6 +66,3 @@ target/
 
 # Local Storage
 *.sqlite3
-
-# Media folder
-media/

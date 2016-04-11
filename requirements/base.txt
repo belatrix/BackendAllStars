@@ -6,3 +6,4 @@ Markdown==2.6.6
 PyYAML==3.11
 whitenoise==2.0.6
 Pillow==3.1.1                   # Requirements: OSX:libjpeg, Ubuntu14.04:libjpeg-dev, python-dev
+django-cors-headers==1.1.0

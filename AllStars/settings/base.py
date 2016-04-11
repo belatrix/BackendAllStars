@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger',
+    'corsheaders',
     'categories',
     'employees',
     'stars',
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -54,6 +56,22 @@ MIDDLEWARE_CLASSES = [
 ]
 
 ROOT_URLCONF = 'AllStars.urls'
+
+# CORS
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_METHODS = ('GET',
+                      'POST',
+                      'PUT',
+                      'PATCH',
+                      'DELETE',
+                      'OPTIONS')
+CORS_ALLOW_HEADERS = ('x-requested-with',
+                      'content-type',
+                      'accept',
+                      'origin',
+                      'authorization')
+CORS_EXPOSE_HEADERS = ('Access-Control-Allow-Origin',
+                       'Access-Control-Allow-Headers')
 
 # REST
 REST_FRAMEWORK = {
@@ -132,7 +150,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__+'/../../'))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
 
 # Media files
 
