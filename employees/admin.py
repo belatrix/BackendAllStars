@@ -1,26 +1,26 @@
+from .models import Employee, Role
 from django import forms
 from django.contrib import admin
-from .models import Employee, Role
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 
-class UserCreationForm(forms.ModelForm):
+class UserChangeForm(forms.ModelForm):
+    password = ReadOnlyPasswordHashField()
+
     class Meta:
         model = Employee
-        fields = ('username', 'password',)
+        fields = ('email',)
 
-    def save(self, commit=True):
-        user = super(UserCreationForm, self).save(commit=False)
-        user.set_password(self.cleaned_data['password'])
-        if commit:
-            user.save()
-        return user
+    def clean_password(self):
+        return self.initial['password']
 
 class RoleAdmin(admin.ModelAdmin):
     list_display = ("name",)
 
 
-class EmployeeAdmin(admin.ModelAdmin):
-    form = UserCreationForm
+class EmployeeAdmin(BaseUserAdmin):
+    form = UserChangeForm
     list_display = ("username", "first_name", "last_name", "email", 'level', 'score',)
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password')}),
