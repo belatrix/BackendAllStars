@@ -1,8 +1,9 @@
-from .models import Category, Subcategory
-from .serializer import SubCategoryListSerializer
+from .models import Subcategory
+from .serializers import SubCategoryListSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+
 
 @api_view(['GET'])
 def subcategories_list(request, category_id):

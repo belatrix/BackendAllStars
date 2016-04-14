@@ -1,4 +1,4 @@
-from.views import subcategories_list
+from .views import subcategories_list
 from django.conf.urls import url
 
 urlpatterns = [
