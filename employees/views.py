@@ -1,6 +1,7 @@
 from .models import Employee
 from .serializers import EmployeeSerializer, EmployeeListSerializer
 from categories.serializers import CategorySerializer
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework import status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
@@ -44,6 +45,17 @@ def top(request, kind, quantity):
             return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
         raise APIException(e)
+
+
+@api_view(['GET', ])
+def search(request, search_term):
+    if request.method == 'GET':
+        employee_list = Employee.objects.filter(
+            Q(first_name__icontains=search_term)|
+            Q(last_name__icontains=search_term)|
+            Q(username__icontains=search_term))
+        serializer = EmployeeListSerializer(employee_list, many=True)
+        return  Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class CustomObtainAuthToken(ObtainAuthToken):
