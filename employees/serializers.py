@@ -5,7 +5,6 @@ from rest_framework import serializers
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        depth = 1
         fields = ('pk',
                   'username',
                   'email',
@@ -18,7 +17,6 @@ class EmployeeSerializer(serializers.ModelSerializer):
                   'current_month_score',
                   'level',
                   'score',
-                  'categories',
                   'is_active',
                   'last_login')
 

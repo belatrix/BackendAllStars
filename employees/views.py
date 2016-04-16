@@ -31,7 +31,7 @@ def employee(request, employee_id):
 def employee_categories(request, employee_id):
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
-        serializer = CategorySerializer(employee.categories.all(), many=True)
+        serializer = CategorySerializer(employee.categories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET', ])

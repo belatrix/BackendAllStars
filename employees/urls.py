@@ -1,5 +1,5 @@
-from .views import CustomObtainAuthToken, employee_list, employee_categories, employee
-from .views import search, top
+from .views import employee, employee_categories, employee_list
+from .views import CustomObtainAuthToken, search, top
 from django.conf.urls import url
 
 
