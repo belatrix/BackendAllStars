@@ -18,7 +18,6 @@ def employee_list(request):
     if request.method == 'GET':
         employee_list = get_list_or_404(Employee)
         paginator = PageNumberPagination()
-        paginator.page_size=1
         results = paginator.paginate_queryset(employee_list, request)
         serializer = EmployeeListSerializer(results, many=True)
         return paginator.get_paginated_response(serializer.data)
@@ -51,7 +50,6 @@ def search(request, search_term):
             Q(last_name__icontains=search_term)|
             Q(username__icontains=search_term))
         paginator = PageNumberPagination()
-        paginator.page_size=20
         results = paginator.paginate_queryset(employee_list, request)
         serializer = EmployeeListSerializer(results, many=True)
         return  paginator.get_paginated_response(serializer.data)
