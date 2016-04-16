@@ -1,5 +1,6 @@
 from .models import Employee
 from .serializers import EmployeeSerializer, EmployeeListSerializer
+from categories.serializers import CategorySerializer
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework import status
@@ -24,6 +25,13 @@ def employee(request, employee_id):
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
         serializer = EmployeeSerializer(employee)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET', ])
+def employee_categories(request, employee_id):
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        serializer = CategorySerializer(employee.categories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET', ])
