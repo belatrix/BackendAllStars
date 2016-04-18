@@ -17,6 +17,22 @@ class CsrfExemptSessionAuthentication(SessionAuthentication):
 @api_view(['POST', ])
 @authentication_classes((CsrfExemptSessionAuthentication, BasicAuthentication))
 def give_star_to(request, from_employee_id, to_employee_id):
+    """
+    This endpoint saves stars on both employees.
+    ---
+    response_serializer: StarSerializer
+    responseMessages:
+    - code: 400
+      message: Bad request
+    - code: 404
+      message: Not found (from_employee_id or to_employee_id or category or subcategory)
+    parameters:
+    - name: body
+      description: JSON Object containing two or three parameters = category(id), subcategory(id)  and text(optional).
+      required: true
+      paramType: body
+      pytype: stars.serializers.StarSwaggerSerializer
+    """
     # Set None as initial values for variables in content json
     category_id = None
     subcategory_id = None
@@ -27,9 +43,9 @@ def give_star_to(request, from_employee_id, to_employee_id):
         text = (request.data['text'] if 'text' in request.data.keys() else None)
         from_user = get_object_or_404(Employee, pk=from_employee_id)
         to_user = get_object_or_404(Employee, pk=to_employee_id)
-        category_id = (request.data['category_id'] if request.data['category_id'] else None)
+        category_id = (request.data['category'] if request.data['category'] else None)
         category = get_object_or_404(Category, pk=category_id)
-        subcategory_id = (request.data['subcategory_id'] if request.data['subcategory_id'] else None)
+        subcategory_id = (request.data['subcategory'] if request.data['subcategory'] else None)
         subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
 
         # Create data object to save

@@ -6,3 +6,8 @@ class StarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Star
         fields = ('date', 'text', 'from_user', 'to_user', 'category', 'subcategory')
+
+class StarSwaggerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Star
+        fields = ('category', 'subcategory', 'text')
