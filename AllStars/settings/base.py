@@ -86,6 +86,7 @@ REST_FRAMEWORK = {
 
 # USER MODEL
 AUTH_USER_MODEL = "employees.Employee"
+NEXT_LEVEL_SCORE = 25
 
 TEMPLATES = [
     {
