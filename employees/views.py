@@ -65,6 +65,19 @@ def search(request, search_term):
 
 class CustomObtainAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
+        """
+        This endpoint returns a token and user_id, for credentials provided.
+        ---
+        responseMessages:
+        - code: 400
+          message: Bad request
+        parameters:
+        - name: body
+          description: JSON Object containing two parameters = username and password.
+          required: true
+          paramType: body
+          pytype: rest_framework.authtoken.serializers.AuthTokenSerializer
+        """
         response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
         token = Token.objects.get(key=response.data['token'])
         return Response({'token': token.key, 'user_id': token.user_id})
