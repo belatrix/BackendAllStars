@@ -47,10 +47,12 @@ def give_star_to(request, from_employee_id, to_employee_id):
 
             # Add 1 point to from_user
             from_user.score += 1
+            from_user.evaluate_level()
             from_user.save()
 
             # Add points to to_user according category weight
             to_user.score += category.weight
+            to_user.evaluate_level()
             to_user.save()
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
