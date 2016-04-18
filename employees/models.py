@@ -27,6 +27,11 @@ class Employee(AbstractUser):
     avatar = models.ImageField(upload_to='avatar', null=True, blank=True)
     categories = models.ManyToManyField('categories.Category', blank=True)
 
+    def evaluate_level(self):
+        if self.score == (self.level+1)*settings.NEXT_LEVEL_SCORE:
+            self.level += 1
+            return
+
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
