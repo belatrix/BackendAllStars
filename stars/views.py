@@ -77,6 +77,15 @@ def give_star_to(request, from_employee_id, to_employee_id):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET', ])
+def stars_employee_list(request, employee_id):
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        employee_stars = Star.objects.filter(to_user=employee)
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(employee_stars,request)
+        serializer = StarSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
 @api_view(['GET', ])
 def stars_employee_subcategory_list(request, employee_id):
