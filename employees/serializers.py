@@ -10,7 +10,6 @@ class EmployeeSerializer(serializers.ModelSerializer):
                   'email',
                   'first_name',
                   'last_name',
-                  'avatar',
                   'role',
                   'skype_id',
                   'last_month_score',
@@ -32,3 +31,8 @@ class EmployeeListSerializer(serializers.ModelSerializer):
                   'level',
                   'avatar',
                   'score')
+
+class EmployeeAvatarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ('pk', 'avatar')

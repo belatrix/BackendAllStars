@@ -1,5 +1,5 @@
 from .models import Employee
-from .serializers import EmployeeSerializer, EmployeeListSerializer
+from .serializers import EmployeeSerializer, EmployeeAvatarSerializer, EmployeeListSerializer
 from categories.serializers import CategorySerializer
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, get_list_or_404
@@ -28,6 +28,13 @@ def employee(request, employee_id):
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
         serializer = EmployeeSerializer(employee)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET', ])
+def employee_avatar(request, employee_id):
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        serializer = EmployeeAvatarSerializer(employee)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET', ])
