@@ -1,4 +1,4 @@
-from .serializers import StarSerializer, StarEmployeesSubcategoriesSerializer
+from .serializers import StarSerializer, StarSmallSerializer, StarEmployeesSubcategoriesSerializer
 from .models import Star
 from employees.models import Employee
 from categories.models import Category, Subcategory
@@ -86,4 +86,16 @@ def stars_employee_subcategory_list(request, employee_id):
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(employee_stars, request)
         serializer = StarEmployeesSubcategoriesSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+def stars_employee_subcategory_detail_list(request, employee_id, subcategory_id):
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
+        stars = Star.objects.filter(to_user=employee, subcategory=subcategory)
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(stars, request)
+        serializer = StarSmallSerializer(results, many=True)
         return paginator.get_paginated_response(serializer.data)

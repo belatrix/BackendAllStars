@@ -7,6 +7,11 @@ class StarSerializer(serializers.ModelSerializer):
         model = Star
         fields = ('date', 'text', 'from_user', 'to_user', 'category', 'subcategory')
 
+class StarSmallSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Star
+        depth = 1
+        fields = ('date', 'text', 'category', 'from_user')
 
 class StarSwaggerSerializer(serializers.ModelSerializer):
     class Meta:
