@@ -6,7 +6,7 @@ from django.utils.encoding import python_2_unicode_compatible
 
 @python_2_unicode_compatible
 class Category(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     weight = models.PositiveSmallIntegerField(default=1)
 
     def __str__(self):
@@ -19,7 +19,7 @@ class Category(models.Model):
 
 @python_2_unicode_compatible
 class Subcategory(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     category = models.ManyToManyField(Category)
 
     def __str__(self):

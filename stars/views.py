@@ -1,4 +1,4 @@
-from .serializers import StarSerializer, StarEmployeesSubcategoriesSerializer, StarTopEmployeeLists
+from .serializers import StarSerializer, StarSmallSerializer, StarEmployeesSubcategoriesSerializer, StarTopEmployeeLists
 from .models import Star
 from employees.models import Employee
 from categories.models import Category, Subcategory
@@ -78,6 +78,15 @@ def give_star_to(request, from_employee_id, to_employee_id):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET', ])
+def stars_employee_list(request, employee_id):
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        employee_stars = Star.objects.filter(to_user=employee)
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(employee_stars,request)
+        serializer = StarSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
 @api_view(['GET', ])
 def stars_employee_subcategory_list(request, employee_id):
@@ -87,6 +96,18 @@ def stars_employee_subcategory_list(request, employee_id):
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(employee_stars, request)
         serializer = StarEmployeesSubcategoriesSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+def stars_employee_subcategory_detail_list(request, employee_id, subcategory_id):
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
+        stars = Star.objects.filter(to_user=employee, subcategory=subcategory)
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(stars, request)
+        serializer = StarSmallSerializer(results, many=True)
         return paginator.get_paginated_response(serializer.data)
 
 
@@ -106,3 +127,5 @@ def stars_top_employee_lists(request, top_number, kind, id):
             return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
         raise APIException(e)
+
+
