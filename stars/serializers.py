@@ -18,3 +18,9 @@ class StarEmployeesSubcategoriesSerializer(serializers.Serializer):
     subcategory__pk = serializers.IntegerField()
     subcategory__name = serializers.CharField(max_length=100)
     num_stars = serializers.IntegerField()
+
+class StarTopEmployeeLists(serializers.Serializer):
+    to_user__id = serializers.IntegerField()
+    to_user__first_name = serializers.CharField(max_length=100)
+    to_user__last_name = serializers.CharField(max_length=100)
+    num_stars = serializers.IntegerField()

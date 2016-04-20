@@ -1,4 +1,4 @@
-from .serializers import StarSerializer, StarEmployeesSubcategoriesSerializer
+from .serializers import StarSerializer, StarEmployeesSubcategoriesSerializer, StarTopEmployeeLists
 from .models import Star
 from employees.models import Employee
 from categories.models import Category, Subcategory
@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.decorators import api_view, authentication_classes
+from rest_framework.exceptions import APIException
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
@@ -87,3 +88,21 @@ def stars_employee_subcategory_list(request, employee_id):
         results = paginator.paginate_queryset(employee_stars, request)
         serializer = StarEmployeesSubcategoriesSerializer(results, many=True)
         return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+def stars_top_employee_lists(request, top_number, kind, id):
+    try:
+        if request.method == 'GET':
+            if kind == 'category':
+                top_list = Star.objects.filter(category__id=id).values('to_user__id',
+                                                                           'to_user__first_name',
+                                                                           'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
+            elif kind == 'subcategory':
+                top_list = Star.objects.filter(subcategory__id=id).values('to_user__id',
+                                                                           'to_user__first_name',
+                                                                           'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
+            serializer = StarTopEmployeeLists(top_list, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+    except Exception as e:
+        raise APIException(e)
