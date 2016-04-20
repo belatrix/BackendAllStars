@@ -28,7 +28,7 @@ class Employee(AbstractUser):
     categories = models.ManyToManyField('categories.Category', blank=True)
 
     def evaluate_level(self):
-        if self.score == (self.level+1)*settings.NEXT_LEVEL_SCORE:
+        if self.score == (self.level + 1) * settings.NEXT_LEVEL_SCORE:
             self.level += 1
             return
 

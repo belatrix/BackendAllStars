@@ -15,7 +15,8 @@ from rest_framework.response import Response
 class CsrfExemptSessionAuthentication(SessionAuthentication):
 
     def enforce_csrf(self, request):
-        return # To not perform csrf check
+        return  # To not perform csrf check
+
 
 @api_view(['POST', ])
 @authentication_classes((CsrfExemptSessionAuthentication, BasicAuthentication))
@@ -78,21 +79,23 @@ def give_star_to(request, from_employee_id, to_employee_id):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['GET', ])
 def stars_employee_list(request, employee_id):
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
         employee_stars = Star.objects.filter(to_user=employee)
         paginator = PageNumberPagination()
-        results = paginator.paginate_queryset(employee_stars,request)
+        results = paginator.paginate_queryset(employee_stars, request)
         serializer = StarSerializer(results, many=True)
         return paginator.get_paginated_response(serializer.data)
+
 
 @api_view(['GET', ])
 def stars_employee_subcategory_list(request, employee_id):
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
-        employee_stars = Star.objects.filter(to_user=employee).values('subcategory__pk','subcategory__name').annotate(num_stars=Count('subcategory'))
+        employee_stars = Star.objects.filter(to_user=employee).values('subcategory__pk', 'subcategory__name').annotate(num_stars=Count('subcategory'))
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(employee_stars, request)
         serializer = StarEmployeesSubcategoriesSerializer(results, many=True)
@@ -116,16 +119,10 @@ def stars_top_employee_lists(request, top_number, kind, id):
     try:
         if request.method == 'GET':
             if kind == 'category':
-                top_list = Star.objects.filter(category__id=id).values('to_user__id',
-                                                                           'to_user__first_name',
-                                                                           'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
+                top_list = Star.objects.filter(category__id=id).values('to_user__id', 'to_user__first_name', 'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
             elif kind == 'subcategory':
-                top_list = Star.objects.filter(subcategory__id=id).values('to_user__id',
-                                                                           'to_user__first_name',
-                                                                           'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
+                top_list = Star.objects.filter(subcategory__id=id).values('to_user__id', 'to_user__first_name', 'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
             serializer = StarTopEmployeeLists(top_list, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
         raise APIException(e)
-
-

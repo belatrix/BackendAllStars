@@ -23,12 +23,14 @@ def employee_list(request):
         serializer = EmployeeListSerializer(results, many=True)
         return paginator.get_paginated_response(serializer.data)
 
+
 @api_view(['GET', ])
 def employee(request, employee_id):
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
         serializer = EmployeeSerializer(employee)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 @api_view(['GET', ])
 def employee_avatar(request, employee_id):
@@ -37,6 +39,7 @@ def employee_avatar(request, employee_id):
         serializer = EmployeeAvatarSerializer(employee)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
 @api_view(['GET', ])
 def employee_categories(request, employee_id):
     if request.method == 'GET':
@@ -44,13 +47,14 @@ def employee_categories(request, employee_id):
         serializer = CategorySerializer(employee.categories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
 @api_view(['GET', ])
 @authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication))
 @permission_classes((IsAuthenticated,))
 def top(request, kind, quantity):
     try:
         if request.method == 'GET':
-            employee_list = Employee.objects.order_by('-'+kind)[:quantity]
+            employee_list = Employee.objects.order_by('-' + kind)[:quantity]
             serializer = EmployeeListSerializer(employee_list, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
@@ -61,13 +65,13 @@ def top(request, kind, quantity):
 def search(request, search_term):
     if request.method == 'GET':
         employee_list = Employee.objects.filter(
-            Q(first_name__icontains=search_term)|
-            Q(last_name__icontains=search_term)|
+            Q(first_name__icontains=search_term) |
+            Q(last_name__icontains=search_term) |
             Q(username__icontains=search_term))
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(employee_list, request)
         serializer = EmployeeListSerializer(results, many=True)
-        return  paginator.get_paginated_response(serializer.data)
+        return paginator.get_paginated_response(serializer.data)
 
 
 class CustomObtainAuthToken(ObtainAuthToken):

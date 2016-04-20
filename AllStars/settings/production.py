@@ -3,13 +3,12 @@
 If you use Heroku type this command line:
 heroku config:set DJANGO_SETTINGS_MODULE=AllStars.settings.production
 """
-
+import dj_database_url
 from .base import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 

@@ -6,10 +6,10 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 
 class UserChangeForm(forms.ModelForm):
-    password = ReadOnlyPasswordHashField(label= ("Password"),
-                                         help_text= ("Raw passwords are not stored, so there is no way to see "
-                                         "this user's password, but you can change the password using "
-                                         "<a href=\'../password/\'>this form</a>."))
+    password = ReadOnlyPasswordHashField(label=("Password"),
+                                         help_text=("Raw passwords are not stored, so there is no way to see "
+                                                    "this user's password, but you can change the password using "
+                                                    "<a href=\'../password/\'>this form</a>."))
 
     class Meta:
         model = Employee
@@ -17,6 +17,7 @@ class UserChangeForm(forms.ModelForm):
 
     def clean_password(self):
         return self.initial['password']
+
 
 class RoleAdmin(admin.ModelAdmin):
     list_display = ("name",)

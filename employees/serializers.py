@@ -32,6 +32,7 @@ class EmployeeListSerializer(serializers.ModelSerializer):
                   'avatar',
                   'score')
 
+
 class EmployeeAvatarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
