@@ -81,6 +81,14 @@ def give_star_to(request, from_employee_id, to_employee_id):
 
 
 @api_view(['GET', ])
+def star(request, star_id):
+    if request.method == 'GET':
+        star = get_object_or_404(Star, pk=star_id)
+        serializer = StarSerializer(star)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET', ])
 def stars_employee_list(request, employee_id):
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
