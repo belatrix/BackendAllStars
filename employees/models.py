@@ -16,6 +16,9 @@ class Role(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+
 
 class Employee(AbstractUser):
     role = models.ForeignKey(Role, null=True, blank=True)
@@ -31,6 +34,9 @@ class Employee(AbstractUser):
         if self.score == (self.level + 1) * settings.NEXT_LEVEL_SCORE:
             self.level += 1
             return
+
+    class Meta:
+        ordering = ['first_name', 'last_name', 'username']
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

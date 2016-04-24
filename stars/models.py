@@ -12,3 +12,6 @@ class Star(models.Model):
                                 related_name='%(class)s_to')
     category = models.ForeignKey('categories.Category')
     subcategory = models.ForeignKey('categories.Subcategory')
+
+    class Meta:
+        ordering = ['date', 'to_user']
