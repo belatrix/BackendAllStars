@@ -1,0 +1,274 @@
+[{
+	"model": "employees.role",
+	"pk": 1,
+	"fields": {
+		"name": "Project Leader"
+	}
+}, {
+	"model": "employees.role",
+	"pk": 2,
+	"fields": {
+		"name": "Program Manager"
+	}
+}, {
+	"model": "employees.role",
+	"pk": 3,
+	"fields": {
+		"name": "Developer Engineer Senior A"
+	}
+}, {
+	"model": "employees.role",
+	"pk": 4,
+	"fields": {
+		"name": "Developer Engineer E2"
+	}
+}, {
+	"model": "employees.role",
+	"pk": 5,
+	"fields": {
+		"name": "Developer Engineer E3"
+	}
+}, {
+	"model": "employees.role",
+	"pk": 6,
+	"fields": {
+		"name": "Marketing Analysts"
+	}
+}, {
+	"model": "employees.role",
+	"pk": 7,
+	"fields": {
+		"name": "IT Recruiter"
+	}
+}, {
+	"model": "employees.role",
+	"pk": 8,
+	"fields": {
+		"name": "Human Resources Analysts"
+	}
+}, {
+	"model": "employees.employee",
+	"pk": 1,
+	"fields": {
+		"password": "pbkdf2_sha256$24000$bB9UbmcoTvqI$qaEqHhpSgIUEbZjHHKAi9aaVhdbTK7LuEOok2u6uZRo=",
+		"last_login": "2016-04-23T00:09:17Z",
+		"is_superuser": true,
+		"username": "sinfante",
+		"first_name": "Sergio",
+		"last_name": "Infante Montero",
+		"email": "sinfante@belatrixsf.com",
+		"is_staff": true,
+		"is_active": true,
+		"date_joined": "2016-04-22T00:03:27Z",
+		"role": 1,
+		"skype_id": "sergio.infante.montero",
+		"last_month_score": 0,
+		"current_month_score": 0,
+		"level": 0,
+		"score": 0,
+		"avatar": "",
+		"groups": [],
+		"user_permissions": [],
+		"categories": [1, 2, 5]
+	}
+}, {
+	"model": "employees.employee",
+	"pk": 2,
+	"fields": {
+		"password": "pbkdf2_sha256$24000$jNunfDIv53Jj$UOT+SRsvFL8qfhtuOccITdMv1uRukEf7lhopjDCtFew=",
+		"last_login": "2016-04-22T00:24:36Z",
+		"is_superuser": false,
+		"username": "jvaldivia",
+		"first_name": "Javier",
+		"last_name": "Valdivia",
+		"email": "jvaldivia@belatrixsf.com",
+		"is_staff": true,
+		"is_active": true,
+		"date_joined": "2016-04-22T00:15:48Z",
+		"role": 3,
+		"skype_id": "javivalag",
+		"last_month_score": 0,
+		"current_month_score": 0,
+		"level": 0,
+		"score": 0,
+		"avatar": "",
+		"groups": [1],
+		"user_permissions": [],
+		"categories": [1]
+	}
+}, {
+	"model": "employees.employee",
+	"pk": 3,
+	"fields": {
+		"password": "pbkdf2_sha256$24000$mgz6ZP1b8lMR$dwZAdu+26iGHCxk0Hrlv425xclQcl3yewHSbhCb5HHQ=",
+		"last_login": null,
+		"is_superuser": false,
+		"username": "pcarrillo",
+		"first_name": "pedro",
+		"last_name": "carrillo chero",
+		"email": "pcarrillo@belatrixsf.com",
+		"is_staff": true,
+		"is_active": true,
+		"date_joined": "2016-04-22T00:27:29Z",
+		"role": 5,
+		"skype_id": "pcarrillo",
+		"last_month_score": 0,
+		"current_month_score": 0,
+		"level": 0,
+		"score": 0,
+		"avatar": "",
+		"groups": [1],
+		"user_permissions": [],
+		"categories": [1]
+	}
+}, {
+	"model": "employees.employee",
+	"pk": 4,
+	"fields": {
+		"password": "pbkdf2_sha256$24000$Hk4tpyrKSkgt$ZZLdZepxttp//7zA+AsFE0op64ctbyM6c3RYEWzZPeQ=",
+		"last_login": null,
+		"is_superuser": false,
+		"username": "kcerron",
+		"first_name": "Karla",
+		"last_name": "Cerron",
+		"email": "kcerron@belatrixsf.com",
+		"is_staff": false,
+		"is_active": true,
+		"date_joined": "2016-04-22T13:58:23Z",
+		"role": 6,
+		"skype_id": "kcerron",
+		"last_month_score": 0,
+		"current_month_score": 0,
+		"level": 0,
+		"score": 0,
+		"avatar": "",
+		"groups": [],
+		"user_permissions": [],
+		"categories": [3]
+	}
+}, {
+	"model": "employees.employee",
+	"pk": 5,
+	"fields": {
+		"password": "pbkdf2_sha256$24000$WaZZ40cUkGOO$eJArQt+7vvhu11DNRuGr5DbEW5aOHDsFJIM6IAeE6Z8=",
+		"last_login": null,
+		"is_superuser": false,
+		"username": "acottini",
+		"first_name": "anita",
+		"last_name": "cottini",
+		"email": "acottini@belatrixsf.com",
+		"is_staff": false,
+		"is_active": true,
+		"date_joined": "2016-04-22T14:00:02Z",
+		"role": 7,
+		"skype_id": "",
+		"last_month_score": 0,
+		"current_month_score": 0,
+		"level": 0,
+		"score": 0,
+		"avatar": "",
+		"groups": [],
+		"user_permissions": [],
+		"categories": [4]
+	}
+}, {
+	"model": "employees.employee",
+	"pk": 6,
+	"fields": {
+		"password": "pbkdf2_sha256$24000$ncRi89z48Ow1$tGxi5yFi+Pe4a5iubrWF3E3WLgSGP0dwLGHiam8Zyoc=",
+		"last_login": null,
+		"is_superuser": false,
+		"username": "jizquierdo",
+		"first_name": "Juliana",
+		"last_name": "izquierdo",
+		"email": "jizquierdo@belatrixsf.com",
+		"is_staff": false,
+		"is_active": true,
+		"date_joined": "2016-04-22T14:02:28Z",
+		"role": 8,
+		"skype_id": "jizquierdo",
+		"last_month_score": 0,
+		"current_month_score": 0,
+		"level": 0,
+		"score": 0,
+		"avatar": "",
+		"groups": [],
+		"user_permissions": [],
+		"categories": [7]
+	}
+}, {
+	"model": "employees.employee",
+	"pk": 7,
+	"fields": {
+		"password": "pbkdf2_sha256$24000$AbCIH6Tj5G2C$9f8qN0HqpK52tREUXeR63iNOjBp60/synWgnWUQf44M=",
+		"last_login": null,
+		"is_superuser": false,
+		"username": "jgramaglia",
+		"first_name": "Jose",
+		"last_name": "Gramaglia",
+		"email": "jgramaglia@belatrixsf.com",
+		"is_staff": false,
+		"is_active": true,
+		"date_joined": "2016-04-22T14:08:29Z",
+		"role": 2,
+		"skype_id": "jgramaglia",
+		"last_month_score": 0,
+		"current_month_score": 0,
+		"level": 0,
+		"score": 0,
+		"avatar": "",
+		"groups": [],
+		"user_permissions": [],
+		"categories": [1, 3, 4, 7, 2, 5, 6]
+	}
+}, {
+	"model": "employees.employee",
+	"pk": 8,
+	"fields": {
+		"password": "pbkdf2_sha256$24000$p0VeEBxCSkDh$cvfrimIn7LhVvlAdJaMRuxbWa100k6/q4IJx8tMpDPY=",
+		"last_login": null,
+		"is_superuser": false,
+		"username": "marce",
+		"first_name": "marco",
+		"last_name": "arce",
+		"email": "marce@belatrixsf.com",
+		"is_staff": false,
+		"is_active": true,
+		"date_joined": "2016-04-22T14:09:51Z",
+		"role": 2,
+		"skype_id": "",
+		"last_month_score": 0,
+		"current_month_score": 0,
+		"level": 0,
+		"score": 0,
+		"avatar": "",
+		"groups": [],
+		"user_permissions": [],
+		"categories": [1, 3, 4, 7, 2, 5, 6]
+	}
+}, {
+	"model": "employees.employee",
+	"pk": 9,
+	"fields": {
+		"password": "pbkdf2_sha256$24000$ndfrvs7QVMrE$lhZpKl/xZ2wiVZkt6xlwRM3FT9xbDntvRtPN4lbo20A=",
+		"last_login": null,
+		"is_superuser": false,
+		"username": "gyosida",
+		"first_name": "Gianfranco",
+		"last_name": "Yosida",
+		"email": "gyosida@belatrixsf.com",
+		"is_staff": false,
+		"is_active": true,
+		"date_joined": "2016-04-22T14:11:55Z",
+		"role": 5,
+		"skype_id": "",
+		"last_month_score": 0,
+		"current_month_score": 0,
+		"level": 0,
+		"score": 0,
+		"avatar": "",
+		"groups": [],
+		"user_permissions": [],
+		"categories": [1]
+	}
+}]

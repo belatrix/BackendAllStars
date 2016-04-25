@@ -1,0 +1,176 @@
+[{
+	"model": "categories.category",
+	"pk": 1,
+	"fields": {
+		"name": "Coworkers",
+		"weight": 1
+	}
+}, {
+	"model": "categories.category",
+	"pk": 2,
+	"fields": {
+		"name": "Leaders",
+		"weight": 4
+	}
+}, {
+	"model": "categories.category",
+	"pk": 3,
+	"fields": {
+		"name": "Marketing",
+		"weight": 2
+	}
+}, {
+	"model": "categories.category",
+	"pk": 4,
+	"fields": {
+		"name": "Recruitment",
+		"weight": 3
+	}
+}, {
+	"model": "categories.category",
+	"pk": 5,
+	"fields": {
+		"name": "Clients",
+		"weight": 4
+	}
+}, {
+	"model": "categories.category",
+	"pk": 6,
+	"fields": {
+		"name": "Managers",
+		"weight": 5
+	}
+}, {
+	"model": "categories.category",
+	"pk": 7,
+	"fields": {
+		"name": "Human Resources",
+		"weight": 3
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 1,
+	"fields": {
+		"name": "Demo",
+		"category": [1, 3, 2, 5, 6]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 2,
+	"fields": {
+		"name": "Excellence",
+		"category": [1, 3, 4, 7, 2, 5, 6]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 3,
+	"fields": {
+		"name": "Passion",
+		"category": [1, 3, 4, 7, 2, 5, 6]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 4,
+	"fields": {
+		"name": "Commitment",
+		"category": [1, 3, 4, 7, 2, 5, 6]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 5,
+	"fields": {
+		"name": "Teamwork",
+		"category": [1, 3, 4, 7, 2, 5, 6]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 6,
+	"fields": {
+		"name": "Empowerment and Trust",
+		"category": [1, 3, 4, 7, 2, 5, 6]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 7,
+	"fields": {
+		"name": "Innovation",
+		"category": [1, 3, 4, 7, 2, 5, 6]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 8,
+	"fields": {
+		"name": "Technical Guidance",
+		"category": [1, 3, 4, 7, 2, 5, 6]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 9,
+	"fields": {
+		"name": "Code Review",
+		"category": [1, 2, 5]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 10,
+	"fields": {
+		"name": "Technical Interview",
+		"category": [3, 4, 2, 5, 6]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 11,
+	"fields": {
+		"name": "Speaker BBT",
+		"category": [1, 3, 4, 7, 2, 6]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 12,
+	"fields": {
+		"name": "Speaker",
+		"category": [1, 3, 4, 7, 5, 2, 6]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 13,
+	"fields": {
+		"name": "Blogger",
+		"category": [1, 3, 2, 5, 6]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 14,
+	"fields": {
+		"name": "Event organizer",
+		"category": [3, 4, 2, 6]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 15,
+	"fields": {
+		"name": "Event Collaboration",
+		"category": [3, 4, 7, 2, 5, 6]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 16,
+	"fields": {
+		"name": "Social Media",
+		"category": [3]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 17,
+	"fields": {
+		"name": "Internal Training",
+		"category": [1, 3, 7, 2, 5, 6]
+	}
+}, {
+	"model": "categories.subcategory",
+	"pk": 18,
+	"fields": {
+		"name": "External Training",
+		"category": [1, 3, 7, 2, 5, 6]
+	}
+}]
