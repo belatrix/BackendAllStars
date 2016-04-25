@@ -16,6 +16,14 @@ from rest_framework.response import Response
 
 @api_view(['GET', ])
 def employee_list(request):
+    """
+    Returns the full employee list
+    ---
+    serializer: employees.serializers.EmployeeListSerializer
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
     if request.method == 'GET':
         employee_list = get_list_or_404(Employee)
         paginator = PageNumberPagination()
@@ -26,6 +34,14 @@ def employee_list(request):
 
 @api_view(['GET', ])
 def employee(request, employee_id):
+    """
+    Returns employee details
+    ---
+    serializer: employees.serializers.EmployeeSerializer
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
         serializer = EmployeeSerializer(employee)
@@ -34,6 +50,14 @@ def employee(request, employee_id):
 
 @api_view(['GET', ])
 def employee_avatar(request, employee_id):
+    """
+    Returns employee avatar
+    ---
+    serializer: employees.serializers.EmployeeAvatarSerializer
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
         serializer = EmployeeAvatarSerializer(employee)
@@ -42,6 +66,14 @@ def employee_avatar(request, employee_id):
 
 @api_view(['GET', ])
 def employee_categories(request, employee_id):
+    """
+    Returns employee category list
+    ---
+    serializer: categories.serializers.CategorySerializer
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
         serializer = CategorySerializer(employee.categories, many=True)
@@ -52,6 +84,18 @@ def employee_categories(request, employee_id):
 @authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication))
 @permission_classes((IsAuthenticated,))
 def top(request, kind, quantity):
+    """
+    Returns top {quantity} list according {kind} (score, level, last_month_score, current_month_score)
+    ---
+    serializer: employees.serializers.EmployeeListSerializer
+    responseMessages:
+    - code: 404
+      message: Not found
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
+    - code: 500
+      message: Internal server error, cannot resolve keyword into field.
+    """
     try:
         if request.method == 'GET':
             employee_list = Employee.objects.order_by('-' + kind)[:quantity]
@@ -63,6 +107,14 @@ def top(request, kind, quantity):
 
 @api_view(['GET', ])
 def search(request, search_term):
+    """
+    Returns employee list according search term
+    ---
+    serializer: employees.serializers.EmployeeListSerializer
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
     if request.method == 'GET':
         employee_list = Employee.objects.filter(
             Q(first_name__icontains=search_term) |
@@ -77,8 +129,9 @@ def search(request, search_term):
 class CustomObtainAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         """
-        This endpoint returns a token and user_id, for credentials provided.
+        Returns a token and user_id, for credentials provided.
         ---
+        response_serializer: employees.serializers.EmployeeAuthenticationResponse
         responseMessages:
         - code: 400
           message: Bad request

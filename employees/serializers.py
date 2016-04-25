@@ -38,3 +38,8 @@ class EmployeeAvatarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = ('pk', 'avatar')
+
+
+class EmployeeAuthenticationResponse(serializers.Serializer):
+    token = serializers.CharField(max_length=40)
+    user_id = serializers.IntegerField()
