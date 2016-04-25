@@ -22,7 +22,7 @@ class CsrfExemptSessionAuthentication(SessionAuthentication):
 @authentication_classes((CsrfExemptSessionAuthentication, BasicAuthentication))
 def give_star_to(request, from_employee_id, to_employee_id):
     """
-    This endpoint saves stars on both employees.
+    This endpoint saves stars on both employees (from and to).
     ---
     response_serializer: StarSerializer
     responseMessages:
@@ -82,6 +82,14 @@ def give_star_to(request, from_employee_id, to_employee_id):
 
 @api_view(['GET', ])
 def star(request, star_id):
+    """
+    Returns star detail
+    ---
+    serializer: stars.serializers.StarSerializer
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
     if request.method == 'GET':
         star = get_object_or_404(Star, pk=star_id)
         serializer = StarSerializer(star)
@@ -90,6 +98,14 @@ def star(request, star_id):
 
 @api_view(['GET', ])
 def stars_employee_list(request, employee_id):
+    """
+    Returns stars list from employee
+    ---
+    serializer: stars.serializers.StarSerializer
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
         employee_stars = Star.objects.filter(to_user=employee)
@@ -101,6 +117,14 @@ def stars_employee_list(request, employee_id):
 
 @api_view(['GET', ])
 def stars_employee_subcategory_list(request, employee_id):
+    """
+    Returns stars list from employee grouped by subcategories
+    ---
+    serializer: stars.serializers.StarEmployeesSubcategoriesSerializer
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
         employee_stars = Star.objects.filter(to_user=employee).values('subcategory__pk', 'subcategory__name').annotate(num_stars=Count('subcategory'))
@@ -112,6 +136,14 @@ def stars_employee_subcategory_list(request, employee_id):
 
 @api_view(['GET', ])
 def stars_employee_subcategory_detail_list(request, employee_id, subcategory_id):
+    """
+    Returns stars list detail from employee divided by subcategory
+    ---
+    serializer: stars.serializers.StarSmallSerializer
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
         subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
@@ -124,12 +156,24 @@ def stars_employee_subcategory_detail_list(request, employee_id, subcategory_id)
 
 @api_view(['GET', ])
 def stars_top_employee_lists(request, top_number, kind, id):
+    """
+    Returns stars top {top_number} list according to {kind} (category, subcategory) {id} (kind_id)
+    ---
+    serializer: stars.serializers.StarTopEmployeeLists
+    responseMessages:
+    - code: 404
+      message: Not found
+    - code: 412
+      message: Precondition failed, kind should be category or subcategory
+    """
     try:
         if request.method == 'GET':
             if kind == 'category':
-                top_list = Star.objects.filter(category__id=id).values('to_user__id', 'to_user__first_name', 'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
+                top_list = Star.objects.filter(category__id=id).values('to_user__id', 'to_user__username', 'to_user__first_name', 'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
             elif kind == 'subcategory':
-                top_list = Star.objects.filter(subcategory__id=id).values('to_user__id', 'to_user__first_name', 'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
+                top_list = Star.objects.filter(subcategory__id=id).values('to_user__id', 'to_user__username', 'to_user__first_name', 'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
+            else:
+                return Response(status=status.HTTP_412_PRECONDITION_FAILED)
             serializer = StarTopEmployeeLists(top_list, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
