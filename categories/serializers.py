@@ -8,7 +8,7 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ('pk', 'name', 'weight')
 
 
-class SubCategoryListSerializer(serializers.ModelSerializer):
+class SubcategoryListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subcategory
         fields = ('pk', 'name')
