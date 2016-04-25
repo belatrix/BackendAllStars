@@ -12,3 +12,10 @@ class SubCategoryListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subcategory
         fields = ('pk', 'name')
+
+
+class SubcategoryDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subcategory
+        depth = 1
+        fields = ('pk', 'name', 'category')
