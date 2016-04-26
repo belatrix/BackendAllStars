@@ -1,5 +1,12 @@
 from .models import Star
+from employees.models import Employee
 from rest_framework import serializers
+
+
+class EmployeeSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ('pk', 'username', 'first_name', 'last_name')
 
 
 class StarSerializer(serializers.ModelSerializer):
@@ -9,6 +16,8 @@ class StarSerializer(serializers.ModelSerializer):
 
 
 class StarSmallSerializer(serializers.ModelSerializer):
+    from_user = EmployeeSimpleSerializer()
+
     class Meta:
         model = Star
         depth = 1
