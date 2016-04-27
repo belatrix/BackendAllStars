@@ -15,6 +15,8 @@ from rest_framework.response import Response
 
 
 @api_view(['GET', ])
+@authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication))
+@permission_classes((IsAuthenticated,))
 def employee_list(request):
     """
     Returns the full employee list
