@@ -31,8 +31,8 @@ class StarSwaggerSerializer(serializers.ModelSerializer):
 
 
 class StarEmployeesSubcategoriesSerializer(serializers.Serializer):
-    subcategory__pk = serializers.IntegerField()
-    subcategory__name = serializers.CharField(max_length=100)
+    pk = serializers.IntegerField(source='subcategory__pk')
+    name = serializers.CharField(max_length=100, source='subcategory__name')
     num_stars = serializers.IntegerField()
 
 
