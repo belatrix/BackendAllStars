@@ -13,6 +13,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
                   'last_name',
                   'role',
                   'skype_id',
+                  'avatar',
                   'last_month_score',
                   'current_month_score',
                   'level',
