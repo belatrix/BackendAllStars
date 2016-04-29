@@ -30,6 +30,8 @@ def give_star_to(request, from_employee_id, to_employee_id):
       message: Bad request
     - code: 404
       message: Not found (from_employee_id or to_employee_id or category or subcategory)
+    - code: 406
+      message: User is unable to give stars to itself.
     parameters:
     - name: body
       description: JSON Object containing two or three parameters = category(id), subcategory(id)  and text(optional).
@@ -42,7 +44,10 @@ def give_star_to(request, from_employee_id, to_employee_id):
     subcategory_id = None
     text = None
 
-    if request.method == 'POST':
+    if from_employee_id == to_employee_id:
+        content = {'detail': 'User is unable to give stars to itself.'}
+        return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
+    elif request.method == 'POST':
         # Set values from request.data from POST
         text = (request.data['text'] if 'text' in request.data.keys() else None)
         from_user = get_object_or_404(Employee, pk=from_employee_id)
