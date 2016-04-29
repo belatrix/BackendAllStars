@@ -31,7 +31,9 @@ class EmployeeListSerializer(serializers.ModelSerializer):
                   'last_name',
                   'level',
                   'avatar',
-                  'score')
+                  'score',
+                  'last_month_score',
+                  'current_month_score')
 
 
 class EmployeeAvatarSerializer(serializers.ModelSerializer):
