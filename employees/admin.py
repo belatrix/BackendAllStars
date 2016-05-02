@@ -25,7 +25,7 @@ class RoleAdmin(admin.ModelAdmin):
 
 class EmployeeAdmin(BaseUserAdmin):
     form = UserChangeForm
-    list_display = ("username", "first_name", "last_name", "email", 'level', 'score',)
+    list_display = ("username", "first_name", "last_name", "email", 'level', 'total_score',)
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password')}),
         ('Personal info', {'fields': ('first_name',
@@ -35,9 +35,11 @@ class EmployeeAdmin(BaseUserAdmin):
                                       'avatar',
                                       'categories')}),
         ('Personal score', {'fields': ('last_month_score',
+                                       'last_year_score',
                                        'current_month_score',
+                                       'current_year_score',
                                        'level',
-                                       'score')}),
+                                       'total_score')}),
         ('Permissions', {'fields': ('groups',
                                     'user_permissions',
                                     'is_superuser',
