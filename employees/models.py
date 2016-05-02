@@ -10,6 +10,18 @@ from rest_framework.authtoken.models import Token
 
 
 @python_2_unicode_compatible
+class Location(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'locations'
+        ordering = ['name']
+
+
+@python_2_unicode_compatible
 class Role(models.Model):
     name = models.CharField(max_length=100)
 
@@ -17,11 +29,13 @@ class Role(models.Model):
         return self.name
 
     class Meta:
+        verbose_name_plural = 'roles'
         ordering = ['name']
 
 
 class Employee(AbstractUser):
     role = models.ForeignKey(Role, null=True, blank=True)
+    location = models.ForeignKey(Location, null=True, blank=True)
     skype_id = models.CharField(max_length=200, null=True, blank=True)
     last_month_score = models.PositiveIntegerField(default=0)
     last_year_score = models.PositiveIntegerField(default=0)
@@ -33,7 +47,7 @@ class Employee(AbstractUser):
     categories = models.ManyToManyField('categories.Category', blank=True)
 
     def evaluate_level(self):
-        if self.score == (self.level + 1) * settings.NEXT_LEVEL_SCORE:
+        if self.total_score == (self.level + 1) * settings.NEXT_LEVEL_SCORE:
             self.level += 1
             return
 

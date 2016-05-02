@@ -12,6 +12,7 @@ class Star(models.Model):
                                 related_name='%(class)s_to')
     category = models.ForeignKey('categories.Category')
     subcategory = models.ForeignKey('categories.Subcategory')
+    tags = models.ManyToManyField('categories.Tag', blank=True)
 
     class Meta:
         ordering = ['date', 'to_user']
