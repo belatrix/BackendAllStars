@@ -24,9 +24,11 @@ class Employee(AbstractUser):
     role = models.ForeignKey(Role, null=True, blank=True)
     skype_id = models.CharField(max_length=200, null=True, blank=True)
     last_month_score = models.PositiveIntegerField(default=0)
+    last_year_score = models.PositiveIntegerField(default=0)
     current_month_score = models.PositiveIntegerField(default=0)
+    current_year_score = models.PositiveIntegerField(default=0)
     level = models.PositiveIntegerField(default=0)
-    score = models.PositiveIntegerField(default=0)
+    total_score = models.PositiveIntegerField(default=0)
     avatar = models.URLField(null=True, blank=True)
     categories = models.ManyToManyField('categories.Category', blank=True)
 

@@ -1,5 +1,8 @@
 from .models import Employee
 from .serializers import EmployeeSerializer, EmployeeAvatarSerializer, EmployeeListSerializer
+from .serializers import EmployeeTopTotalScoreList, EmployeeTopLevelList
+from .serializers import EmployeeTopCurrentMonthList, EmployeeTopLastMonthList
+from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList
 from categories.serializers import CategorySerializer
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, get_list_or_404
@@ -87,7 +90,7 @@ def employee_categories(request, employee_id):
 @permission_classes((IsAuthenticated,))
 def top(request, kind, quantity):
     """
-    Returns top {quantity} list according {kind} (score, level, last_month_score, current_month_score)
+    Returns top {quantity} list, {kind} (total_score, level, last_month_score, current_month_score, last_year_score, current_year_score)
     ---
     serializer: employees.serializers.EmployeeListSerializer
     responseMessages:
@@ -101,7 +104,12 @@ def top(request, kind, quantity):
     try:
         if request.method == 'GET':
             employee_list = Employee.objects.order_by('-' + kind)[:quantity]
-            serializer = EmployeeListSerializer(employee_list, many=True)
+            if kind == 'total_score': serializer = EmployeeTopTotalScoreList(employee_list, many=True)
+            elif kind == 'level': serializer = EmployeeTopLevelList(employee_list, many=True)
+            elif kind == 'current_month_score': serializer=EmployeeTopCurrentMonthList(employee_list, many=True)
+            elif kind == 'current_year_score': serializer=EmployeeTopCurrentYearList(employee_list, many=True)
+            elif kind == 'last_month_score': serializer=EmployeeTopLastMonthList(employee_list, many=True)
+            elif kind == 'last_year_score': serializer=EmployeeTopLastYearList(employee_list, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
         raise APIException(e)
