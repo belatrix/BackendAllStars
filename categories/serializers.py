@@ -5,7 +5,7 @@ from rest_framework import serializers
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('pk', 'name', 'weight')
+        fields = ('pk', 'name', 'weight', 'comment_required')
 
 
 class SubcategoryListSerializer(serializers.ModelSerializer):
