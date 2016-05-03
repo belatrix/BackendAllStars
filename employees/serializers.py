@@ -1,4 +1,4 @@
-from .models import Employee
+from .models import Employee, Location
 from rest_framework import serializers
 
 
@@ -12,6 +12,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
                   'first_name',
                   'last_name',
                   'role',
+                  'location',
                   'skype_id',
                   'avatar',
                   'last_month_score',
@@ -39,6 +40,12 @@ class EmployeeListSerializer(serializers.ModelSerializer):
                   'last_year_score',
                   'current_month_score',
                   'current_year_score')
+
+
+class EmployeeLocationListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = ('pk', 'name')
 
 
 class EmployeeTopTotalScoreList(serializers.ModelSerializer):

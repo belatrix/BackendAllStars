@@ -29,7 +29,7 @@ class RoleAdmin(admin.ModelAdmin):
 
 class EmployeeAdmin(BaseUserAdmin):
     form = UserChangeForm
-    list_display = ("username", "first_name", "last_name", "email", 'level', 'total_score',)
+    list_display = ("username", "first_name", "last_name", "email", 'location', 'level', 'total_score',)
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password')}),
         ('Personal info', {'fields': ('first_name',
