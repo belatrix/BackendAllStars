@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Subcategory, Tag
+from .models import Category, Keyword, Subcategory
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -10,9 +10,9 @@ class SubcategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
 
-class TagAdmin(admin.ModelAdmin):
+class KeywordAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Subcategory, SubcategoryAdmin)
-admin.site.register(Tag, TagAdmin)
+admin.site.register(Keyword, KeywordAdmin)
