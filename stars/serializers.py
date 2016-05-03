@@ -6,7 +6,7 @@ from rest_framework import serializers
 class EmployeeSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
-        fields = ('pk', 'username', 'first_name', 'last_name')
+        fields = ('pk', 'username', 'first_name', 'last_name', 'avatar')
 
 
 class StarSerializer(serializers.ModelSerializer):
