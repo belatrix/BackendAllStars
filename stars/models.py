@@ -12,7 +12,7 @@ class Star(models.Model):
                                 related_name='%(class)s_to')
     category = models.ForeignKey('categories.Category')
     subcategory = models.ForeignKey('categories.Subcategory')
-    keyword = models.ForeignKey('categories.Keyword')
+    keyword = models.ForeignKey('categories.Keyword', null=True, blank=True)
 
     class Meta:
         ordering = ['date', 'to_user']
