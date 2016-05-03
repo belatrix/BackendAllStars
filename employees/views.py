@@ -1,6 +1,6 @@
-from .models import Employee, Location
+from .models import Employee, Location, Role
 from .serializers import EmployeeSerializer, EmployeeAvatarSerializer, EmployeeListSerializer
-from .serializers import EmployeeLocationListSerializer
+from .serializers import EmployeeLocationListSerializer, EmployeeRoleListSerializer
 from .serializers import EmployeeTopTotalScoreList, EmployeeTopLevelList
 from .serializers import EmployeeTopCurrentMonthList, EmployeeTopLastMonthList
 from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList
@@ -67,6 +67,22 @@ def employee_location_list(request):
     if request.method == 'GET':
         location_list = get_list_or_404(Location)
         serializer = EmployeeLocationListSerializer(location_list, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET', ])
+def employee_role_list(request):
+    """
+    Returns employee role full list
+    ---
+    serializer: employees.serializers.EmployeeRoleListSerializer
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'GET':
+        role_list = get_list_or_404(Role)
+        serializer = EmployeeRoleListSerializer(role_list, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
