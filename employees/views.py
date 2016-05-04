@@ -5,6 +5,8 @@ from .serializers import EmployeeTopTotalScoreList, EmployeeTopLevelList
 from .serializers import EmployeeTopCurrentMonthList, EmployeeTopLastMonthList
 from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList
 from categories.serializers import CategorySerializer
+from django.conf import settings
+from django.core.mail import EmailMessage
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework import status
@@ -52,6 +54,40 @@ def employee(request, employee_id):
         employee = get_object_or_404(Employee, pk=employee_id)
         serializer = EmployeeSerializer(employee)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['POST', ])
+def employee_creation(request):
+    """
+    This endpoint creates a new user with provided email @belatrixsf.com
+    ---
+    parameters:
+    - name: body
+      description: JSON Object containing email address at belatrixsf.com
+      required: true
+      paramType: body
+      pytype: employees.serializers.EmployeeCreationSerializer
+    """
+    if request.method == 'POST':
+        email = request.data['email']
+        username = email.split('@')[0]
+        domain = email.split('@')[1]
+        if domain == settings.EMAIL_DOMAIN:
+            random_password = Employee.objects.make_random_password()
+            subject = settings.EMPLOYEE_CREATION_SUBJECT
+            message = 'Your initial random password is %s' % (random_password)
+            try:
+                Employee.objects.create_user(username, password=random_password, email=email)
+                send_email = EmailMessage(subject, message, to=[email])
+                send_email.send()
+                content = {'detail': 'Successful user creation'}
+                return Response(content, status=status.HTTP_200_OK)
+            except Exception as e:
+                content = 'User already exists or is not available to create a new one with this email address.'
+                raise APIException(content)
+        else:
+            content = {'detail': 'User creation is not available for other email domains.'}
+            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
 @api_view(['GET', ])

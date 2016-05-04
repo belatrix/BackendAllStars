@@ -25,6 +25,10 @@ class EmployeeSerializer(serializers.ModelSerializer):
                   'last_login')
 
 
+class EmployeeCreationSerializer(serializers.Serializer):
+    email = serializers.CharField(max_length=100)
+
+
 class EmployeeListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
