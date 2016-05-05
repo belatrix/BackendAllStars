@@ -1,4 +1,4 @@
-from .models import Category, Subcategory
+from .models import Category, Keyword, Subcategory
 from rest_framework import serializers
 
 
@@ -8,9 +8,9 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ('pk', 'name', 'weight', 'comment_required')
 
 
-class SubcategoryListSerializer(serializers.ModelSerializer):
+class KeywordListSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Subcategory
+        model = Keyword
         fields = ('pk', 'name')
 
 
@@ -19,3 +19,9 @@ class SubcategoryDetailSerializer(serializers.ModelSerializer):
         model = Subcategory
         depth = 1
         fields = ('pk', 'name', 'category')
+
+
+class SubcategoryListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subcategory
+        fields = ('pk', 'name')

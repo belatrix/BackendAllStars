@@ -1,7 +1,7 @@
 from .serializers import StarSerializer, StarSmallSerializer, StarEmployeesSubcategoriesSerializer, StarTopEmployeeLists
 from .models import Star
 from employees.models import Employee
-from categories.models import Category, Subcategory
+from categories.models import Category, Keyword, Subcategory
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from rest_framework import status
@@ -42,6 +42,7 @@ def give_star_to(request, from_employee_id, to_employee_id):
     # Set None as initial values for variables in content json
     category_id = None
     subcategory_id = None
+    keyword_id = None
     text = None
 
     if from_employee_id == to_employee_id:
@@ -56,10 +57,13 @@ def give_star_to(request, from_employee_id, to_employee_id):
         category = get_object_or_404(Category, pk=category_id)
         subcategory_id = (request.data['subcategory'] if request.data['subcategory'] else None)
         subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
+        keyword_id = (request.data['keyword'] if request.data['keyword'] else None)
+        keyword = get_object_or_404(Keyword, pk=keyword_id)
 
         # Create data object to save
         data = {"category": category.id,
                 "subcategory": subcategory.id,
+                "keyword": keyword_id,
                 "text": text,
                 "from_user": from_user.id,
                 "to_user": to_user.id}
@@ -164,7 +168,7 @@ def stars_employee_subcategory_detail_list(request, employee_id, subcategory_id)
 @api_view(['GET', ])
 def stars_top_employee_lists(request, top_number, kind, id):
     """
-    Returns stars top {top_number} list according to {kind} (category, subcategory) {id} (kind_id)
+    Returns stars top {top_number} list according to {kind} (category, subcategory, keyword) {id} (kind_id)
     ---
     serializer: stars.serializers.StarTopEmployeeLists
     responseMessages:
@@ -179,6 +183,8 @@ def stars_top_employee_lists(request, top_number, kind, id):
                 top_list = Star.objects.filter(category__id=id).values('to_user__id', 'to_user__username', 'to_user__first_name', 'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
             elif kind == 'subcategory':
                 top_list = Star.objects.filter(subcategory__id=id).values('to_user__id', 'to_user__username', 'to_user__first_name', 'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
+            elif kind == 'keyword':
+                top_list = Star.objects.filter(keyword__id=id).values('to_user__id', 'to_user__username', 'to_user__first_name', 'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
             else:
                 return Response(status=status.HTTP_412_PRECONDITION_FAILED)
             serializer = StarTopEmployeeLists(top_list, many=True)

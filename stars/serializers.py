@@ -12,7 +12,7 @@ class EmployeeSimpleSerializer(serializers.ModelSerializer):
 class StarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Star
-        fields = ('pk', 'date', 'text', 'from_user', 'to_user', 'category', 'subcategory')
+        fields = ('pk', 'date', 'text', 'from_user', 'to_user', 'category', 'subcategory', 'keyword')
 
 
 class StarSmallSerializer(serializers.ModelSerializer):
@@ -27,7 +27,7 @@ class StarSmallSerializer(serializers.ModelSerializer):
 class StarSwaggerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Star
-        fields = ('pk', 'category', 'subcategory', 'text')
+        fields = ('pk', 'category', 'subcategory', 'keyword', 'text')
 
 
 class StarEmployeesSubcategoriesSerializer(serializers.Serializer):
@@ -37,8 +37,8 @@ class StarEmployeesSubcategoriesSerializer(serializers.Serializer):
 
 
 class StarTopEmployeeLists(serializers.Serializer):
-    to_user__id = serializers.IntegerField()
-    to_user__username = serializers.CharField(max_length=100)
-    to_user__first_name = serializers.CharField(max_length=100)
-    to_user__last_name = serializers.CharField(max_length=100)
+    pk = serializers.IntegerField(source='to_user__id')
+    username = serializers.CharField(max_length=100, source='to_user__username')
+    first_name = serializers.CharField(max_length=100, source='to_user__first_name')
+    last_name = serializers.CharField(max_length=100, source='to_user__last_name')
     num_stars = serializers.IntegerField()
