@@ -1,4 +1,6 @@
-from .serializers import StarSerializer, StarSmallSerializer, StarEmployeesSubcategoriesSerializer, StarTopEmployeeLists
+from .serializers import StarSerializer, StarSmallSerializer
+from .serializers import StarEmployeesSubcategoriesSerializer, StarTopEmployeeLists
+from .serializers import StarKeywordList
 from .models import Star
 from employees.models import Employee
 from categories.models import Category, Keyword, Subcategory
@@ -191,3 +193,20 @@ def stars_top_employee_lists(request, top_number, kind, id):
             return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
         raise APIException(e)
+
+
+@api_view(['GET', ])
+def stars_keyword_list(request):
+    """
+    Returns stars list grouped by keyword. If any keyword was not added shows an empty list.
+    ---
+    serializer: stars.serializers.StarKeywordList
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
+    star_list = Star.objects.exclude(keyword=None).values('keyword__pk', 'keyword__name').annotate(num_stars=Count('keyword')).order_by('-num_stars')
+    paginator = PageNumberPagination()
+    results = paginator.paginate_queryset(star_list, request)
+    serializer = StarKeywordList(results, many=True)
+    return paginator.get_paginated_response(serializer.data)
