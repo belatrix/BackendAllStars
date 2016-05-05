@@ -33,7 +33,7 @@ def employee_list(request):
       message: Not found
     """
     if request.method == 'GET':
-        employee_list = get_list_or_404(Employee)
+        employee_list = get_list_or_404(Employee, is_active=True)
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(employee_list, request)
         serializer = EmployeeListSerializer(results, many=True)
@@ -54,6 +54,24 @@ def employee(request, employee_id):
         employee = get_object_or_404(Employee, pk=employee_id)
         serializer = EmployeeSerializer(employee)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['PATCH', ])
+def employee_activate(request, employee_id):
+    """
+    Activate employee account
+    ---
+    response_serializer: employees.serializers.EmployeeSerializer
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'PATCH':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        employee.is_active = True
+        employee.save()
+        serializer = EmployeeSerializer(employee)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
 @api_view(['POST', ])
@@ -81,13 +99,31 @@ def employee_creation(request):
                 send_email = EmailMessage(subject, message, to=[email])
                 send_email.send()
                 content = {'detail': 'Successful user creation'}
-                return Response(content, status=status.HTTP_200_OK)
+                return Response(content, status=status.HTTP_201_CREATED)
             except Exception as e:
                 content = 'User already exists or is not available to create a new one with this email address.'
                 raise APIException(content)
         else:
             content = {'detail': 'User creation is not available for other email domains.'}
-            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
+            return Response(content, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['PATCH', ])
+def employee_deactivate(request, employee_id):
+    """
+    Deactivate employee account
+    ---
+    response_serializer: employees.serializers.EmployeeSerializer
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'PATCH':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        employee.is_active = False
+        employee.save()
+        serializer = EmployeeSerializer(employee)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
 @api_view(['GET', ])
@@ -172,7 +208,7 @@ def top(request, kind, quantity):
     """
     try:
         if request.method == 'GET':
-            employee_list = Employee.objects.order_by('-' + kind)[:quantity]
+            employee_list = Employee.objects.filter(is_active=True).order_by('-' + kind)[:quantity]
             if kind == 'total_score': serializer = EmployeeTopTotalScoreList(employee_list, many=True)
             elif kind == 'level': serializer = EmployeeTopLevelList(employee_list, many=True)
             elif kind == 'current_month_score': serializer=EmployeeTopCurrentMonthList(employee_list, many=True)
@@ -198,7 +234,7 @@ def search(request, search_term):
         employee_list = Employee.objects.filter(
             Q(first_name__icontains=search_term) |
             Q(last_name__icontains=search_term) |
-            Q(username__icontains=search_term))
+            Q(username__icontains=search_term)).filter(is_active=True)
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(employee_list, request)
         serializer = EmployeeListSerializer(results, many=True)
