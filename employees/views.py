@@ -21,26 +21,6 @@ from rest_framework.response import Response
 
 
 @api_view(['GET', ])
-@authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication))
-@permission_classes((IsAuthenticated,))
-def employee_list(request):
-    """
-    Returns the full employee list
-    ---
-    serializer: employees.serializers.EmployeeListSerializer
-    responseMessages:
-    - code: 404
-      message: Not found
-    """
-    if request.method == 'GET':
-        employee_list = get_list_or_404(Employee, is_active=True)
-        paginator = PageNumberPagination()
-        results = paginator.paginate_queryset(employee_list, request)
-        serializer = EmployeeListSerializer(results, many=True)
-        return paginator.get_paginated_response(serializer.data)
-
-
-@api_view(['GET', ])
 def employee(request, employee_id):
     """
     Returns employee details
@@ -124,6 +104,44 @@ def employee_deactivate(request, employee_id):
         employee.save()
         serializer = EmployeeSerializer(employee)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+@api_view(['GET', ])
+def employee_deactivated_list(request):
+    """
+    Returns the full employee deactivated list
+    ---
+    serializer: employees.serializers.EmployeeListSerializer
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'GET':
+        employee_list = get_list_or_404(Employee, is_active=False)
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(employee_list, request)
+        serializer = EmployeeListSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+@authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication))
+@permission_classes((IsAuthenticated,))
+def employee_list(request):
+    """
+    Returns the full employee list
+    ---
+    serializer: employees.serializers.EmployeeListSerializer
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'GET':
+        employee_list = get_list_or_404(Employee, is_active=True)
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(employee_list, request)
+        serializer = EmployeeListSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['GET', ])
