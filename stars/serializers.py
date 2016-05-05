@@ -21,7 +21,7 @@ class StarSmallSerializer(serializers.ModelSerializer):
     class Meta:
         model = Star
         depth = 1
-        fields = ('pk', 'date', 'text', 'category', 'from_user')
+        fields = ('pk', 'date', 'text', 'category', 'from_user', 'keyword')
 
 
 class StarSwaggerSerializer(serializers.ModelSerializer):
