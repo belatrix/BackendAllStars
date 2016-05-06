@@ -227,7 +227,7 @@ def top(request, kind, quantity):
     """
     Returns top {quantity} list, {kind} (total_score, level, last_month_score, current_month_score, last_year_score, current_year_score)
     ---
-    serializer: employees.serializers.EmployeeListSerializer
+    serializer: employees.serializers.EmployeeTopListSerializer
     responseMessages:
     - code: 404
       message: Not found

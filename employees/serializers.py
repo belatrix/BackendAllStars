@@ -58,6 +58,15 @@ class EmployeeRoleListSerializer(serializers.ModelSerializer):
         fields = ('pk', 'name')
 
 
+class EmployeeTopListSerializer(serializers.Serializer):
+    pk = serializers.IntegerField()
+    username = serializers.CharField()
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+    avatar = serializers.CharField()
+    value = serializers.IntegerField()
+
+
 class EmployeeTopTotalScoreList(serializers.ModelSerializer):
     value = serializers.IntegerField(source='total_score')
 
