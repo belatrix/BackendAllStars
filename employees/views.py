@@ -132,6 +132,11 @@ def employee_list(request):
     Returns the full employee list or result list if you use ?search=
     ---
     serializer: employees.serializers.EmployeeListSerializer
+    parameters:
+    - name: search
+      required: false
+      type: string
+      paramType: query
     responseMessages:
     - code: 404
       message: Not found
