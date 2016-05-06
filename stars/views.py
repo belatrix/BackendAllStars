@@ -55,17 +55,14 @@ def give_star_to(request, from_employee_id, to_employee_id):
         text = (request.data['text'] if 'text' in request.data.keys() else None)
         from_user = get_object_or_404(Employee, pk=from_employee_id)
         to_user = get_object_or_404(Employee, pk=to_employee_id)
-        category_id = (request.data['category'] if request.data['category'] else None)
-        category = get_object_or_404(Category, pk=category_id)
-        subcategory_id = (request.data['subcategory'] if request.data['subcategory'] else None)
-        subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
-        keyword_id = (request.data['keyword'] if request.data['keyword'] else None)
-        keyword = get_object_or_404(Keyword, pk=keyword_id)
+        category = get_object_or_404(Category, pk=request.data['category'])
+        subcategory = get_object_or_404(Subcategory, pk=request.data['subcategory'])
+        keyword = get_object_or_404(Keyword, pk=request.data['keyword'])
 
         # Create data object to save
         data = {"category": category.id,
                 "subcategory": subcategory.id,
-                "keyword": keyword_id,
+                "keyword": keyword.id,
                 "text": text,
                 "from_user": from_user.id,
                 "to_user": to_user.id}
