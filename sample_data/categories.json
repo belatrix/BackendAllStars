@@ -3,49 +3,56 @@
 	"pk": 1,
 	"fields": {
 		"name": "Coworkers",
-		"weight": 1
+		"weight": 1,
+		"comment_required": false
 	}
 }, {
 	"model": "categories.category",
 	"pk": 2,
 	"fields": {
 		"name": "Leaders",
-		"weight": 4
+		"weight": 4,
+		"comment_required": true
 	}
 }, {
 	"model": "categories.category",
 	"pk": 3,
 	"fields": {
 		"name": "Marketing",
-		"weight": 2
+		"weight": 2,
+		"comment_required": false
 	}
 }, {
 	"model": "categories.category",
 	"pk": 4,
 	"fields": {
 		"name": "Recruitment",
-		"weight": 3
+		"weight": 3,
+		"comment_required": false
 	}
 }, {
 	"model": "categories.category",
 	"pk": 5,
 	"fields": {
 		"name": "Clients",
-		"weight": 4
+		"weight": 4,
+		"comment_required": false
 	}
 }, {
 	"model": "categories.category",
 	"pk": 6,
 	"fields": {
 		"name": "Managers",
-		"weight": 5
+		"weight": 5,
+		"comment_required": true
 	}
 }, {
 	"model": "categories.category",
 	"pk": 7,
 	"fields": {
 		"name": "Human Resources",
-		"weight": 3
+		"weight": 3,
+		"comment_required": false
 	}
 }, {
 	"model": "categories.subcategory",
@@ -129,7 +136,7 @@
 	"pk": 12,
 	"fields": {
 		"name": "Speaker",
-		"category": [1, 3, 4, 7, 5, 2, 6]
+		"category": [1, 3, 4, 7, 2, 5, 6]
 	}
 }, {
 	"model": "categories.subcategory",
@@ -172,5 +179,95 @@
 	"fields": {
 		"name": "External Training",
 		"category": [1, 3, 7, 2, 5, 6]
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 1,
+	"fields": {
+		"name": "PHP"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 2,
+	"fields": {
+		"name": "Android"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 3,
+	"fields": {
+		"name": "iOS"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 4,
+	"fields": {
+		"name": "scrum"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 5,
+	"fields": {
+		"name": "agile"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 6,
+	"fields": {
+		"name": "java"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 7,
+	"fields": {
+		"name": "C++"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 8,
+	"fields": {
+		"name": "C#"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 9,
+	"fields": {
+		"name": ".net"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 10,
+	"fields": {
+		"name": "python"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 11,
+	"fields": {
+		"name": "perl"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 12,
+	"fields": {
+		"name": "mobile"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 13,
+	"fields": {
+		"name": "qa"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 14,
+	"fields": {
+		"name": "automation"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 15,
+	"fields": {
+		"name": "social media"
 	}
 }]

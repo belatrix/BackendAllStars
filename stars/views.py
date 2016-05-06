@@ -1,7 +1,9 @@
-from .serializers import StarSerializer, StarSmallSerializer, StarEmployeesSubcategoriesSerializer, StarTopEmployeeLists
+from .serializers import StarSerializer, StarSmallSerializer
+from .serializers import StarEmployeesSubcategoriesSerializer, StarTopEmployeeLists
+from .serializers import StarKeywordList
 from .models import Star
 from employees.models import Employee
-from categories.models import Category, Subcategory
+from categories.models import Category, Keyword, Subcategory
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from rest_framework import status
@@ -30,6 +32,8 @@ def give_star_to(request, from_employee_id, to_employee_id):
       message: Bad request
     - code: 404
       message: Not found (from_employee_id or to_employee_id or category or subcategory)
+    - code: 406
+      message: User is unable to give stars to itself.
     parameters:
     - name: body
       description: JSON Object containing two or three parameters = category(id), subcategory(id)  and text(optional).
@@ -37,24 +41,22 @@ def give_star_to(request, from_employee_id, to_employee_id):
       paramType: body
       pytype: stars.serializers.StarSwaggerSerializer
     """
-    # Set None as initial values for variables in content json
-    category_id = None
-    subcategory_id = None
-    text = None
-
-    if request.method == 'POST':
+    if from_employee_id == to_employee_id:
+        content = {'detail': 'User is unable to give stars to itself.'}
+        return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
+    elif request.method == 'POST':
         # Set values from request.data from POST
         text = (request.data['text'] if 'text' in request.data.keys() else None)
         from_user = get_object_or_404(Employee, pk=from_employee_id)
         to_user = get_object_or_404(Employee, pk=to_employee_id)
-        category_id = (request.data['category'] if request.data['category'] else None)
-        category = get_object_or_404(Category, pk=category_id)
-        subcategory_id = (request.data['subcategory'] if request.data['subcategory'] else None)
-        subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
+        category = get_object_or_404(Category, pk=request.data['category'])
+        subcategory = get_object_or_404(Subcategory, pk=request.data['subcategory'])
+        keyword = get_object_or_404(Keyword, pk=request.data['keyword'])
 
         # Create data object to save
         data = {"category": category.id,
                 "subcategory": subcategory.id,
+                "keyword": keyword.id,
                 "text": text,
                 "from_user": from_user.id,
                 "to_user": to_user.id}
@@ -66,12 +68,14 @@ def give_star_to(request, from_employee_id, to_employee_id):
             serializer.save()
 
             # Add 1 point to from_user
-            from_user.score += 1
+            from_user.total_score += 1
+            from_user.current_month_score += 1
             from_user.evaluate_level()
             from_user.save()
 
             # Add points to to_user according category weight
-            to_user.score += category.weight
+            to_user.total_score += category.weight
+            to_user.current_month_score += category.weight
             to_user.evaluate_level()
             to_user.save()
 
@@ -127,7 +131,7 @@ def stars_employee_subcategory_list(request, employee_id):
     """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
-        employee_stars = Star.objects.filter(to_user=employee).values('subcategory__pk', 'subcategory__name').annotate(num_stars=Count('subcategory'))
+        employee_stars = Star.objects.filter(to_user=employee).values('subcategory__pk', 'subcategory__name').annotate(num_stars=Count('subcategory')).order_by('-num_stars')
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(employee_stars, request)
         serializer = StarEmployeesSubcategoriesSerializer(results, many=True)
@@ -157,7 +161,7 @@ def stars_employee_subcategory_detail_list(request, employee_id, subcategory_id)
 @api_view(['GET', ])
 def stars_top_employee_lists(request, top_number, kind, id):
     """
-    Returns stars top {top_number} list according to {kind} (category, subcategory) {id} (kind_id)
+    Returns stars top {top_number} list according to {kind} (category, subcategory, keyword) {id} (kind_id)
     ---
     serializer: stars.serializers.StarTopEmployeeLists
     responseMessages:
@@ -172,9 +176,28 @@ def stars_top_employee_lists(request, top_number, kind, id):
                 top_list = Star.objects.filter(category__id=id).values('to_user__id', 'to_user__username', 'to_user__first_name', 'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
             elif kind == 'subcategory':
                 top_list = Star.objects.filter(subcategory__id=id).values('to_user__id', 'to_user__username', 'to_user__first_name', 'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
+            elif kind == 'keyword':
+                top_list = Star.objects.filter(keyword__id=id).values('to_user__id', 'to_user__username', 'to_user__first_name', 'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
             else:
                 return Response(status=status.HTTP_412_PRECONDITION_FAILED)
             serializer = StarTopEmployeeLists(top_list, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
         raise APIException(e)
+
+
+@api_view(['GET', ])
+def stars_keyword_list(request):
+    """
+    Returns stars list grouped by keyword. If any keyword was not added shows an empty list.
+    ---
+    serializer: stars.serializers.StarKeywordList
+    responseMessages:
+    - code: 404
+      message: Not found
+    """
+    star_list = Star.objects.exclude(keyword=None).values('keyword__pk', 'keyword__name').annotate(num_stars=Count('keyword')).order_by('-num_stars')
+    paginator = PageNumberPagination()
+    results = paginator.paginate_queryset(star_list, request)
+    serializer = StarKeywordList(results, many=True)
+    return paginator.get_paginated_response(serializer.data)

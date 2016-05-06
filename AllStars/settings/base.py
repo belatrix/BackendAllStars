@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger',
+    'djoser',
     'corsheaders',
     'categories',
     'employees',
@@ -87,6 +88,26 @@ REST_FRAMEWORK = {
 # USER MODEL
 AUTH_USER_MODEL = "employees.Employee"
 NEXT_LEVEL_SCORE = 25
+
+# DJOSER
+DJOSER = {
+    'DOMAIN': 'belatrixsf.com',
+    'SITE_NAME': 'Belatrix All Stars',
+    'SET_PASSWORD_RETYPE': True,
+}
+
+# EMAIL SETTINGS
+EMAIL_USE_TLS = True
+EMAIL_DOMAIN = 'belatrixsf.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.belatrixsf.com'
+EMAIL_HOST_PASSWORD = 'XXXXXX'
+EMAIL_HOST_USER = 'allstars@belatrixsf.com'
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = EMAIL_HOST
+
+# EMPLOYEE CREATION MESSAGES
+EMPLOYEE_CREATION_SUBJECT = '[BELATRIX AllStars] Your account was created successfully.'
 
 TEMPLATES = [
     {

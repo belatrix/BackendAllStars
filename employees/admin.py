@@ -1,4 +1,4 @@
-from .models import Employee, Role
+from .models import Employee, Location, Role
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
@@ -19,25 +19,32 @@ class UserChangeForm(forms.ModelForm):
         return self.initial['password']
 
 
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+
+
 class RoleAdmin(admin.ModelAdmin):
     list_display = ("name",)
 
 
 class EmployeeAdmin(BaseUserAdmin):
     form = UserChangeForm
-    list_display = ("username", "first_name", "last_name", "email", 'level', 'score',)
+    list_display = ("username", "first_name", "last_name", "email", 'location', 'level', 'total_score',)
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password')}),
         ('Personal info', {'fields': ('first_name',
                                       'last_name',
                                       'role',
+                                      'location',
                                       'skype_id',
                                       'avatar',
                                       'categories')}),
         ('Personal score', {'fields': ('last_month_score',
+                                       'last_year_score',
                                        'current_month_score',
+                                       'current_year_score',
                                        'level',
-                                       'score')}),
+                                       'total_score')}),
         ('Permissions', {'fields': ('groups',
                                     'user_permissions',
                                     'is_superuser',
@@ -47,4 +54,5 @@ class EmployeeAdmin(BaseUserAdmin):
     )
 
 admin.site.register(Employee, EmployeeAdmin)
+admin.site.register(Location, LocationAdmin)
 admin.site.register(Role, RoleAdmin)
