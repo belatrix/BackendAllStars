@@ -91,9 +91,9 @@ NEXT_LEVEL_SCORE = 25
 
 # DJOSER
 DJOSER = {
-     'DOMAIN': 'belatrixsf.com',
-     'SITE_NAME': 'Belatrix All Stars',
-     'SET_PASSWORD_RETYPE': True,
+    'DOMAIN': 'belatrixsf.com',
+    'SITE_NAME': 'Belatrix All Stars',
+    'SET_PASSWORD_RETYPE': True,
 }
 
 # EMAIL SETTINGS

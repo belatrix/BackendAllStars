@@ -80,7 +80,7 @@ def employee_creation(request):
                 send_email.send()
                 content = {'detail': 'Successful user creation'}
                 return Response(content, status=status.HTTP_201_CREATED)
-            except Exception as e:
+            except Exception:
                 content = 'User already exists or is not available to create a new one with this email address.'
                 raise APIException(content)
         else:
@@ -145,9 +145,9 @@ def employee_list(request):
         if request.GET.get('search'):
             search_term = request.GET.get('search')
             employee_list = Employee.objects.filter(
-            Q(first_name__icontains=search_term) |
-            Q(last_name__icontains=search_term) |
-            Q(username__icontains=search_term)).filter(is_active=True)
+                Q(first_name__icontains=search_term) |
+                Q(last_name__icontains=search_term) |
+                Q(username__icontains=search_term)).filter(is_active=True)
         else:
             employee_list = get_list_or_404(Employee, is_active=True)
         paginator = PageNumberPagination()
@@ -239,12 +239,18 @@ def top(request, kind, quantity):
     try:
         if request.method == 'GET':
             employee_list = Employee.objects.filter(is_active=True).order_by('-' + kind)[:quantity]
-            if kind == 'total_score': serializer = EmployeeTopTotalScoreList(employee_list, many=True)
-            elif kind == 'level': serializer = EmployeeTopLevelList(employee_list, many=True)
-            elif kind == 'current_month_score': serializer=EmployeeTopCurrentMonthList(employee_list, many=True)
-            elif kind == 'current_year_score': serializer=EmployeeTopCurrentYearList(employee_list, many=True)
-            elif kind == 'last_month_score': serializer=EmployeeTopLastMonthList(employee_list, many=True)
-            elif kind == 'last_year_score': serializer=EmployeeTopLastYearList(employee_list, many=True)
+            if kind == 'total_score':
+                serializer = EmployeeTopTotalScoreList(employee_list, many=True)
+            elif kind == 'level':
+                serializer = EmployeeTopLevelList(employee_list, many=True)
+            elif kind == 'current_month_score':
+                serializer = EmployeeTopCurrentMonthList(employee_list, many=True)
+            elif kind == 'current_year_score':
+                serializer = EmployeeTopCurrentYearList(employee_list, many=True)
+            elif kind == 'last_month_score':
+                serializer = EmployeeTopLastMonthList(employee_list, many=True)
+            elif kind == 'last_year_score':
+                serializer = EmployeeTopLastYearList(employee_list, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
         raise APIException(e)

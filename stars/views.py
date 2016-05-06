@@ -41,12 +41,6 @@ def give_star_to(request, from_employee_id, to_employee_id):
       paramType: body
       pytype: stars.serializers.StarSwaggerSerializer
     """
-    # Set None as initial values for variables in content json
-    category_id = None
-    subcategory_id = None
-    keyword_id = None
-    text = None
-
     if from_employee_id == to_employee_id:
         content = {'detail': 'User is unable to give stars to itself.'}
         return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
