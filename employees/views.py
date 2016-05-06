@@ -129,7 +129,7 @@ def employee_deactivated_list(request):
 @permission_classes((IsAuthenticated,))
 def employee_list(request):
     """
-    Returns the full employee list
+    Returns the full employee list or result list if you use ?search=
     ---
     serializer: employees.serializers.EmployeeListSerializer
     responseMessages:
@@ -137,7 +137,14 @@ def employee_list(request):
       message: Not found
     """
     if request.method == 'GET':
-        employee_list = get_list_or_404(Employee, is_active=True)
+        if request.GET.get('search'):
+            search_term = request.GET.get('search')
+            employee_list = Employee.objects.filter(
+            Q(first_name__icontains=search_term) |
+            Q(last_name__icontains=search_term) |
+            Q(username__icontains=search_term)).filter(is_active=True)
+        else:
+            employee_list = get_list_or_404(Employee, is_active=True)
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(employee_list, request)
         serializer = EmployeeListSerializer(results, many=True)
