@@ -26,7 +26,7 @@ def give_star_to(request, from_employee_id, to_employee_id):
     """
     This endpoint saves stars on both employees (from and to).
     ---
-    response_serializer: StarSerializer
+    response_serializer: stars.serializers.StarSerializer
     responseMessages:
     - code: 400
       message: Bad request
@@ -35,11 +35,18 @@ def give_star_to(request, from_employee_id, to_employee_id):
     - code: 406
       message: User is unable to give stars to itself.
     parameters:
-    - name: body
-      description: JSON Object containing two or three parameters = category(id), subcategory(id)  and text(optional).
+    - name: category
+      description: category id
       required: true
-      paramType: body
-      pytype: stars.serializers.StarSwaggerSerializer
+      paramType: string
+    - name: subcategory
+      description: subcategory id
+      required: true
+      paramType: string
+    - name: keyword
+      description: keyword id
+      required: true
+      paramType: string
     """
     if from_employee_id == to_employee_id:
         content = {'detail': 'User is unable to give stars to itself.'}
