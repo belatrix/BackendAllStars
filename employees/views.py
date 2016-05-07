@@ -286,11 +286,12 @@ class CustomObtainAuthToken(ObtainAuthToken):
         - code: 400
           message: Bad request
         parameters:
-        - name: body
-          description: JSON Object containing two parameters = username and password.
+        - name: username
           required: true
-          paramType: body
-          pytype: rest_framework.authtoken.serializers.AuthTokenSerializer
+          paramType: string
+        - name: password
+          required: true
+          :paramType: string
         """
         response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
         token = Token.objects.get(key=response.data['token'])
