@@ -219,6 +219,40 @@ def employee_categories(request, employee_id):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+@api_view(['PATCH', ])
+def employee_update(request, employee_id):
+    """
+    This endpoint update skype, first_name, last_name and location
+    ---
+    response_serializer: employees.serializers.EmployeeSerializer
+    parameters:
+    - name: first_name
+      required: true
+      paramType: string
+    - name: last_name
+      required: true
+      paramType: string
+    - name: skype_id
+      required: true
+      paramType: string
+    - name: location
+      description: location id
+      paramType: string
+    """
+    if request.method == 'PATCH':
+        try:
+            employee = get_object_or_404(Employee, pk=employee_id)
+            employee.skype_id = request.data['skype_id']
+            employee.first_name = request.data['first_name']
+            employee.last_name = request.data['last_name']
+            employee.location = get_object_or_404(Location, pk=request.data['location'])
+            employee.save()
+            serializer = EmployeeSerializer(employee)
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        except Exception as e:
+            raise APIException(e)
+
+
 @api_view(['GET', ])
 @authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication))
 @permission_classes((IsAuthenticated,))
