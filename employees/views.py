@@ -60,10 +60,9 @@ def employee_creation(request):
     This endpoint creates a new user with provided email @belatrixsf.com
     ---
     parameters:
-    - name: body
-      description: JSON Object containing email address at belatrixsf.com
+    - name: email
       required: true
-      paramType: body
+      paramType: string
       pytype: employees.serializers.EmployeeCreationSerializer
     """
     if request.method == 'POST':
@@ -81,7 +80,7 @@ def employee_creation(request):
                 content = {'detail': 'Successful user creation'}
                 return Response(content, status=status.HTTP_201_CREATED)
             except Exception:
-                content = 'User already exists or is not available to create a new one with this email address.'
+                content = 'User already exists or email sending service with credentials is not available.'
                 raise APIException(content)
         else:
             content = {'detail': 'User creation is not available for other email domains.'}
