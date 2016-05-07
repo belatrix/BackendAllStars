@@ -11,7 +11,6 @@ class EmployeeSerializer(serializers.ModelSerializer):
                   'email',
                   'first_name',
                   'last_name',
-                  'role',
                   'location',
                   'skype_id',
                   'avatar',
