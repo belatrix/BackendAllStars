@@ -253,6 +253,40 @@ def employee_update(request, employee_id):
             raise APIException(e)
 
 
+@api_view(['POST', ])
+def employee_update_password(request, employee_id):
+    """
+    This endpoint update employee password
+    ---
+    response_serializer: employees.serializers.EmployeeSerializer
+    parameters:
+    - name: current_password
+      required: true
+      paramType: string
+    - name: new_password
+      required: true
+      paramType: string
+    """
+    if request.method == 'POST':
+        try:
+            current_password = request.data['current_password']
+            new_password = request.data['new_password']
+        except Exception as e:
+            raise APIException(e)
+        employee = get_object_or_404(Employee, pk=employee_id)
+        if current_password == new_password:
+            content = {'detail': 'new and current password are equal.'}
+            return Response(content, status=status.HTTP_400_BAD_REQUEST)
+        elif employee.check_password(current_password):
+            employee.set_password(new_password)
+            employee.save()
+            serializer = EmployeeSerializer(employee)
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        else:
+            content = {'detail': 'Current password is wrong.'}
+            return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
+
 @api_view(['GET', ])
 @authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication))
 @permission_classes((IsAuthenticated,))
