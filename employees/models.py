@@ -45,6 +45,7 @@ class Employee(AbstractUser):
     total_score = models.PositiveIntegerField(default=0)
     avatar = models.URLField(null=True, blank=True)
     categories = models.ManyToManyField('categories.Category', blank=True)
+    reset_password_code = models.UUIDField(default=None, null=True, blank=True)
 
     def evaluate_level(self):
         if self.total_score == (self.level + 1) * settings.NEXT_LEVEL_SCORE:
