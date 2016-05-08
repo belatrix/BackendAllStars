@@ -203,7 +203,7 @@ def stars_keyword_list(request):
     - code: 404
       message: Not found
     """
-    star_list = Star.objects.exclude(keyword=None).values('keyword__pk', 'keyword__name').annotate(num_stars=Count('keyword')).order_by('-num_stars')
+    star_list = Star.objects.all().values('keyword__pk', 'keyword__name').annotate(num_stars=Count('keyword')).order_by('-num_stars')
     paginator = PageNumberPagination()
     results = paginator.paginate_queryset(star_list, request)
     serializer = StarKeywordList(results, many=True)
