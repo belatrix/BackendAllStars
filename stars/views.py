@@ -180,11 +180,23 @@ def stars_top_employee_lists(request, top_number, kind, id):
     try:
         if request.method == 'GET':
             if kind == 'category':
-                top_list = Star.objects.filter(category__id=id).values('to_user__id', 'to_user__username', 'to_user__first_name', 'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
+                top_list = Star.objects.filter(category__id=id).values('to_user__id',
+                                                                       'to_user__username',
+                                                                       'to_user__first_name',
+                                                                       'to_user__last_name',
+                                                                       'to_user__avatar').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
             elif kind == 'subcategory':
-                top_list = Star.objects.filter(subcategory__id=id).values('to_user__id', 'to_user__username', 'to_user__first_name', 'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
+                top_list = Star.objects.filter(subcategory__id=id).values('to_user__id',
+                                                                          'to_user__username',
+                                                                          'to_user__first_name',
+                                                                          'to_user__last_name',
+                                                                          'to_user__avatar').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
             elif kind == 'keyword':
-                top_list = Star.objects.filter(keyword__id=id).values('to_user__id', 'to_user__username', 'to_user__first_name', 'to_user__last_name').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
+                top_list = Star.objects.filter(keyword__id=id).values('to_user__id',
+                                                                      'to_user__username',
+                                                                      'to_user__first_name',
+                                                                      'to_user__last_name',
+                                                                      'to_user__avatar').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
             else:
                 return Response(status=status.HTTP_412_PRECONDITION_FAILED)
             serializer = StarTopEmployeeLists(top_list, many=True)
