@@ -1,6 +1,6 @@
 from .serializers import StarSerializer, StarSmallSerializer
 from .serializers import StarEmployeesSubcategoriesSerializer, StarTopEmployeeLists
-from .serializers import StarKeywordList
+from .serializers import StarKeywordList, StarKeywordDetailSerializer
 from .models import Star
 from employees.models import Employee
 from categories.models import Category, Keyword, Subcategory
@@ -208,3 +208,19 @@ def stars_keyword_list(request):
     results = paginator.paginate_queryset(star_list, request)
     serializer = StarKeywordList(results, many=True)
     return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+def stars_keyword_list_detail(request, keyword_id):
+    if request.method == 'GET':
+        keyword = get_object_or_404(Keyword, pk=keyword_id)
+        stars = Star.objects.filter(keyword=keyword).values(
+            'to_user__pk',
+            'to_user__username',
+            'to_user__first_name',
+            'to_user__last_name',
+            'to_user__avatar').annotate(num_stars=Count('keyword')).order_by('-num_stars')
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(stars, request)
+        serializer = StarKeywordDetailSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)

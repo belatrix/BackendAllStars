@@ -24,6 +24,15 @@ class StarSmallSerializer(serializers.ModelSerializer):
         fields = ('pk', 'date', 'text', 'category', 'from_user', 'keyword')
 
 
+class StarKeywordDetailSerializer(serializers.Serializer):
+    pk = serializers.IntegerField(source='to_user__pk')
+    username = serializers.CharField(source='to_user__username')
+    first_name = serializers.CharField(source='to_user__first_name')
+    last_name = serializers.CharField(source='to_user__last_name')
+    avatar = serializers.CharField(source='to_user__avatar')
+    num_stars = serializers.IntegerField()
+
+
 class StarSwaggerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Star
