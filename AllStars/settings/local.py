@@ -19,3 +19,10 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# Email
+EMAIL_HOST = 'smtp.belatrixsf.com'
+EMAIL_HOST_PASSWORD = 'XXXXXX'
+EMAIL_HOST_USER = 'allstars@belatrixsf.com'
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = EMAIL_HOST

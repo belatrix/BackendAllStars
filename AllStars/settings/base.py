@@ -24,6 +24,7 @@ SECRET_KEY = '6!)5-*-&azs8)4jdepx@gmcqhh65e*w93u18s3g^hw9fhq&b(p'
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
 
 # Application definition
 
@@ -32,6 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
@@ -100,14 +102,11 @@ DJOSER = {
 EMAIL_USE_TLS = True
 EMAIL_DOMAIN = 'belatrixsf.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.belatrixsf.com'
-EMAIL_HOST_PASSWORD = 'XXXXXX'
-EMAIL_HOST_USER = 'allstars@belatrixsf.com'
-EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = EMAIL_HOST
 
 # EMPLOYEE CREATION MESSAGES
 EMPLOYEE_CREATION_SUBJECT = '[BELATRIX AllStars] Your account was created successfully.'
+EMPLOYEE_RESET_PASSWORD_CONFIRMATION_SUBJECT = '[BELATRIX AllStars] Please confirm if you want a password reset.'
+EMPLOYEE_RESET_PASSWORD_SUCCESSFUL_SUBJECT = '[BELATRIX AllStars] Your new password has been successfully created.'
 
 TEMPLATES = [
     {

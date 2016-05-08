@@ -6,7 +6,9 @@ from .serializers import EmployeeTopCurrentMonthList, EmployeeTopLastMonthList
 from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList
 from categories.serializers import CategorySerializer
 from django.conf import settings
+from django.contrib.sites.models import Site
 from django.core.mail import EmailMessage
+from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework import status
@@ -18,6 +20,7 @@ from rest_framework.exceptions import APIException
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from uuid import uuid4
 
 
 @api_view(['GET', ])
@@ -217,6 +220,50 @@ def employee_categories(request, employee_id):
         employee = get_object_or_404(Employee, pk=employee_id)
         serializer = CategorySerializer(employee.categories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET', ])
+def employee_reset_password(request, employee_email):
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, email=employee_email)
+
+        # Generate random uuid and save in employee
+        uuid_code = uuid4()
+        employee.reset_password_code = str(uuid_code)
+        employee.save()
+
+        # Send email with reset password confirmation url
+        subject = settings.EMPLOYEE_RESET_PASSWORD_CONFIRMATION_SUBJECT
+        current_site = Site.objects.get_current()
+        employee_reset_password_api = reverse('employees:employee_reset_password', args=[employee.email])
+        url = current_site.domain + employee_reset_password_api + employee.reset_password_code
+        message = 'If you want to reset your password please confirm the request, clicking here: %s' % (url)
+        send_email = EmailMessage(subject, message, to=[employee.email])
+        send_email.send()
+
+        content = {'detail': 'Confirmation email sent.',
+                   'email': employee.email,
+                   'reset_password_code': employee.reset_password_code}
+        return Response(content, status=status.HTTP_200_OK)
+
+
+@api_view(['GET', ])
+def employee_reset_password_confirmation(request, employee_email, employee_uuid):
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, email=employee_email, reset_password_code=employee_uuid)
+        random_password = Employee.objects.make_random_password()
+        employee.set_password(random_password)
+        employee.reset_password_code = None
+        employee.save()
+
+        # Send confirmation email
+        subject = settings.EMPLOYEE_RESET_PASSWORD_SUCCESSFUL_SUBJECT
+        message = 'Your new password is: %s' % (random_password)
+        send_email = EmailMessage(subject, message, to=[employee.email])
+        send_email.send()
+
+        content = {'detail': 'Successful password creation, email has been sent'}
+        return Response(content, status=status.HTTP_200_OK)
 
 
 @api_view(['PATCH', ])
