@@ -4,7 +4,7 @@ from .serializers import StarKeywordList, StarKeywordDetailSerializer
 from .models import Star
 from employees.models import Employee
 from categories.models import Category, Keyword, Subcategory
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -208,18 +208,25 @@ def stars_top_employee_lists(request, top_number, kind, id):
 @api_view(['GET', ])
 def stars_keyword_list(request):
     """
-    Returns stars list grouped by keyword. If any keyword was not added shows an empty list.
+    Returns stars list grouped by keyword or result list if you use ?search=
     ---
     serializer: stars.serializers.StarKeywordList
     responseMessages:
     - code: 404
       message: Not found
     """
-    star_list = Star.objects.all().values('keyword__pk', 'keyword__name').annotate(num_stars=Count('keyword')).order_by('-num_stars')
-    paginator = PageNumberPagination()
-    results = paginator.paginate_queryset(star_list, request)
-    serializer = StarKeywordList(results, many=True)
-    return paginator.get_paginated_response(serializer.data)
+    if request.method == 'GET':
+        if request.GET.get('search'):
+            search_term = request.GET.get('search')
+            star_list = Star.objects.filter(
+                Q(keyword__name__icontains=search_term)).values('keyword__pk',
+                                                                'keyword__name').annotate(num_stars=Count('keyword')).order_by('-num_stars')
+        else:
+            star_list = Star.objects.all().values('keyword__pk', 'keyword__name').annotate(num_stars=Count('keyword')).order_by('-num_stars')
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(star_list, request)
+        serializer = StarKeywordList(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['GET', ])
