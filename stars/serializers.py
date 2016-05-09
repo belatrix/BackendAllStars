@@ -1,4 +1,5 @@
 from .models import Star
+from categories.serializers import CategorySerializer, KeywordSerializer
 from employees.models import Employee
 from rest_framework import serializers
 
@@ -17,6 +18,8 @@ class StarSerializer(serializers.ModelSerializer):
 
 class StarSmallSerializer(serializers.ModelSerializer):
     from_user = EmployeeSimpleSerializer()
+    category = CategorySerializer()
+    keyword = KeywordSerializer()
 
     class Meta:
         model = Star

@@ -8,6 +8,12 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ('pk', 'name', 'weight', 'comment_required')
 
 
+class KeywordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Keyword
+        fields = ('pk', 'name')
+
+
 class KeywordListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Keyword
