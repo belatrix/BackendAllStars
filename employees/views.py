@@ -76,15 +76,24 @@ def employee_creation(request):
             random_password = Employee.objects.make_random_password()
             subject = settings.EMPLOYEE_CREATION_SUBJECT
             message = 'Your initial random password is %s' % (random_password)
+
             try:
                 Employee.objects.create_user(username, password=random_password, email=email)
+            except Exception as e:
+                print e
+                content = {'detail': 'User already exists, maybe you need a password reset.'}
+                return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+            try:
                 send_email = EmailMessage(subject, message, to=[email])
                 send_email.send()
-                content = {'detail': 'Successful user creation'}
-                return Response(content, status=status.HTTP_201_CREATED)
-            except Exception:
-                content = 'User already exists or email sending service with credentials is not available.'
-                raise APIException(content)
+            except Exception as e:
+                print e
+                content = {'detail': 'User was created, but there are problems with email service, please contact an administrator.'}
+                return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+            content = {'detail': 'Successful user creation'}
+            return Response(content, status=status.HTTP_201_CREATED)
         else:
             content = {'detail': 'User creation is not available for other email domains.'}
             return Response(content, status=status.HTTP_401_UNAUTHORIZED)
@@ -238,8 +247,14 @@ def employee_reset_password(request, employee_email):
         employee_reset_password_api = reverse('employees:employee_reset_password', args=[employee.email])
         url = current_site.domain + employee_reset_password_api + employee.reset_password_code
         message = 'If you want to reset your password please confirm the request, clicking here: %s' % (url)
-        send_email = EmailMessage(subject, message, to=[employee.email])
-        send_email.send()
+
+        try:
+            send_email = EmailMessage(subject, message, to=[employee.email])
+            send_email.send()
+        except Exception as e:
+            print e
+            content = {'detail': 'There are problems with email service, please contact an administrator.'}
+            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
         content = {'detail': 'Confirmation email sent.',
                    'email': employee.email,
@@ -259,8 +274,13 @@ def employee_reset_password_confirmation(request, employee_email, employee_uuid)
         # Send confirmation email
         subject = settings.EMPLOYEE_RESET_PASSWORD_SUCCESSFUL_SUBJECT
         message = 'Your new password is: %s' % (random_password)
-        send_email = EmailMessage(subject, message, to=[employee.email])
-        send_email.send()
+        try:
+            send_email = EmailMessage(subject, message, to=[email])
+            send_email.send()
+        except Exception as e:
+            print e
+            content = {'detail': 'Password was reset, but there are problems with email service, please contact an administrator.'}
+            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
         content = {'detail': 'Successful password creation, email has been sent'}
         return Response(content, status=status.HTTP_200_OK)
