@@ -5,6 +5,10 @@ heroku config:set DJANGO_SETTINGS_MODULE=AllStars.settings.production
 """
 import dj_database_url
 from .base import *
+from os import environ
+
+# Helper lambda for gracefully degrading environmental variables:
+env = lambda e, d: environ[e] if environ.has_key(e) else d
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -22,3 +26,10 @@ ALLOWED_HOSTS = ['*']
 # https://warehouse.python.org/project/whitenoise/
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+# Email
+EMAIL_HOST = env('EMAIL_HOST', '')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD', '')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER', '')
+EMAIL_PORT = env('EMAIL_PORT', '')
+DEFAULT_FROM_EMAIL = EMAIL_HOST
