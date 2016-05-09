@@ -231,6 +231,11 @@ def stars_keyword_list(request):
 
 @api_view(['GET', ])
 def stars_keyword_list_detail(request, keyword_id):
+    """
+    Returns stars list detail for keyword id.
+    ---
+    response_serializer: stars.serializers.StarKeywordDetailSerializer
+    """
     if request.method == 'GET':
         keyword = get_object_or_404(Keyword, pk=keyword_id)
         stars = Star.objects.filter(keyword=keyword).values(

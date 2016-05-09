@@ -233,6 +233,9 @@ def employee_categories(request, employee_id):
 
 @api_view(['GET', ])
 def employee_reset_password(request, employee_email):
+    """
+    This endpoint send an email to employee, with confirmation reset password url.
+    """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, email=employee_email)
 
@@ -264,6 +267,9 @@ def employee_reset_password(request, employee_email):
 
 @api_view(['GET', ])
 def employee_reset_password_confirmation(request, employee_email, employee_uuid):
+    """
+    This endpoint reset employee with random password and send an email to employee with it.
+    """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, email=employee_email, reset_password_code=employee_uuid)
         random_password = Employee.objects.make_random_password()
