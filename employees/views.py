@@ -277,7 +277,7 @@ def employee_reset_password_confirmation(request, employee_email, employee_uuid)
         subject = settings.EMPLOYEE_RESET_PASSWORD_SUCCESSFUL_SUBJECT
         message = 'Your new password is: %s' % (random_password)
         try:
-            send_email = EmailMessage(subject, message, to=[email])
+            send_email = EmailMessage(subject, message, to=[employee.email])
             send_email.send()
         except Exception as e:
             print e
