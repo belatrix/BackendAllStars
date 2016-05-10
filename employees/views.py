@@ -271,7 +271,6 @@ def employee_reset_password_confirmation(request, employee_email, employee_uuid)
         employee = get_object_or_404(Employee, email=employee_email, reset_password_code=employee_uuid)
         random_password = Employee.objects.make_random_password()
         employee.set_password(random_password)
-        print random_password
         employee.save()
 
         # Send confirmation email
@@ -349,6 +348,7 @@ def employee_update_password(request, employee_id):
             return Response(content, status=status.HTTP_400_BAD_REQUEST)
         elif employee.check_password(current_password):
             employee.set_password(new_password)
+            employee.reset_password_code = None
             employee.save()
             serializer = EmployeeSerializer(employee)
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
@@ -433,4 +433,7 @@ class CustomObtainAuthToken(ObtainAuthToken):
         """
         response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
         token = Token.objects.get(key=response.data['token'])
-        return Response({'token': token.key, 'user_id': token.user_id})
+        employee = get_object_or_404(Employee, pk=token.user_id)
+        return Response({'token': token.key,
+                         'user_id': token.user_id,
+                         'reset_password_code': employee.reset_password_code})
