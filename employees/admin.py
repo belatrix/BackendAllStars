@@ -3,6 +3,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from import_export.admin import ImportExportMixin
 
 
 class UserChangeForm(forms.ModelForm):
@@ -27,7 +28,7 @@ class RoleAdmin(admin.ModelAdmin):
     list_display = ("name",)
 
 
-class EmployeeAdmin(BaseUserAdmin):
+class EmployeeAdmin(ImportExportMixin, BaseUserAdmin):
     form = UserChangeForm
     list_display = ("username", "first_name", "last_name", "email", 'location', 'level', 'total_score',)
     fieldsets = (

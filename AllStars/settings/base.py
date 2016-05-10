@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'djoser',
     'corsheaders',
+    'import_export',
     'categories',
     'employees',
     'stars',
