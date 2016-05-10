@@ -20,7 +20,6 @@ from rest_framework.exceptions import APIException
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from uuid import uuid4
 
 
 @api_view(['GET', ])
@@ -240,9 +239,7 @@ def employee_reset_password(request, employee_email):
         employee = get_object_or_404(Employee, email=employee_email)
 
         # Generate random uuid and save in employee
-        uuid_code = uuid4()
-        employee.reset_password_code = str(uuid_code)
-        employee.save()
+        employee.generate_reset_password_code()
 
         # Send email with reset password confirmation url
         subject = settings.EMPLOYEE_RESET_PASSWORD_CONFIRMATION_SUBJECT
@@ -274,7 +271,7 @@ def employee_reset_password_confirmation(request, employee_email, employee_uuid)
         employee = get_object_or_404(Employee, email=employee_email, reset_password_code=employee_uuid)
         random_password = Employee.objects.make_random_password()
         employee.set_password(random_password)
-        employee.reset_password_code = None
+        print random_password
         employee.save()
 
         # Send confirmation email
@@ -285,7 +282,7 @@ def employee_reset_password_confirmation(request, employee_email, employee_uuid)
             send_email.send()
         except Exception as e:
             print e
-            content = {'detail': 'Password was reset, but there are problems with email service, please contact an administrator.'}
+            content = {'detail': 'Password was reset but there are problems with email service, please contact an administrator.'}
             return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
         content = {'detail': 'Successful password creation, email has been sent'}

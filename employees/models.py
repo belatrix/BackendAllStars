@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import AbstractUser
 from django.utils.encoding import python_2_unicode_compatible
 from rest_framework.authtoken.models import Token
+from uuid import uuid4
 
 
 @python_2_unicode_compatible
@@ -51,6 +52,12 @@ class Employee(AbstractUser):
         if self.total_score == (self.level + 1) * settings.NEXT_LEVEL_SCORE:
             self.level += 1
             return
+
+    def generate_reset_password_code(self):
+        uuid_code = uuid4()
+        self.reset_password_code = str(uuid_code)
+        self.save()
+        return self.reset_password_code
 
     class Meta:
         ordering = ['first_name', 'last_name', 'username']
