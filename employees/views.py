@@ -393,27 +393,6 @@ def top(request, kind, quantity):
         raise APIException(e)
 
 
-@api_view(['GET', ])
-def search(request, search_term):
-    """
-    Returns employee list according search term
-    ---
-    serializer: employees.serializers.EmployeeListSerializer
-    responseMessages:
-    - code: 404
-      message: Not found
-    """
-    if request.method == 'GET':
-        employee_list = Employee.objects.filter(
-            Q(first_name__icontains=search_term) |
-            Q(last_name__icontains=search_term) |
-            Q(username__icontains=search_term)).filter(is_active=True)
-        paginator = PageNumberPagination()
-        results = paginator.paginate_queryset(employee_list, request)
-        serializer = EmployeeListSerializer(results, many=True)
-        return paginator.get_paginated_response(serializer.data)
-
-
 class CustomObtainAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         """

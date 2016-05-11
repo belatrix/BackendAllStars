@@ -2,7 +2,7 @@ from .views import employee, employee_categories, employee_list, employee_avatar
 from .views import employee_creation, employee_activate, employee_deactivate, employee_update, employee_update_password
 from .views import employee_deactivated_list, employee_location_list, employee_role_list
 from .views import employee_reset_password, employee_reset_password_confirmation
-from .views import CustomObtainAuthToken, search, top
+from .views import CustomObtainAuthToken, top
 from django.conf.urls import url
 
 
@@ -23,5 +23,4 @@ urlpatterns = [
     url(r'^(?P<employee_id>\d+)/deactivate/$', employee_deactivate, name='employee_deactivate'),
     url(r'^(?P<employee_id>\d+)/update/$', employee_update, name='employee_update'),
     url(r'^(?P<employee_id>\d+)/update/password/$', employee_update_password, name='employee_update_password'),
-    url(r'^search/(?P<search_term>\w+)/', search, name='employee_search'),
 ]
