@@ -1,0 +1,19 @@
+[{
+	"model": "employees.location",
+	"pk": 1,
+	"fields": {
+		"name": "Lima"
+	}
+}, {
+	"model": "employees.location",
+	"pk": 2,
+	"fields": {
+		"name": "Mendoza"
+	}
+}, {
+	"model": "employees.location",
+	"pk": 3,
+	"fields": {
+		"name": "Buenos Aires"
+	}
+}]
