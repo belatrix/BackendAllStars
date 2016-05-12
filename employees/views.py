@@ -157,11 +157,11 @@ def employee_list(request):
             search_terms_array = request_terms.split()
 
             initial_term = search_terms_array[0]
-            employee_list = Employee.objects.filter(Q(first_name__icontains=initial_term)|
-                                                        Q(last_name__icontains=initial_term)|
-                                                        Q(username__icontains=initial_term))
+            employee_list = Employee.objects.filter(Q(first_name__icontains=initial_term) |
+                                                    Q(last_name__icontains=initial_term) |
+                                                    Q(username__icontains=initial_term))
             if len(search_terms_array) > 1:
-                for term  in range(1,len(search_terms_array)):
+                for term in range(1, len(search_terms_array)):
                     employee_list = employee_list.filter(Q(first_name__icontains=search_terms_array[term]) |
                                                          Q(last_name__icontains=search_terms_array[term]) |
                                                          Q(username__icontains=search_terms_array[term]))

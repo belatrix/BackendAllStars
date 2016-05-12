@@ -15,7 +15,7 @@ class Command(BaseCommand):
             employee.save()
 
     def change_year(self):
-        employees =get_list_or_404(Employee)
+        employees = get_list_or_404(Employee)
         for employee in employees:
             employee.last_year_score = employee.current_year_score
             employee.current_year_score = 0
@@ -39,7 +39,7 @@ class Command(BaseCommand):
             self.change_month()
         if (today.day == 1 and today.month == 1):
             self.change_year()
-        if  options['force-month']:
+        if options['force-month']:
             self.change_month()
         if options['force-year']:
             self.change_year()

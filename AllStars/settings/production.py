@@ -7,8 +7,13 @@ import dj_database_url
 from .base import *
 from os import environ
 
-# Helper lambda for gracefully degrading environmental variables:
-env = lambda e, d: environ[e] if environ.has_key(e) else d
+
+# Function to get environment variables value if they exist.
+def env(e, d):
+    if e in environ:
+        return environ[e]
+    else:
+        return d
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
