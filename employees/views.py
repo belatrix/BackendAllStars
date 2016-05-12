@@ -156,12 +156,15 @@ def employee_list(request):
             request_terms = request.GET.get('search')
             search_terms_array = request_terms.split()
 
-            employee_list = Employee.objects.filter(
-                reduce(
-                    lambda x, y: x | y, [
-                        Q(first_name__icontains=word) |
-                        Q(last_name__icontains=word) |
-                        Q(username__icontains=word) for word in search_terms_array])).filter(is_active=True)
+            initial_term = search_terms_array[0]
+            employee_list = Employee.objects.filter(Q(first_name__icontains=initial_term)|
+                                                        Q(last_name__icontains=initial_term)|
+                                                        Q(username__icontains=initial_term))
+            if len(search_terms_array) > 1:
+                for term  in range(1,len(search_terms_array)):
+                    employee_list = employee_list.filter(Q(first_name__icontains=search_terms_array[term]) |
+                                                         Q(last_name__icontains=search_terms_array[term]) |
+                                                         Q(username__icontains=search_terms_array[term]))
         else:
             employee_list = get_list_or_404(Employee, is_active=True)
         paginator = PageNumberPagination()
