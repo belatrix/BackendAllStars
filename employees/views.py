@@ -11,6 +11,7 @@ from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, get_list_or_404
+from re import match as regex_match
 from rest_framework import status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.authtoken.models import Token
@@ -69,8 +70,14 @@ def employee_creation(request):
     """
     if request.method == 'POST':
         email = request.data['email']
-        username = email.split('@')[0]
-        domain = email.split('@')[1]
+
+        if regex_match(r"[^@]+@[^@]+\.[^@]+", email):
+            username = email.split('@')[0]
+            domain = email.split('@')[1]
+        else:
+            content = {'detail': 'This email address is not recognized as a valid one.'}
+            return Response(content, status=status.HTTP_401_UNAUTHORIZED)
+
         if domain == settings.EMAIL_DOMAIN:
             random_password = Employee.objects.make_random_password()
             subject = settings.EMPLOYEE_CREATION_SUBJECT
