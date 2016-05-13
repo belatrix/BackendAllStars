@@ -1,5 +1,5 @@
 from .models import Employee, Location, Role
-from .serializers import EmployeeSerializer, EmployeeAvatarSerializer, EmployeeListSerializer
+from .serializers import EmployeeSerializer, EmployeeAvatarSerializer, EmployeeListSerializer, EmployeeCreationListSerializer
 from .serializers import EmployeeLocationListSerializer, EmployeeRoleListSerializer
 from .serializers import EmployeeTopTotalScoreList, EmployeeTopLevelList
 from .serializers import EmployeeTopCurrentMonthList, EmployeeTopLastMonthList
@@ -58,6 +58,53 @@ def employee_activate(request, employee_id):
 
 
 @api_view(['POST', ])
+def employee_bulk_creation(request):
+    """
+    Endpoint to create users using email list
+    ---
+    parameters:
+    - name: body
+      required: true
+      paramType: body
+      pytype: employees.serializers.EmployeeCreationListSerializer
+    """
+    if request.method == 'POST':
+        serializer = EmployeeCreationListSerializer(data=request.data)
+        errors = []
+        users_created = 0
+        if serializer.is_valid():
+            email_list = request.data
+            for email in email_list['emails']:
+                if regex_match(r"[^@]+@[^@]+\.[^@]+", email):
+                    username = email.split('@')[0]
+                    domain = email.split('@')[1]
+                    if domain == settings.EMAIL_DOMAIN:
+                        if not Employee.objects.filter(email=email).exists():
+                            new_employee = Employee.objects.create_user(username, password=request.data['password'], email=email)
+                            new_employee.generate_reset_password_code()
+                            new_employee.save()
+                            users_created += 1
+                        else:
+                            errors.append("%s already exists." % (email))
+                    else:
+                        errors.append("%s already exists, maybe a password reset is needed.")
+                else:
+                    errors.append("%s is not a valid email address." % (email))
+        else:
+            errors.append(serializer.errors)
+
+        if len(errors) == 0:
+            content = {'detail': 'Successful users creation'}
+            return Response(content, status=status.HTTP_201_CREATED)
+        else:
+            users_result = {"user_created": users_created}
+            detail = {'detail': errors}
+            content = users_result.copy()
+            content.update(detail)
+            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+
+@api_view(['POST', ])
 def employee_creation(request):
     """
     This endpoint creates a new user with provided email @belatrixsf.com
@@ -84,7 +131,9 @@ def employee_creation(request):
             message = 'Your initial random password is %s' % (random_password)
 
             try:
-                Employee.objects.create_user(username, password=random_password, email=email)
+                new_employee = Employee.objects.create_user(username, password=random_password, email=email)
+                new_employee.generate_reset_password_code()
+                new_employee.save()
             except Exception as e:
                 print e
                 content = {'detail': 'User already exists, maybe you need a password reset.'}

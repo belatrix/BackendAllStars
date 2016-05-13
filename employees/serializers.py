@@ -28,6 +28,13 @@ class EmployeeCreationSerializer(serializers.Serializer):
     email = serializers.CharField(max_length=100)
 
 
+class EmployeeCreationListSerializer(serializers.Serializer):
+    password = serializers.CharField(max_length=20)
+    emails = serializers.ListField(
+        child=serializers.CharField(max_length=100)
+    )
+
+
 class EmployeeListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
