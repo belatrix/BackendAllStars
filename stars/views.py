@@ -245,6 +245,7 @@ def stars_keyword_list_detail(request, keyword_id):
             'to_user__username',
             'to_user__first_name',
             'to_user__last_name',
+            'to_user__level',
             'to_user__avatar').annotate(num_stars=Count('keyword')).order_by('-num_stars')
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(stars, request)

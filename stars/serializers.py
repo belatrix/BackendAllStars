@@ -32,6 +32,7 @@ class StarKeywordDetailSerializer(serializers.Serializer):
     username = serializers.CharField(source='to_user__username')
     first_name = serializers.CharField(source='to_user__first_name')
     last_name = serializers.CharField(source='to_user__last_name')
+    level = serializers.CharField(source='to_user__level')
     avatar = serializers.CharField(source='to_user__avatar')
     num_stars = serializers.IntegerField()
 
