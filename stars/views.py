@@ -1,4 +1,4 @@
-from .serializers import StarSerializer, StarSmallSerializer
+from .serializers import StarSerializer, StarSmallSerializer, StarBulkSerializer
 from .serializers import StarEmployeesSubcategoriesSerializer, StarTopEmployeeLists
 from .serializers import StarKeywordList, StarKeywordDetailSerializer
 from .models import Star
@@ -104,7 +104,7 @@ def give_star_to_many(request, from_employee_id):
     - code: 400
       message: Bad request
     - code: 404
-      message: Not found (from_employee_id or to_employee_id or category or subcategory)
+      message: Not found (from_employee_id or to_users or category or subcategory)
     - code: 406
       message: User is unable to give stars to itself.
     parameters:
@@ -114,44 +114,56 @@ def give_star_to_many(request, from_employee_id):
       pytype: stars.serializers.StarBulkSerializer
     """
     if request.method == 'POST':
-        # Set values from request.data from POST
-        text = (request.data['text'] if 'text' in request.data.keys() else None)
-        from_user = get_object_or_404(Employee, pk=from_employee_id)
-        category = get_object_or_404(Category, pk=request.data['category'])
-        subcategory = get_object_or_404(Subcategory, pk=request.data['subcategory'])
-        keyword = get_object_or_404(Keyword, pk=request.data['keyword'])
+        serializer_bulk = StarBulkSerializer(data=request.data)
+        errors = []
+        stars_added = 0
+        if serializer_bulk.is_valid():
+            text = (request.data['text'] if 'text' in request.data.keys() else None)
+            from_user = get_object_or_404(Employee, pk=from_employee_id)
+            category = get_object_or_404(Category, pk=request.data['category'])
+            subcategory = get_object_or_404(Subcategory, pk=request.data['subcategory'])
+            keyword = get_object_or_404(Keyword, pk=request.data['keyword'])
 
-        # # Create data object to save
-        # data = {"category": category.id,
-        #         "subcategory": subcategory.id,
-        #         "keyword": keyword.id,
-        #         "text": text,
-        #         "from_user": from_user.id,
-        #         "to_user": to_user.id}
-        #
-        # # Validate serializer with data provided.
-        # serializer = StarSerializer(data=data)
-        # if serializer.is_valid():
-        #     # Save recommendation
-        #     serializer.save()
-        #
-        #     # Add 1 point to from_user
-        #     from_user.total_score += 1
-        #     from_user.current_month_score += 1
-        #     from_user.current_year_score += 1
-        #     from_user.evaluate_level()
-        #     from_user.save()
-        #
-        #     # Add points to to_user according category weight
-        #     to_user.total_score += category.weight
-        #     to_user.current_month_score += category.weight
-        #     to_user.current_year_score += category.weight
-        #     to_user.evaluate_level()
-        #     to_user.save()
-        #
-        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
-        #
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            # Create data object to save
+            data = {"category": category.id,
+                    "subcategory": subcategory.id,
+                    "keyword": keyword.id,
+                    "text": text,
+                    "from_user": from_user.id}
+
+            for user_pk in request.data['to_users']:
+                data.update({"to_user": int(user_pk)})
+                serializer = StarSerializer(data=data)
+                if serializer.is_valid():
+                    serializer.save()
+                    stars_added += 1
+
+                    # Add points
+                    to_user = get_object_or_404(Employee, pk=user_pk)
+                    from_user.total_score += 1
+                    from_user.current_month_score += 1
+                    from_user.current_year_score += 1
+                    from_user.evaluate_level()
+                    from_user.save()
+                    to_user.total_score += category.weight
+                    to_user.current_month_score += category.weight
+                    to_user.current_year_score += category.weight
+                    to_user.evaluate_level()
+                    to_user.save()
+                else:
+                    errors.append(serializer.errors)
+        else:
+            errors.append(serializer_bulk.errors)
+
+        if len(errors) == 0:
+            content = {'detail': 'Successful stars added'}
+            return Response(content, status=status.HTTP_201_CREATED)
+        else:
+            stars_results = {"stars_added": stars_added}
+            detail = {'detail': errors}
+            content = stars_results.copy()
+            content.update(detail)
+            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
 @api_view(['GET', ])
