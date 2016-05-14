@@ -93,6 +93,67 @@ def give_star_to(request, from_employee_id, to_employee_id):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['POST', ])
+@authentication_classes((CsrfExemptSessionAuthentication, BasicAuthentication))
+def give_star_to_many(request, from_employee_id):
+    """
+    This endpoint saves stars on many employees.
+    ---
+    response_serializer: stars.serializers.StarSerializer
+    responseMessages:
+    - code: 400
+      message: Bad request
+    - code: 404
+      message: Not found (from_employee_id or to_employee_id or category or subcategory)
+    - code: 406
+      message: User is unable to give stars to itself.
+    parameters:
+    - name: body
+      required: true
+      paramType: body
+      pytype: stars.serializers.StarBulkSerializer
+    """
+    if request.method == 'POST':
+        # Set values from request.data from POST
+        text = (request.data['text'] if 'text' in request.data.keys() else None)
+        from_user = get_object_or_404(Employee, pk=from_employee_id)
+        category = get_object_or_404(Category, pk=request.data['category'])
+        subcategory = get_object_or_404(Subcategory, pk=request.data['subcategory'])
+        keyword = get_object_or_404(Keyword, pk=request.data['keyword'])
+
+        # # Create data object to save
+        # data = {"category": category.id,
+        #         "subcategory": subcategory.id,
+        #         "keyword": keyword.id,
+        #         "text": text,
+        #         "from_user": from_user.id,
+        #         "to_user": to_user.id}
+        #
+        # # Validate serializer with data provided.
+        # serializer = StarSerializer(data=data)
+        # if serializer.is_valid():
+        #     # Save recommendation
+        #     serializer.save()
+        #
+        #     # Add 1 point to from_user
+        #     from_user.total_score += 1
+        #     from_user.current_month_score += 1
+        #     from_user.current_year_score += 1
+        #     from_user.evaluate_level()
+        #     from_user.save()
+        #
+        #     # Add points to to_user according category weight
+        #     to_user.total_score += category.weight
+        #     to_user.current_month_score += category.weight
+        #     to_user.current_year_score += category.weight
+        #     to_user.evaluate_level()
+        #     to_user.save()
+        #
+        #     return Response(serializer.data, status=status.HTTP_201_CREATED)
+        #
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 @api_view(['GET', ])
 def star(request, star_id):
     """
