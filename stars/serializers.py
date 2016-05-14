@@ -16,6 +16,16 @@ class StarSerializer(serializers.ModelSerializer):
         fields = ('pk', 'date', 'text', 'from_user', 'to_user', 'category', 'subcategory', 'keyword')
 
 
+class StarBulkSerializer(serializers.Serializer):
+    category = serializers.IntegerField()
+    subcategory = serializers.IntegerField()
+    keyword = serializers.IntegerField()
+    text = serializers.CharField()
+    to_users = serializers.ListField(
+        child=serializers.IntegerField()
+    )
+
+
 class StarSmallSerializer(serializers.ModelSerializer):
     from_user = EmployeeSimpleSerializer()
     category = CategorySerializer()
