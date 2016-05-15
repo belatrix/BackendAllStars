@@ -75,16 +75,12 @@ def give_star_to(request, from_employee_id, to_employee_id):
             serializer.save()
 
             # Add 1 point to from_user
-            from_user.total_score += 1
-            from_user.current_month_score += 1
-            from_user.current_year_score += 1
+            from_user.add_stars(1)
             from_user.evaluate_level()
             from_user.save()
 
             # Add points to to_user according category weight
-            to_user.total_score += category.weight
-            to_user.current_month_score += category.weight
-            to_user.current_year_score += category.weight
+            to_user.add_stars(category.weight)
             to_user.evaluate_level()
             to_user.save()
 
@@ -140,14 +136,10 @@ def give_star_to_many(request, from_employee_id):
 
                     # Add points
                     to_user = get_object_or_404(Employee, pk=user_pk)
-                    from_user.total_score += 1
-                    from_user.current_month_score += 1
-                    from_user.current_year_score += 1
+                    from_user.add_stars(1)
                     from_user.evaluate_level()
                     from_user.save()
-                    to_user.total_score += category.weight
-                    to_user.current_month_score += category.weight
-                    to_user.current_year_score += category.weight
+                    to_user.add_stars(category.weight)
                     to_user.evaluate_level()
                     to_user.save()
                 else:
