@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'import_export',
     'categories',
     'employees',
+    'events',
     'stars',
 ]
 
