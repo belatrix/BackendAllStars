@@ -24,6 +24,7 @@ from rest_framework.response import Response
 
 
 @api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def employee(request, employee_id):
     """
     Returns employee details
@@ -40,6 +41,7 @@ def employee(request, employee_id):
 
 
 @api_view(['PATCH', ])
+@permission_classes((IsAuthenticated,))
 def employee_activate(request, employee_id):
     """
     Activate employee account
@@ -58,6 +60,7 @@ def employee_activate(request, employee_id):
 
 
 @api_view(['POST', ])
+@permission_classes((IsAuthenticated,))
 def employee_bulk_creation(request):
     """
     Endpoint to create users using email list
@@ -105,6 +108,7 @@ def employee_bulk_creation(request):
 
 
 @api_view(['POST', ])
+@permission_classes((IsAuthenticated,))
 def employee_creation(request):
     """
     This endpoint creates a new user with provided email @belatrixsf.com
@@ -155,6 +159,7 @@ def employee_creation(request):
 
 
 @api_view(['PATCH', ])
+@permission_classes((IsAuthenticated,))
 def employee_deactivate(request, employee_id):
     """
     Deactivate employee account
@@ -173,6 +178,7 @@ def employee_deactivate(request, employee_id):
 
 
 @api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def employee_deactivated_list(request):
     """
     Returns the full employee deactivated list
@@ -191,7 +197,6 @@ def employee_deactivated_list(request):
 
 
 @api_view(['GET', ])
-@authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication))
 @permission_classes((IsAuthenticated,))
 def employee_list(request):
     """
@@ -230,6 +235,7 @@ def employee_list(request):
 
 
 @api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def employee_location_list(request):
     """
     Returns employee location full list
@@ -246,6 +252,7 @@ def employee_location_list(request):
 
 
 @api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def employee_role_list(request):
     """
     Returns employee role full list
@@ -262,6 +269,7 @@ def employee_role_list(request):
 
 
 @api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def employee_avatar(request, employee_id):
     """
     Returns employee avatar
@@ -278,6 +286,7 @@ def employee_avatar(request, employee_id):
 
 
 @api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def employee_categories(request, employee_id):
     """
     Returns employee category list
@@ -352,6 +361,7 @@ def employee_reset_password_confirmation(request, employee_email, employee_uuid)
 
 
 @api_view(['PATCH', ])
+@permission_classes((IsAuthenticated,))
 def employee_update(request, employee_id):
     """
     This endpoint update skype, first_name, last_name and location
@@ -386,6 +396,7 @@ def employee_update(request, employee_id):
 
 
 @api_view(['POST', ])
+@permission_classes((IsAuthenticated,))
 def employee_update_password(request, employee_id):
     """
     This endpoint update employee password
@@ -421,7 +432,6 @@ def employee_update_password(request, employee_id):
 
 
 @api_view(['GET', ])
-@authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication))
 @permission_classes((IsAuthenticated,))
 def top(request, kind, quantity):
     """

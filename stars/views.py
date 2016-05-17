@@ -8,9 +8,10 @@ from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.decorators import api_view, authentication_classes
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.exceptions import APIException
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 
@@ -22,6 +23,7 @@ class CsrfExemptSessionAuthentication(SessionAuthentication):
 
 @api_view(['POST', ])
 @authentication_classes((CsrfExemptSessionAuthentication, BasicAuthentication))
+@permission_classes((IsAuthenticated,))
 def give_star_to(request, from_employee_id, to_employee_id):
     """
     This endpoint saves stars on both employees (from and to).
@@ -91,6 +93,7 @@ def give_star_to(request, from_employee_id, to_employee_id):
 
 @api_view(['POST', ])
 @authentication_classes((CsrfExemptSessionAuthentication, BasicAuthentication))
+@permission_classes((IsAuthenticated,))
 def give_star_to_many(request, from_employee_id):
     """
     This endpoint saves stars on many employees.
@@ -159,6 +162,7 @@ def give_star_to_many(request, from_employee_id):
 
 
 @api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def star(request, star_id):
     """
     Returns star detail
@@ -175,6 +179,7 @@ def star(request, star_id):
 
 
 @api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def stars_employee_list(request, employee_id):
     """
     Returns stars list from employee
@@ -194,6 +199,7 @@ def stars_employee_list(request, employee_id):
 
 
 @api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def stars_employee_subcategory_list(request, employee_id):
     """
     Returns stars list from employee grouped by subcategories
@@ -213,6 +219,7 @@ def stars_employee_subcategory_list(request, employee_id):
 
 
 @api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def stars_employee_subcategory_detail_list(request, employee_id, subcategory_id):
     """
     Returns stars list detail from employee divided by subcategory
@@ -233,6 +240,7 @@ def stars_employee_subcategory_detail_list(request, employee_id, subcategory_id)
 
 
 @api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def stars_top_employee_lists(request, top_number, kind, id):
     """
     Returns stars top {top_number} list according to {kind} (category, subcategory, keyword) {id} (kind_id)
@@ -273,6 +281,7 @@ def stars_top_employee_lists(request, top_number, kind, id):
 
 
 @api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def stars_keyword_list(request):
     """
     Returns stars list grouped by keyword or result list if you use ?search=
@@ -297,6 +306,7 @@ def stars_keyword_list(request):
 
 
 @api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def stars_keyword_list_detail(request, keyword_id):
     """
     Returns stars list detail for keyword id.

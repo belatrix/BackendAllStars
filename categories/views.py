@@ -1,12 +1,14 @@
 from .models import Category, Keyword, Subcategory
 from .serializers import CategorySerializer, KeywordListSerializer, SubcategoryListSerializer, SubcategoryDetailSerializer
 from django.shortcuts import get_list_or_404, get_object_or_404
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
 
 @api_view(['GET'])
+@permission_classes((IsAuthenticated,))
 def category_list(request):
     """
     Returns full category list ordered by weight
@@ -23,6 +25,7 @@ def category_list(request):
 
 
 @api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def keyword_list(request):
     """
     Returns full keyword list ordered by name
@@ -39,6 +42,7 @@ def keyword_list(request):
 
 
 @api_view(['GET'])
+@permission_classes((IsAuthenticated,))
 def subcategory_detail(request, subcategory_id):
     """
     Returns subcategory detail category list
@@ -55,6 +59,7 @@ def subcategory_detail(request, subcategory_id):
 
 
 @api_view(['GET'])
+@permission_classes((IsAuthenticated,))
 def subcategory_list(request):
     """
     Returns full subcategory list ordered by name
@@ -71,6 +76,7 @@ def subcategory_list(request):
 
 
 @api_view(['GET'])
+@permission_classes((IsAuthenticated,))
 def subcategory_list_by_category(request, category_id):
     """
     Returns full subcategory list according to category id
