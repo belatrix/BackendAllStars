@@ -62,6 +62,12 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'AllStars.urls'
 
+# SWAGGER
+SWAGGER_SETTINGS = {
+    "api_version": '0.1',
+    "is_authenticated": True
+}
+
 # CORS
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_METHODS = ('GET',
