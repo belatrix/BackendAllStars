@@ -21,7 +21,7 @@ class UserChangeForm(forms.ModelForm):
 
 
 class LocationAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'icon')
 
 
 class RoleAdmin(admin.ModelAdmin):

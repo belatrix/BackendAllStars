@@ -55,7 +55,7 @@ class EmployeeListSerializer(serializers.ModelSerializer):
 class EmployeeLocationListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
-        fields = ('pk', 'name')
+        fields = ('pk', 'name', 'icon')
 
 
 class EmployeeRoleListSerializer(serializers.ModelSerializer):

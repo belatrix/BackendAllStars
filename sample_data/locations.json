@@ -2,18 +2,28 @@
 	"model": "employees.location",
 	"pk": 1,
 	"fields": {
-		"name": "Lima"
+		"name": "Lima",
+		"icon": "https://i.imgur.com/CpYIGjr.png"
 	}
 }, {
 	"model": "employees.location",
 	"pk": 2,
 	"fields": {
-		"name": "Mendoza"
+		"name": "Mendoza",
+		"icon": "https://i.imgur.com/XRRUt6D.png"
 	}
 }, {
 	"model": "employees.location",
 	"pk": 3,
 	"fields": {
-		"name": "Buenos Aires"
+		"name": "Buenos Aires",
+		"icon": "https://i.imgur.com/XRRUt6D.png"
+	}
+}, {
+	"model": "employees.location",
+	"pk": 4,
+	"fields": {
+		"name": "USA",
+		"icon": "https://i.imgur.com/A7Jdujn.png"
 	}
 }]

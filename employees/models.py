@@ -13,6 +13,7 @@ from uuid import uuid4
 @python_2_unicode_compatible
 class Location(models.Model):
     name = models.CharField(max_length=100)
+    icon = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.name
