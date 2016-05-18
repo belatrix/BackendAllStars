@@ -15,14 +15,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 
-class CsrfExemptSessionAuthentication(SessionAuthentication):
-
-    def enforce_csrf(self, request):
-        return  # To not perform csrf check
-
-
 @api_view(['POST', ])
-@authentication_classes((CsrfExemptSessionAuthentication, BasicAuthentication))
 @permission_classes((IsAuthenticated,))
 def give_star_to(request, from_employee_id, to_employee_id):
     """
@@ -92,7 +85,6 @@ def give_star_to(request, from_employee_id, to_employee_id):
 
 
 @api_view(['POST', ])
-@authentication_classes((CsrfExemptSessionAuthentication, BasicAuthentication))
 @permission_classes((IsAuthenticated,))
 def give_star_to_many(request, from_employee_id):
     """
