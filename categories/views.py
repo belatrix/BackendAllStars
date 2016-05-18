@@ -15,6 +15,10 @@ def category_list(request):
     ---
     serializer: categories.serializers.CategorySerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
     - code: 404
       message: Not found
     """
@@ -32,6 +36,10 @@ def keyword_list(request):
     ---
     serializer: categories.serializers.KeywordListSerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
     - code: 404
       message: Not found
     """
@@ -49,6 +57,10 @@ def subcategory_detail(request, subcategory_id):
     ---
     serializer: categories.serializers.SubcategoryDetailSerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
     - code: 404
       message: Not found
     """
@@ -66,6 +78,10 @@ def subcategory_list(request):
     ---
     serializer: categories.serializers.SubcategoryListSerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
     - code: 404
       message: Not found
     """
@@ -83,6 +99,10 @@ def subcategory_list_by_category(request, category_id):
     ---
     serializer: categories.serializers.SubcategoryListSerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
     - code: 404
       message: Not found
     """
