@@ -31,6 +31,10 @@ def employee(request, employee_id):
     ---
     serializer: employees.serializers.EmployeeSerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
     - code: 404
       message: Not found
     """
@@ -48,6 +52,10 @@ def employee_activate(request, employee_id):
     ---
     response_serializer: employees.serializers.EmployeeSerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
     - code: 404
       message: Not found
     """
@@ -70,6 +78,15 @@ def employee_bulk_creation(request):
       required: true
       paramType: body
       pytype: employees.serializers.EmployeeCreationListSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 406
+      message: Request not acceptable
     """
     if request.method == 'POST':
         serializer = EmployeeCreationListSerializer(data=request.data)
@@ -118,6 +135,15 @@ def employee_creation(request):
       required: true
       paramType: string
       pytype: employees.serializers.EmployeeCreationSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 406
+      message: Request not acceptable
     """
     if request.method == 'POST':
         email = request.data['email']
@@ -166,6 +192,10 @@ def employee_deactivate(request, employee_id):
     ---
     response_serializer: employees.serializers.EmployeeSerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
     - code: 404
       message: Not found
     """
@@ -185,6 +215,10 @@ def employee_deactivated_list(request):
     ---
     serializer: employees.serializers.EmployeeListSerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
     - code: 404
       message: Not found
     """
@@ -209,6 +243,10 @@ def employee_list(request):
       type: string
       paramType: query
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
     - code: 404
       message: Not found
     """
@@ -242,6 +280,10 @@ def employee_location_list(request):
     ---
     serializer: employees.serializers.EmployeeLocationListSerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
     - code: 404
       message: Not found
     """
@@ -259,6 +301,10 @@ def employee_role_list(request):
     ---
     serializer: employees.serializers.EmployeeRoleListSerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
     - code: 404
       message: Not found
     """
@@ -276,6 +322,10 @@ def employee_avatar(request, employee_id):
     ---
     serializer: employees.serializers.EmployeeAvatarSerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
     - code: 404
       message: Not found
     """
@@ -293,6 +343,10 @@ def employee_categories(request, employee_id):
     ---
     serializer: categories.serializers.CategorySerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
     - code: 404
       message: Not found
     """
@@ -306,6 +360,12 @@ def employee_categories(request, employee_id):
 def employee_reset_password(request, employee_email):
     """
     This endpoint send an email to employee, with confirmation reset password url.
+    ---
+    responseMessages:
+    - code: 404
+      message: Not found
+    - code: 406
+      message: Request not acceptable
     """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, email=employee_email)
@@ -338,6 +398,12 @@ def employee_reset_password(request, employee_email):
 def employee_reset_password_confirmation(request, employee_email, employee_uuid):
     """
     This endpoint reset employee with random password and send an email to employee with it.
+    ---
+    responseMessages:
+    - code: 404
+      message: Not found
+    - code: 406
+      message: Request not acceptable
     """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, email=employee_email, reset_password_code=employee_uuid)
@@ -380,6 +446,13 @@ def employee_update(request, employee_id):
     - name: location
       description: location id
       paramType: string
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
     """
     if request.method == 'PATCH':
         try:
@@ -409,6 +482,15 @@ def employee_update_password(request, employee_id):
     - name: new_password
       required: true
       paramType: string
+    responseMessages:
+    - code: 400
+      message: Bad request.
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
     """
     if request.method == 'POST':
         try:
@@ -439,10 +521,12 @@ def top(request, kind, quantity):
     ---
     serializer: employees.serializers.EmployeeTopListSerializer
     responseMessages:
-    - code: 404
-      message: Not found
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
     - code: 403
       message: Forbidden, authentication credentials were not provided
+    - code: 404
+      message: Not found
     - code: 500
       message: Internal server error, cannot resolve keyword into field.
     """
@@ -473,8 +557,8 @@ class CustomObtainAuthToken(ObtainAuthToken):
         ---
         response_serializer: employees.serializers.EmployeeAuthenticationResponse
         responseMessages:
-        - code: 400
-          message: Bad request
+        - code: 404
+          message: Not found
         parameters:
         - name: username
           required: true
