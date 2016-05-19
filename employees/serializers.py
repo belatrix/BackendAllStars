@@ -127,6 +127,12 @@ class EmployeeAvatarSerializer(serializers.ModelSerializer):
         fields = ('pk', 'avatar')
 
 
+class EmployeeImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ('pk', 'image')
+
+
 class EmployeeAuthenticationResponse(serializers.Serializer):
     token = serializers.CharField(max_length=40)
     user_id = serializers.IntegerField()

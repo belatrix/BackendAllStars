@@ -35,6 +35,10 @@ class Role(models.Model):
         ordering = ['name']
 
 
+def avatar_filename(instance, filename):
+    return 'avatar/%s.jpg' % (instance)
+
+
 class Employee(AbstractUser):
     role = models.ForeignKey(Role, null=True, blank=True)
     location = models.ForeignKey(Location, null=True, blank=True)
@@ -48,6 +52,7 @@ class Employee(AbstractUser):
     avatar = models.URLField(null=True, blank=True)
     categories = models.ManyToManyField('categories.Category', blank=True)
     reset_password_code = models.UUIDField(default=None, null=True, blank=True)
+    image = models.ImageField(upload_to=avatar_filename, null=True, blank=True)
 
     def evaluate_level(self):
         if self.total_score == (self.level + 1) * settings.NEXT_LEVEL_SCORE:

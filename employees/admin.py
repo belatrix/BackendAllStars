@@ -39,6 +39,7 @@ class EmployeeAdmin(ImportExportMixin, BaseUserAdmin):
                                       'location',
                                       'skype_id',
                                       'avatar',
+                                      'image',
                                       'categories')}),
         ('Personal score', {'fields': ('last_month_score',
                                        'last_year_score',
