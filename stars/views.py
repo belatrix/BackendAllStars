@@ -25,6 +25,10 @@ def give_star_to(request, from_employee_id, to_employee_id):
     responseMessages:
     - code: 400
       message: Bad request
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
     - code: 404
       message: Not found (from_employee_id or to_employee_id or category or subcategory)
     - code: 406
@@ -94,6 +98,10 @@ def give_star_to_many(request, from_employee_id):
     responseMessages:
     - code: 400
       message: Bad request
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
     - code: 404
       message: Not found (from_employee_id or to_users or category or subcategory)
     - code: 406
@@ -161,6 +169,10 @@ def star(request, star_id):
     ---
     serializer: stars.serializers.StarSerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
     - code: 404
       message: Not found
     """
@@ -178,6 +190,10 @@ def stars_employee_list(request, employee_id):
     ---
     serializer: stars.serializers.StarSerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
     - code: 404
       message: Not found
     """
@@ -198,6 +214,10 @@ def stars_employee_subcategory_list(request, employee_id):
     ---
     serializer: stars.serializers.StarEmployeesSubcategoriesSerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
     - code: 404
       message: Not found
     """
@@ -218,6 +238,10 @@ def stars_employee_subcategory_detail_list(request, employee_id, subcategory_id)
     ---
     serializer: stars.serializers.StarSmallSerializer
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
     - code: 404
       message: Not found
     """
@@ -239,6 +263,10 @@ def stars_top_employee_lists(request, top_number, kind, id):
     ---
     serializer: stars.serializers.StarTopEmployeeLists
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
     - code: 404
       message: Not found
     - code: 412
@@ -280,6 +308,10 @@ def stars_keyword_list(request):
     ---
     serializer: stars.serializers.StarKeywordList
     responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
     - code: 404
       message: Not found
     """
@@ -304,6 +336,13 @@ def stars_keyword_list_detail(request, keyword_id):
     Returns stars list detail for keyword id.
     ---
     response_serializer: stars.serializers.StarKeywordDetailSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
+    - code: 404
+      message: Not found
     """
     if request.method == 'GET':
         keyword = get_object_or_404(Keyword, pk=keyword_id)
