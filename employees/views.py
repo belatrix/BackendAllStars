@@ -124,7 +124,6 @@ def employee_bulk_creation(request):
 
 
 @api_view(['POST', ])
-@permission_classes((IsAuthenticated,))
 def employee_creation(request):
     """
     This endpoint creates a new user with provided email @belatrixsf.com
