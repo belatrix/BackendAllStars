@@ -97,7 +97,7 @@ def employee_bulk_creation(request):
                 if regex_match(r"[^@]+@[^@]+\.[^@]+", email):
                     username = email.split('@')[0]
                     domain = email.split('@')[1]
-                    if domain == settings.EMAIL_DOMAIN or True: # Hot fix in order to avoid email domain validation. # TODO modularize email validation through admin interface.
+                    if domain in settings.EMAIL_DOMAIN_LIST:
                         if not Employee.objects.filter(email=email).exists():
                             new_employee = Employee.objects.create_user(username, password=request.data['password'], email=email)
                             new_employee.generate_reset_password_code()
@@ -153,7 +153,7 @@ def employee_creation(request):
             content = {'detail': 'This email address is not recognized as a valid one.'}
             return Response(content, status=status.HTTP_401_UNAUTHORIZED)
 
-        if domain == settings.EMAIL_DOMAIN:
+        if domain in settings.EMAIL_DOMAIN_LIST:
             random_password = Employee.objects.make_random_password()
             subject = settings.EMPLOYEE_CREATION_SUBJECT
             message = 'Your initial random password is %s' % (random_password)
