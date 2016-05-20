@@ -97,7 +97,7 @@ def employee_bulk_creation(request):
                 if regex_match(r"[^@]+@[^@]+\.[^@]+", email):
                     username = email.split('@')[0]
                     domain = email.split('@')[1]
-                    if domain == settings.EMAIL_DOMAIN:
+                    if domain == settings.EMAIL_DOMAIN or True: # Hot fix in order to avoid email domain validation. # TODO modularize email validation through admin interface.
                         if not Employee.objects.filter(email=email).exists():
                             new_employee = Employee.objects.create_user(username, password=request.data['password'], email=email)
                             new_employee.generate_reset_password_code()
