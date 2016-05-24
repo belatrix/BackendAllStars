@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'employees',
     'events',
     'stars',
+    'storages',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -190,8 +191,3 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
-
-# Media files
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
