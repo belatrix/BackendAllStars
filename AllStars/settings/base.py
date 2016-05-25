@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'employees',
     'events',
     'stars',
-    'storages',
 ]
 
 MIDDLEWARE_CLASSES = [
