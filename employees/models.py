@@ -54,6 +54,7 @@ class Employee(AbstractUser):
     categories = models.ManyToManyField('categories.Category', blank=True)
     reset_password_code = models.UUIDField(default=None, null=True, blank=True)
     avatar = models.ImageField(upload_to=avatar_filename, null=True, blank=True)
+    base_profile_complete = models.BooleanField(default=False)
 
     def evaluate_level(self):
         if self.total_score == (self.level + 1) * settings.NEXT_LEVEL_SCORE:
@@ -71,6 +72,17 @@ class Employee(AbstractUser):
         self.reset_password_code = str(uuid_code)
         self.save()
         return self.reset_password_code
+
+    def save(self, *args, **kwargs):
+        first_name = self.first_name
+        last_name = self.last_name
+        avatar = self.avatar
+        skype = self.skype_id
+        if first_name and last_name and avatar and skype:
+            self.base_profile_complete = True
+        else:
+            self.base_profile_complete = False
+        super(Employee, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['first_name', 'last_name', 'username']

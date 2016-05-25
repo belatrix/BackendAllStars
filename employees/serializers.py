@@ -14,6 +14,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
                   'location',
                   'skype_id',
                   'avatar',
+                  'base_profile_complete',
                   'last_month_score',
                   'last_year_score',
                   'current_month_score',
