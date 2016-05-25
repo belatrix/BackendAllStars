@@ -569,6 +569,8 @@ class CustomObtainAuthToken(ObtainAuthToken):
         responseMessages:
         - code: 404
           message: Not found
+        - code: 500
+          message: Unable to log in with provided credentials.
         parameters:
         - name: username
           required: true
@@ -577,9 +579,14 @@ class CustomObtainAuthToken(ObtainAuthToken):
           required: true
           :paramType: string
         """
-        response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
-        token = Token.objects.get(key=response.data['token'])
-        employee = get_object_or_404(Employee, pk=token.user_id)
-        return Response({'token': token.key,
-                         'user_id': token.user_id,
-                         'reset_password_code': employee.reset_password_code})
+        try:
+            response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
+            token = Token.objects.get(key=response.data['token'])
+            employee = get_object_or_404(Employee, pk=token.user_id)
+            return Response({'token': token.key,
+                             'user_id': token.user_id,
+                             'reset_password_code': employee.reset_password_code})
+        except Exception as e:
+            print e
+            content = 'Unable to log in with provided credentials.'
+            raise APIException(content)
