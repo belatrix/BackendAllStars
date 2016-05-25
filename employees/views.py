@@ -1,6 +1,6 @@
 from .models import Employee, Location, Role
 from .serializers import EmployeeSerializer, EmployeeAvatarSerializer, EmployeeListSerializer, EmployeeCreationListSerializer
-from .serializers import EmployeeLocationListSerializer, EmployeeRoleListSerializer, EmployeeImageSerializer
+from .serializers import EmployeeLocationListSerializer, EmployeeRoleListSerializer
 from .serializers import EmployeeTopTotalScoreList, EmployeeTopLevelList
 from .serializers import EmployeeTopCurrentMonthList, EmployeeTopLastMonthList
 from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList
@@ -314,27 +314,6 @@ def employee_role_list(request):
 
 @api_view(['GET', ])
 @permission_classes((IsAuthenticated,))
-def employee_avatar(request, employee_id):
-    """
-    Returns employee avatar
-    ---
-    serializer: employees.serializers.EmployeeAvatarSerializer
-    responseMessages:
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden.
-    - code: 404
-      message: Not found
-    """
-    if request.method == 'GET':
-        employee = get_object_or_404(Employee, pk=employee_id)
-        serializer = EmployeeAvatarSerializer(employee)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-@api_view(['GET', ])
-@permission_classes((IsAuthenticated,))
 def employee_categories(request, employee_id):
     """
     Returns employee category list
@@ -360,9 +339,9 @@ def employee_image(request, employee_id):
     """
     Returns employee avatar
     ---
-    response_serializer: employees.serializers.EmployeeImageSerializer
+    response_serializer: employees.serializers.EmployeeAvatarSerializer
     parameters:
-    - name: image
+    - name: avatar
       required: true
       type: file
     responseMessages:
@@ -375,15 +354,15 @@ def employee_image(request, employee_id):
     """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
-        serializer = EmployeeImageSerializer(employee)
+        serializer = EmployeeAvatarSerializer(employee)
         return Response(serializer.data, status=status.HTTP_200_OK)
     if request.method == 'POST':
         employee = get_object_or_404(Employee, pk=employee_id)
         upload = request.FILES['image']
-        employee.image.delete()
-        employee.image = upload
+        employee.avatar.delete()
+        employee.avatar = upload
         employee.save()
-        serializer = EmployeeImageSerializer(employee)
+        serializer = EmployeeAvatarSerializer(employee)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 

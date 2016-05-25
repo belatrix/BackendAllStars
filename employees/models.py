@@ -8,6 +8,7 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.encoding import python_2_unicode_compatible
 from rest_framework.authtoken.models import Token
 from uuid import uuid4
+from time import time
 
 
 @python_2_unicode_compatible
@@ -36,7 +37,8 @@ class Role(models.Model):
 
 
 def avatar_filename(instance, filename):
-    return 'avatar/%s.jpg' % (instance)
+    timestamp = int(time())
+    return 'avatar/%s%d.jpg' % (instance, timestamp)
 
 
 class Employee(AbstractUser):
@@ -49,10 +51,9 @@ class Employee(AbstractUser):
     current_year_score = models.PositiveIntegerField(default=0)
     level = models.PositiveIntegerField(default=0)
     total_score = models.PositiveIntegerField(default=0)
-    avatar = models.URLField(null=True, blank=True)
     categories = models.ManyToManyField('categories.Category', blank=True)
     reset_password_code = models.UUIDField(default=None, null=True, blank=True)
-    image = models.ImageField(upload_to=avatar_filename, null=True, blank=True)
+    avatar = models.ImageField(upload_to=avatar_filename, null=True, blank=True)
 
     def evaluate_level(self):
         if self.total_score == (self.level + 1) * settings.NEXT_LEVEL_SCORE:
