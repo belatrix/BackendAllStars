@@ -30,4 +30,3 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST
 # MEDIA
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
