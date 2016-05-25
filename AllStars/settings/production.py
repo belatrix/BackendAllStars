@@ -43,8 +43,9 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST
 AWS_STORAGE_BUCKET_NAME = 'allstarsbx'
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID', '')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY', '')
+AWS_QUERYSTRING_AUTH = False
 
 # MEDIA
 MEDIAFILES_LOCATION = 'media'
-MEDIA_URL = 'https://https://allstarsbx.s3.amazonaws.com/media/'
-DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+MEDIA_URL = 'https://allstarsbx.s3.amazonaws.com/media/'
+DEFAULT_FILE_STORAGE = 'utils.custom_storages.MediaStorage'
