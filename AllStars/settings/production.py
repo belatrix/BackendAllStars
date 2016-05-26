@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 PRODUCTION_APPS = [
     'storages',
 ]
+
 INSTALLED_APPS += PRODUCTION_APPS
 
 # Simplified static file serving.

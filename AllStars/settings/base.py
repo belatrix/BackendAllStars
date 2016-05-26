@@ -28,7 +28,7 @@ SITE_ID = 1
 
 # Application definition
 
-INSTALLED_APPS = [
+DEFAULT_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -36,19 +36,27 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
+
+THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger',
     'djoser',
     'corsheaders',
     'import_export',
+    'constance',
+    'constance.backends.database',
+]
+
+PROJECT_APPS = [
     'categories',
     'employees',
     'events',
     'stars',
-    'constance',
-    'constance.backends.database',
 ]
+
+INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
