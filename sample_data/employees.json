@@ -670,4 +670,33 @@
 		"user_permissions": [],
 		"categories": [1]
 	}
+}, {
+	"model": "employees.employee",
+	"pk": 22,
+	"fields": {
+		"password": "pbkdf2_sha256$24000$LL0oCnCMzkjc$Sl4pUH42cb+NNXmYg0sb2QDZ/WiunaVTuDcg4R3Kkx4=",
+		"last_login": null,
+		"is_superuser": false,
+		"username": "jyep",
+		"first_name": "jo",
+		"last_name": "yep",
+		"email": "jyep@belatrixsf.com",
+		"is_staff": false,
+		"is_active": true,
+		"is_blocked": true,
+		"date_joined": "2016-05-01T12:20:13Z",
+		"role": 11,
+		"location": 1,
+		"skype_id": "",
+		"last_month_score": 0,
+		"last_year_score": 0,
+		"current_month_score": 0,
+		"current_year_score": 0,
+		"level": 0,
+		"total_score": 0,
+		"avatar": "",
+		"groups": [],
+		"user_permissions": [],
+		"categories": [1]
+	}
 }]
