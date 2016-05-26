@@ -585,7 +585,8 @@ class CustomObtainAuthToken(ObtainAuthToken):
             employee = get_object_or_404(Employee, pk=token.user_id)
             return Response({'token': token.key,
                              'user_id': token.user_id,
-                             'reset_password_code': employee.reset_password_code})
+                             'reset_password_code': employee.reset_password_code,
+                             'base_profile_complete': employee.base_profile_complete})
         except Exception as e:
             print e
             content = 'Unable to log in with provided credentials.'
