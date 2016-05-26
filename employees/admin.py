@@ -30,7 +30,7 @@ class RoleAdmin(admin.ModelAdmin):
 
 class EmployeeAdmin(ImportExportMixin, BaseUserAdmin):
     form = UserChangeForm
-    list_display = ("username", "first_name", "last_name", "email", 'location', 'level', 'total_score',)
+    list_display = ("username", "first_name", "last_name", "email", 'location', 'level', 'total_score', 'is_blocked')
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password', 'reset_password_code')}),
         ('Personal info', {'fields': ('first_name',
