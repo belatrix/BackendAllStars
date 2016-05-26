@@ -46,7 +46,17 @@ INSTALLED_APPS = [
     'employees',
     'events',
     'stars',
+    'constance',
+    'constance.backends.database',
 ]
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_CONFIG = {
+    'MAX_STARS_GIVEN_DAY' : (10, 'Maximum number of stars given by one employee daily'),
+    'MAX_STARS_RECEIVED_DAY' : (15, 'Maximum number of stars received to employee daily'),
+    'MAX_STARS_GIVEN_MONTHLY': (30, 'Maximum number of stars given by one employee in a month'),
+    'MAX_STARS_RECEIVED_MONTHLY': (45, 'Maximum number of stars received to one employee in a month'),
+}
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',

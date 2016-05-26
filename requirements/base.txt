@@ -1,4 +1,5 @@
 Django==1.9.4
+django-constance==1.2
 django-filter==0.13.0
 django-import-export==0.4.5
 django-rest-swagger==0.3.5
