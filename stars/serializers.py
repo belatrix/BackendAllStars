@@ -37,16 +37,6 @@ class StarSmallSerializer(serializers.ModelSerializer):
         fields = ('pk', 'date', 'text', 'category', 'from_user', 'keyword')
 
 
-class StarKeywordDetailSerializer(serializers.Serializer):
-    pk = serializers.IntegerField(source='to_user__pk')
-    username = serializers.CharField(source='to_user__username')
-    first_name = serializers.CharField(source='to_user__first_name')
-    last_name = serializers.CharField(source='to_user__last_name')
-    level = serializers.CharField(source='to_user__level')
-    avatar = serializers.CharField(source='to_user__avatar')
-    num_stars = serializers.IntegerField()
-
-
 class StarSwaggerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Star
@@ -60,11 +50,20 @@ class StarEmployeesSubcategoriesSerializer(serializers.Serializer):
 
 
 class StarTopEmployeeLists(serializers.Serializer):
-    pk = serializers.IntegerField(source='to_user__id')
+
+    def get_avatar(self, data):
+        employee = Employee.objects.get(pk=data['to_user__pk'])
+        if employee.avatar:
+            avatar_url = employee.avatar.url
+        else:
+            avatar_url = ""
+        return avatar_url
+
+    pk = serializers.IntegerField(source='to_user__pk')
     username = serializers.CharField(max_length=100, source='to_user__username')
     first_name = serializers.CharField(max_length=100, source='to_user__first_name')
     last_name = serializers.CharField(max_length=100, source='to_user__last_name')
-    avatar = serializers.CharField(max_length=200, source='to_user__avatar')
+    avatar = serializers.SerializerMethodField()
     num_stars = serializers.IntegerField()
 
 

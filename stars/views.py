@@ -1,6 +1,6 @@
 from .serializers import StarSerializer, StarSmallSerializer, StarBulkSerializer
 from .serializers import StarEmployeesSubcategoriesSerializer, StarTopEmployeeLists
-from .serializers import StarKeywordList, StarKeywordDetailSerializer
+from .serializers import StarKeywordList
 from .models import Star
 from constance import config
 from employees.models import Employee
@@ -282,22 +282,25 @@ def stars_top_employee_lists(request, top_number, kind, id):
     try:
         if request.method == 'GET':
             if kind == 'category':
-                top_list = Star.objects.filter(category__id=id).values('to_user__id',
+                top_list = Star.objects.filter(category__id=id).values('to_user__pk',
                                                                        'to_user__username',
                                                                        'to_user__first_name',
                                                                        'to_user__last_name',
+                                                                       'to_user__level'
                                                                        'to_user__avatar').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
             elif kind == 'subcategory':
-                top_list = Star.objects.filter(subcategory__id=id).values('to_user__id',
+                top_list = Star.objects.filter(subcategory__id=id).values('to_user__pk',
                                                                           'to_user__username',
                                                                           'to_user__first_name',
                                                                           'to_user__last_name',
+                                                                          'to_user__level',
                                                                           'to_user__avatar').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
             elif kind == 'keyword':
-                top_list = Star.objects.filter(keyword__id=id).values('to_user__id',
+                top_list = Star.objects.filter(keyword__id=id).values('to_user__pk',
                                                                       'to_user__username',
                                                                       'to_user__first_name',
                                                                       'to_user__last_name',
+                                                                      'to_user__level',
                                                                       'to_user__avatar').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
             else:
                 return Response(status=status.HTTP_412_PRECONDITION_FAILED)
@@ -342,7 +345,7 @@ def stars_keyword_list_detail(request, keyword_id):
     """
     Returns stars list detail for keyword id.
     ---
-    response_serializer: stars.serializers.StarKeywordDetailSerializer
+    response_serializer: stars.serializers.StarTopEmployeeLists
     responseMessages:
     - code: 401
       message: Unauthorized. Authentication credentials were not provided. Invalid token.
@@ -362,5 +365,5 @@ def stars_keyword_list_detail(request, keyword_id):
             'to_user__avatar').annotate(num_stars=Count('keyword')).order_by('-num_stars')
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(stars, request)
-        serializer = StarKeywordDetailSerializer(results, many=True)
+        serializer = StarTopEmployeeLists(results, many=True)
         return paginator.get_paginated_response(serializer.data)
