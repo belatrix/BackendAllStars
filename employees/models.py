@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from categories.models import Category
 from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save
@@ -40,6 +41,8 @@ def avatar_filename(instance, filename):
     timestamp = int(time())
     return 'avatar/%s%d.jpg' % (instance, timestamp)
 
+def get_default_category():
+    return Category.objects.get(name__icontains='Coworker')
 
 class Employee(AbstractUser):
     role = models.ForeignKey(Role, null=True, blank=True)
@@ -75,15 +78,23 @@ class Employee(AbstractUser):
         return self.reset_password_code
 
     def save(self, *args, **kwargs):
+        is_new = False
+        if not self.pk:
+            is_new = True
+
         first_name = self.first_name
         last_name = self.last_name
         avatar = self.avatar
         skype = self.skype_id
+        
         if first_name and last_name and avatar and skype:
             self.base_profile_complete = True
         else:
             self.base_profile_complete = False
         super(Employee, self).save(*args, **kwargs)
+
+        if is_new:
+            self.categories.add(get_default_category())
 
     class Meta:
         ordering = ['first_name', 'last_name', 'username']
