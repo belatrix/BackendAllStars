@@ -23,7 +23,8 @@ class EmployeeSerializer(serializers.ModelSerializer):
                   'total_score',
                   'is_active',
                   'is_blocked',
-                  'last_login')
+                  'last_login',
+                  'total_given')
 
 
 class EmployeeCreationSerializer(serializers.Serializer):
