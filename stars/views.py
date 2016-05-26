@@ -2,6 +2,7 @@ from .serializers import StarSerializer, StarSmallSerializer, StarBulkSerializer
 from .serializers import StarEmployeesSubcategoriesSerializer, StarTopEmployeeLists
 from .serializers import StarKeywordList, StarKeywordDetailSerializer
 from .models import Star
+from constance import config
 from employees.models import Employee
 from categories.models import Category, Keyword, Subcategory
 from django.db.models import Count, Q
@@ -57,6 +58,13 @@ def give_star_to(request, from_employee_id, to_employee_id):
         category = get_object_or_404(Category, pk=request.data['category'])
         subcategory = get_object_or_404(Subcategory, pk=request.data['subcategory'])
         keyword = get_object_or_404(Keyword, pk=request.data['keyword'])
+
+        if from_user.is_blocked:
+            content = {'detail': 'User is unable to give stars. Please contact an administrator.'}
+            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
+        elif to_user.is_blocked:
+            content = {'detail': 'User is unable to received stars.'}
+            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
         # Create data object to save
         data = {"category": category.id,
