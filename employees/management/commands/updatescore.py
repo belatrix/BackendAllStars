@@ -1,3 +1,4 @@
+from constance import config
 from datetime import datetime
 from django.core.management.base import BaseCommand
 from django.shortcuts import get_list_or_404
@@ -12,6 +13,7 @@ class Command(BaseCommand):
         for employee in employees:
             employee.last_month_score = employee.current_month_score
             employee.current_month_score = 0
+            employee.current_month_given = 0
             employee.save()
 
     def change_year(self):
@@ -19,6 +21,21 @@ class Command(BaseCommand):
         for employee in employees:
             employee.last_year_score = employee.current_year_score
             employee.current_year_score = 0
+            employee.current_year_given = 0
+            employee.save()
+
+    def change_day(self):
+        employees = get_list_or_404(Employee)
+        for employee in employees:
+            employee.yesterday_given = employee.today_given
+            employee.today_given = 0
+            employee.save()
+
+    def block_user(self):
+        employees = get_list_or_404(Employee)
+        for employee in employees:
+            if employee.yesterday_given == config.MAX_STARS_GIVEN_DAY:
+                employee.is_blocked = True
             employee.save()
 
     def add_arguments(self, parser):

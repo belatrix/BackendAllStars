@@ -48,22 +48,30 @@ class Employee(AbstractUser):
     role = models.ForeignKey(Role, null=True, blank=True)
     location = models.ForeignKey(Location, null=True, blank=True)
     skype_id = models.CharField(max_length=200, null=True, blank=True)
-    last_month_score = models.PositiveIntegerField(default=0)
-    last_year_score = models.PositiveIntegerField(default=0)
-    current_month_score = models.PositiveIntegerField(default=0)
-    current_year_score = models.PositiveIntegerField(default=0)
     level = models.PositiveIntegerField(default=0)
-    total_score = models.PositiveIntegerField(default=0)
     categories = models.ManyToManyField('categories.Category', blank=True)
     reset_password_code = models.UUIDField(default=None, null=True, blank=True)
     avatar = models.ImageField(upload_to=avatar_filename, null=True, blank=True)
     base_profile_complete = models.BooleanField(default=False)
     is_blocked = models.BooleanField(default=False)
+
+    # Given stars
     yesterday_given = models.PositiveIntegerField(default=0)
     today_given = models.PositiveIntegerField(default=0)
+    last_month_given = models.PositiveIntegerField(default=0)
+    last_year_given = models.PositiveIntegerField(default=0)
     current_month_given = models.PositiveIntegerField(default=0)
     current_year_given = models.PositiveIntegerField(default=0)
     total_given = models.PositiveIntegerField(default=0)
+
+    # Received stars
+    yesterday_received = models.PositiveIntegerField(default=0)
+    today_received = models.PositiveIntegerField(default=0)
+    total_score = models.PositiveIntegerField(default=0)
+    last_month_score = models.PositiveIntegerField(default=0)
+    last_year_score = models.PositiveIntegerField(default=0)
+    current_month_score = models.PositiveIntegerField(default=0)
+    current_year_score = models.PositiveIntegerField(default=0)
 
     def evaluate_level(self):
         if self.total_score == (self.level + 1) * settings.NEXT_LEVEL_SCORE:
