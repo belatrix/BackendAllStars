@@ -156,7 +156,7 @@ def employee_creation(request):
         if domain in settings.EMAIL_DOMAIN_LIST:
             random_password = Employee.objects.make_random_password()
             subject = settings.EMPLOYEE_CREATION_SUBJECT
-            message = 'Your initial random password is %s' % (random_password)
+            message = 'Your username is: %s and your initial random password is %s' % (username, random_password)
 
             try:
                 new_employee = Employee.objects.create_user(username, password=random_password, email=email)
