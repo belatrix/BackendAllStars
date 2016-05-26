@@ -49,6 +49,7 @@ class EmployeeAdmin(ImportExportMixin, BaseUserAdmin):
                                        'total_score')}),
         ('Permissions', {'fields': ('groups',
                                     'user_permissions',
+                                    'is_blocked',
                                     'is_superuser',
                                     'is_staff',
                                     'is_active',)}),

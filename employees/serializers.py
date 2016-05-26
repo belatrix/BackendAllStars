@@ -22,6 +22,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
                   'level',
                   'total_score',
                   'is_active',
+                  'is_blocked',
                   'last_login')
 
 
@@ -47,6 +48,7 @@ class EmployeeListSerializer(serializers.ModelSerializer):
                   'level',
                   'avatar',
                   'total_score',
+                  'is_blocked',
                   'last_month_score',
                   'last_year_score',
                   'current_month_score',

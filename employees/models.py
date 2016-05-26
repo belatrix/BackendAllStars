@@ -55,6 +55,7 @@ class Employee(AbstractUser):
     reset_password_code = models.UUIDField(default=None, null=True, blank=True)
     avatar = models.ImageField(upload_to=avatar_filename, null=True, blank=True)
     base_profile_complete = models.BooleanField(default=False)
+    is_blocked = models.BooleanField(default=False)
 
     def evaluate_level(self):
         if self.total_score == (self.level + 1) * settings.NEXT_LEVEL_SCORE:
