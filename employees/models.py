@@ -59,6 +59,11 @@ class Employee(AbstractUser):
     avatar = models.ImageField(upload_to=avatar_filename, null=True, blank=True)
     base_profile_complete = models.BooleanField(default=False)
     is_blocked = models.BooleanField(default=False)
+    yesterday_given = models.PositiveIntegerField(default=0)
+    today_given = models.PositiveIntegerField(default=0)
+    current_month_given = models.PositiveIntegerField(default=0)
+    current_year_given = models.PositiveIntegerField(default=0)
+    total_given = models.PositiveIntegerField(default=0)
 
     def evaluate_level(self):
         if self.total_score == (self.level + 1) * settings.NEXT_LEVEL_SCORE:
