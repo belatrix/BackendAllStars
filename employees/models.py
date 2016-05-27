@@ -84,6 +84,12 @@ class Employee(AbstractUser):
         self.current_year_score += number
         return
 
+    def add_stars_given(self, number):
+        self.total_given += number
+        self.current_month_given += number
+        self.current_year_given += number
+        return
+
     def generate_reset_password_code(self):
         uuid_code = uuid4()
         self.reset_password_code = str(uuid_code)
