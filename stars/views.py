@@ -80,9 +80,8 @@ def give_star_to(request, from_employee_id, to_employee_id):
             # Save recommendation
             serializer.save()
 
-            # Add 1 point to from_user
-            from_user.add_stars(1)
-            from_user.evaluate_level()
+            # Add 1 to employee given points
+            from_user.add_stars_given(1)
             from_user.save()
 
             # Add points to to_user according category weight
@@ -146,8 +145,7 @@ def give_star_to_many(request, from_employee_id):
 
                     # Add points
                     to_user = get_object_or_404(Employee, pk=user_pk)
-                    from_user.add_stars(1)
-                    from_user.evaluate_level()
+                    from_user.add_stars_given(1)
                     from_user.save()
                     to_user.add_stars(category.weight)
                     to_user.evaluate_level()
