@@ -51,7 +51,7 @@ class Employee(AbstractUser):
     level = models.PositiveIntegerField(default=0)
     categories = models.ManyToManyField('categories.Category', blank=True)
     reset_password_code = models.UUIDField(default=None, null=True, blank=True)
-    avatar = models.ImageField(upload_to=avatar_filename, null=True, blank=True)
+    avatar = models.ImageField(upload_to=avatar_filename, default="/media/avatar/allstar_user.jpg", null=True, blank=True)
     base_profile_complete = models.BooleanField(default=False)
     is_blocked = models.BooleanField(default=False)
 
