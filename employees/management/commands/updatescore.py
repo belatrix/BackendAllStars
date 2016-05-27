@@ -11,30 +11,40 @@ class Command(BaseCommand):
     def change_month(self):
         employees = get_list_or_404(Employee)
         for employee in employees:
+            employee.last_month_given = employee.current_month_given
             employee.last_month_score = employee.current_month_score
-            employee.current_month_score = 0
             employee.current_month_given = 0
+            employee.current_month_score = 0
             employee.save()
 
     def change_year(self):
         employees = get_list_or_404(Employee)
         for employee in employees:
+            employee.last_year_given = employee.current_year_given
             employee.last_year_score = employee.current_year_score
-            employee.current_year_score = 0
             employee.current_year_given = 0
+            employee.current_year_score = 0
             employee.save()
 
     def change_day(self):
         employees = get_list_or_404(Employee)
         for employee in employees:
             employee.yesterday_given = employee.today_given
+            employee.yesterday_received = employee.today_received
             employee.today_given = 0
+            employee.today_received = 0
             employee.save()
 
-    def block_user(self):
+    def evaluate_block_users(self):
         employees = get_list_or_404(Employee)
         for employee in employees:
-            if employee.yesterday_given == config.MAX_STARS_GIVEN_DAY:
+            if employee.yesterday_given > config.MAX_STARS_GIVEN_DAY:
+                employee.is_blocked = True
+            if employee.yesterday_received > config.MAX_STARS_RECEIVED_DAY:
+                employee.is_blocked = True
+            if employee.current_month_given > config.MAX_STARS_GIVEN_MONTHLY:
+                employee.is_blocked = True
+            if employee.current_month_score > config.MAX_STARS_RECEIVED_MONTHLY:
                 employee.is_blocked = True
             employee.save()
 
@@ -49,13 +59,28 @@ class Command(BaseCommand):
                             dest='force-year',
                             default=False,
                             help='Force to change current year score to last year score')
+        parser.add_argument('--force-day',
+                            action='store_true',
+                            dest='force-day',
+                            default=False,
+                            help='Force to change current day to tomorrow')
 
     def handle(self, *args, **options):
         today = datetime.now()
+
+        # Cron tasks
+        if today.hour == 0:
+            self.change_day()
+            self.evaluate_block_users()
         if today.day == 1:
             self.change_month()
         if (today.day == 1 and today.month == 1):
             self.change_year()
+
+        # Force actions
+        if options['force-day']:
+            self.change_day()
+            self.evaluate_block_users()
         if options['force-month']:
             self.change_month()
         if options['force-year']:
