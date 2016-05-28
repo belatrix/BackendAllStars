@@ -228,7 +228,7 @@ def stars_employee_subcategory_list(request, employee_id):
     """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
-        employee_stars = Star.objects.filter(to_user=employee).values('subcategory__pk', 'subcategory__name').annotate(num_stars=Count('subcategory')).order_by('-num_stars')
+        employee_stars = Star.objects.filter(to_user=employee).values('subcategory__pk', 'subcategory__name').annotate(num_stars=Count('subcategory')).order_by('-num_stars', 'subcategory__name')
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(employee_stars, request)
         serializer = StarEmployeesSubcategoriesSerializer(results, many=True)
