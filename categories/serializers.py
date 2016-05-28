@@ -33,3 +33,9 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ('pk', 'name', 'weight', 'comment_required', 'subcategories')
+
+
+class CategorySimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('pk', 'name', 'weight')
