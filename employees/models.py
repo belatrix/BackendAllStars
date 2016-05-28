@@ -79,12 +79,14 @@ class Employee(AbstractUser):
             return
 
     def add_stars(self, number):
+        self.today_received += number
         self.total_score += number
         self.current_month_score += number
         self.current_year_score += number
         return
 
     def add_stars_given(self, number):
+        self.today_given += number
         self.total_given += number
         self.current_month_given += number
         self.current_year_given += number
