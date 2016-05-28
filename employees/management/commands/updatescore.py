@@ -1,6 +1,7 @@
 from constance import config
 from datetime import datetime
 from django.core.management.base import BaseCommand
+from django.core.mail import EmailMessage
 from django.shortcuts import get_list_or_404
 from employees.models import Employee
 
@@ -47,6 +48,16 @@ class Command(BaseCommand):
             if employee.current_month_score > config.MAX_STARS_RECEIVED_MONTHLY:
                 employee.is_blocked = True
             employee.save()
+
+            try:
+                if employee.is_blocked:
+                    subject = "User blocked in AllStars Belatrix"
+                    message = "Your username %s is blocked. Please contact with your team leader to see more details." % (employee.username)
+                    send_email = EmailMessage(subject, message, to=[employee.email])
+                    send_email.send()
+            except Exception as e:
+                print e
+
 
     def add_arguments(self, parser):
         parser.add_argument('--force-month',
