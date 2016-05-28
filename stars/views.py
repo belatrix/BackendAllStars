@@ -253,7 +253,7 @@ def stars_employee_subcategory_detail_list(request, employee_id, subcategory_id)
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
         subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
-        stars = Star.objects.filter(to_user=employee, subcategory=subcategory)
+        stars = Star.objects.filter(to_user=employee, subcategory=subcategory).order_by('-date')
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(stars, request)
         serializer = StarSmallSerializer(results, many=True)
