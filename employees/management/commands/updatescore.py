@@ -58,6 +58,12 @@ class Command(BaseCommand):
             except Exception as e:
                 print e
 
+    def send_daily_email(self):
+        subject = "[Allstars] cronjob in heroku"
+        message = "Confirmation mail, Heroku scheduler has been executed today."
+        send_mail = EmailMessage(subject, message, to=['sergio@neosergio.net'])
+        send_mail.send()
+
 
     def add_arguments(self, parser):
         parser.add_argument('--force-month',
@@ -83,6 +89,7 @@ class Command(BaseCommand):
         if today.hour == 0:
             self.change_day()
             self.evaluate_block_users()
+            self.send_daily_email()
         if today.day == 1:
             self.change_month()
         if (today.day == 1 and today.month == 1):
