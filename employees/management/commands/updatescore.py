@@ -99,6 +99,7 @@ class Command(BaseCommand):
         if options['force-day']:
             self.change_day()
             self.evaluate_block_users()
+            self.send_daily_email()
         if options['force-month']:
             self.change_month()
         if options['force-year']:
