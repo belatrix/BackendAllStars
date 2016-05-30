@@ -63,6 +63,7 @@ class StarTopEmployeeLists(serializers.Serializer):
     username = serializers.CharField(max_length=100, source='to_user__username')
     first_name = serializers.CharField(max_length=100, source='to_user__first_name')
     last_name = serializers.CharField(max_length=100, source='to_user__last_name')
+    level = serializers.IntegerField(source='to_user__level')
     avatar = serializers.SerializerMethodField()
     num_stars = serializers.IntegerField()
 
