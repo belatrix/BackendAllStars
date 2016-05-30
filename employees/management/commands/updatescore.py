@@ -86,13 +86,13 @@ class Command(BaseCommand):
         today = datetime.now()
 
         # Cron tasks
-        if today.hour == 0:
+        if today.hour == 16:
             self.change_day()
             self.evaluate_block_users()
             self.send_daily_email()
-        if today.day == 1:
+        if today.day == 30:
             self.change_month()
-        if (today.day == 1 and today.month == 1):
+        if (today.day == 30 and today.month == 5):
             self.change_year()
 
         # Force actions
