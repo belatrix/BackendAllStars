@@ -84,16 +84,15 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         today = datetime.now()
-        print today.hour
 
         # Cron tasks
-        if today.hour == 19:
+        if today.hour == 0:
             self.change_day()
             self.evaluate_block_users()
             self.send_daily_email()
-        if today.day == 30:
+        if today.day == 1:
             self.change_month()
-        if (today.day == 30 and today.month == 5):
+        if (today.day == 1 and today.month == 1):
             self.change_year()
 
         # Force actions
