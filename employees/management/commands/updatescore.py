@@ -51,19 +51,18 @@ class Command(BaseCommand):
 
             try:
                 if employee.is_blocked:
-                    subject = "User blocked in AllStars Belatrix"
-                    message = "Your username %s is blocked. Please contact with your team leader to see more details." % (employee.username)
+                    subject = config.USER_BLOCKED_NOTIFICATION_SUBJECT
+                    message = config.USER_BLOCKED_NOTIFICATION_MESSAGE % (employee.username)
                     send_email = EmailMessage(subject, message, to=[employee.email])
                     send_email.send()
             except Exception as e:
                 print e
 
     def send_daily_email(self):
-        subject = "[Allstars] cronjob in heroku"
-        message = "Confirmation mail, Heroku scheduler has been executed today."
-        send_mail = EmailMessage(subject, message, to=['sergio@neosergio.net'])
+        subject = config.DAILY_EXECUTION_CONFIRMATION_SUBJECT
+        message = config.DAILY_EXECUTION_CONFIRMATION_MESSAGE
+        send_mail = EmailMessage(subject, message, to=[config.DAILY_EXECUTION_CONFIRMATION_EMAIL])
         send_mail.send()
-
 
     def add_arguments(self, parser):
         parser.add_argument('--force-month',
