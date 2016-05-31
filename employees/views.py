@@ -363,7 +363,7 @@ def employee_image(request, employee_id):
         employee.avatar.delete()
         employee.avatar = upload
         employee.save()
-        serializer = EmployeeAvatarSerializer(employee)
+        serializer = EmployeeSerializer(employee)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
