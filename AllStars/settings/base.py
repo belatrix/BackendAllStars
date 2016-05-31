@@ -61,8 +61,8 @@ INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
     # Rules to block users
-    'MAX_STARS_GIVEN_DAY' : (10, 'Maximum number of stars given by one employee daily'),
-    'MAX_STARS_RECEIVED_DAY' : (15, 'Maximum number of stars received to employee daily'),
+    'MAX_STARS_GIVEN_DAY': (10, 'Maximum number of stars given by one employee daily'),
+    'MAX_STARS_RECEIVED_DAY': (15, 'Maximum number of stars received to employee daily'),
     'MAX_STARS_GIVEN_MONTHLY': (30, 'Maximum number of stars given by one employee in a month'),
     'MAX_STARS_RECEIVED_MONTHLY': (45, 'Maximum number of stars received to one employee in a month'),
 
@@ -73,7 +73,7 @@ CONSTANCE_CONFIG = {
 
     # User messages
     'EMPLOYEE_CREATION_SUBJECT': ('[BELATRIX AllStars] Your account has been successfully created.', 'Email subject when new account is created.'),
-    'EMPLOYEE_CREATION_MESSAGE': ('Your username is: %s and your initial random password is %s','Email message when new account is created'),
+    'EMPLOYEE_CREATION_MESSAGE': ('Your username is: %s and your initial random password is %s', 'Email message when new account is created'),
     'EMPLOYEE_RESET_PASSWORD_CONFIRMATION_SUBJECT': ('[BELATRIX AllStars] Please confirm if you want a password reset.', 'Confirmation reset password email subject.'),
     'EMPLOYEE_RESET_PASSWORD_CONFIRMATION_MESSAGE': ('If you want to reset your password please confirm the request, clicking here: %s', 'Confirmation reset password email message.'),
     'EMPLOYEE_RESET_PASSWORD_SUCCESSFULLY_SUBJECT': ('[BELATRIX AllStars] Your new password has been successfully created.', 'Reset password successfully email subject '),
@@ -92,7 +92,7 @@ CONSTANCE_CONFIG = {
     'SUCCESSFULLY_STARS_ADDED': ('Successfully stars added', 'Successfully message when bulk stars added.'),
     'USER_BLOCKED_TO_GIVE_STARS': ('User is blocked to give stars. Please contact your project leader.', 'Error message when user is blocked to give stars.'),
     'USER_BLOCKED_TO_RECEIVED_STARS': ('User is blocked to received stars.', 'Error message when user is blocked to received stars.'),
-    'USER_UNABLE_TO_GIVE_STARS_ITSELF': ('User is unable to give stars to itself.', 'Error message when user is unable to give stars to itself.')
+    'USER_UNABLE_TO_GIVE_STARS_ITSELF': ('User is unable to give stars to itself.', 'Error message when user is unable to give stars to itself.'),
 
     # Daily cron tasks messages
     'DAILY_EXECUTION_CONFIRMATION_SUBJECT': ('[BELATRIX AllStars] Daily check has been executed.', 'Email confirmation subject for daily tasks.'),

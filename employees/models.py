@@ -41,8 +41,10 @@ def avatar_filename(instance, filename):
     timestamp = int(time())
     return 'avatar/%s%d.jpg' % (instance, timestamp)
 
+
 def get_default_category():
     return Category.objects.get(name__icontains='Coworker')
+
 
 class Employee(AbstractUser):
     role = models.ForeignKey(Role, null=True, blank=True)
@@ -107,7 +109,6 @@ class Employee(AbstractUser):
         last_name = self.last_name
         avatar = self.avatar
         skype = self.skype_id
-        
         if first_name and last_name and avatar and skype:
             self.base_profile_complete = True
         else:
