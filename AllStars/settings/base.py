@@ -93,6 +93,13 @@ CONSTANCE_CONFIG = {
     'USER_BLOCKED_TO_GIVE_STARS': ('User is blocked to give stars. Please contact your project leader.', 'Error message when user is blocked to give stars.'),
     'USER_BLOCKED_TO_RECEIVED_STARS': ('User is blocked to received stars.', 'Error message when user is blocked to received stars.'),
     'USER_UNABLE_TO_GIVE_STARS_ITSELF': ('User is unable to give stars to itself.', 'Error message when user is unable to give stars to itself.')
+
+    # Daily cron tasks messages
+    'DAILY_EXECUTION_CONFIRMATION_SUBJECT': ('[BELATRIX AllStars] Daily check has been executed.', 'Email confirmation subject for daily tasks.'),
+    'DAILY_EXECUTION_CONFIRMATION_MESSAGE': ('Your daily check scores and rules has been executed.', 'Email confirmation message for daily tasks.'),
+    'DAILY_EXECUTION_CONFIRMATION_EMAIL': ('sergio@neosergio.net', 'Email address to send daily message for daily tasks.'),
+    'USER_BLOCKED_NOTIFICATION_SUBJECT': ('[BELATRIX AllStars] Your user account is blocked in AllStars', 'Email notificacion subject when user is blocked'),
+    'USER_BLOCKED_NOTIFICATION_MESSAGE': ('Your username %s is blocked. Please contact with your project leader for more details.', 'Email notificacion message when user is blocked'),
 }
 
 MIDDLEWARE_CLASSES = [
