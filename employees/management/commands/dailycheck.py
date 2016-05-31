@@ -63,7 +63,7 @@ class Command(BaseCommand):
 
             try:
                 if employee.is_blocked:
-                    self.send_blocked_notification_email()
+                    self.send_blocked_notification_email(employee)
             except Exception as e:
                 print e
 
@@ -71,7 +71,11 @@ class Command(BaseCommand):
         today = datetime.now()
         self.change_day()
         self.evaluate_block_users()
-        self.send_daily_email()
+
+        try:
+            self.send_daily_email()
+        except Exception as e:
+            print e
 
         if today.day == 1:
             self.change_month()
