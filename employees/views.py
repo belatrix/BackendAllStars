@@ -5,6 +5,7 @@ from .serializers import EmployeeTopTotalScoreList, EmployeeTopLevelList
 from .serializers import EmployeeTopCurrentMonthList, EmployeeTopLastMonthList
 from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList
 from categories.serializers import CategorySerializer
+from constance import config
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMessage
@@ -104,16 +105,16 @@ def employee_bulk_creation(request):
                             new_employee.save()
                             users_created += 1
                         else:
-                            errors.append("%s already exists." % (email))
+                            errors.append(config.USER_EMAIL_ALREADY_REGISTERED % (email))
                     else:
-                        errors.append("%s already exists, maybe a password reset is needed.")
+                        errors.append(config.EMAIL_DOMAIN_FORBIDDEN % (domain))
                 else:
-                    errors.append("%s is not a valid email address." % (email))
+                    errors.append(config.INVALID_EMAIL_ADDRESS % (email))
         else:
             errors.append(serializer.errors)
 
         if len(errors) == 0:
-            content = {'detail': 'Successful users creation'}
+            content = {'detail': config.USER_SUCCESSFULLY_CREATED}
             return Response(content, status=status.HTTP_201_CREATED)
         else:
             users_result = {"user_created": users_created}
@@ -150,13 +151,13 @@ def employee_creation(request):
             username = email.split('@')[0]
             domain = email.split('@')[1]
         else:
-            content = {'detail': 'This email address is not recognized as a valid one.'}
+            content = {'detail': config.INVALID_EMAIL_ADDRESS}
             return Response(content, status=status.HTTP_401_UNAUTHORIZED)
 
         if domain in settings.EMAIL_DOMAIN_LIST:
             random_password = Employee.objects.make_random_password()
-            subject = settings.EMPLOYEE_CREATION_SUBJECT
-            message = 'Your username is: %s and your initial random password is %s' % (username, random_password)
+            subject = config.EMPLOYEE_CREATION_SUBJECT
+            message = config.EMPLOYEE_CREATION_MESSAGE % (username, random_password)
 
             try:
                 new_employee = Employee.objects.create_user(username, password=random_password, email=email)
@@ -164,7 +165,7 @@ def employee_creation(request):
                 new_employee.save()
             except Exception as e:
                 print e
-                content = {'detail': 'User already exists, maybe you need a password reset.'}
+                content = {'detail': config.USER_EMAIL_ALREADY_REGISTERED}
                 return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
             try:
@@ -172,13 +173,13 @@ def employee_creation(request):
                 send_email.send()
             except Exception as e:
                 print e
-                content = {'detail': 'User was created, but there are problems with email service, please contact an administrator.'}
+                content = {'detail': config.USER_SUCCESSFULLY_CREATED_EMAIL_ERROR}
                 return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
-            content = {'detail': 'Successful user creation'}
+            content = {'detail': config.USER_SUCCESSFULLY_CREATED}
             return Response(content, status=status.HTTP_201_CREATED)
         else:
-            content = {'detail': 'User creation is not available for other email domains.'}
+            content = {'detail': config.EMAIL_DOMAIN_FORBIDDEN % (domain)}
             return Response(content, status=status.HTTP_401_UNAUTHORIZED)
 
 
@@ -384,18 +385,18 @@ def employee_reset_password(request, employee_email):
         employee.generate_reset_password_code()
 
         # Send email with reset password confirmation url
-        subject = settings.EMPLOYEE_RESET_PASSWORD_CONFIRMATION_SUBJECT
+        subject = config.EMPLOYEE_RESET_PASSWORD_CONFIRMATION_SUBJECT
         current_site = Site.objects.get_current()
         employee_reset_password_api = reverse('employees:employee_reset_password', args=[employee.email])
         url = current_site.domain + employee_reset_password_api + employee.reset_password_code
-        message = 'If you want to reset your password please confirm the request, clicking here: %s' % (url)
+        message = config.EMPLOYEE_RESET_PASSWORD_CONFIRMATION_MESSAGE % (url)
 
         try:
             send_email = EmailMessage(subject, message, to=[employee.email])
             send_email.send()
         except Exception as e:
             print e
-            content = {'detail': 'There are problems with email service, please contact an administrator.'}
+            content = {'detail': config.EMAIL_SERVICE_ERROR}
             return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
         content = {'detail': 'Confirmation email sent.',
@@ -422,17 +423,17 @@ def employee_reset_password_confirmation(request, employee_email, employee_uuid)
         employee.save()
 
         # Send confirmation email
-        subject = settings.EMPLOYEE_RESET_PASSWORD_SUCCESSFUL_SUBJECT
-        message = 'Your new password is: %s' % (random_password)
+        subject = config.EMPLOYEE_RESET_PASSWORD_SUCCESSFULLY_SUBJECT
+        message = config.EMPLOYEE_RESET_PASSWORD_SUCCESSFULLY_MESSAGE % (random_password)
         try:
             send_email = EmailMessage(subject, message, to=[employee.email])
             send_email.send()
         except Exception as e:
             print e
-            content = {'detail': 'Password was reset but there are problems with email service, please contact an administrator.'}
+            content = {'detail': config.EMAIL_SERVICE_ERROR}
             return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
-        content = {'detail': 'Successful password creation, email has been sent'}
+        content = {'detail': config.USER_SUCCESSFULLY_RESET_PASSWORD}
         return Response(content, status=status.HTTP_200_OK)
 
 
@@ -510,7 +511,7 @@ def employee_update_password(request, employee_id):
             raise APIException(e)
         employee = get_object_or_404(Employee, pk=employee_id)
         if current_password == new_password:
-            content = {'detail': 'new and current password are equal.'}
+            content = {'detail': config.PASSWORD_EQUAL}
             return Response(content, status=status.HTTP_400_BAD_REQUEST)
         elif employee.check_password(current_password):
             employee.set_password(new_password)
@@ -519,7 +520,7 @@ def employee_update_password(request, employee_id):
             serializer = EmployeeSerializer(employee)
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         else:
-            content = {'detail': 'Current password is wrong.'}
+            content = {'detail': config.WRONG_CURRENT_PASSWORD}
             return Response(content, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -589,5 +590,5 @@ class CustomObtainAuthToken(ObtainAuthToken):
                              'base_profile_complete': employee.base_profile_complete})
         except Exception as e:
             print e
-            content = 'Unable to log in with provided credentials.'
+            content = config.USER_UNABLE_TO_LOG
             raise APIException(content)

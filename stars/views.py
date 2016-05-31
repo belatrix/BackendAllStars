@@ -20,6 +20,7 @@ from rest_framework.response import Response
 def give_star_to(request, from_employee_id, to_employee_id):
     """
     This endpoint saves stars on both employees (from and to).
+    This endpoint saves stars on both employees (from and to).
     ---
     response_serializer: stars.serializers.StarSerializer
     responseMessages:
@@ -48,7 +49,7 @@ def give_star_to(request, from_employee_id, to_employee_id):
       paramType: string
     """
     if from_employee_id == to_employee_id:
-        content = {'detail': 'User is unable to give stars to itself.'}
+        content = {'detail': config.USER_UNABLE_TO_GIVE_STARS_ITSELF}
         return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
     elif request.method == 'POST':
         # Set values from request.data from POST
@@ -60,10 +61,10 @@ def give_star_to(request, from_employee_id, to_employee_id):
         keyword = get_object_or_404(Keyword, pk=request.data['keyword'])
 
         if from_user.is_blocked:
-            content = {'detail': 'User is unable to give stars. Please contact an administrator.'}
+            content = {'detail': config.USER_BLOCKED_TO_GIVE_STARS}
             return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
         elif to_user.is_blocked:
-            content = {'detail': 'User is unable to received stars.'}
+            content = {'detail': config.USER_BLOCKED_TO_RECEIVED_STARS}
             return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
         # Create data object to save
@@ -156,7 +157,7 @@ def give_star_to_many(request, from_employee_id):
             errors.append(serializer_bulk.errors)
 
         if len(errors) == 0:
-            content = {'detail': 'Successful stars added'}
+            content = {'detail': config.SUCCESSFULLY_STARS_ADDED}
             return Response(content, status=status.HTTP_201_CREATED)
         else:
             stars_results = {"stars_added": stars_added}

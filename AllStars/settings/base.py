@@ -60,10 +60,39 @@ INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
+    # Rules to block users
     'MAX_STARS_GIVEN_DAY' : (10, 'Maximum number of stars given by one employee daily'),
     'MAX_STARS_RECEIVED_DAY' : (15, 'Maximum number of stars received to employee daily'),
     'MAX_STARS_GIVEN_MONTHLY': (30, 'Maximum number of stars given by one employee in a month'),
     'MAX_STARS_RECEIVED_MONTHLY': (45, 'Maximum number of stars received to one employee in a month'),
+
+    # Email errors messages
+    'EMAIL_DOMAIN_FORBIDDEN': ('Email domain %s is forbidden.', 'Error message when email domain is not in email domain list'),
+    'EMAIL_SERVICE_ERROR': ('There are problems with email service, please contact an administrator.', 'Error message when email service is not available.'),
+    'INVALID_EMAIL_ADDRESS': ('%s is not a valid email address.', 'Error message when email address is invalid.'),
+
+    # User messages
+    'EMPLOYEE_CREATION_SUBJECT': ('[BELATRIX AllStars] Your account has been successfully created.', 'Email subject when new account is created.'),
+    'EMPLOYEE_CREATION_MESSAGE': ('Your username is: %s and your initial random password is %s','Email message when new account is created'),
+    'EMPLOYEE_RESET_PASSWORD_CONFIRMATION_SUBJECT': ('[BELATRIX AllStars] Please confirm if you want a password reset.', 'Confirmation reset password email subject.'),
+    'EMPLOYEE_RESET_PASSWORD_CONFIRMATION_MESSAGE': ('If you want to reset your password please confirm the request, clicking here: %s', 'Confirmation reset password email message.'),
+    'EMPLOYEE_RESET_PASSWORD_SUCCESSFULLY_SUBJECT': ('[BELATRIX AllStars] Your new password has been successfully created.', 'Reset password successfully email subject '),
+    'EMPLOYEE_RESET_PASSWORD_SUCCESSFULLY_MESSAGE': ('Your new password is: %s', 'Reset password successfully email message.'),
+    'USER_EMAIL_ALREADY_REGISTERED': ('email %s is already registered.', 'Error message when user already exists.'),
+    'USER_SUCCESSFULLY_CREATED': ('User(s) successfully created.', 'Message when an account has been created successfully.'),
+    'USER_SUCCESSFULLY_CREATED_EMAIL_ERROR': ('User was created, but there are problems with email service, please contact an administrator.', 'Message when an account has been created successfully but no email was sent.'),
+    'USER_SUCCESSFULLY_RESET_PASSWORD': ('Successfully password creation, email has been sent.', 'Successfully user reset password.'),
+    'USER_UNABLE_TO_LOG': ('User is unable to log in with provided credentials.', 'Error message when user are not able to log in'),
+
+    # Password errors messages
+    'PASSWORD_EQUAL': ('New and current password are equal', 'Error message when new and current password are equal.'),
+    'WRONG_CURRENT_PASSWORD': ('Current password is wrong.', 'Error message when current password is wrong.'),
+
+    # Stars messages
+    'SUCCESSFULLY_STARS_ADDED': ('Successfully stars added', 'Successfully message when bulk stars added.'),
+    'USER_BLOCKED_TO_GIVE_STARS': ('User is blocked to give stars. Please contact your project leader.', 'Error message when user is blocked to give stars.'),
+    'USER_BLOCKED_TO_RECEIVED_STARS': ('User is blocked to received stars.', 'Error message when user is blocked to received stars.'),
+    'USER_UNABLE_TO_GIVE_STARS_ITSELF': ('User is unable to give stars to itself.', 'Error message when user is unable to give stars to itself.')
 }
 
 MIDDLEWARE_CLASSES = [
@@ -134,11 +163,6 @@ EMAIL_DOMAIN_LIST = {
     'gmail.com',
 }
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-# EMPLOYEE CREATION MESSAGES
-EMPLOYEE_CREATION_SUBJECT = '[BELATRIX AllStars] Your account was created successfully.'
-EMPLOYEE_RESET_PASSWORD_CONFIRMATION_SUBJECT = '[BELATRIX AllStars] Please confirm if you want a password reset.'
-EMPLOYEE_RESET_PASSWORD_SUCCESSFUL_SUBJECT = '[BELATRIX AllStars] Your new password has been successfully created.'
 
 TEMPLATES = [
     {
