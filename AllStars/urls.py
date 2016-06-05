@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^api/employee/', include('employees.urls', namespace='employees')),
     url(r'^api/category/', include('categories.urls', namespace='categories')),
     url(r'^api/star/', include('stars.urls', namespace='stars')),
+    url(r'^api/event/', include('events.urls', namespace='events')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
