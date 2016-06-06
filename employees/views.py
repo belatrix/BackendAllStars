@@ -165,7 +165,7 @@ def employee_creation(request):
                 new_employee.save()
             except Exception as e:
                 print e
-                content = {'detail': config.USER_EMAIL_ALREADY_REGISTERED}
+                content = {'detail': config.USER_EMAIL_ALREADY_REGISTERED % (email)}
                 return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
             try:
