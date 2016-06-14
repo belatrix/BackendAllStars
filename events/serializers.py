@@ -25,4 +25,3 @@ class EventListSerializer(serializers.ModelSerializer):
                   'location',
                   'collaborators',
                   'participants')
-
