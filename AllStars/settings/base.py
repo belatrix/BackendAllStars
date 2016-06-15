@@ -50,6 +50,7 @@ THIRD_PARTY_APPS = [
 ]
 
 PROJECT_APPS = [
+    'activities',
     'categories',
     'employees',
     'events',
