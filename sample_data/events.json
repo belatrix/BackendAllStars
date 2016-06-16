@@ -213,4 +213,64 @@
 		"speaker": 7,
 		"participants": [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	}
+}, {
+	"model": "events.comment",
+	"pk": 1,
+	"fields": {
+		"datetime": "2016-06-16T16:30:04.618Z",
+		"is_approved": false,
+		"message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla bibendum quam id neque dignissim sed.",
+		"author": 7,
+		"approved_by": null,
+		"event": 1,
+		"talk": null
+	}
+}, {
+	"model": "events.comment",
+	"pk": 2,
+	"fields": {
+		"datetime": "2016-06-16T16:31:11.095Z",
+		"is_approved": true,
+		"message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla bibendum quam id neque dignissim sed.",
+		"author": 6,
+		"approved_by": 7,
+		"event": null,
+		"talk": 2
+	}
+}, {
+	"model": "events.comment",
+	"pk": 3,
+	"fields": {
+		"datetime": "2016-06-16T16:32:28.718Z",
+		"is_approved": false,
+		"message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et massa gravida lorem ullamcorper consequat. Nulla iaculis scelerisque pellentesque. Etiam iaculis justo sit amet dolor convallis amet.",
+		"author": 9,
+		"approved_by": null,
+		"event": 1,
+		"talk": null
+	}
+}, {
+	"model": "events.comment",
+	"pk": 4,
+	"fields": {
+		"datetime": "2016-06-16T16:33:22.232Z",
+		"is_approved": true,
+		"message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc orci lectus, ullamcorper eu cursus at, facilisis sed orci. Sed sed purus a tellus metus.",
+		"author": 8,
+		"approved_by": null,
+		"event": 1,
+		"talk": null
+	}
+}, {
+	"model": "events.comment",
+	"pk": 5,
+	"fields": {
+		"datetime": "2016-06-16T16:35:51.308Z",
+		"is_approved": false,
+		"message": "Nunc dictum ante id maximus fermentum. Integer a metus pellentesque, fermentum tortor in, dapibus lorem. Fusce cursus, erat vel mollis interdum, neque quam semper velit, sit amet mattis odio ex vitae nulla. Fusce nec turpis in enim commodo maximus vitae eget sapien. Donec ante magna, venenatis amet.",
+		"author": 12,
+		"approved_by": null,
+		"event": null,
+		"talk": 1
+	}
 }]

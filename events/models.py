@@ -25,6 +25,7 @@ class Participant(models.Model):
         ordering = ['-pk', 'fullname', 'email']
 
 
+@python_2_unicode_compatible
 class Event(models.Model):
     title = models.CharField(max_length=200, unique=True)
     description = models.CharField(max_length=200, blank=True, null=True)
@@ -33,11 +34,15 @@ class Event(models.Model):
     collaborators = models.ManyToManyField('employees.Employee', blank=True)
     participants = models.ManyToManyField(Participant, blank=True)
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         verbose_name_plural = 'events'
         ordering = ['-datetime', 'title']
 
 
+@python_2_unicode_compatible
 class Talk(models.Model):
     title = models.CharField(max_length=200, unique=True)
     description = models.CharField(max_length=200, blank=True, null=True)
@@ -46,6 +51,9 @@ class Talk(models.Model):
     url = models.URLField(max_length=200, blank=True, null=True)
     speaker = models.ForeignKey('employees.Employee', blank=True, null=True)
     participants = models.ManyToManyField(Participant, blank=True)
+
+    def __str__(self):
+        return self.title
 
     class Meta:
         verbose_name_plural = 'talks'
@@ -58,6 +66,8 @@ class Comment(models.Model):
     message = models.TextField()
     author = models.ForeignKey(Participant)
     approved_by = models.ForeignKey('employees.Employee', null=True, blank=True)
+    event = models.ForeignKey(Event, null=True, blank=True)
+    talk = models.ForeignKey(Talk, null=True, blank=True)
 
     class Meta:
         ordering = ['-datetime']

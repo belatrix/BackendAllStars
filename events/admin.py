@@ -3,7 +3,7 @@ from django.contrib import admin
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('datetime', 'author', 'message', 'is_approved', 'approved_by')
+    list_display = ('datetime', 'author', 'message', 'is_approved', 'approved_by', 'event', 'talk')
 
 
 class EventAdmin(admin.ModelAdmin):
