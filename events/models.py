@@ -6,22 +6,23 @@ from django.utils.encoding import python_2_unicode_compatible
 
 @python_2_unicode_compatible
 class Participant(models.Model):
-    name = models.CharField(max_length=200)
-    lastname = models.CharField(max_length=200)
-    email = models.EmailField(max_length=200, unique=True)
+    fullname = models.CharField(max_length=255)
+    email = models.EmailField(max_length=200, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     carreer = models.CharField(max_length=200, blank=True, null=True)
     educational_center = models.CharField(max_length=200, blank=True, null=True)
     english_level = models.CharField(max_length=200, blank=True, null=True)
-    facebook_account = models.CharField(max_length=200, blank=True, null=True)
-    twitter_account = models.CharField(max_length=200, blank=True, null=True)
+    facebook_id = models.CharField(max_length=200, blank=True, null=True)
+    facebook_link = models.URLField(max_length=200, blank=True, null=True)
+    twitter_id = models.CharField(max_length=200, blank=True, null=True)
+    twitter_link = models.URLField(max_length=200, blank=True, null=True)
 
     def __str__(self):
-        return self.email
+        return self.fullname
 
     class Meta:
         verbose_name_plural = 'participants'
-        ordering = ['name', 'lastname', 'email']
+        ordering = ['-pk', 'fullname', 'email']
 
 
 class Event(models.Model):

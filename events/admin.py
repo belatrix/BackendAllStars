@@ -11,7 +11,7 @@ class EventAdmin(admin.ModelAdmin):
 
 
 class ParticipantAdmin(admin.ModelAdmin):
-    list_display = ('name', 'lastname', 'email')
+    list_display = ('fullname', 'email')
 
 
 class TalkAdmin(admin.ModelAdmin):
