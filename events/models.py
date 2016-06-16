@@ -43,6 +43,7 @@ class Talk(models.Model):
     description = models.CharField(max_length=200, blank=True, null=True)
     datetime = models.DateTimeField(blank=True, null=True)
     location = models.CharField(max_length=200, blank=True, null=True)
+    url = models.URLField(max_length=200, blank=True, null=True)
     speaker = models.ForeignKey('employees.Employee', blank=True, null=True)
     participants = models.ManyToManyField(Participant, blank=True)
 
