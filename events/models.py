@@ -48,3 +48,15 @@ class Talk(models.Model):
     class Meta:
         verbose_name_plural = 'talks'
         ordering = ['-datetime', 'title']
+
+
+class Comment(models.Model):
+    datetime = models.DateTimeField(auto_now_add=True)
+    is_approved = models.BooleanField(default=False)
+    message = models.TextField()
+    author = models.ForeignKey(Participant)
+    approved_by = models.ForeignKey('employees.Employee', null=True, blank=True)
+
+    class Meta:
+        ordering = ['-datetime']
+        verbose_name_plural = 'comments'
