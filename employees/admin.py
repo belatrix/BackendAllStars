@@ -40,7 +40,7 @@ class EmployeeAdmin(ImportExportMixin, BaseUserAdmin):
                                       'skype_id',
                                       'avatar',
                                       'categories',
-                                      'base_profile_complete')}),
+                                      'is_base_profile_complete')}),
         ('Personal score daily', {'fields': ('today_given',
                                              'today_received',
                                              'yesterday_given',

@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('level', models.PositiveIntegerField(default=0)),
                 ('reset_password_code', models.UUIDField(blank=True, default=None, null=True)),
                 ('avatar', models.ImageField(blank=True, null=True, upload_to=employees.models.avatar_filename)),
-                ('base_profile_complete', models.BooleanField(default=False)),
+                ('is_base_profile_complete', models.BooleanField(default=False)),
                 ('is_blocked', models.BooleanField(default=False)),
                 ('yesterday_given', models.PositiveIntegerField(default=0)),
                 ('today_given', models.PositiveIntegerField(default=0)),

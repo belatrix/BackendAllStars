@@ -54,7 +54,7 @@ class Employee(AbstractUser):
     categories = models.ManyToManyField('categories.Category', blank=True)
     reset_password_code = models.UUIDField(default=None, null=True, blank=True)
     avatar = models.ImageField(upload_to=avatar_filename, null=True, blank=True)
-    base_profile_complete = models.BooleanField(default=False)
+    is_base_profile_complete = models.BooleanField(default=False)
     is_blocked = models.BooleanField(default=False)
 
     # Given stars
@@ -107,12 +107,11 @@ class Employee(AbstractUser):
 
         first_name = self.first_name
         last_name = self.last_name
-        avatar = self.avatar
         skype = self.skype_id
-        if first_name and last_name and avatar and skype:
-            self.base_profile_complete = True
+        if first_name and last_name and skype:
+            self.is_base_profile_complete = True
         else:
-            self.base_profile_complete = False
+            self.is_base_profile_complete = False
         super(Employee, self).save(*args, **kwargs)
 
         if is_new:
