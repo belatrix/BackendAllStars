@@ -125,6 +125,34 @@ def employee_bulk_creation(request):
 
 
 @api_view(['POST', ])
+@permission_classes((IsAuthenticated,))
+def employee_block(request, employee_id, action):
+    """
+    Block employee account
+    ---
+    response_serializer: employees.serializers.EmployeeSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'POST':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        if action == 'true':
+            employee.is_blocked = True
+        elif action == 'false':
+            employee.is_blocked = False
+        else:
+            pass
+        employee.save()
+        serializer = EmployeeSerializer(employee)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+@api_view(['POST', ])
 def employee_creation(request):
     """
     This endpoint creates a new user with provided email @belatrixsf.com
