@@ -190,6 +190,39 @@
 		"participants": [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	}
 }, {
+	"model": "events.event",
+	"pk": 2,
+	"fields": {
+		"title": "CodeFest 2016",
+		"description": "",
+		"datetime": null,
+		"location": "",
+		"collaborators": [],
+		"participants": []
+	}
+}, {
+	"model": "events.event",
+	"pk": 3,
+	"fields": {
+		"title": "Belatrix Conference",
+		"description": "",
+		"datetime": null,
+		"location": "",
+		"collaborators": [],
+		"participants": []
+	}
+}, {
+	"model": "events.event",
+	"pk": 4,
+	"fields": {
+		"title": "Hackatrix 2015 Buenos Aires",
+		"description": "",
+		"datetime": "2015-10-17T09:00:00Z",
+		"location": "",
+		"collaborators": [],
+		"participants": []
+	}
+}, {
 	"model": "events.talk",
 	"pk": 1,
 	"fields": {

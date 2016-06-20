@@ -15,15 +15,3 @@ class EventSerializer(serializers.ModelSerializer):
                   'location',
                   'collaborators',
                   'participants')
-
-
-class EventListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Event
-        fields = ('pk',
-                  'title',
-                  'description',
-                  'datetime',
-                  'location',
-                  'collaborators',
-                  'participants')

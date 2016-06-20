@@ -1,7 +1,6 @@
 from .models import Event
-from .serializers import EventSerializer, EventListSerializer
+from .serializers import EventSerializer
 from django.db.models import Count, Q
-from django.shortcuts import get_list_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import APIException
@@ -44,7 +43,7 @@ def event_list(request):
     """
     Returns the full events list or result list if you use ?search=
     ---
-    serializer: events.serializers.EventListSerializer
+    serializer: events.serializers.EventSerializer
     parameters:
     - name: search
       required: false
@@ -64,15 +63,20 @@ def event_list(request):
             search_terms_array = request_terms.split()
 
             initial_term = search_terms_array[0]
-            elem_list = Event.objects.filter(Q(title__icontains=initial_term) |
-                                             Q(description__icontains=initial_term))
+            event_list = Event.objects.annotate(
+                num_participants=Count('participants', distinct=True),
+                num_collaborators=Count('collaborators', distinct=True)).filter(
+                    Q(title__icontains=initial_term) |
+                    Q(description__icontains=initial_term))
             if len(search_terms_array) > 1:
                 for term in range(1, len(search_terms_array)):
-                    elem_list = elem_list.filter(Q(title__icontains=search_terms_array[term]) |
-                                                 Q(description__icontains=search_terms_array[term]))
+                    event_list = event_list.filter(Q(title__icontains=search_terms_array[term]) |
+                                                   Q(description__icontains=search_terms_array[term]))
         else:
-            elem_list = get_list_or_404(Event)
+            event_list = Event.objects.annotate(
+                num_participants=Count('participants', distinct=True),
+                num_collaborators=Count('collaborators', distinct=True)).all()
         paginator = PageNumberPagination()
-        results = paginator.paginate_queryset(elem_list, request)
-        serializer = EventListSerializer(results, many=True)
+        results = paginator.paginate_queryset(event_list, request)
+        serializer = EventSerializer(results, many=True)
         return paginator.get_paginated_response(serializer.data)
