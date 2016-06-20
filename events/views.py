@@ -1,9 +1,10 @@
 from .models import Event
 from .serializers import EventSerializer, EventListSerializer
-from django.db.models import Q
-from django.shortcuts import get_object_or_404, get_list_or_404
+from django.db.models import Count, Q
+from django.shortcuts import get_list_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.exceptions import APIException
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -23,11 +24,18 @@ def event(request, event_id):
       message: Forbidden.
     - code: 404
       message: Not found
+    - code: 500
+      message: Internal Server Error
     """
     if request.method == 'GET':
-        event = get_object_or_404(Event, pk=event_id)
-        serializer = EventSerializer(event)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        try:
+            event = Event.objects.annotate(
+                num_participants=Count('participants', distinct=True),
+                num_collaborators=Count('collaborators', distinct=True)).get(pk=event_id)
+            serializer = EventSerializer(event)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            raise APIException(e)
 
 
 @api_view(['GET', ])
