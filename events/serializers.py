@@ -1,4 +1,4 @@
-from .models import Event
+from .models import Event, Participant
 from rest_framework import serializers
 
 
@@ -15,3 +15,8 @@ class EventSerializer(serializers.ModelSerializer):
                   'location',
                   'collaborators',
                   'participants')
+
+
+class ParticipantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Participant

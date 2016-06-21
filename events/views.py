@@ -1,6 +1,7 @@
-from .models import Event
-from .serializers import EventSerializer
+from .models import Event, Participant
+from .serializers import EventSerializer, ParticipantSerializer
 from django.db.models import Count, Q
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import APIException
@@ -10,7 +11,6 @@ from rest_framework.response import Response
 
 
 @api_view(['GET', ])
-@permission_classes((IsAuthenticated,))
 def event(request, event_id):
     """
     Returns event details
@@ -38,7 +38,6 @@ def event(request, event_id):
 
 
 @api_view(['GET', ])
-@permission_classes((IsAuthenticated,))
 def event_list(request):
     """
     Returns the full events list or result list if you use ?search=
@@ -80,3 +79,12 @@ def event_list(request):
         results = paginator.paginate_queryset(event_list, request)
         serializer = EventSerializer(results, many=True)
         return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def participant(request, participant_id):
+    if request.method == 'GET':
+        participant = get_object_or_404(Participant, pk=participant_id)
+        serializer = ParticipantSerializer(participant)
+        return Response(serializer.data, status=status.HTTP_200_OK)
