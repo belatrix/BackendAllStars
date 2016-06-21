@@ -1,7 +1,7 @@
 from .models import Event, Participant
 from .serializers import EventSerializer, ParticipantSerializer
 from django.db.models import Count, Q
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import APIException
@@ -55,6 +55,8 @@ def event_list(request):
       message: Forbidden.
     - code: 404
       message: Not found
+    - code: 500
+      message: Internal Server Error
     """
     if request.method == 'GET':
         if request.GET.get('search'):
@@ -84,7 +86,63 @@ def event_list(request):
 @api_view(['GET', ])
 @permission_classes((IsAuthenticated,))
 def participant(request, participant_id):
+    """
+    Returns participant details
+    ---
+    serializer: events.serializers.ParticipantSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
     if request.method == 'GET':
         participant = get_object_or_404(Participant, pk=participant_id)
         serializer = ParticipantSerializer(participant)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def participant_list(request):
+    """
+    Returns the full participant list or result list if you use ?search=
+    ---
+    serializer: events.serializers.ParticipantSerializer
+    parameters:
+    - name: search
+      required: false
+      type: string
+      paramType: query
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'GET':
+        if request.GET.get('search'):
+            request_terms = request.GET.get('search')
+            search_terms_array = request_terms.split()
+
+            initial_term = search_terms_array[0]
+            participant_list = Participant.objects.filter(
+                Q(fullname__icontains=initial_term) |
+                Q(email__icontains=initial_term))
+
+            if len(search_terms_array) > 1:
+                for term in range(1, len(search_terms_array)):
+                    participant_list = participant_list.filter(Q(fullname__icontains=search_terms_array[term]) |
+                                                               Q(email__icontains=search_terms_array[term]))
+        else:
+            participant_list = get_list_or_404(Participant)
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(participant_list, request)
+        serializer = ParticipantSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
