@@ -84,12 +84,11 @@ def event_list(request):
 
 
 @api_view(['GET', ])
-@permission_classes((IsAuthenticated,))
 def participant(request, participant_id):
     """
     Returns participant details
     ---
-    serializer: events.serializers.ParticipantSerializer
+    response_serializer: events.serializers.ParticipantSerializer
     responseMessages:
     - code: 401
       message: Unauthorized. Authentication credentials were not provided. Invalid token.
@@ -106,8 +105,30 @@ def participant(request, participant_id):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+@api_view(['POST', ])
+def participant_create(request):
+    """
+    Creates a participant
+    ---
+    serializer: events.serializers.ParticipantSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'POST':
+        serializer = ParticipantSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
 @api_view(['GET', ])
-@permission_classes((IsAuthenticated,))
 def participant_list(request):
     """
     Returns the full participant list or result list if you use ?search=
