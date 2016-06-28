@@ -1,12 +1,12 @@
 from .models import Event, Participant
 from .serializers import EventSerializer, ParticipantSerializer
+from constance import config
 from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view
 from rest_framework.exceptions import APIException
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 
@@ -126,6 +126,9 @@ def participant_create(request):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            content = {'detail': config.PARTICIPANT_ALREADY_REGISTERED_OR_BAD_REQUEST}
+            return Response(content, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', ])

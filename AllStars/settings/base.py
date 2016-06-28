@@ -101,6 +101,9 @@ CONSTANCE_CONFIG = {
     'DAILY_EXECUTION_CONFIRMATION_EMAIL': ('sergio@neosergio.net', 'Email address to send daily message for daily tasks.'),
     'USER_BLOCKED_NOTIFICATION_SUBJECT': ('[BELATRIX AllStars] Your user account is blocked in AllStars', 'Email notificacion subject when user is blocked'),
     'USER_BLOCKED_NOTIFICATION_MESSAGE': ('Your username %s is blocked. Please contact with your project leader for more details.', 'Email notificacion message when user is blocked'),
+
+    # Events messages
+    'PARTICIPANT_ALREADY_REGISTERED_OR_BAD_REQUEST': ('Participant is already registered or bad request.', 'Error message when participant is already registered or there is a bad request to participant creation'),
 }
 
 MIDDLEWARE_CLASSES = [
