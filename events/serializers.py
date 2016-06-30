@@ -17,6 +17,12 @@ class EventSerializer(serializers.ModelSerializer):
                   'participants')
 
 
+class EventSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ('pk', 'title')
+
+
 class ParticipantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Participant

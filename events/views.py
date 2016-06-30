@@ -1,5 +1,5 @@
 from .models import Event, Participant
-from .serializers import EventSerializer, ParticipantSerializer
+from .serializers import EventSerializer, EventSimpleSerializer, ParticipantSerializer
 from constance import config
 from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, get_list_or_404
@@ -81,6 +81,56 @@ def event_list(request):
         results = paginator.paginate_queryset(event_list, request)
         serializer = EventSerializer(results, many=True)
         return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['PUT', ])
+def event_register(request, event_id, participant_id):
+    """
+    Register participant into event
+    ---
+    response_serializer: events.serializers.EventSimpleSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'PUT':
+        event = get_object_or_404(Event, pk=event_id)
+        participant = get_object_or_404(Participant, pk=participant_id)
+        event.participants.add(participant)
+        event.save()
+        serializer = EventSimpleSerializer(event)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+@api_view(['PUT', ])
+def event_unregister(request, event_id, participant_id):
+    """
+    Unregister participant into event
+    ---
+    response_serializer: events.serializers.EventSimpleSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'PUT':
+        event = get_object_or_404(Event, pk=event_id)
+        participant = get_object_or_404(Participant, pk=participant_id)
+        event.participants.remove(participant)
+        event.save()
+        serializer = EventSimpleSerializer(event)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
 @api_view(['GET', ])
