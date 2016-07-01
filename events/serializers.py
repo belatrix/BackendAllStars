@@ -1,4 +1,5 @@
 from .models import Event, Participant
+from employees.models import Employee
 from rest_framework import serializers
 
 
@@ -23,6 +24,12 @@ class EventSimpleSerializer(serializers.ModelSerializer):
         fields = ('pk', 'title')
 
 
+class CollaboratorSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = ('pk', 'first_name', 'last_name', 'email', 'avatar', 'skype_id')
+
+
 class EventParticipantListSerializer(serializers.ModelSerializer):
     count = serializers.IntegerField(source='num_participants')
 
@@ -30,6 +37,16 @@ class EventParticipantListSerializer(serializers.ModelSerializer):
         model = Event
         depth = 1
         fields = ('pk', 'title', 'count', 'participants')
+
+
+class EventCollaboratorListSerializer(serializers.ModelSerializer):
+    collaborators = CollaboratorSimpleSerializer(many=True)
+    count = serializers.IntegerField(source='num_collaborators')
+
+    class Meta:
+        model = Event
+        depth = 1
+        fields = ('pk', 'title', 'count', 'collaborators')
 
 
 class ParticipantSerializer(serializers.ModelSerializer):

@@ -1,6 +1,6 @@
 from .models import Event, Participant
 from .serializers import EventSerializer, EventSimpleSerializer, ParticipantSerializer
-from .serializers import EventParticipantListSerializer
+from .serializers import EventParticipantListSerializer, EventCollaboratorListSerializer
 from constance import config
 from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, get_list_or_404
@@ -84,6 +84,32 @@ def event_list(request):
         results = paginator.paginate_queryset(event_list, request)
         serializer = EventSerializer(results, many=True)
         return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def event_collaborator_list(request, event_id):
+    """
+    Returns the full collaborator list from one event
+    ---
+    response_serializer: events.serializers.EventCollaboratorListSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'GET':
+        try:
+            event = Event.objects.annotate(num_collaborators=Count('collaborators')).get(pk=event_id)
+            serializer = EventCollaboratorListSerializer(event)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            raise APIException(e)
 
 
 @api_view(['GET', ])
