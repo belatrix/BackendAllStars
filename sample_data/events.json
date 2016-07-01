@@ -11,7 +11,8 @@
 		"facebook_id": "",
 		"facebook_link": "",
 		"twitter_id": "",
-		"twitter_link": ""
+		"twitter_link": "",
+		"avatar_link": null
 	}
 }, {
 	"model": "events.participant",
@@ -26,7 +27,8 @@
 		"facebook_id": "",
 		"facebook_link": "",
 		"twitter_id": "",
-		"twitter_link": ""
+		"twitter_link": "",
+		"avatar_link": null
 	}
 }, {
 	"model": "events.participant",
@@ -41,7 +43,8 @@
 		"facebook_id": "",
 		"facebook_link": "",
 		"twitter_id": "",
-		"twitter_link": ""
+		"twitter_link": "",
+		"avatar_link": null
 	}
 }, {
 	"model": "events.participant",
@@ -56,7 +59,8 @@
 		"facebook_id": "",
 		"facebook_link": "",
 		"twitter_id": "",
-		"twitter_link": ""
+		"twitter_link": "",
+		"avatar_link": null
 	}
 }, {
 	"model": "events.participant",
@@ -71,7 +75,8 @@
 		"facebook_id": "",
 		"facebook_link": "",
 		"twitter_id": "",
-		"twitter_link": ""
+		"twitter_link": "",
+		"avatar_link": null
 	}
 }, {
 	"model": "events.participant",
@@ -86,7 +91,8 @@
 		"facebook_id": "",
 		"facebook_link": "",
 		"twitter_id": "",
-		"twitter_link": ""
+		"twitter_link": "",
+		"avatar_link": null
 	}
 }, {
 	"model": "events.participant",
@@ -101,7 +107,8 @@
 		"facebook_id": "",
 		"facebook_link": "",
 		"twitter_id": "",
-		"twitter_link": ""
+		"twitter_link": "",
+		"avatar_link": null
 	}
 }, {
 	"model": "events.participant",
@@ -116,7 +123,8 @@
 		"facebook_id": "",
 		"facebook_link": "",
 		"twitter_id": "",
-		"twitter_link": ""
+		"twitter_link": "",
+		"avatar_link": null
 	}
 }, {
 	"model": "events.participant",
@@ -131,7 +139,8 @@
 		"facebook_id": "",
 		"facebook_link": "",
 		"twitter_id": "",
-		"twitter_link": ""
+		"twitter_link": "",
+		"avatar_link": null
 	}
 }, {
 	"model": "events.participant",
@@ -146,7 +155,8 @@
 		"facebook_id": "",
 		"facebook_link": "",
 		"twitter_id": "",
-		"twitter_link": ""
+		"twitter_link": "",
+		"avatar_link": null
 	}
 }, {
 	"model": "events.participant",
@@ -161,7 +171,8 @@
 		"facebook_id": "",
 		"facebook_link": "",
 		"twitter_id": "",
-		"twitter_link": ""
+		"twitter_link": "",
+		"avatar_link": null
 	}
 }, {
 	"model": "events.participant",
@@ -176,7 +187,8 @@
 		"facebook_id": "",
 		"facebook_link": "",
 		"twitter_id": "",
-		"twitter_link": ""
+		"twitter_link": "",
+		"avatar_link": null
 	}
 }, {
 	"model": "events.event",
@@ -186,6 +198,8 @@
 		"description": "Social Hackaton",
 		"datetime": "2016-05-21T09:00:00Z",
 		"location": "USMP - FIA Lima",
+		"image": null,
+		"is_registration_open": true,
 		"collaborators": [24, 16, 17, 14, 10, 9, 12, 23, 2, 15, 7, 11, 6, 4, 1, 13, 19, 5, 22, 21, 8, 18, 3, 20],
 		"participants": [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	}
@@ -197,6 +211,8 @@
 		"description": "",
 		"datetime": null,
 		"location": "",
+		"image": null,
+		"is_registration_open": true,
 		"collaborators": [],
 		"participants": []
 	}
@@ -208,6 +224,8 @@
 		"description": "",
 		"datetime": null,
 		"location": "",
+		"image": null,
+		"is_registration_open": true,
 		"collaborators": [],
 		"participants": []
 	}
@@ -219,6 +237,8 @@
 		"description": "",
 		"datetime": "2015-10-17T09:00:00Z",
 		"location": "",
+		"image": "",
+		"is_registration_open": false,
 		"collaborators": [],
 		"participants": []
 	}
@@ -232,6 +252,8 @@
 		"location": "",
 		"url": "",
 		"speaker": 11,
+		"image": null,
+		"is_registration_open": true,
 		"participants": [11, 10, 8, 6]
 	}
 }, {
@@ -244,6 +266,8 @@
 		"location": "",
 		"url": "",
 		"speaker": 7,
+		"image": null,
+		"is_registration_open": true,
 		"participants": [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 	}
 }, {

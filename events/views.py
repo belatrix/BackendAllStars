@@ -156,7 +156,7 @@ def event_register_collaborator(request, event_id, employee_id):
       message: Internal Server Error
     """
     if request.method == 'PUT':
-        event = get_object_or_404(Event, pk=event_id)
+        event = get_object_or_404(Event, pk=event_id, is_registration_open=True)
         collaborator = get_object_or_404(Employee, pk=employee_id)
         event.collaborators.add(collaborator)
         event.save()
@@ -181,7 +181,7 @@ def event_register_participant(request, event_id, participant_id):
       message: Internal Server Error
     """
     if request.method == 'PUT':
-        event = get_object_or_404(Event, pk=event_id)
+        event = get_object_or_404(Event, pk=event_id, is_registration_open=True)
         participant = get_object_or_404(Participant, pk=participant_id)
         event.participants.add(participant)
         event.save()
@@ -208,7 +208,7 @@ def event_unregister_collaborator(request, event_id, employee_id):
     """
     if request.method == 'PUT':
         event = get_object_or_404(Event, pk=event_id)
-        collaborator = get_object_or_404(Employee, pk=employee_id)
+        collaborator = get_object_or_404(Employee, pk=employee_id, is_registration_open=True)
         event.collaborators.remove(collaborator)
         event.save()
         serializer = EventSimpleSerializer(event)
@@ -233,7 +233,7 @@ def event_unregister_participant(request, event_id, participant_id):
     """
     if request.method == 'PUT':
         event = get_object_or_404(Event, pk=event_id)
-        participant = get_object_or_404(Participant, pk=participant_id)
+        participant = get_object_or_404(Participant, pk=participant_id, is_registration_open=True)
         event.participants.remove(participant)
         event.save()
         serializer = EventSimpleSerializer(event)

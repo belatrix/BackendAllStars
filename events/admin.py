@@ -7,7 +7,7 @@ class CommentAdmin(admin.ModelAdmin):
 
 
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'datetime', 'location')
+    list_display = ('title', 'description', 'datetime', 'location', 'is_registration_open')
 
 
 class ParticipantAdmin(admin.ModelAdmin):
@@ -15,7 +15,7 @@ class ParticipantAdmin(admin.ModelAdmin):
 
 
 class TalkAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'datetime', 'speaker', 'location')
+    list_display = ('title', 'description', 'datetime', 'speaker', 'location', 'is_registration_open')
 
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Event, EventAdmin)

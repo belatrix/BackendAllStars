@@ -15,6 +15,7 @@ class EventSerializer(serializers.ModelSerializer):
                   'datetime',
                   'image',
                   'location',
+                  'is_registration_open',
                   'collaborators',
                   'participants')
 
@@ -22,7 +23,7 @@ class EventSerializer(serializers.ModelSerializer):
 class EventSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ('pk', 'title', 'image')
+        fields = ('pk', 'title', 'image', 'is_registration_open')
 
 
 class CollaboratorSimpleSerializer(serializers.ModelSerializer):
@@ -37,7 +38,7 @@ class EventParticipantListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         depth = 1
-        fields = ('pk', 'title', 'image', 'count', 'participants')
+        fields = ('pk', 'title', 'image', 'count', 'is_registration_open', 'participants')
 
 
 class EventCollaboratorListSerializer(serializers.ModelSerializer):
@@ -47,7 +48,7 @@ class EventCollaboratorListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         depth = 1
-        fields = ('pk', 'title', 'image', 'count', 'collaborators')
+        fields = ('pk', 'title', 'image', 'count', 'is_registration_open', 'collaborators')
 
 
 class ParticipantSerializer(serializers.ModelSerializer):

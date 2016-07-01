@@ -35,6 +35,7 @@ class Event(models.Model):
     collaborators = models.ManyToManyField('employees.Employee', blank=True)
     participants = models.ManyToManyField(Participant, blank=True)
     image = models.URLField(blank=True, null=True)
+    is_registration_open = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
@@ -54,6 +55,7 @@ class Talk(models.Model):
     speaker = models.ForeignKey('employees.Employee', blank=True, null=True)
     participants = models.ManyToManyField(Participant, blank=True)
     image = models.URLField(blank=True, null=True)
+    is_registration_open = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
