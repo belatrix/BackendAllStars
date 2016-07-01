@@ -6,8 +6,8 @@ from django.utils.encoding import python_2_unicode_compatible
 
 @python_2_unicode_compatible
 class Participant(models.Model):
-    fullname = models.CharField(max_length=255, unique=True)
-    email = models.EmailField(max_length=200, blank=True, null=True)
+    fullname = models.CharField(max_length=255, blank=True, null=True)
+    email = models.EmailField(max_length=200, unique=True)
     birth_date = models.DateField(blank=True, null=True)
     carreer = models.CharField(max_length=200, blank=True, null=True)
     educational_center = models.CharField(max_length=200, blank=True, null=True)

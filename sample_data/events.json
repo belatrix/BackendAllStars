@@ -35,7 +35,7 @@
 	"pk": 3,
 	"fields": {
 		"fullname": "Selena Kyle",
-		"email": "",
+		"email": "selena@waynecorp.com",
 		"birth_date": null,
 		"carreer": "",
 		"educational_center": "",
@@ -51,7 +51,7 @@
 	"pk": 4,
 	"fields": {
 		"fullname": "Barry Allen",
-		"email": "",
+		"email": "barry@marvel.com",
 		"birth_date": null,
 		"carreer": "",
 		"educational_center": "",
@@ -67,7 +67,7 @@
 	"pk": 5,
 	"fields": {
 		"fullname": "steve rogers",
-		"email": "",
+		"email": "steve@marvel.com",
 		"birth_date": null,
 		"carreer": "",
 		"educational_center": "",
@@ -83,7 +83,7 @@
 	"pk": 6,
 	"fields": {
 		"fullname": "Johann Shmidt",
-		"email": "",
+		"email": "shmidt@marvel.com",
 		"birth_date": null,
 		"carreer": "",
 		"educational_center": "",
@@ -99,7 +99,7 @@
 	"pk": 7,
 	"fields": {
 		"fullname": "Bucky barnes",
-		"email": "",
+		"email": "bucky@marvel.com",
 		"birth_date": null,
 		"carreer": "",
 		"educational_center": "",
@@ -115,7 +115,7 @@
 	"pk": 8,
 	"fields": {
 		"fullname": "abraham erskine",
-		"email": "",
+		"email": "erskine@marvel.com",
 		"birth_date": null,
 		"carreer": "",
 		"educational_center": "",
@@ -131,7 +131,7 @@
 	"pk": 9,
 	"fields": {
 		"fullname": "ororo monroe",
-		"email": "",
+		"email": "storm@xmen.com",
 		"birth_date": null,
 		"carreer": "",
 		"educational_center": "",
@@ -147,7 +147,7 @@
 	"pk": 10,
 	"fields": {
 		"fullname": "scott summers",
-		"email": "",
+		"email": "cyclops@xmen.com",
 		"birth_date": null,
 		"carreer": "",
 		"educational_center": "",
@@ -163,7 +163,7 @@
 	"pk": 11,
 	"fields": {
 		"fullname": "Jean gray",
-		"email": "",
+		"email": "jean@xmen.com",
 		"birth_date": null,
 		"carreer": "",
 		"educational_center": "",
@@ -179,7 +179,7 @@
 	"pk": 12,
 	"fields": {
 		"fullname": "edward nashton",
-		"email": "",
+		"email": "nashton@waynecorp.com",
 		"birth_date": null,
 		"carreer": "",
 		"educational_center": "",
