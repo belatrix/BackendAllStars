@@ -192,7 +192,7 @@ def event_participant_list(request, event_id):
 @permission_classes((IsAuthenticated,))
 def event_register_collaborator(request, event_id, employee_id):
     """
-    Register participant into event
+    Register collaborator into event
     ---
     response_serializer: events.serializers.EventSimpleSerializer
     responseMessages:
@@ -243,7 +243,7 @@ def event_register_participant(request, event_id, participant_id):
 @permission_classes((IsAuthenticated,))
 def event_unregister_collaborator(request, event_id, employee_id):
     """
-    Unregister participant into event
+    Unregister collaborator into event
     ---
     response_serializer: events.serializers.EventSimpleSerializer
     responseMessages:
@@ -290,12 +290,12 @@ def event_unregister_participant(request, event_id, participant_id):
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
-@api_view(['GET', ])
+@api_view(['GET', 'PATCH'])
 def participant(request, participant_id):
     """
     Returns participant details
     ---
-    response_serializer: events.serializers.ParticipantSerializer
+    serializer: events.serializers.ParticipantSerializer
     responseMessages:
     - code: 401
       message: Unauthorized. Authentication credentials were not provided. Invalid token.
@@ -306,10 +306,18 @@ def participant(request, participant_id):
     - code: 500
       message: Internal Server Error
     """
+    participant = get_object_or_404(Participant, pk=participant_id)
     if request.method == 'GET':
-        participant = get_object_or_404(Participant, pk=participant_id)
         serializer = ParticipantSerializer(participant)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    elif request.method == 'PATCH':
+        serializer = ParticipantSerializer(participant, data=request.data, partial=True)
+        print serializer
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        else:
+            raise APIException(serializer.errors)
 
 
 @api_view(['POST', ])
