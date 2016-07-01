@@ -23,6 +23,15 @@ class EventSimpleSerializer(serializers.ModelSerializer):
         fields = ('pk', 'title')
 
 
+class EventParticipantListSerializer(serializers.ModelSerializer):
+    count = serializers.IntegerField(source='num_participants')
+
+    class Meta:
+        model = Event
+        depth = 1
+        fields = ('pk', 'title', 'count', 'participants')
+
+
 class ParticipantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Participant
