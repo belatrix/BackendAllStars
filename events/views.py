@@ -40,6 +40,56 @@ def event(request, event_id):
             raise APIException(e)
 
 
+@api_view(['POST', ])
+@permission_classes((IsAuthenticated,))
+def event_close(request, event_id):
+    """
+    Close registration for one event
+    ---
+    response_serializer: events.serializers.EventSimpleSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'POST':
+        event = get_object_or_404(Event, pk=event_id, is_registration_open=True)
+        event.is_registration_open = False
+        event.save()
+        serializer = EventSimpleSerializer(event)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+@api_view(['POST', ])
+@permission_classes((IsAuthenticated,))
+def event_reopen(request, event_id):
+    """
+    Reopen registration for one event
+    ---
+    response_serializer: events.serializers.EventSimpleSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'POST':
+        event = get_object_or_404(Event, pk=event_id, is_registration_open=False)
+        event.is_registration_open = True
+        event.save()
+        serializer = EventSimpleSerializer(event)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
 @api_view(['GET', ])
 def event_list(request):
     """
