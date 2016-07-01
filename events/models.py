@@ -16,6 +16,7 @@ class Participant(models.Model):
     facebook_link = models.URLField(max_length=200, blank=True, null=True)
     twitter_id = models.CharField(max_length=200, blank=True, null=True)
     twitter_link = models.URLField(max_length=200, blank=True, null=True)
+    avatar_link = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.fullname
