@@ -3,10 +3,12 @@ from .serializers import EventSerializer, EventSimpleSerializer, ParticipantSeri
 from constance import config
 from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, get_list_or_404
+from employees.models import Employee
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import APIException
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 
@@ -84,6 +86,32 @@ def event_list(request):
 
 
 @api_view(['PUT', ])
+@permission_classes((IsAuthenticated,))
+def event_register_collaborator(request, event_id, employee_id):
+    """
+    Register participant into event
+    ---
+    response_serializer: events.serializers.EventSimpleSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'PUT':
+        event = get_object_or_404(Event, pk=event_id)
+        collaborator = get_object_or_404(Employee, pk=employee_id)
+        event.collaborators.add(collaborator)
+        event.save()
+        serializer = EventSimpleSerializer(event)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+@api_view(['PUT', ])
 def event_register_participant(request, event_id, participant_id):
     """
     Register participant into event
@@ -103,6 +131,32 @@ def event_register_participant(request, event_id, participant_id):
         event = get_object_or_404(Event, pk=event_id)
         participant = get_object_or_404(Participant, pk=participant_id)
         event.participants.add(participant)
+        event.save()
+        serializer = EventSimpleSerializer(event)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+@api_view(['PUT', ])
+@permission_classes((IsAuthenticated,))
+def event_unregister_collaborator(request, event_id, employee_id):
+    """
+    Unregister participant into event
+    ---
+    response_serializer: events.serializers.EventSimpleSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'PUT':
+        event = get_object_or_404(Event, pk=event_id)
+        collaborator = get_object_or_404(Employee, pk=employee_id)
+        event.collaborators.remove(collaborator)
         event.save()
         serializer = EventSimpleSerializer(event)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
