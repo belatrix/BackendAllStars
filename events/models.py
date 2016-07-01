@@ -34,6 +34,7 @@ class Event(models.Model):
     location = models.CharField(max_length=200, blank=True, null=True)
     collaborators = models.ManyToManyField('employees.Employee', blank=True)
     participants = models.ManyToManyField(Participant, blank=True)
+    image = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -52,6 +53,7 @@ class Talk(models.Model):
     url = models.URLField(max_length=200, blank=True, null=True)
     speaker = models.ForeignKey('employees.Employee', blank=True, null=True)
     participants = models.ManyToManyField(Participant, blank=True)
+    image = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return self.title
