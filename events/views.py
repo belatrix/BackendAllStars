@@ -84,7 +84,7 @@ def event_list(request):
 
 
 @api_view(['PUT', ])
-def event_register(request, event_id, participant_id):
+def event_register_participant(request, event_id, participant_id):
     """
     Register participant into event
     ---
@@ -109,7 +109,7 @@ def event_register(request, event_id, participant_id):
 
 
 @api_view(['PUT', ])
-def event_unregister(request, event_id, participant_id):
+def event_unregister_participant(request, event_id, participant_id):
     """
     Unregister participant into event
     ---
