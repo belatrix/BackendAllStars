@@ -352,6 +352,14 @@ def participant_create(request):
 
 
 @api_view(['GET', ])
+def participant_detail(request, event_id, participant_id):
+    if request.method == 'GET':
+        event = get_object_or_404(Event, pk=event_id)
+        participant = get_object_or_404(Participant, pk=participant_id)
+
+
+
+@api_view(['GET', ])
 def participant_list(request):
     """
     Returns the full participant list or result list if you use ?search=
