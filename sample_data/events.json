@@ -198,10 +198,10 @@
 		"description": "Social Hackaton",
 		"datetime": "2016-05-21T09:00:00Z",
 		"location": "USMP - FIA Lima",
-		"image": null,
+		"image": "",
 		"is_registration_open": true,
-		"collaborators": [24, 16, 17, 14, 10, 9, 12, 23, 2, 15, 7, 11, 6, 4, 1, 13, 19, 5, 22, 21, 8, 18, 3, 20],
-		"participants": [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+		"latest_date_to_register": "2016-07-30",
+		"collaborators": [24, 16, 17, 14, 10, 9, 12, 23, 2, 15, 7, 11, 6, 4, 1, 13, 19, 5, 22, 21, 8, 18, 3, 20]
 	}
 }, {
 	"model": "events.event",
@@ -211,10 +211,10 @@
 		"description": "",
 		"datetime": null,
 		"location": "",
-		"image": null,
+		"image": "",
 		"is_registration_open": true,
-		"collaborators": [],
-		"participants": []
+		"latest_date_to_register": "2016-10-11",
+		"collaborators": []
 	}
 }, {
 	"model": "events.event",
@@ -224,10 +224,10 @@
 		"description": "",
 		"datetime": null,
 		"location": "",
-		"image": null,
+		"image": "",
 		"is_registration_open": true,
-		"collaborators": [],
-		"participants": []
+		"latest_date_to_register": "2016-09-30",
+		"collaborators": []
 	}
 }, {
 	"model": "events.event",
@@ -239,8 +239,44 @@
 		"location": "",
 		"image": "",
 		"is_registration_open": false,
-		"collaborators": [],
-		"participants": []
+		"latest_date_to_register": "2015-09-30",
+		"collaborators": []
+	}
+}, {
+	"model": "events.attendance",
+	"pk": 1,
+	"fields": {
+		"participant": 12,
+		"event": 1,
+		"datetime_register": "2016-07-06T21:41:32Z",
+		"is_registered": true
+	}
+}, {
+	"model": "events.attendance",
+	"pk": 2,
+	"fields": {
+		"participant": 8,
+		"event": 3,
+		"datetime_register": "2016-07-06T21:41:54Z",
+		"is_registered": true
+	}
+}, {
+	"model": "events.attendance",
+	"pk": 3,
+	"fields": {
+		"participant": 12,
+		"event": 2,
+		"datetime_register": "2016-07-06T21:42:21Z",
+		"is_registered": true
+	}
+}, {
+	"model": "events.attendance",
+	"pk": 4,
+	"fields": {
+		"participant": 4,
+		"event": 2,
+		"datetime_register": "2016-07-06T21:42:37Z",
+		"is_registered": true
 	}
 }, {
 	"model": "events.talk",

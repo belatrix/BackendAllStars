@@ -19,7 +19,7 @@ class Participant(models.Model):
     avatar_link = models.URLField(blank=True, null=True)
 
     def __str__(self):
-        return self.fullname
+        return self.email
 
     class Meta:
         verbose_name_plural = 'participants'
@@ -33,9 +33,10 @@ class Event(models.Model):
     datetime = models.DateTimeField(blank=True, null=True)
     location = models.CharField(max_length=200, blank=True, null=True)
     collaborators = models.ManyToManyField('employees.Employee', blank=True)
-    participants = models.ManyToManyField(Participant, blank=True)
+    participants = models.ManyToManyField(Participant, blank=True, through='Attendance')
     image = models.URLField(blank=True, null=True)
     is_registration_open = models.BooleanField(default=True)
+    latest_date_to_register = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -43,6 +44,13 @@ class Event(models.Model):
     class Meta:
         verbose_name_plural = 'events'
         ordering = ['-datetime', 'title']
+
+
+class Attendance(models.Model):
+    participant = models.ForeignKey(Participant, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    datetime_register = models.DateTimeField(blank=True, null=True)
+    is_registered = models.BooleanField(default=True)
 
 
 @python_2_unicode_compatible

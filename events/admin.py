@@ -1,4 +1,4 @@
-from .models import Comment, Event, Participant, Talk
+from .models import Comment, Event, Participant, Talk, Attendance
 from django.contrib import admin
 
 
@@ -11,12 +11,17 @@ class EventAdmin(admin.ModelAdmin):
 
 
 class ParticipantAdmin(admin.ModelAdmin):
-    list_display = ('fullname', 'email')
+    list_display = ('email', 'fullname')
+
+
+class AttendanceAdmin(admin.ModelAdmin):
+    list_display = ('participant', 'event', 'datetime_register', 'is_registered')
 
 
 class TalkAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'datetime', 'speaker', 'location', 'is_registration_open')
 
+admin.site.register(Attendance, AttendanceAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Event, EventAdmin)
 admin.site.register(Participant, ParticipantAdmin)
