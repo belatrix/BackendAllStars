@@ -312,7 +312,6 @@ def participant(request, participant_id):
         return Response(serializer.data, status=status.HTTP_200_OK)
     elif request.method == 'PATCH':
         serializer = ParticipantSerializer(participant, data=request.data, partial=True)
-        print serializer
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
@@ -323,7 +322,7 @@ def participant(request, participant_id):
 @api_view(['POST', ])
 def participant_create(request):
     """
-    Creates a participant
+    Creates or updates a participant at register
     ---
     serializer: events.serializers.ParticipantSerializer
     responseMessages:
@@ -342,8 +341,14 @@ def participant_create(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            content = {'detail': config.PARTICIPANT_ALREADY_REGISTERED_OR_BAD_REQUEST}
-            return Response(content, status=status.HTTP_400_BAD_REQUEST)
+            participant = get_object_or_404(Participant, email=serializer.data['email'])
+            serializer = ParticipantSerializer(participant, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+            else:
+                content = {'detail': config.PARTICIPANT_ALREADY_REGISTERED_OR_BAD_REQUEST}
+                return Response(content, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET', ])
