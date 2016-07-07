@@ -52,6 +52,9 @@ class Attendance(models.Model):
     datetime_register = models.DateTimeField(blank=True, null=True)
     is_registered = models.BooleanField(default=True)
 
+    class Meta:
+        unique_together = ('participant', 'event')
+
 
 @python_2_unicode_compatible
 class Talk(models.Model):

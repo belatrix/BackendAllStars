@@ -104,6 +104,7 @@ CONSTANCE_CONFIG = {
 
     # Events messages
     'PARTICIPANT_ALREADY_REGISTERED_OR_BAD_REQUEST': ('Participant is already registered or bad request.', 'Error message when participant is already registered or there is a bad request to participant creation'),
+    'PARTICIPANT_ALREADY_REGISTERED_TO_EVENT': ('Participant is already registered to this event or bad request', 'Error message when something goes wrong after participant wants to register to a event'),
 }
 
 MIDDLEWARE_CLASSES = [

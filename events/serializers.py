@@ -1,4 +1,4 @@
-from .models import Event, Participant
+from .models import Attendance, Event, Participant
 from employees.models import Employee
 from rest_framework import serializers
 
@@ -54,3 +54,12 @@ class EventCollaboratorListSerializer(serializers.ModelSerializer):
 class ParticipantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Participant
+
+
+class AttendanceSerializer(serializers.ModelSerializer):
+    event_details = EventSimpleSerializer(source='event')
+
+    class Meta:
+        model = Attendance
+        depth = 1
+        fields = ('pk', 'datetime_register', 'is_registered', 'event_details', 'participant')

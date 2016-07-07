@@ -1,7 +1,8 @@
-from .models import Event, Participant
-from .serializers import EventSerializer, EventSimpleSerializer, ParticipantSerializer
+from .models import Event, Participant, Attendance
+from .serializers import EventSerializer, EventSimpleSerializer, ParticipantSerializer, AttendanceSerializer
 from .serializers import EventParticipantListSerializer, EventCollaboratorListSerializer
 from constance import config
+from datetime import datetime
 from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, get_list_or_404
 from employees.models import Employee
@@ -219,7 +220,7 @@ def event_register_participant(request, event_id, participant_id):
     """
     Register participant into event
     ---
-    response_serializer: events.serializers.EventSimpleSerializer
+    response_serializer: events.serializers.AttendanceSerializer
     responseMessages:
     - code: 401
       message: Unauthorized. Authentication credentials were not provided. Invalid token.
@@ -233,9 +234,14 @@ def event_register_participant(request, event_id, participant_id):
     if request.method == 'PUT':
         event = get_object_or_404(Event, pk=event_id, is_registration_open=True)
         participant = get_object_or_404(Participant, pk=participant_id)
-        event.participants.add(participant)
-        event.save()
-        serializer = EventSimpleSerializer(event)
+        try:
+            attendance = Attendance(participant=participant, event=event, datetime_register=datetime.now())
+            attendance.save()
+        except Exception as e:
+            print e
+            content = {'detail': config.PARTICIPANT_ALREADY_REGISTERED_TO_EVENT}
+            return Response(content, status=status.HTTP_400_BAD_REQUEST)
+        serializer = AttendanceSerializer(attendance)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
