@@ -358,10 +358,27 @@ def participant_create(request):
 
 
 @api_view(['GET', ])
-def participant_detail(request, event_id, participant_id):
+def event_participant_detail(request, event_id, participant_id):
+    """
+    Returns attendance information for especific participant and event
+    ---
+    serializer: events.serializers.AttendanceSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
     if request.method == 'GET':
         event = get_object_or_404(Event, pk=event_id)
         participant = get_object_or_404(Participant, pk=participant_id)
+        attendance = get_object_or_404(Attendance, event=event, participant=participant)
+        serializer = AttendanceSerializer(attendance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 
