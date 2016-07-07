@@ -290,8 +290,8 @@ def event_unregister_participant(request, event_id, participant_id):
     if request.method == 'PUT':
         event = get_object_or_404(Event, pk=event_id, is_registration_open=True)
         participant = get_object_or_404(Participant, pk=participant_id)
-        event.participants.remove(participant)
-        event.save()
+        attendance = get_object_or_404(Attendance, participant=participant, event=event)
+        attendance.delete()
         serializer = EventSimpleSerializer(event)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
@@ -328,7 +328,7 @@ def participant(request, participant_id):
 @api_view(['POST', ])
 def participant_create(request):
     """
-    Creates or updates a participant at register
+    Creates or updates a participant at register flow
     ---
     serializer: events.serializers.ParticipantSerializer
     responseMessages:
