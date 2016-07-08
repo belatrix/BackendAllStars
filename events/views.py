@@ -381,7 +381,6 @@ def event_participant_detail(request, event_id, participant_id):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-
 @api_view(['GET', ])
 def participant_list(request):
     """
