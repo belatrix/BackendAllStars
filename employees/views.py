@@ -95,9 +95,10 @@ def employee_bulk_creation(request):
         if serializer.is_valid():
             email_list = request.data
             for email in email_list['emails']:
+                email = email.lower()
                 if regex_match(r"[^@]+@[^@]+\.[^@]+", email):
-                    username = email.split('@')[0]
-                    domain = email.split('@')[1]
+                    username = email.split('@')[0].lower()
+                    domain = email.split('@')[1].lower()
                     if domain in settings.EMAIL_DOMAIN_LIST:
                         if not Employee.objects.filter(email=email).exists():
                             new_employee = Employee.objects.create_user(username, password=request.data['password'], email=email)
@@ -173,11 +174,11 @@ def employee_creation(request):
       message: Request not acceptable
     """
     if request.method == 'POST':
-        email = request.data['email']
+        email = request.data['email'].lower()
 
         if regex_match(r"[^@]+@[^@]+\.[^@]+", email):
-            username = email.split('@')[0]
-            domain = email.split('@')[1]
+            username = email.split('@')[0].lower()
+            domain = email.split('@')[1].lower()
         else:
             content = {'detail': config.INVALID_EMAIL_ADDRESS}
             return Response(content, status=status.HTTP_401_UNAUTHORIZED)
