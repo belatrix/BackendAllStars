@@ -446,7 +446,7 @@ def employee_reset_password_confirmation(request, employee_email, employee_uuid)
     """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, email=employee_email, reset_password_code=employee_uuid)
-        random_password = Employee.objects.make_random_password()
+        random_password = Employee.objects.make_random_password(length=4, allowed_chars='beatrx23456789')
         employee.set_password(random_password)
         employee.save()
 
