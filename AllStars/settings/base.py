@@ -73,11 +73,11 @@ CONSTANCE_CONFIG = {
     'INVALID_EMAIL_ADDRESS': ('%s is not a valid email address.', 'Error message when email address is invalid.'),
 
     # User messages
-    'EMPLOYEE_CREATION_SUBJECT': ('[BELATRIX AllStars] Your account has been successfully created.', 'Email subject when new account is created.'),
+    'EMPLOYEE_CREATION_SUBJECT': ('[BELATRIX CONNECT] Your account has been successfully created.', 'Email subject when new account is created.'),
     'EMPLOYEE_CREATION_MESSAGE': ('Your username is: %s and your initial random password is %s', 'Email message when new account is created'),
-    'EMPLOYEE_RESET_PASSWORD_CONFIRMATION_SUBJECT': ('[BELATRIX AllStars] Please confirm if you want a password reset.', 'Confirmation reset password email subject.'),
+    'EMPLOYEE_RESET_PASSWORD_CONFIRMATION_SUBJECT': ('[BELATRIX CONNECT] Please confirm if you want a password reset.', 'Confirmation reset password email subject.'),
     'EMPLOYEE_RESET_PASSWORD_CONFIRMATION_MESSAGE': ('If you want to reset your password please confirm the request, clicking here: %s', 'Confirmation reset password email message.'),
-    'EMPLOYEE_RESET_PASSWORD_SUCCESSFULLY_SUBJECT': ('[BELATRIX AllStars] Your new password has been successfully created.', 'Reset password successfully email subject '),
+    'EMPLOYEE_RESET_PASSWORD_SUCCESSFULLY_SUBJECT': ('[BELATRIX CONNECT] Your new password has been successfully created.', 'Reset password successfully email subject '),
     'EMPLOYEE_RESET_PASSWORD_SUCCESSFULLY_MESSAGE': ('Your new password is: %s', 'Reset password successfully email message.'),
     'USER_EMAIL_ALREADY_REGISTERED': ('email %s is already registered.', 'Error message when user already exists.'),
     'USER_SUCCESSFULLY_CREATED': ('User(s) successfully created.', 'Message when an account has been created successfully.'),
@@ -96,10 +96,10 @@ CONSTANCE_CONFIG = {
     'USER_UNABLE_TO_GIVE_STARS_ITSELF': ('User is unable to give stars to itself.', 'Error message when user is unable to give stars to itself.'),
 
     # Daily cron tasks messages
-    'DAILY_EXECUTION_CONFIRMATION_SUBJECT': ('[BELATRIX AllStars] Daily check has been executed.', 'Email confirmation subject for daily tasks.'),
+    'DAILY_EXECUTION_CONFIRMATION_SUBJECT': ('[BELATRIX CONNECT] Daily check has been executed.', 'Email confirmation subject for daily tasks.'),
     'DAILY_EXECUTION_CONFIRMATION_MESSAGE': ('Your daily check scores and rules has been executed.', 'Email confirmation message for daily tasks.'),
     'DAILY_EXECUTION_CONFIRMATION_EMAIL': ('sergio@neosergio.net', 'Email address to send daily message for daily tasks.'),
-    'USER_BLOCKED_NOTIFICATION_SUBJECT': ('[BELATRIX AllStars] Your user account is blocked in AllStars', 'Email notificacion subject when user is blocked'),
+    'USER_BLOCKED_NOTIFICATION_SUBJECT': ('[BELATRIX CONNECT] Your user account is blocked in BELATRIX CONNECT', 'Email notificacion subject when user is blocked'),
     'USER_BLOCKED_NOTIFICATION_MESSAGE': ('Your username %s is blocked. Please contact with your project leader for more details.', 'Email notificacion message when user is blocked'),
 
     # Events messages

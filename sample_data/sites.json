@@ -2,7 +2,7 @@
 	"model": "sites.site",
 	"pk": 1,
 	"fields": {
-		"domain": "https://allstars-belatrix.herokuapp.com",
-		"name": "allstars-belatrix.herokuapp.com"
+		"domain": "https://belatrix-connect.herokuapp.com",
+		"name": "belatrix-connect.herokuapp.com"
 	}
 }]
