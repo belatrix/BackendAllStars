@@ -183,7 +183,7 @@ def employee_creation(request):
             return Response(content, status=status.HTTP_401_UNAUTHORIZED)
 
         if domain in settings.EMAIL_DOMAIN_LIST:
-            random_password = Employee.objects.make_random_password()
+            random_password = Employee.objects.make_random_password(length=4, allowed_chars='beatrx23456789')
             subject = config.EMPLOYEE_CREATION_SUBJECT
             message = config.EMPLOYEE_CREATION_MESSAGE % (username, random_password)
 
