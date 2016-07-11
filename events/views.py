@@ -376,7 +376,10 @@ def event_participant_detail(request, event_id, participant_id):
     if request.method == 'GET':
         event = get_object_or_404(Event, pk=event_id)
         participant = get_object_or_404(Participant, pk=participant_id)
-        attendance = get_object_or_404(Attendance, event=event, participant=participant)
+        try:
+            attendance = Attendance.objects.get(event=event, participant=participant)
+        except:
+            attendance = Attendance(participant=participant, event=event, is_registered=False)
         serializer = AttendanceSerializer(attendance)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
