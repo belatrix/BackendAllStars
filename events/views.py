@@ -1,6 +1,7 @@
 from .models import Event, Participant, Attendance
 from .serializers import EventSerializer, EventSimpleSerializer, ParticipantSerializer, AttendanceSerializer
 from .serializers import EventParticipantListSerializer, EventCollaboratorListSerializer
+from .serializers import CollaboratorAttendanceSerializer
 from constance import config
 from datetime import datetime
 from django.db.models import Count, Q
@@ -355,6 +356,34 @@ def participant_create(request):
             else:
                 content = {'detail': config.PARTICIPANT_ALREADY_REGISTERED_OR_BAD_REQUEST}
                 return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def event_collaborator_detail(request, event_id, collaborator_id):
+    """
+    Returns collaborator information for especific event
+    ---
+    serializer: events.serializers.CollaboratorAttendanceSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'GET':
+        event = get_object_or_404(Event, pk=event_id)
+        collaborator = Employee.objects.all().filter(event=event, pk=collaborator_id)
+        if collaborator:
+            is_registered = True
+        else:
+            is_registered = False
+        serializer = CollaboratorAttendanceSerializer(event, context={'is_registered': is_registered})
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 @api_view(['GET', ])

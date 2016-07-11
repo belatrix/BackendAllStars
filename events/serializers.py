@@ -63,3 +63,22 @@ class AttendanceSerializer(serializers.ModelSerializer):
         model = Attendance
         depth = 1
         fields = ('pk', 'datetime_register', 'is_registered', 'event_details', 'participant')
+
+
+class CollaboratorAttendanceSerializer(serializers.ModelSerializer):
+    is_registered = serializers.SerializerMethodField('_is_registered')
+
+    def _is_registered(self, obj):
+        is_registered_value = self.context.get('is_registered')
+        return is_registered_value
+
+    class Meta:
+        model = Event
+        fields = ('pk',
+                  'title',
+                  'description',
+                  'datetime',
+                  'image',
+                  'location',
+                  'is_registration_open',
+                  'is_registered')
