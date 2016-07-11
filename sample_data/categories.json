@@ -130,6 +130,13 @@
 		"category": [1, 2, 3, 4, 5]
 	}
 }, {
+	"model": "categories.subcategory",
+	"pk": 14,
+	"fields": {
+		"name": "Partnership",
+		"category": [1]
+	}
+}, {
 	"model": "categories.keyword",
 	"pk": 1,
 	"fields": {
@@ -236,5 +243,41 @@
 	"pk": 18,
 	"fields": {
 		"name": "Automation"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 19,
+	"fields": {
+		"name": "Excellence"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 20,
+	"fields": {
+		"name": "Reliability"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 21,
+	"fields": {
+		"name": "Team spirit"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 22,
+	"fields": {
+		"name": "Service"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 23,
+	"fields": {
+		"name": "Integrity"
+	}
+}, {
+	"model": "categories.keyword",
+	"pk": 24,
+	"fields": {
+		"name": "Responsibility"
 	}
 }]
