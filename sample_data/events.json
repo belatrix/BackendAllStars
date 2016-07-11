@@ -201,7 +201,7 @@
 		"image": "",
 		"is_registration_open": true,
 		"latest_date_to_register": "2016-07-30",
-		"collaborators": [24, 16, 17, 14, 10, 9, 12, 23, 2, 15, 7, 11, 6, 4, 1, 13, 19, 5, 22, 21, 8, 18, 3, 20]
+		"collaborators": []
 	}
 }, {
 	"model": "events.event",
@@ -304,7 +304,7 @@
 		"speaker": 7,
 		"image": null,
 		"is_registration_open": true,
-		"participants": [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+		"participants": []
 	}
 }, {
 	"model": "events.comment",
