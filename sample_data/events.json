@@ -287,7 +287,7 @@
 		"datetime": "2016-06-16T15:00:00Z",
 		"location": "",
 		"url": "",
-		"speaker": 11,
+		"speaker": null,
 		"image": null,
 		"is_registration_open": true,
 		"participants": [11, 10, 8, 6]
@@ -301,7 +301,7 @@
 		"datetime": "2016-06-16T14:00:00Z",
 		"location": "",
 		"url": "",
-		"speaker": 7,
+		"speaker": null,
 		"image": null,
 		"is_registration_open": true,
 		"participants": []
