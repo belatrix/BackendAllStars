@@ -123,8 +123,8 @@ class Employee(AbstractUser):
 
 class EmployeeDevice(models.Model):
     username = models.ForeignKey(Employee)
-    android_device = models.CharField(max_length=100, blank=True, null=True)
-    ios_device = models.CharField(max_length=100, blank=True, null=True)
+    android_device = models.CharField(max_length=200, blank=True, null=True)
+    ios_device = models.CharField(max_length=200, blank=True, null=True)
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
