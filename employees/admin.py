@@ -1,4 +1,4 @@
-from .models import Employee, Location, Role
+from .models import Employee, Location, Role, EmployeeDevice
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
@@ -65,6 +65,12 @@ class EmployeeAdmin(ImportExportMixin, BaseUserAdmin):
         ('History', {'fields': ('date_joined', 'last_login')})
     )
 
+
+class EmployeeDeviceAdmin(admin.ModelAdmin):
+    list_display = ('username', 'android_device', 'ios_device')
+
+
 admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Role, RoleAdmin)
+admin.site.register(EmployeeDevice, EmployeeDeviceAdmin)

@@ -121,6 +121,12 @@ class Employee(AbstractUser):
         ordering = ['first_name', 'last_name', 'username']
 
 
+class EmployeeDevice(models.Model):
+    username = models.ForeignKey(Employee)
+    android_device = models.CharField(max_length=100, blank=True, null=True)
+    ios_device = models.CharField(max_length=100, blank=True, null=True)
+
+
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
