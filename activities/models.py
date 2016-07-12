@@ -20,7 +20,7 @@ class Message(models.Model):
     datetime = models.DateTimeField(auto_now_add=True)
     message = models.TextField()
     from_user = models.ForeignKey('employees.Employee', related_name='%(class)s_from')
-    to_user = models.ForeignKey('employees.Employee', related_name='%(class)s_to')
+    to_user = models.CharField(max_length=250)
 
     class Meta:
         ordering = ['-datetime']
