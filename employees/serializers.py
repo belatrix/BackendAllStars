@@ -1,4 +1,4 @@
-from .models import Employee, Location, Role
+from .models import Employee, Location, Role, EmployeeDevice
 from rest_framework import serializers
 
 
@@ -134,3 +134,9 @@ class EmployeeAvatarSerializer(serializers.ModelSerializer):
 class EmployeeAuthenticationResponse(serializers.Serializer):
     token = serializers.CharField(max_length=40)
     user_id = serializers.IntegerField()
+
+
+class EmployeeDeviceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EmployeeDevice
+        fields = ('username', 'android_device', 'ios_device')

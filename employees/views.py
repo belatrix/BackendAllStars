@@ -1,9 +1,9 @@
-from .models import Employee, Location, Role
+from .models import Employee, Location, Role, EmployeeDevice
 from .serializers import EmployeeSerializer, EmployeeAvatarSerializer, EmployeeListSerializer, EmployeeCreationListSerializer
 from .serializers import EmployeeLocationListSerializer, EmployeeRoleListSerializer
 from .serializers import EmployeeTopTotalScoreList, EmployeeTopLevelList
 from .serializers import EmployeeTopCurrentMonthList, EmployeeTopLastMonthList
-from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList
+from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList, EmployeeDeviceSerializer
 from categories.serializers import CategorySerializer
 from constance import config
 from django.conf import settings
@@ -393,6 +393,40 @@ def employee_image(request, employee_id):
         employee.avatar = upload
         employee.save()
         serializer = EmployeeSerializer(employee)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+@api_view(['POST', ])
+@permission_classes((IsAuthenticated,))
+def employee_register_device(request, employee_id):
+    """
+    Register employee device
+    ---
+    response_serializer: employees.serializers.EmployeeDeviceSerializer
+    parameters:
+    - name: android_device
+      type: string
+    - name: ios_device
+      type: string
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'POST':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        device, created = EmployeeDevice.objects.get_or_create(username=employee)
+        if 'android_device' in request.data:
+            device.android_device = request.data['android_device']
+        if 'ios_device' in request.data:
+            device.ios_device = request.data['ios_device']
+        device.save()
+        serializer = EmployeeDeviceSerializer(device)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
