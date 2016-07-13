@@ -7,7 +7,7 @@ class ActivityAdmin(admin.ModelAdmin):
 
 
 class MessageAdmin(admin.ModelAdmin):
-    list_display = ('datetime', 'message', 'from_user', 'to_user')
+    list_display = ('datetime', 'text', 'from_user', 'to_user')
 
 
 admin.site.register(Activity, ActivityAdmin)
