@@ -3,6 +3,7 @@ from .serializers import StarEmployeesSubcategoriesSerializer, StarTopEmployeeLi
 from .serializers import StarKeywordList
 from .models import Star
 from constance import config
+from activities.models import Activity
 from employees.models import Employee
 from categories.models import Category, Keyword, Subcategory
 from django.db.models import Count, Q
@@ -85,10 +86,18 @@ def give_star_to(request, from_employee_id, to_employee_id):
             from_user.add_stars_given(1)
             from_user.save()
 
+            current_level = to_user.level
+
             # Add points to to_user according category weight
             to_user.add_stars(category.weight)
-            to_user.evaluate_level()
+            new_level = to_user.evaluate_level()
             to_user.save()
+
+            # Add activity log if user level up
+            if to_user.level != current_level:
+                message = config.LEVEL_UP_TEXT % (to_user.first_name, to_user.last_name, to_user.level)
+                activity = Activity.objects.create(detail=message, to_user=to_user)
+                activity.save()
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 

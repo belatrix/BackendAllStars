@@ -78,7 +78,7 @@ class Employee(AbstractUser):
     def evaluate_level(self):
         if self.total_score == (self.level + 1) * settings.NEXT_LEVEL_SCORE:
             self.level += 1
-            return
+            return self.level
 
     def add_stars(self, number):
         self.today_received += number
