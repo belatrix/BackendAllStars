@@ -108,6 +108,7 @@ CONSTANCE_CONFIG = {
 
     # Activities messages
     'NO_MESSAGE': ('Message is empty.', 'Error message when message is empty'),
+    'TITLE_PUSH_NOTIFICATION': ('BELATRIX Connect', 'Title for push notifications'),
 }
 
 MIDDLEWARE_CLASSES = [
@@ -246,3 +247,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
+
+# Push Notifications
+FIREBASE_API_URL = 'https://fcm.googleapis.com/fcm/send'

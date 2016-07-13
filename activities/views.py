@@ -1,11 +1,30 @@
 from .models import Message
 from .serializers import MessageSerializer
 from constance import config
-from employees.models import Employee
+from employees.models import Employee, EmployeeDevice
+from django.conf import settings
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+import requests
+
+
+def send_message_android(destination, title, message):
+    headers = {
+        'Authorization': 'key='+settings.FIREBASE_SERVER_KEY,
+        'Content - Type': 'application/json'
+    }
+    payload = {
+        "to": destination,
+        "notification": {"title": title, "text": message}
+    }
+    request = requests.post(
+        settings.FIREBASE_API_URL,
+        json=payload,
+        headers=headers
+    )
+    print request.text
 
 
 @api_view(['POST', ])
@@ -33,12 +52,23 @@ def send_message_all(request):
         if 'message' in request.data:
             employee_list = Employee.objects.all()
             message = Message(
-                message=request.data['message'],
+                text=request.data['message'],
                 from_user=request.user,
                 to_user="all")
             message.save()
             for employee in employee_list:
-                print "message to " + employee.email
+                try:
+                    employee_devices = EmployeeDevice.objects.get(username=employee)
+                    if employee_devices.android_device:
+                        send_message_android(
+                            employee_devices.android_device,
+                            config.TITLE_PUSH_NOTIFICATION,
+                            message.text)
+                    if employee_devices.ios_device:
+                        # TODO iOS push notification
+                        pass
+                except:
+                    pass
             serializer = MessageSerializer(message)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:

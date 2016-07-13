@@ -56,3 +56,6 @@ AWS_QUERYSTRING_AUTH = False
 MEDIAFILES_LOCATION = 'media'
 MEDIA_URL = 'https://allstarsbx.s3.amazonaws.com/media/'
 DEFAULT_FILE_STORAGE = 'utils.custom_storages.MediaStorage'
+
+# PUSH NOTIFICATIONS
+FIREBASE_SERVER_KEY = env('FIREBASE_SERVER_KEY', '')
