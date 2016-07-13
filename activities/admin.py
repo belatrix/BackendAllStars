@@ -3,7 +3,7 @@ from .models import Activity, Message
 
 
 class ActivityAdmin(admin.ModelAdmin):
-    list_display = ('datetime', 'detail', 'from_user', 'to_user')
+    list_display = ('datetime', 'detail', 'to_user')
 
 
 class MessageAdmin(admin.ModelAdmin):
