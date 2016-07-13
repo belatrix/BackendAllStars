@@ -2,30 +2,12 @@ from .models import Message
 from .serializers import MessageSerializer
 from constance import config
 from employees.models import Employee, EmployeeDevice, Location
-from django.conf import settings
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-import requests
-
-
-def send_message_android(destination, title, message):
-    headers = {
-        'Authorization': 'key=' + settings.FIREBASE_SERVER_KEY,
-        'Content - Type': 'application/json'
-    }
-    payload = {
-        "to": destination,
-        "notification": {"title": title, "text": message}
-    }
-    request = requests.post(
-        settings.FIREBASE_API_URL,
-        json=payload,
-        headers=headers
-    )
-    print request.text
+from utils.send_messages import send_message_android
 
 
 @api_view(['POST', ])
