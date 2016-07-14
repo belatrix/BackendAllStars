@@ -84,6 +84,7 @@ CONSTANCE_CONFIG = {
     'USER_SUCCESSFULLY_CREATED_EMAIL_ERROR': ('User was created, but there are problems with email service, please contact an administrator.', 'Message when an account has been created successfully but no email was sent.'),
     'USER_SUCCESSFULLY_RESET_PASSWORD': ('Successfully password creation, email has been sent.', 'Successfully user reset password.'),
     'USER_UNABLE_TO_LOG': ('User is unable to log in with provided credentials.', 'Error message when user are not able to log in'),
+    'USER_LOGOUT': ('User logout successfully', 'Message when user logout'),
 
     # Password errors messages
     'PASSWORD_EQUAL': ('New and current password are equal', 'Error message when new and current password are equal.'),

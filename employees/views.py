@@ -7,6 +7,7 @@ from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList, Em
 from categories.serializers import CategorySerializer
 from constance import config
 from django.conf import settings
+from django.contrib.auth import logout
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
@@ -394,6 +395,35 @@ def employee_image(request, employee_id):
         employee.save()
         serializer = EmployeeSerializer(employee)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def employee_logout(request):
+    """
+    Logout employee
+    ---
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'GET':
+        employee = request.user
+        try:
+            devices = EmployeeDevice.objects.filter(username=employee)
+            for device in devices:
+                device.delete()
+        except:
+            pass
+        logout(request)
+        content = {'detail': config.USER_LOGOUT}
+        return Response(content, status=status.HTTP_202_ACCEPTED)
 
 
 @api_view(['POST', ])

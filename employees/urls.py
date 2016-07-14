@@ -2,7 +2,7 @@ from .views import employee, employee_block, employee_categories, employee_list,
 from .views import employee_creation, employee_activate, employee_deactivate, employee_update, employee_update_password
 from .views import employee_deactivated_list, employee_location_list, employee_role_list, employee_image
 from .views import employee_reset_password, employee_reset_password_confirmation, employee_register_device
-from .views import CustomObtainAuthToken, top
+from .views import CustomObtainAuthToken, top, employee_logout
 from django.conf.urls import url
 
 
@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^list/$', employee_list, name='employee_list'),
     url(r'^list/deactivated/$', employee_deactivated_list, name='employee_deactivated_list'),
     url(r'^list/top/(?P<kind>\w+)/(?P<quantity>\d+)/$', top, name='employee_list_top'),
+    url(r'^logout/$', employee_logout, name='employee_logout'),
     url(r'^location/list/$', employee_location_list, name='employee_location_list'),
     url(r'^role/list/$', employee_role_list, name='employee_role_list'),
     url(r'^reset/password/(?P<employee_email>[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4})/$', employee_reset_password, name='employee_reset_password'),
