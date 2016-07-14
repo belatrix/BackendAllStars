@@ -111,6 +111,7 @@ CONSTANCE_CONFIG = {
     'NO_MESSAGE': ('Message is empty.', 'Error message when message is empty'),
     'TITLE_PUSH_NOTIFICATION': ('BELATRIX Connect', 'Title for push notifications'),
     'LEVEL_UP_TEXT': ('%s %s achieved level %d.', 'Message when user level up.'),
+    'RECOMMENDATION_MESSAGE': ('You earn %d point(s), %s %s gives you a recommendation', 'Message when user receives a recommendation'),
 }
 
 MIDDLEWARE_CLASSES = [
