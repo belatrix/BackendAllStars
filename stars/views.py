@@ -14,7 +14,7 @@ from rest_framework.exceptions import APIException
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from utils import send_messages
+from utils.send_messages import send_push_notification
 
 
 @api_view(['POST', ])
@@ -91,13 +91,8 @@ def give_star_to(request, from_employee_id, to_employee_id):
 
             # Add points to to_user according category weight
             to_user.add_stars(category.weight)
-            devices = to_user.employeedevice_set.all()
             message = config.RECOMMENDATION_MESSAGE % (category.weight, from_user.first_name, from_user.last_name)
-            if devices[0].android_device:
-                send_messages.send_message_android(devices[0].android_device, config.TITLE_PUSH_NOTIFICATION, message)
-            if devices[0].ios_device:
-                # TODO Send a message to iOS device
-                pass
+            send_push_notification(to_user, message)
             to_user.evaluate_level()
             to_user.save()
 
@@ -105,6 +100,7 @@ def give_star_to(request, from_employee_id, to_employee_id):
             if to_user.level != current_level:
                 message = config.LEVEL_UP_TEXT % (to_user.first_name, to_user.last_name, to_user.level)
                 activity = Activity.objects.create(detail=message, to_user=to_user)
+                send_push_notification(to_user, message)
                 activity.save()
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)

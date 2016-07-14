@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from utils.send_messages import send_message_android
+from utils.send_messages import send_push_notification
 
 
 @api_view(['POST', ])
@@ -40,18 +40,7 @@ def send_message_all(request):
                 to_user="all")
             message.save()
             for employee in employee_list:
-                try:
-                    employee_devices = EmployeeDevice.objects.get(username=employee)
-                    if employee_devices.android_device:
-                        send_message_android(
-                            employee_devices.android_device,
-                            config.TITLE_PUSH_NOTIFICATION,
-                            message.text)
-                    if employee_devices.ios_device:
-                        # TODO iOS push notification
-                        pass
-                except:
-                    pass
+                send_push_notification(employee, message.text)
             serializer = MessageSerializer(message)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
@@ -90,19 +79,8 @@ def send_message_location(request, location_id):
                 to_user="location: " + location.name)
             message.save()
             for employee in employee_list:
-                try:
-                    employee_devices = EmployeeDevice.objects.get(username=employee)
-                    if employee.location == location:
-                        if employee_devices.android_device:
-                            send_message_android(
-                                employee_devices.android_device,
-                                config.TITLE_PUSH_NOTIFICATION,
-                                message.text)
-                        if employee_devices.ios_device:
-                            # TODO iOS push notification
-                            pass
-                except:
-                    pass
+                if employee.location == location:
+                    send_push_notification(employee, message.text)
             serializer = MessageSerializer(message)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
