@@ -18,7 +18,10 @@ def send_message_android(destination, message, title=config.TITLE_PUSH_NOTIFICAT
     }
     payload = {
         "to": destination,
-        "notification": {"title": title, "text": message}
+        "data": {
+            "title": title,
+            "detail": message
+        }
     }
     request = requests.post(
         settings.FIREBASE_API_URL,
@@ -35,7 +38,10 @@ def send_message_ios(destination, message, title=config.TITLE_PUSH_NOTIFICATION)
     }
     payload = {
         "to": destination,
-        "notification": {"title": title, "text": message}
+        "data": {
+            "title": title,
+            "detail": message
+        }
     }
     request = requests.post(
         settings.FIREBASE_API_URL,
