@@ -1,7 +1,7 @@
 from .models import Event, Participant, Attendance
 from .serializers import EventSerializer, EventSimpleSerializer, ParticipantSerializer, AttendanceSerializer
 from .serializers import EventParticipantListSerializer, EventCollaboratorListSerializer
-from .serializers import CollaboratorAttendanceSerializer
+from .serializers import CollaboratorAttendanceSerializer, EventSimpleRegistrationSerializer, EventSimpleUnregistrationSerializer
 from constance import config
 from datetime import datetime
 from django.db.models import Count, Q
@@ -196,7 +196,7 @@ def event_register_collaborator(request, event_id, employee_id):
     """
     Register collaborator into event
     ---
-    response_serializer: events.serializers.EventSimpleSerializer
+    response_serializer: events.serializers.EventSimpleRegistrationSerializer
     responseMessages:
     - code: 401
       message: Unauthorized. Authentication credentials were not provided. Invalid token.
@@ -212,7 +212,7 @@ def event_register_collaborator(request, event_id, employee_id):
         collaborator = get_object_or_404(Employee, pk=employee_id)
         event.collaborators.add(collaborator)
         event.save()
-        serializer = EventSimpleSerializer(event)
+        serializer = EventSimpleRegistrationSerializer(event)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
@@ -252,7 +252,7 @@ def event_unregister_collaborator(request, event_id, employee_id):
     """
     Unregister collaborator into event
     ---
-    response_serializer: events.serializers.EventSimpleSerializer
+    response_serializer: events.serializers.EventSimpleUnregistrationSerializer
     responseMessages:
     - code: 401
       message: Unauthorized. Authentication credentials were not provided. Invalid token.
@@ -268,7 +268,7 @@ def event_unregister_collaborator(request, event_id, employee_id):
         collaborator = get_object_or_404(Employee, pk=employee_id)
         event.collaborators.remove(collaborator)
         event.save()
-        serializer = EventSimpleSerializer(event)
+        serializer = EventSimpleUnregistrationSerializer(event)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 

@@ -26,6 +26,28 @@ class EventSimpleSerializer(serializers.ModelSerializer):
         fields = ('pk', 'title', 'image', 'is_registration_open')
 
 
+class EventSimpleRegistrationSerializer(serializers.ModelSerializer):
+    is_registered = serializers.SerializerMethodField()
+
+    def get_is_registered(self, obj):
+        return True
+
+    class Meta:
+        model = Event
+        fields = ('pk', 'title', 'image', 'is_registration_open', 'is_registered')
+
+
+class EventSimpleUnregistrationSerializer(serializers.ModelSerializer):
+    is_registered = serializers.SerializerMethodField()
+
+    def get_is_registered(self, obj):
+        return False
+
+    class Meta:
+        model = Event
+        fields = ('pk', 'title', 'image', 'is_registration_open', 'is_registered')
+
+
 class CollaboratorSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
