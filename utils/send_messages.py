@@ -1,6 +1,6 @@
 """Push notification service
 
-send_message_android and send_message_ios are the same, but this is intentional, in order
+send_message_android and send_message_ios are similar, but this is intentional, in order
 to support any future different conditions for both platforms, different keys or addtional parameters
 shit happens sometimes ROFL!
 
@@ -39,11 +39,11 @@ def send_message_ios(destination, message, title=config.TITLE_PUSH_NOTIFICATION)
     payload = {
         "to": destination,
         "priority": "high",
-        "sound": "default",
         "badge": 1,
-        "data": {
+        "notification": {
             "title": title,
-            "detail": message
+            "text": message,
+            "sound": "default",
         }
     }
     request = requests.post(
