@@ -1,10 +1,13 @@
-from .models import Message
-from .serializers import MessageSerializer
+from .models import Activity, Message
+from .serializers import ActivitySerializer, MessageSerializer, NotificationSerializer
 from constance import config
-from employees.models import Employee, EmployeeDevice, Location
+from employees.models import Employee, Location
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from itertools import chain
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from utils.send_messages import send_push_notification
@@ -86,3 +89,83 @@ def send_message_location(request, location_id):
         else:
             content = {'detail': config.NO_MESSAGE}
             return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def get_messages(request, employee_id):
+    """
+    Get all messages for employee id
+    ---
+    response_serializer: activities.serializers.MessageSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        messages = Message.objects.filter(Q(to_user='all') | Q(to_user=employee.location.name))
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(messages, request)
+        serializer = MessageSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def get_activities(request, employee_id):
+    """
+    Get all activities for employee id
+    ---
+    response_serializer: activities.serializers.ActivitySerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        activities = Activity.objects.filter(to_user=employee)
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(activities, request)
+        serializer = ActivitySerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def get_notifications(request, employee_id):
+    """
+    Get all notifications for employee id
+    ---
+    response_serializer: activities.serializers.NotificationSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        activities = Activity.objects.filter(to_user=employee).defer("datetime", "text")
+        messages = Message.objects.filter(Q(to_user='all') | Q(to_user=employee.location.name)).defer("datetime", "text")
+        notifications = list(chain(activities, messages))
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(notifications, request)
+        serializer = NotificationSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
