@@ -99,7 +99,7 @@ def give_star_to(request, from_employee_id, to_employee_id):
             # Add activity log if user level up
             if to_user.level != current_level:
                 message = config.LEVEL_UP_TEXT % (to_user.first_name, to_user.last_name, to_user.level)
-                activity = Activity.objects.create(detail=message, to_user=to_user)
+                activity = Activity.objects.create(text=message, to_user=to_user)
                 send_push_notification(to_user, message)
                 activity.save()
 
@@ -171,7 +171,7 @@ def give_star_to_many(request, from_employee_id):
                     # Add activity log if user level up
                     if to_user.level != current_level:
                         message = config.LEVEL_UP_TEXT % (to_user.first_name, to_user.last_name, to_user.level)
-                        activity = Activity.objects.create(detail=message, to_user=to_user)
+                        activity = Activity.objects.create(text=message, to_user=to_user)
                         activity.save()
 
                 else:
