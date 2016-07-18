@@ -4,6 +4,7 @@ from django.core.management.base import BaseCommand
 from django.core.mail import EmailMessage
 from django.shortcuts import get_list_or_404
 from employees.models import Employee
+from utils.send_messages import send_push_notification
 
 
 class Command(BaseCommand):
@@ -64,6 +65,7 @@ class Command(BaseCommand):
             try:
                 if employee.is_blocked:
                     self.send_blocked_notification_email(employee)
+                    send_push_notification(employee, config.USER_BLOCKED_NOTIFICATION_MESSAGE % employee.username)
             except Exception as e:
                 print e
 
