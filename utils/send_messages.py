@@ -39,7 +39,7 @@ def send_message_ios(destination, message, title=config.TITLE_PUSH_NOTIFICATION)
     payload = {
         "to": destination,
         "priority": "high",
-        "badge": 1,
+        "badge": 0,
         "notification": {
             "title": title,
             "text": message,
