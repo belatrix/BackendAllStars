@@ -17,10 +17,11 @@ from re import match as regex_match
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, renderer_classes
 from rest_framework.exceptions import APIException
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.renderers import StaticHTMLRenderer
 from rest_framework.response import Response
 
 
@@ -499,6 +500,7 @@ def employee_reset_password(request, employee_email):
 
 
 @api_view(['GET', ])
+@renderer_classes((StaticHTMLRenderer,))
 def employee_reset_password_confirmation(request, employee_email, employee_uuid):
     """
     This endpoint reset employee with random password and send an email to employee with it.
@@ -523,11 +525,11 @@ def employee_reset_password_confirmation(request, employee_email, employee_uuid)
             send_email.send()
         except Exception as e:
             print e
-            content = {'detail': config.EMAIL_SERVICE_ERROR}
-            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
+            data = "<h1>%s</h1>" % config.EMAIL_SERVICE_ERROR
+            return Response(data)
 
-        content = {'detail': config.USER_SUCCESSFULLY_RESET_PASSWORD}
-        return Response(content, status=status.HTTP_200_OK)
+        data = "<h1>%s</h1>" % config.USER_SUCCESSFULLY_RESET_PASSWORD
+        return Response(data)
 
 
 @api_view(['PATCH', ])
