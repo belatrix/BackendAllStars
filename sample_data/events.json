@@ -326,7 +326,7 @@
 		"is_approved": true,
 		"message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla bibendum quam id neque dignissim sed.",
 		"author": 6,
-		"approved_by": 7,
+		"approved_by": 1,
 		"event": null,
 		"talk": 2
 	}
