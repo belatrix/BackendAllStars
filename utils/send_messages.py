@@ -11,7 +11,7 @@ from constance import config
 import requests
 
 
-def send_message_android(destination, message, title=config.TITLE_PUSH_NOTIFICATION):
+def send_message_android(destination, message):
     headers = {
         'Authorization': 'key=' + settings.FIREBASE_SERVER_KEY,
         'Content - Type': 'application/json'
@@ -19,7 +19,7 @@ def send_message_android(destination, message, title=config.TITLE_PUSH_NOTIFICAT
     payload = {
         "to": destination,
         "data": {
-            "title": title,
+            "title": config.TITLE_PUSH_NOTIFICATION,
             "detail": message
         }
     }
@@ -31,7 +31,7 @@ def send_message_android(destination, message, title=config.TITLE_PUSH_NOTIFICAT
     print request.text
 
 
-def send_message_ios(destination, message, title=config.TITLE_PUSH_NOTIFICATION):
+def send_message_ios(destination, message):
     headers = {
         'Authorization': 'key=' + settings.FIREBASE_SERVER_KEY,
         'Content - Type': 'application/json'
@@ -41,7 +41,7 @@ def send_message_ios(destination, message, title=config.TITLE_PUSH_NOTIFICATION)
         "priority": "high",
         "badge": 0,
         "notification": {
-            "title": title,
+            "title": config.TITLE_PUSH_NOTIFICATION,
             "text": message,
             "sound": "default",
         }
