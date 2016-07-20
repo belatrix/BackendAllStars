@@ -53,6 +53,45 @@ def send_message_all(request):
 
 @api_view(['POST', ])
 @permission_classes((IsAuthenticated,))
+def send_message_to(request, employee_username):
+    """
+    Send message to employee
+    ---
+    response_serializer: employees.serializers.EmployeeDeviceSerializer
+    parameters:
+    - name: message
+      type: string
+      required: true
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'POST':
+        if 'message' in request.data:
+            employee = get_object_or_404(Employee, username=employee_username)
+            message = Message(
+                text=request.data['message'],
+                from_user=request.user,
+                to_user=employee.username
+            )
+            message.save()
+            send_push_notification(employee, message.text)
+            serializer = MessageSerializer(message)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            content = {'detail': config.NO_MESSAGE}
+            return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['POST', ])
+@permission_classes((IsAuthenticated,))
 def send_message_location(request, location_id):
     """
     Send message to all employees by location
@@ -110,7 +149,7 @@ def get_messages(request, employee_id):
     """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
-        messages = Message.objects.filter(Q(to_user='all') | Q(to_user=employee.location.name))
+        messages = Message.objects.filter(Q(to_user='all') | Q(to_user=employee.location.name) | Q(to_user=employee.username))
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(messages, request)
         serializer = MessageSerializer(results, many=True)
@@ -163,7 +202,10 @@ def get_notifications(request, employee_id):
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
         activities = Activity.objects.filter(to_user=employee).defer("datetime", "text")
-        messages = Message.objects.filter(Q(to_user='all') | Q(to_user=employee.location.name)).defer("datetime", "text")
+        messages = Message.objects.filter(
+            Q(to_user='all') |
+            Q(to_user=employee.location.name) |
+            Q(to_user=employee.username)).defer("datetime", "text")
         notifications = list(chain(activities, messages))
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(notifications, request)
