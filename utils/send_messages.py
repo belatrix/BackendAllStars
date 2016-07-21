@@ -54,9 +54,9 @@ def send_message_ios(destination, message):
     print request.text
 
 
-def send_push_notification(user, message):
+def send_push_notification(to_user, message):
     try:
-        devices = user.employeedevice_set.all()
+        devices = to_user.employeedevice_set.all()
         if devices[0].android_device:
             send_message_android(devices[0].android_device, message)
         if devices[0].ios_device:
@@ -64,3 +64,10 @@ def send_push_notification(user, message):
         return True
     except:
         return False
+
+
+def evaluate_user_permissions_for_push(user):
+    roles = user.role.all()
+    for role in roles:
+        if config.ROLE_AUTHORIZED == role.name:
+            return True

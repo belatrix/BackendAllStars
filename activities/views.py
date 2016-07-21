@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from utils.send_messages import send_push_notification
+from utils.send_messages import evaluate_user_permissions_for_push, send_push_notification
 
 
 @api_view(['POST', ])
@@ -34,21 +34,25 @@ def send_message_all(request):
     - code: 500
       message: Internal Server Error
     """
-    if request.method == 'POST':
-        if 'message' in request.data:
-            employee_list = Employee.objects.all()
-            message = Message(
-                text=request.data['message'],
-                from_user=request.user,
-                to_user="all")
-            message.save()
-            for employee in employee_list:
-                send_push_notification(employee, message.text)
-            serializer = MessageSerializer(message)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            content = {'detail': config.NO_MESSAGE}
-            return Response(content, status=status.HTTP_400_BAD_REQUEST)
+    if evaluate_user_permissions_for_push(request.user):
+        if request.method == 'POST':
+            if 'message' in request.data:
+                employee_list = Employee.objects.all()
+                message = Message(
+                    text=request.data['message'],
+                    from_user=request.user,
+                    to_user="all")
+                message.save()
+                for employee in employee_list:
+                    send_push_notification(employee, message.text)
+                serializer = MessageSerializer(message)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                content = {'detail': config.NO_MESSAGE}
+                return Response(content, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        content = {'detail': config.NO_ALLOWED_TO_SEND_MESSAGE}
+        return Response(content, status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(['POST', ])
@@ -72,21 +76,25 @@ def send_message_to(request, employee_username):
     - code: 500
       message: Internal Server Error
     """
-    if request.method == 'POST':
-        if 'message' in request.data:
-            employee = get_object_or_404(Employee, username=employee_username)
-            message = Message(
-                text=request.data['message'],
-                from_user=request.user,
-                to_user=employee.username
-            )
-            message.save()
-            send_push_notification(employee, message.text)
-            serializer = MessageSerializer(message)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            content = {'detail': config.NO_MESSAGE}
-            return Response(content, status=status.HTTP_400_BAD_REQUEST)
+    if evaluate_user_permissions_for_push(request.user):
+        if request.method == 'POST':
+            if 'message' in request.data:
+                employee = get_object_or_404(Employee, username=employee_username)
+                message = Message(
+                    text=request.data['message'],
+                    from_user=request.user,
+                    to_user=employee.username
+                )
+                message.save()
+                send_push_notification(employee, message.text)
+                serializer = MessageSerializer(message)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                content = {'detail': config.NO_MESSAGE}
+                return Response(content, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        content = {'detail': config.NO_ALLOWED_TO_SEND_MESSAGE}
+        return Response(content, status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(['POST', ])
@@ -110,23 +118,28 @@ def send_message_location(request, location_id):
     - code: 500
       message: Internal Server Error
     """
-    if request.method == 'POST':
-        if 'message' in request.data:
-            employee_list = Employee.objects.all()
-            location = get_object_or_404(Location, pk=location_id)
-            message = Message(
-                text=request.data['message'],
-                from_user=request.user,
-                to_user="location: " + location.name)
-            message.save()
-            for employee in employee_list:
-                if employee.location == location:
-                    send_push_notification(employee, message.text)
-            serializer = MessageSerializer(message)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            content = {'detail': config.NO_MESSAGE}
-            return Response(content, status=status.HTTP_400_BAD_REQUEST)
+    if evaluate_user_permissions_for_push(request.user):
+        if request.method == 'POST':
+            if 'message' in request.data:
+                employee_list = Employee.objects.all()
+                location = get_object_or_404(Location, pk=location_id)
+                message = Message(
+                    text=request.data['message'],
+                    from_user=request.user,
+                    to_user="location: " + location.name)
+                message.save()
+                for employee in employee_list:
+                    if employee.location == location:
+                        send_push_notification(employee, message.text)
+                serializer = MessageSerializer(message)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            else:
+                content = {'detail': config.NO_MESSAGE}
+                return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
+    else:
+        content = {'detail': config.NO_ALLOWED_TO_SEND_MESSAGE}
+        return Response(content, status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(['GET', ])

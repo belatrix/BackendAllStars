@@ -109,9 +109,11 @@ CONSTANCE_CONFIG = {
 
     # Activities messages
     'NO_MESSAGE': ('Message is empty.', 'Error message when message is empty'),
+    'NO_ALLOWED_TO_SEND_MESSAGE': ('You are not allowed to send messages.', 'Error message when user is not allowed to send messages'),
     'TITLE_PUSH_NOTIFICATION': ('BELATRIX Connect', 'Title for push notifications'),
     'LEVEL_UP_TEXT': ('%s %s achieved level %d.', 'Message when user level up.'),
     'RECOMMENDATION_MESSAGE': ('You earn %d point(s), %s %s gives you a recommendation', 'Message when user receives a recommendation'),
+    'ROLE_AUTHORIZED': ('Notifier', 'Role authorized to send push notification messages'),
 }
 
 MIDDLEWARE_CLASSES = [
