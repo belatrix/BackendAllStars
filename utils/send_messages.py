@@ -64,10 +64,3 @@ def send_push_notification(to_user, message):
         return True
     except:
         return False
-
-
-def evaluate_user_permissions_for_push(user):
-    roles = user.role.all()
-    for role in roles:
-        if config.ROLE_AUTHORIZED == role.name:
-            return True
