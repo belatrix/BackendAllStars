@@ -183,6 +183,31 @@ def get_messages_from(request, employee_id):
 
 @api_view(['GET', ])
 @permission_classes((IsAuthenticated,))
+def get_messages_from_all(request):
+    """
+    Get all messages sent
+    ---
+    response_serializer: activities.serializers.MessageSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'GET':
+        messages = Message.objects.all()
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(messages, request)
+        serializer = MessageSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def get_activities(request, employee_id):
     """
     Get all activities for employee id
