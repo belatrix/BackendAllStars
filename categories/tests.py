@@ -14,7 +14,7 @@ class CategoryTestCase(APITestCase):
         Category.objects.create(name='Category2')
         Subcategory.objects.create(name='Subcategory1')
         self.client.login(username='user1', password='user1password')
-        
+
     def test_category_creation(self):
         category1 = Category.objects.get(name='Category1')
         category2 = Category.objects.get(name='Category2')

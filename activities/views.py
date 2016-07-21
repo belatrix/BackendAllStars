@@ -89,7 +89,6 @@ def send_message_to(request, employee_username):
             return Response(content, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 @api_view(['POST', ])
 @permission_classes((IsAuthenticated,))
 def send_message_location(request, location_id):
@@ -150,6 +149,32 @@ def get_messages(request, employee_id):
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
         messages = Message.objects.filter(Q(to_user='all') | Q(to_user=employee.location.name) | Q(to_user=employee.username))
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(messages, request)
+        serializer = MessageSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def get_messages_from(request, employee_id):
+    """
+    Get all messages sent from employee id
+    ---
+    response_serializer: activities.serializers.MessageSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        messages = Message.objects.filter(from_user=employee)
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(messages, request)
         serializer = MessageSerializer(results, many=True)
