@@ -47,7 +47,7 @@ def get_default_category():
 
 
 class Employee(AbstractUser):
-    role = models.ForeignKey(Role, null=True, blank=True)
+    role = models.ManyToManyField(Role, blank=True)
     location = models.ForeignKey(Location, null=True, blank=True)
     skype_id = models.CharField(max_length=200, null=True, blank=True)
     level = models.PositiveIntegerField(default=0)

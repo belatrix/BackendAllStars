@@ -1,0 +1,19 @@
+[{
+	"model": "employees.role",
+	"pk": 1,
+	"fields": {
+		"name": "Developer"
+	}
+}, {
+	"model": "employees.role",
+	"pk": 2,
+	"fields": {
+		"name": "QA"
+	}
+}, {
+	"model": "employees.role",
+	"pk": 3,
+	"fields": {
+		"name": "Notifier"
+	}
+}]
