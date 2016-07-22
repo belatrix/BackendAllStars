@@ -183,6 +183,7 @@ DJOSER = {
 EMAIL_USE_TLS = True
 EMAIL_DOMAIN_LIST = {
     'belatrixsf.com',
+    'gmail.com',
 }
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
