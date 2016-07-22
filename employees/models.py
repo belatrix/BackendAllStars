@@ -52,6 +52,7 @@ class Employee(AbstractUser):
     skype_id = models.CharField(max_length=200, null=True, blank=True)
     level = models.PositiveIntegerField(default=0)
     categories = models.ManyToManyField('categories.Category', blank=True)
+    skills = models.ManyToManyField('categories.Keyword', blank=True)
     reset_password_code = models.UUIDField(default=None, null=True, blank=True)
     avatar = models.ImageField(upload_to=avatar_filename, null=True, blank=True)
     is_base_profile_complete = models.BooleanField(default=False)
