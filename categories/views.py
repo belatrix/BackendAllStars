@@ -2,6 +2,7 @@ from .models import Category, Keyword, Subcategory
 from .serializers import CategorySerializer, KeywordListSerializer, SubcategoryListSerializer, SubcategoryDetailSerializer
 from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.exceptions import APIException
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
@@ -47,6 +48,40 @@ def keyword_list(request):
         keywords = get_list_or_404(Keyword)
         serializer = KeywordListSerializer(keywords, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['POST', ])
+@permission_classes((IsAuthenticated,))
+def keyword_add(request):
+    """
+    Add keyword
+    ---
+    response_serializer: categories.serializers.KeywordListSerializer
+    parameters:
+    - name: name
+      type: string
+      required: true
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'POST':
+        if 'name' in request.data:
+            try:
+                keyword = Keyword.objects.create(name=request.data['name'])
+                keyword.save()
+                keywords = get_list_or_404(Keyword)
+                serializer = KeywordListSerializer(keywords, many=True)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except Exception as e:
+                raise APIException(e)
+
 
 
 @api_view(['GET'])
