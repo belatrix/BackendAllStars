@@ -4,6 +4,7 @@ from .serializers import EmployeeLocationListSerializer, EmployeeRoleListSeriali
 from .serializers import EmployeeTopTotalScoreList, EmployeeTopLevelList
 from .serializers import EmployeeTopCurrentMonthList, EmployeeTopLastMonthList
 from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList, EmployeeDeviceSerializer
+from .serializers import EmployeeSkillsSerializer
 from categories.serializers import CategorySerializer
 from constance import config
 from django.conf import settings
@@ -530,6 +531,32 @@ def employee_reset_password_confirmation(request, employee_email, employee_uuid)
 
         data = "<h1>%s</h1>" % config.USER_SUCCESSFULLY_RESET_PASSWORD
         return Response(data)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated, ))
+def employee_skills(request, employee_id):
+    """
+    Get employee skills
+    ---
+    response_serializer: employees.serializers.EmployeeSkillsSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        skills = employee.skills.all()
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(skills, request)
+        serializer = EmployeeSkillsSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['PATCH', ])
