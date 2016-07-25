@@ -118,7 +118,7 @@ def send_message_location(request, location_id):
             message = Message(
                 text=request.data['message'],
                 from_user=request.user,
-                to_user="location: " + location.name)
+                to_user=location.name)
             message.save()
             for employee in employee_list:
                 if employee.location == location:
