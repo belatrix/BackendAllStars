@@ -3,7 +3,7 @@ from .permissions import SendPushPermission
 from .serializers import ActivitySerializer, MessageSerializer, NotificationSerializer
 from constance import config
 from employees.models import Employee, Location
-from django.db.models import Q
+from django.db.models import F, Q
 from django.shortcuts import get_object_or_404
 from itertools import chain
 from rest_framework import status
@@ -252,11 +252,16 @@ def get_notifications(request, employee_id):
     """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
-        activities = Activity.objects.filter(to_user=employee).defer("datetime", "text")
-        messages = Message.objects.filter(
-            Q(to_user='all') |
-            Q(to_user=employee.location.name) |
-            Q(to_user=employee.username)).defer("datetime", "text")
+        activities = Activity.objects.annotate(
+            avatar=F('to_user__avatar')).values('datetime',
+                                                'text',
+                                                'avatar').filter(to_user=employee)
+        messages = Message.objects.annotate(
+            avatar=F('from_user__avatar')).values('datetime',
+                                                  'text',
+                                                  'avatar').filter(Q(to_user='all') |
+                                                                   Q(to_user=employee.location.name) |
+                                                                   Q(to_user=employee.username))
         notifications = list(chain(activities, messages))
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(notifications, request)

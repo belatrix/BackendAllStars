@@ -83,7 +83,6 @@ def keyword_add(request):
                 raise APIException(e)
 
 
-
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
 def subcategory_detail(request, subcategory_id):
