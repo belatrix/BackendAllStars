@@ -74,7 +74,8 @@ def keyword_add(request):
     if request.method == 'POST':
         if 'name' in request.data:
             try:
-                keyword = Keyword.objects.create(name=request.data['name'])
+                new_keyword = request.data['name'].title()
+                keyword = Keyword.objects.create(name=new_keyword)
                 keyword.save()
                 keywords = get_list_or_404(Keyword)
                 serializer = KeywordListSerializer(keywords, many=True)
