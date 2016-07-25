@@ -253,15 +253,15 @@ def get_notifications(request, employee_id):
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
         activities = Activity.objects.annotate(
-            avatar=F('to_user__avatar')).values('datetime',
-                                                'text',
-                                                'avatar').filter(to_user=employee)
+            profile=F('to_user')).values('datetime',
+                                         'text',
+                                         'profile').filter(to_user=employee)
         messages = Message.objects.annotate(
-            avatar=F('from_user__avatar')).values('datetime',
-                                                  'text',
-                                                  'avatar').filter(Q(to_user='all') |
-                                                                   Q(to_user=employee.location.name) |
-                                                                   Q(to_user=employee.username))
+            profile=F('from_user')).values('datetime',
+                                           'text',
+                                           'profile').filter(Q(to_user='all') |
+                                                             Q(to_user=employee.location.name) |
+                                                             Q(to_user=employee.username))
         notifications = list(chain(activities, messages))
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(notifications, request)
