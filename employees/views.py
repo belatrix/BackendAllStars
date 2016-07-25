@@ -516,6 +516,7 @@ def employee_reset_password_confirmation(request, employee_email, employee_uuid)
         employee = get_object_or_404(Employee, email=employee_email, reset_password_code=employee_uuid)
         random_password = Employee.objects.make_random_password(length=4, allowed_chars='beatrx23456789')
         employee.set_password(random_password)
+        employee.is_password_reset_required = True
         employee.save()
 
         # Send confirmation email
@@ -638,6 +639,7 @@ def employee_update_password(request, employee_id):
         elif employee.check_password(current_password):
             employee.set_password(new_password)
             employee.reset_password_code = None
+            employee.is_password_reset_required = False
             employee.save()
             serializer = EmployeeSerializer(employee)
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
@@ -709,7 +711,8 @@ class CustomObtainAuthToken(ObtainAuthToken):
             return Response({'token': token.key,
                              'user_id': token.user_id,
                              'reset_password_code': employee.reset_password_code,
-                             'is_base_profile_complete': employee.is_base_profile_complete})
+                             'is_base_profile_complete': employee.is_base_profile_complete,
+                             'is_password_reset_required': employee.is_password_reset_required})
         except Exception as e:
             print e
             content = config.USER_UNABLE_TO_LOG

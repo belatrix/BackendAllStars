@@ -57,6 +57,7 @@ class Employee(AbstractUser):
     avatar = models.ImageField(upload_to=avatar_filename, null=True, blank=True)
     is_base_profile_complete = models.BooleanField(default=False)
     is_blocked = models.BooleanField(default=False)
+    is_password_reset_required = models.BooleanField(default=True)
 
     # Given stars
     yesterday_given = models.PositiveIntegerField(default=0)

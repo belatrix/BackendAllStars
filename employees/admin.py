@@ -32,7 +32,7 @@ class EmployeeAdmin(ImportExportMixin, BaseUserAdmin):
     form = UserChangeForm
     list_display = ("username", "first_name", "last_name", "email", 'location', 'level', 'total_score', 'is_blocked')
     fieldsets = (
-        (None, {'fields': ('username', 'email', 'password', 'reset_password_code')}),
+        (None, {'fields': ('username', 'email', 'password', 'reset_password_code', 'is_password_reset_required')}),
         ('Personal info', {'fields': ('first_name',
                                       'last_name',
                                       'location',

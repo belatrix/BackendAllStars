@@ -16,6 +16,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
                   'skype_id',
                   'avatar',
                   'is_base_profile_complete',
+                  'is_password_reset_required',
                   'last_month_score',
                   'last_year_score',
                   'current_month_score',
