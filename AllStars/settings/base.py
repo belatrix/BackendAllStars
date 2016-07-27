@@ -62,10 +62,10 @@ INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
     # Rules to block users
-    'MAX_STARS_GIVEN_DAY': (10, 'Maximum number of stars given by one employee daily'),
-    'MAX_STARS_RECEIVED_DAY': (15, 'Maximum number of stars received to employee daily'),
-    'MAX_STARS_GIVEN_MONTHLY': (30, 'Maximum number of stars given by one employee in a month'),
-    'MAX_STARS_RECEIVED_MONTHLY': (45, 'Maximum number of stars received to one employee in a month'),
+    'MAX_STARS_GIVEN_DAY': (10, 'Maximum number of points given by one employee daily'),
+    'MAX_STARS_RECEIVED_DAY': (15, 'Maximum number of points received to employee daily'),
+    'MAX_STARS_GIVEN_MONTHLY': (30, 'Maximum number of points given by one employee in a month'),
+    'MAX_STARS_RECEIVED_MONTHLY': (45, 'Maximum number of points received to one employee in a month'),
 
     # Email errors messages
     'EMAIL_DOMAIN_FORBIDDEN': ('Email domain %s is forbidden.', 'Error message when email domain is not in email domain list'),
@@ -91,10 +91,10 @@ CONSTANCE_CONFIG = {
     'WRONG_CURRENT_PASSWORD': ('Current password is wrong.', 'Error message when current password is wrong.'),
 
     # Stars messages
-    'SUCCESSFULLY_STARS_ADDED': ('Successfully stars added', 'Successfully message when bulk stars added.'),
-    'USER_BLOCKED_TO_GIVE_STARS': ('User is blocked to give stars. Please contact your project leader.', 'Error message when user is blocked to give stars.'),
-    'USER_BLOCKED_TO_RECEIVED_STARS': ('User is blocked to received stars.', 'Error message when user is blocked to received stars.'),
-    'USER_UNABLE_TO_GIVE_STARS_ITSELF': ('User is unable to give stars to itself.', 'Error message when user is unable to give stars to itself.'),
+    'SUCCESSFULLY_STARS_ADDED': ('Successfully points added', 'Successfully message when bulk points added.'),
+    'USER_BLOCKED_TO_GIVE_STARS': ('User is blocked to give recommendations. Please contact your project leader.', 'Error message when user is blocked to give recommendations.'),
+    'USER_BLOCKED_TO_RECEIVED_STARS': ('User is blocked to received recommendations.', 'Error message when user is blocked to received recommendations.'),
+    'USER_UNABLE_TO_GIVE_STARS_ITSELF': ('User is unable to give recommendations to itself.', 'Error message when user is unable to give recommendations to itself.'),
 
     # Daily cron tasks messages
     'DAILY_EXECUTION_CONFIRMATION_SUBJECT': ('[BELATRIX CONNECT] Daily check has been executed.', 'Email confirmation subject for daily tasks.'),
@@ -183,7 +183,6 @@ DJOSER = {
 EMAIL_USE_TLS = True
 EMAIL_DOMAIN_LIST = {
     'belatrixsf.com',
-    'gmail.com',
 }
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
