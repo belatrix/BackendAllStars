@@ -131,7 +131,7 @@ def send_message_location(request, location_id):
 
 
 @api_view(['GET', ])
-@permission_classes((IsAuthenticated, SendPushPermission))
+@permission_classes((IsAuthenticated,))
 def get_messages(request, employee_id):
     """
     Get all messages for employee id
@@ -157,7 +157,7 @@ def get_messages(request, employee_id):
 
 
 @api_view(['GET', ])
-@permission_classes((IsAuthenticated, SendPushPermission))
+@permission_classes((IsAuthenticated,))
 def get_messages_from(request, employee_id):
     """
     Get all messages sent from employee id
@@ -183,7 +183,7 @@ def get_messages_from(request, employee_id):
 
 
 @api_view(['GET', ])
-@permission_classes((IsAuthenticated, SendPushPermission))
+@permission_classes((IsAuthenticated,))
 def get_messages_from_all(request):
     """
     Get all messages sent
@@ -208,7 +208,7 @@ def get_messages_from_all(request):
 
 
 @api_view(['GET', ])
-@permission_classes((IsAuthenticated, SendPushPermission))
+@permission_classes((IsAuthenticated,))
 def get_activities(request, employee_id):
     """
     Get all activities for employee id
@@ -234,7 +234,7 @@ def get_activities(request, employee_id):
 
 
 @api_view(['GET', ])
-@permission_classes((IsAuthenticated, SendPushPermission))
+@permission_classes((IsAuthenticated,))
 def get_notifications(request, employee_id):
     """
     Get all notifications for employee id
