@@ -263,6 +263,7 @@ def get_notifications(request, employee_id):
                                                              Q(to_user=employee.location.name) |
                                                              Q(to_user=employee.username))
         notifications = list(chain(activities, messages))
+        notifications = sorted(notifications, reverse=True)
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(notifications, request)
         serializer = NotificationSerializer(results, many=True)
