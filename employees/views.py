@@ -666,20 +666,39 @@ def top(request, kind, quantity):
       message: Internal server error, cannot resolve keyword into field.
     """
     try:
+        employee_list_filtered = []
         if request.method == 'GET':
             employee_list = Employee.objects.filter(is_active=True, is_base_profile_complete=True).order_by('-' + kind)[:quantity]
             if kind == 'total_score':
-                serializer = EmployeeTopTotalScoreList(employee_list, many=True)
+                for employee in employee_list:
+                    if employee.total_score > 0:
+                        employee_list_filtered.append(employee)
+                serializer = EmployeeTopTotalScoreList(employee_list_filtered, many=True)
             elif kind == 'level':
-                serializer = EmployeeTopLevelList(employee_list, many=True)
+                for employee in employee_list:
+                    if employee.level > 0:
+                        employee_list_filtered.append(employee)
+                serializer = EmployeeTopLevelList(employee_list_filtered, many=True)
             elif kind == 'current_month_score':
-                serializer = EmployeeTopCurrentMonthList(employee_list, many=True)
+                for employee in employee_list:
+                    if employee.current_month_score > 0:
+                        employee_list_filtered.append(employee)
+                serializer = EmployeeTopCurrentMonthList(employee_list_filtered, many=True)
             elif kind == 'current_year_score':
-                serializer = EmployeeTopCurrentYearList(employee_list, many=True)
+                for employee in employee_list:
+                    if employee.current_year_score > 0:
+                        employee_list_filtered.append(employee)
+                serializer = EmployeeTopCurrentYearList(employee_list_filtered, many=True)
             elif kind == 'last_month_score':
-                serializer = EmployeeTopLastMonthList(employee_list, many=True)
+                for employee in employee_list:
+                    if employee.last_month_score > 0:
+                        employee_list_filtered.append(employee)
+                serializer = EmployeeTopLastMonthList(employee_list_filtered, many=True)
             elif kind == 'last_year_score':
-                serializer = EmployeeTopLastYearList(employee_list, many=True)
+                for employee in employee_list:
+                    if employee.last_year_score > 0:
+                        employee_list_filtered.append(employee)
+                serializer = EmployeeTopLastYearList(employee_list_filtered, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
         raise APIException(e)
