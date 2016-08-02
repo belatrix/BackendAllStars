@@ -85,6 +85,7 @@ CONSTANCE_CONFIG = {
     'USER_SUCCESSFULLY_RESET_PASSWORD': ('Successfully password creation, email has been sent.', 'Successfully user reset password.'),
     'USER_UNABLE_TO_LOG': ('User is unable to log in with provided credentials.', 'Error message when user are not able to log in'),
     'USER_LOGOUT': ('User logout successfully', 'Message when user logout'),
+    'TOP_LIST_EMPTY': ('Top list is empty', 'Message when top list is empty'),
 
     # Password errors messages
     'PASSWORD_EQUAL': ('New and current password are equal', 'Error message when new and current password are equal.'),
