@@ -256,6 +256,8 @@ def stars_employee_subcategory_list(request, employee_id):
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(employee_stars, request)
         serializer = StarEmployeesSubcategoriesSerializer(results, many=True)
+        if serializer.data == []:
+            raise APIException(config.NO_STARS_RECEIVED)
         return paginator.get_paginated_response(serializer.data)
 
 

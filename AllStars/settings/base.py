@@ -96,6 +96,7 @@ CONSTANCE_CONFIG = {
     'USER_BLOCKED_TO_GIVE_STARS': ('User is blocked to give recommendations. Please contact your project leader.', 'Error message when user is blocked to give recommendations.'),
     'USER_BLOCKED_TO_RECEIVED_STARS': ('User is blocked to received recommendations.', 'Error message when user is blocked to received recommendations.'),
     'USER_UNABLE_TO_GIVE_STARS_ITSELF': ('User is unable to give recommendations to itself.', 'Error message when user is unable to give recommendations to itself.'),
+    'NO_STARS_RECEIVED': ('No recommendations yet.', "Message when user doesn't have recommendations yet."),
 
     # Daily cron tasks messages
     'DAILY_EXECUTION_CONFIRMATION_SUBJECT': ('[BELATRIX CONNECT] Daily check has been executed.', 'Email confirmation subject for daily tasks.'),
