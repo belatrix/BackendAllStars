@@ -10,7 +10,7 @@ from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.exceptions import APIException
+from rest_framework.exceptions import APIException, NotFound
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -257,7 +257,7 @@ def stars_employee_subcategory_list(request, employee_id):
         results = paginator.paginate_queryset(employee_stars, request)
         serializer = StarEmployeesSubcategoriesSerializer(results, many=True)
         if serializer.data == []:
-            raise APIException(config.NO_STARS_RECEIVED)
+            raise NotFound(config.NO_STARS_RECEIVED)
         return paginator.get_paginated_response(serializer.data)
 
 

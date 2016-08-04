@@ -72,6 +72,9 @@ CONSTANCE_CONFIG = {
     'EMAIL_SERVICE_ERROR': ('There are problems with email service, please contact an administrator.', 'Error message when email service is not available.'),
     'INVALID_EMAIL_ADDRESS': ('%s is not a valid email address.', 'Error message when email address is invalid.'),
 
+    # Categories messages
+    'KEYWORD_ALREADY_EXISTS': ('Data already exists or is invalid.', 'Error message when a keyword already exists or is not set.'),
+
     # User messages
     'EMPLOYEE_CREATION_SUBJECT': ('[BELATRIX CONNECT] Your account has been successfully created.', 'Email subject when new account is created.'),
     'EMPLOYEE_CREATION_MESSAGE': ('Your username is: %s and your initial random password is %s', 'Email message when new account is created'),
@@ -85,6 +88,7 @@ CONSTANCE_CONFIG = {
     'USER_SUCCESSFULLY_RESET_PASSWORD': ('Successfully password creation, email has been sent.', 'Successfully user reset password.'),
     'USER_UNABLE_TO_LOG': ('User is unable to log in with provided credentials.', 'Error message when user are not able to log in'),
     'USER_LOGOUT': ('User logout successfully', 'Message when user logout'),
+    'USER_DATA_IS_MISSING': ('User data is missing', 'Message when user data update is missing'),
     'TOP_LIST_EMPTY': ('Top list is empty', 'Message when top list is empty'),
 
     # Password errors messages

@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, get_list_or_404
 from employees.models import Employee
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.exceptions import APIException
+from rest_framework.exceptions import APIException, NotFound
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -39,7 +39,7 @@ def event(request, event_id):
             serializer = EventSerializer(event)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
-            raise APIException(e)
+            raise NotFound(e)
 
 
 @api_view(['POST', ])
@@ -161,7 +161,7 @@ def event_collaborator_list(request, event_id):
             serializer = EventCollaboratorListSerializer(event)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
-            raise APIException(e)
+            raise NotFound(e)
 
 
 @api_view(['GET', ])
@@ -187,7 +187,7 @@ def event_participant_list(request, event_id):
             serializer = EventParticipantListSerializer(event)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
-            raise APIException(e)
+            raise NotFound(e)
 
 
 @api_view(['PUT', ])

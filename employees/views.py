@@ -19,7 +19,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import api_view, permission_classes, renderer_classes
-from rest_framework.exceptions import APIException
+from rest_framework.exceptions import APIException, NotAcceptable, NotFound
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import StaticHTMLRenderer
@@ -599,7 +599,8 @@ def employee_update(request, employee_id):
             serializer = EmployeeSerializer(employee)
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         except Exception as e:
-            raise APIException(e)
+            print e
+            raise NotAcceptable(config.USER_DATA_IS_MISSING)
 
 
 @api_view(['POST', ])
@@ -631,7 +632,8 @@ def employee_update_password(request, employee_id):
             current_password = request.data['current_password']
             new_password = request.data['new_password']
         except Exception as e:
-            raise APIException(e)
+            print e
+            raise NotAcceptable(config.USER_DATA_IS_MISSING)
         employee = get_object_or_404(Employee, pk=employee_id)
         if current_password == new_password:
             content = {'detail': config.PASSWORD_EQUAL}
@@ -700,7 +702,7 @@ def top(request, kind, quantity):
                         employee_list_filtered.append(employee)
                 serializer = EmployeeTopLastYearList(employee_list_filtered, many=True)
             if serializer.data == []:
-                raise APIException(config.TOP_LIST_EMPTY)
+                raise NotFound(config.TOP_LIST_EMPTY)
             return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
         raise APIException(e)
@@ -736,5 +738,4 @@ class CustomObtainAuthToken(ObtainAuthToken):
                              'is_password_reset_required': employee.is_password_reset_required})
         except Exception as e:
             print e
-            content = config.USER_UNABLE_TO_LOG
-            raise APIException(content)
+            raise NotAcceptable(config.USER_UNABLE_TO_LOG)

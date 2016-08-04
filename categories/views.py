@@ -1,8 +1,9 @@
 from .models import Category, Keyword, Subcategory
 from .serializers import CategorySerializer, KeywordListSerializer, SubcategoryListSerializer, SubcategoryDetailSerializer
+from constance import config
 from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.exceptions import APIException
+from rest_framework.exceptions import NotAcceptable
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
@@ -81,7 +82,8 @@ def keyword_add(request):
                 serializer = KeywordListSerializer(keywords, many=True)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             except Exception as e:
-                raise APIException(e)
+                print e
+                raise NotAcceptable(config.KEYWORD_ALREADY_EXISTS)
 
 
 @api_view(['GET'])
