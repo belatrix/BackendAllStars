@@ -140,7 +140,7 @@
 	"model": "categories.keyword",
 	"pk": 1,
 	"fields": {
-		"name": "Python"
+		"name": "PYTHON"
 	}
 }, {
 	"model": "categories.keyword",
@@ -152,55 +152,55 @@
 	"model": "categories.keyword",
 	"pk": 3,
 	"fields": {
-		"name": "Android"
+		"name": "ANDROID"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 4,
 	"fields": {
-		"name": "Java"
+		"name": "JAVA"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 5,
 	"fields": {
-		"name": "iOS"
+		"name": "IOS"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 6,
 	"fields": {
-		"name": "Agile / Scrum"
+		"name": "SCRUM"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 7,
 	"fields": {
-		"name": "Javascript"
+		"name": "JAVASCRIPT"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 8,
 	"fields": {
-		"name": "Angular"
+		"name": "ANGULAR"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 9,
 	"fields": {
-		"name": "Ruby"
+		"name": "RUBY"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 10,
 	"fields": {
-		"name": "Ruby on Rails"
+		"name": "RUBY ON RAILS"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 11,
 	"fields": {
-		"name": "Django"
+		"name": "DJANGO"
 	}
 }, {
 	"model": "categories.keyword",
@@ -218,19 +218,19 @@
 	"model": "categories.keyword",
 	"pk": 14,
 	"fields": {
-		"name": ".net"
+		"name": ".NET"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 15,
 	"fields": {
-		"name": "Perl"
+		"name": "PERL"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 16,
 	"fields": {
-		"name": "Mobile"
+		"name": "MOBILE"
 	}
 }, {
 	"model": "categories.keyword",
@@ -242,42 +242,42 @@
 	"model": "categories.keyword",
 	"pk": 18,
 	"fields": {
-		"name": "Automation"
+		"name": "AUTOMATION"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 19,
 	"fields": {
-		"name": "Excellence"
+		"name": "EXCELLENCE"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 20,
 	"fields": {
-		"name": "Reliability"
+		"name": "RELIABILITY"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 21,
 	"fields": {
-		"name": "Team spirit"
+		"name": "TEAM SPIRIT"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 22,
 	"fields": {
-		"name": "Service"
+		"name": "SERVICE"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 23,
 	"fields": {
-		"name": "Integrity"
+		"name": "INTEGRITY"
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 24,
 	"fields": {
-		"name": "Responsibility"
+		"name": "RESPONSIBILITY"
 	}
 }]

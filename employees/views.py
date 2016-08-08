@@ -5,6 +5,7 @@ from .serializers import EmployeeTopTotalScoreList, EmployeeTopLevelList
 from .serializers import EmployeeTopCurrentMonthList, EmployeeTopLastMonthList
 from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList, EmployeeDeviceSerializer
 from .serializers import EmployeeSkillsSerializer
+from categories.models import Keyword
 from categories.serializers import CategorySerializer
 from constance import config
 from django.conf import settings
@@ -558,6 +559,80 @@ def employee_skills(request, employee_id):
         results = paginator.paginate_queryset(skills, request)
         serializer = EmployeeSkillsSerializer(results, many=True)
         return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['PATCH', ])
+@permission_classes((IsAuthenticated, ))
+def employee_skill_add(request, employee_id):
+    """
+    Add employee skill
+    ---
+    response_serializer: employees.serializers.EmployeeSkillsSerializer
+    parameters:
+    - name: skill
+      type: string
+      required: true
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'PATCH':
+        if 'skill' in request.data:
+            skill = request.data['skill'].upper()
+            try:
+                keyword = Keyword.objects.get(name=skill)
+            except:
+                keyword = Keyword.objects.create(name=skill)
+                keyword.save()
+            employee = get_object_or_404(Employee, pk=employee_id)
+            employee.skills.add(keyword)
+            employee.save()
+            skills = employee.skills.all()
+            paginator = PageNumberPagination()
+            results = paginator.paginate_queryset(skills, request)
+            serializer = EmployeeSkillsSerializer(results, many=True)
+            return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['PATCH', ])
+@permission_classes((IsAuthenticated, ))
+def employee_skill_remove(request, employee_id):
+    """
+    Remove employee skill
+    ---
+    response_serializer: employees.serializers.EmployeeSkillsSerializer
+    parameters:
+    - name: skill
+      type: string
+      required: true
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'PATCH':
+        if 'skill' in request.data:
+            skill = request.data['skill'].upper()
+            keyword = get_object_or_404(Keyword, name=skill)
+            employee = get_object_or_404(Employee, pk=employee_id)
+            employee.skills.remove(keyword)
+            employee.save()
+            skills = employee.skills.all()
+            paginator = PageNumberPagination()
+            results = paginator.paginate_queryset(skills, request)
+            serializer = EmployeeSkillsSerializer(results, many=True)
+            return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['PATCH', ])
