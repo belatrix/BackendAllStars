@@ -776,8 +776,6 @@ def top(request, kind, quantity):
                     if employee.last_year_score > 0:
                         employee_list_filtered.append(employee)
                 serializer = EmployeeTopLastYearList(employee_list_filtered, many=True)
-            if serializer.data == []:
-                raise NotFound(config.TOP_LIST_EMPTY)
             return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
         raise APIException(e)
