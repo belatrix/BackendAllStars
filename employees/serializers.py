@@ -147,3 +147,4 @@ class EmployeeDeviceSerializer(serializers.ModelSerializer):
 class EmployeeSkillsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Keyword
+        fields = ('pk', 'name')
