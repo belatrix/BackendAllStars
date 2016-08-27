@@ -13,14 +13,14 @@ from django.contrib.auth import logout
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
-from django.db.models import Q
+from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, get_list_or_404
 from re import match as regex_match
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import api_view, permission_classes, renderer_classes
-from rest_framework.exceptions import APIException, NotAcceptable, NotFound
+from rest_framework.exceptions import APIException, NotAcceptable
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import StaticHTMLRenderer
@@ -633,6 +633,38 @@ def employee_skill_remove(request, employee_id):
             results = paginator.paginate_queryset(skills, request)
             serializer = EmployeeSkillsSerializer(results, many=True)
             return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated, ))
+def employee_skills_search(request, terms):
+    """
+    Returns the full employee list or result list from search skill terms
+    ---
+    serializer: employees.serializers.EmployeeListSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal server error.
+    """
+    if request.method == 'GET':
+        search_terms_array = terms.split()
+
+        initial_term = search_terms_array[0]
+        employee_list = Employee.objects.filter(skills__name__icontains=initial_term).annotate(Count('id'))
+
+        if len(search_terms_array) > 1:
+            for term in range(1, len(search_terms_array)):
+                employee_list = employee_list.filter(search_terms_array[term])
+    paginator = PageNumberPagination()
+    results = paginator.paginate_queryset(employee_list, request)
+    serializer = EmployeeListSerializer(results, many=True)
+    return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['PATCH', ])
