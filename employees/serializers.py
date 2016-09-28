@@ -45,11 +45,13 @@ class EmployeeListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Employee
+        depth = 1
         fields = ('pk',
                   'username',
                   'email',
                   'first_name',
                   'last_name',
+                  'location',
                   'level',
                   'skills',
                   'avatar',
