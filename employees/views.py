@@ -840,7 +840,8 @@ class CustomObtainAuthToken(ObtainAuthToken):
                              'user_id': token.user_id,
                              'reset_password_code': employee.reset_password_code,
                              'is_base_profile_complete': employee.is_base_profile_complete,
-                             'is_password_reset_required': employee.is_password_reset_required})
+                             'is_password_reset_required': employee.is_password_reset_required,
+                             'is_staff': employee.is_staff})
         except Exception as e:
             print e
             raise NotAcceptable(config.USER_UNABLE_TO_LOG)
