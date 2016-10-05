@@ -36,6 +36,40 @@ def category_add(request):
         return Response(content, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['DELETE', 'GET', 'PUT'])
+@permission_classes((IsAuthenticated,))
+def category_detail(request, category_id):
+    """
+    Edit category
+    ---
+    serializer: categories.serializers.CategorySimpleSerializer
+    response_serializer: categories.serializers.CategorySerializer
+    responseMessages:
+    - code: 400
+      message: Bad request.
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    """
+    category = get_object_or_404(Category, pk=category_id)
+    if request.method == 'GET':
+        serializer = CategorySerializer(category)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    elif request.method == 'PUT':
+        serializer = CategorySimpleSerializer(category, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        content = {'detail': config.CATEGORY_BAD_REQUEST}
+        return Response(content, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        category.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
 def category_list(request):
