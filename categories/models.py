@@ -9,6 +9,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
     weight = models.PositiveSmallIntegerField(default=1)
     comment_required = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -22,6 +23,7 @@ class Category(models.Model):
 class Subcategory(models.Model):
     name = models.CharField(max_length=100, unique=True)
     category = models.ManyToManyField(Category)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -34,6 +36,7 @@ class Subcategory(models.Model):
 @python_2_unicode_compatible
 class Keyword(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
