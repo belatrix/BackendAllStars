@@ -189,10 +189,21 @@ def subcategory_detail(request, subcategory_id):
     - code: 404
       message: Not found
     """
+    subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
     if request.method == 'GET':
-        subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
         serializer = SubcategoryDetailSerializer(subcategory)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    elif request.method == 'PUT':
+        serializer = SubcategoryListSerializer(subcategory, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        content = {'detail': config.SUBCATEGORY_BAD_REQUEST}
+        return Response(content, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        subcategory.is_active = False
+        subcategory.save()
+        return Response(status=status.HTTP_202_ACCEPTED)
 
 
 @api_view(['GET'])
