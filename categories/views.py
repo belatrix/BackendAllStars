@@ -1,5 +1,6 @@
 from .models import Category, Keyword, Subcategory
-from .serializers import CategorySerializer, KeywordListSerializer, SubcategoryListSerializer, SubcategoryDetailSerializer
+from .serializers import CategorySerializer, CategorySimpleSerializer
+from .serializers import KeywordListSerializer, SubcategoryListSerializer, SubcategoryDetailSerializer
 from constance import config
 from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
@@ -7,6 +8,32 @@ from rest_framework.exceptions import NotAcceptable
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
+
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def category_add(request):
+    """
+    Add new category
+    ---
+    serializer: categories.serializers.CategorySimpleSerializer
+    responseMessages:
+    - code: 400
+      message: Bad request.
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'POST':
+        serializer = CategorySimpleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        content = {'detail': config.CATEGORY_BAD_REQUEST}
+        return Response(content, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])

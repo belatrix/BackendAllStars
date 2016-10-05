@@ -74,6 +74,7 @@ CONSTANCE_CONFIG = {
 
     # Categories messages
     'KEYWORD_ALREADY_EXISTS': ('Data already exists or is invalid.', 'Error message when a keyword already exists or is not set.'),
+    'CATEGORY_BAD_REQUEST': ('Bad request to create or edit category', 'Error message when a category can not be added or edited.'),
 
     # User messages
     'EMPLOYEE_CREATION_SUBJECT': ('[BELATRIX CONNECT] Your account has been successfully created.', 'Email subject when new account is created.'),
