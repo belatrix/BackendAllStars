@@ -148,7 +148,33 @@ def keyword_add(request):
                 raise NotAcceptable(config.KEYWORD_ALREADY_EXISTS)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def subcategory_add(request):
+    """
+    Add new subcategory
+    ---
+    serializer: categories.serializers.SubcategoryListSerializer
+    responseMessages:
+    - code: 400
+      message: Bad request.
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'POST':
+        serializer = SubcategoryListSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        content = {'detail': config.SUBCATEGORY_BAD_REQUEST}
+        return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE', 'GET', 'PUT'])
 @permission_classes((IsAuthenticated,))
 def subcategory_detail(request, subcategory_id):
     """
