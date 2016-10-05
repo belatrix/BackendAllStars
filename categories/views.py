@@ -66,8 +66,9 @@ def category_detail(request, category_id):
         content = {'detail': config.CATEGORY_BAD_REQUEST}
         return Response(content, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'DELETE':
-        category.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        category.is_active = False
+        category.save()
+        return Response(status=status.HTTP_202_ACCEPTED)
 
 
 @api_view(['GET'])
