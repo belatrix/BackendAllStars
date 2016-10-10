@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     # url(r'^api/auth/', include('djoser.urls.authtoken')),
     url(r'^api/activity/', include('activities.urls', namespace='activities')),
+    url(r'^api/admin/', include('administrator.urls', namespace='administrator')),
     url(r'^api/docs/', include('rest_framework_swagger.urls')),
     url(r'^api/employee/', include('employees.urls', namespace='employees')),
     url(r'^api/category/', include('categories.urls', namespace='categories')),
