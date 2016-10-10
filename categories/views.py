@@ -87,7 +87,7 @@ def category_list(request):
       message: Not found
     """
     if request.method == 'GET':
-        categories = get_list_or_404(Category)
+        categories = get_list_or_404(Category, is_active=True)
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -108,7 +108,7 @@ def keyword_list(request):
       message: Not found
     """
     if request.method == 'GET':
-        keywords = get_list_or_404(Keyword)
+        keywords = get_list_or_404(Keyword, is_active=True)
         serializer = KeywordListSerializer(keywords, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -222,7 +222,7 @@ def subcategory_list(request):
       message: Not found
     """
     if request.method == 'GET':
-        subcategories = get_list_or_404(Subcategory)
+        subcategories = get_list_or_404(Subcategory, is_active=True)
         serializer = SubcategoryListSerializer(subcategories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -243,6 +243,6 @@ def subcategory_list_by_category(request, category_id):
       message: Not found
     """
     if request.method == 'GET':
-        subcategories = Subcategory.objects.filter(category=category_id)
+        subcategories = Subcategory.objects.filter(category=category_id, is_active=True)
         serializer = SubcategoryListSerializer(subcategories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
