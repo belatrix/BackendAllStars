@@ -13,7 +13,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('pk', 'name', 'weight', 'comment_required', 'subcategories')
+        fields = ('pk', 'name', 'weight', 'is_active', 'comment_required', 'subcategories')
 
 
 class KeywordSerializer(serializers.ModelSerializer):
