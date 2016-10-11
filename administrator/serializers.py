@@ -22,7 +22,6 @@ class KeywordSerializer(serializers.ModelSerializer):
 
 
 class SubcategorySerializer(serializers.ModelSerializer):
-    category = CategorySerializer(read_only=True, many=True)
-
     class Meta:
         model = Subcategory
+        fields = ('pk', 'name', 'is_active')
