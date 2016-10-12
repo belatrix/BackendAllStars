@@ -1,11 +1,10 @@
 from categories.models import Category, Keyword, Subcategory
 from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.response import Response
-from rest_framework.views import  APIView
+from rest_framework.views import APIView
 from rest_framework import status
-from .serializers import CategorySimpleSerializer, CategorySerializer
-from .serializers import KeywordSerializer, SubcategorySerializer
-
+from .serializers import CategorySimpleSerializer, CategorySerializer, CategoryPKListSerializer
+from .serializers import KeywordSerializer, SubcategorySerializer, SubcategorySimpleSerializer
 
 
 class CategoryList(APIView):
@@ -61,7 +60,7 @@ class CategoryDetail(APIView):
         category = get_object_or_404(Category, pk=category_id)
         category.is_active = False
         category.save()
-        serializer = CategorySerializer(category)
+        serializer = CategorySimpleSerializer(category)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
@@ -150,7 +149,7 @@ class SubcategoryDetail(APIView):
         Get subcategory detail
         """
         subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
-        serializer = SubcategorySerializer(subcategory)
+        serializer = SubcategorySimpleSerializer(subcategory)
         return Response(serializer.data)
 
     def put(self, request, subcategory_id, format=None):
@@ -166,13 +165,32 @@ class SubcategoryDetail(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def patch(self, request, subcategory_id, format=None):
+        """
+        Edit categories relationship to subcategories
+        ---
+        parameters:
+        - name: body
+          required: true
+          paramType: body
+          pytype: administrator.serializers.CategoryPKListSerializer
+        """
+        subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
+        serializer = CategoryPKListSerializer(data=request.data)
+        if serializer.is_valid():
+            category_list = request.data['categories']
+            subcategory.category = category_list
+            response_serializer = SubcategorySimpleSerializer(subcategory)
+            return Response(response_serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     def delete(self, request, subcategory_id, format=None):
         """
         Delete subcategory (inactive subcategory, you should edit is_active attribute to revert this change)
         ---
         serializer: administrator.serializers.SubcategorySerializer
         """
-        subcategory = get_object_or_404(Keyword, pk=keyword_id)
+        subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
         subcategory.is_active = False
         subcategory.save()
         serializer = SubcategorySerializer(subcategory)
