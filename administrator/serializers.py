@@ -8,6 +8,11 @@ class SubcategoryListSerializer(serializers.ModelSerializer):
         fields = ('pk', 'name')
 
 
+class CategorySimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+
+
 class CategorySerializer(serializers.ModelSerializer):
     subcategories = SubcategoryListSerializer(many=True, source='subcategory_set')
 

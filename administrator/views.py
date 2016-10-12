@@ -3,7 +3,9 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import  APIView
 from rest_framework import status
-from .serializers import CategorySerializer, KeywordSerializer, SubcategorySerializer
+from .serializers import CategorySimpleSerializer, CategorySerializer
+from .serializers import KeywordSerializer, SubcategorySerializer
+
 
 
 class CategoryList(APIView):
@@ -41,10 +43,10 @@ class CategoryDetail(APIView):
         """
         Edit category
         ---
-        serializer: administrator.serializers.CategorySerializer
+        serializer: administrator.serializers.CategorySimpleSerializer
         """
         category = get_object_or_404(Category, pk=category_id)
-        serializer = CategorySerializer(category, data=request.data)
+        serializer = CategorySimpleSerializer(category, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
