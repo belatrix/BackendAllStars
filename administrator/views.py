@@ -20,9 +20,9 @@ class CategoryList(APIView):
         """
         Create new category
         ---
-        serializer: administrator.serializers.CategorySerializer
+        serializer: administrator.serializers.CategorySimpleSerializer
         """
-        serializer = CategorySerializer(data=request.data)
+        serializer = CategorySimpleSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
