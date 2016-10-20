@@ -50,3 +50,9 @@ class CategoryPKListSerializer(serializers.Serializer):
     categories = serializers.ListField(
         child=serializers.IntegerField()
     )
+
+
+class SubcategoryPKListSerializer(serializers.Serializer):
+    subcategories = serializers.ListField(
+        child=serializers.IntegerField()
+    )

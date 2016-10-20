@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .serializers import CategorySimpleSerializer, CategorySerializer, CategoryPKListSerializer
 from .serializers import KeywordSerializer, SubcategorySerializer, SubcategorySimpleSerializer
+from .serializers import SubcategoryPKListSerializer
 
 
 class CategoryList(APIView):
@@ -49,6 +50,37 @@ class CategoryDetail(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request, category_id, format=None):
+        """
+        Assign subcategories to categories
+        ---
+        parameters:
+        - name: body
+          required: true
+          paramType: body
+          pytype: administrator.serializers.SubcategoryPKListSerializer
+        """
+        category = get_object_or_404(Category, pk=category_id)
+        serializer = SubcategoryPKListSerializer(data=request.data)
+        if serializer.is_valid():
+            subcategory_list = request.data['subcategories']
+            CategoryRelationship = Subcategory.category.through
+            category_relations = CategoryRelationship.objects.filter(category=category_id)
+
+            # Clean category relationships
+            for category_relation in category_relations:
+                category_relation.delete()
+
+            # Add category to subcategories
+            for subcategory_id in subcategory_list:
+                subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
+                subcategory.category.add(category)
+                subcategory.save()
+
+            response_serializer = CategorySerializer(category)
+            return Response(response_serializer.data, status=status.HTTP_202_ACCEPTED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, category_id, format=None):
