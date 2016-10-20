@@ -1,7 +1,9 @@
 from django.conf.urls import url
 from .views import CategoryDetail, CategoryList, KeywordDetail, KeywordList, SubcategoryDetail, SubcategoryList
+from .views import DeleteCategories
 
 urlpatterns = [
+    url(r'^delete/(?P<kind>\w+)/(?P<id>[0-9]+)/$', DeleteCategories.as_view()),
     url(r'^category/$', CategoryList.as_view()),
     url(r'^category/(?P<category_id>[0-9]+)/$', CategoryDetail.as_view()),
     url(r'^keyword/$', KeywordList.as_view()),

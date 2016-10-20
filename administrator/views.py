@@ -227,3 +227,21 @@ class SubcategoryDetail(APIView):
         subcategory.save()
         serializer = SubcategorySerializer(subcategory)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+class DeleteCategories(APIView):
+    def delete(self, request, id, kind, format=None):
+        """
+        WARNING: Force delete
+        """
+        if kind == 'category':
+            kind = get_object_or_404(Category, pk=id)
+        elif kind == 'subcategory':
+            kind = get_object_or_404(Subcategory, pk=id)
+        elif kind == 'keyword':
+            kind = get_object_or_404(Keyword, pk=id)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        kind.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
