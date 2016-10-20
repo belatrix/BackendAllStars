@@ -6,6 +6,7 @@ from rest_framework import status
 from .serializers import CategorySimpleSerializer, CategorySerializer, CategoryPKListSerializer
 from .serializers import KeywordSerializer, SubcategorySerializer, SubcategorySimpleSerializer
 from .serializers import SubcategoryPKListSerializer
+from .pagination import AdministratorPagination
 
 
 class CategoryList(APIView):
@@ -14,8 +15,10 @@ class CategoryList(APIView):
         List all categories
         """
         categories = get_list_or_404(Category)
-        serializer = CategorySerializer(categories, many=True)
-        return Response(serializer.data)
+        paginator = AdministratorPagination()
+        results = paginator.paginate_queryset(categories, request)
+        serializer = CategorySerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
         """
@@ -102,8 +105,10 @@ class KeywordList(APIView):
         List all keywords (tags, skills)
         """
         keywords = get_list_or_404(Keyword)
-        serializer = KeywordSerializer(keywords, many=True)
-        return Response(serializer.data)
+        paginator = AdministratorPagination()
+        results = paginator.paginate_queryset(keywords, request)
+        serializer = KeywordSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
         """
@@ -159,8 +164,10 @@ class SubcategoryList(APIView):
         List all subcategories
         """
         subcategories = get_list_or_404(Subcategory)
-        serializer = SubcategorySerializer(subcategories, many=True)
-        return Response(serializer.data)
+        paginator = AdministratorPagination()
+        results = paginator.paginate_queryset(subcategories, request)
+        serializer = SubcategorySerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
         """
