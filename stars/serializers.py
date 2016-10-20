@@ -11,6 +11,8 @@ class EmployeeSimpleSerializer(serializers.ModelSerializer):
 
 
 class StarSerializer(serializers.ModelSerializer):
+    from_user = EmployeeSimpleSerializer()
+
     class Meta:
         model = Star
         fields = ('pk', 'date', 'text', 'from_user', 'to_user', 'category', 'subcategory', 'keyword')
