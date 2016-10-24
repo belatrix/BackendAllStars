@@ -12,6 +12,7 @@ class EmployeeSimpleSerializer(serializers.ModelSerializer):
 
 class StarSerializer(serializers.ModelSerializer):
     from_user = EmployeeSimpleSerializer()
+    keyword = KeywordSerializer()
 
     class Meta:
         model = Star
