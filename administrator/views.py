@@ -1,5 +1,6 @@
 from categories.models import Category, Keyword, Subcategory
 from django.shortcuts import get_list_or_404, get_object_or_404
+from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -10,6 +11,8 @@ from .pagination import AdministratorPagination
 
 
 class CategoryList(APIView):
+    permission_classes = (IsAdminUser,)
+
     def get(self, request, format=None):
         """
         List all categories
@@ -34,6 +37,8 @@ class CategoryList(APIView):
 
 
 class CategoryDetail(APIView):
+    permission_classes = (IsAdminUser,)
+
     def get(self, request, category_id, format=None):
         """
         Get category details
@@ -100,6 +105,8 @@ class CategoryDetail(APIView):
 
 
 class KeywordList(APIView):
+    permission_classes = (IsAdminUser,)
+
     def get(self, request, format=None):
         """
         List all keywords (tags, skills)
@@ -124,6 +131,8 @@ class KeywordList(APIView):
 
 
 class KeywordDetail(APIView):
+    permission_classes = (IsAdminUser,)
+
     def get(self, request, keyword_id, format=None):
         """
         Get keyword detail
@@ -159,6 +168,8 @@ class KeywordDetail(APIView):
 
 
 class SubcategoryList(APIView):
+    permission_classes = (IsAdminUser,)
+
     def get(self, request, format=None):
         """
         List all subcategories
@@ -183,6 +194,8 @@ class SubcategoryList(APIView):
 
 
 class SubcategoryDetail(APIView):
+    permission_classes = (IsAdminUser,)
+
     def get(self, request, subcategory_id, format=None):
         """
         Get subcategory detail
@@ -237,6 +250,8 @@ class SubcategoryDetail(APIView):
 
 
 class DeleteCategories(APIView):
+    permission_classes = (IsAdminUser,)
+
     def delete(self, request, id, kind, format=None):
         """
         WARNING: Force delete
