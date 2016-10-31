@@ -1,6 +1,6 @@
 from .serializers import StarSerializer, StarSmallSerializer, StarBulkSerializer
 from .serializers import StarEmployeesSubcategoriesSerializer, StarTopEmployeeLists
-from .serializers import StarKeywordList
+from .serializers import StarKeywordList, StarInputSerializer
 from .models import Star
 from constance import config
 from activities.models import Activity
@@ -24,7 +24,7 @@ def give_star_to(request, from_employee_id, to_employee_id):
     This endpoint saves stars on both employees (from and to).
     This endpoint saves stars on both employees (from and to).
     ---
-    response_serializer: stars.serializers.StarSerializer
+    response_serializer: stars.serializers.StarInputSerializer
     responseMessages:
     - code: 400
       message: Bad request
@@ -78,7 +78,7 @@ def give_star_to(request, from_employee_id, to_employee_id):
                 "to_user": to_user.id}
 
         # Validate serializer with data provided.
-        serializer = StarSerializer(data=data)
+        serializer = StarInputSerializer(data=data)
         if serializer.is_valid():
             # Save recommendation
             serializer.save()
