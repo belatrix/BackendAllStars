@@ -1,4 +1,5 @@
 from categories.models import Category, Keyword, Subcategory
+from django.db.models import Q
 from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
@@ -109,9 +110,26 @@ class KeywordList(APIView):
 
     def get(self, request, format=None):
         """
-        List all keywords (tags, skills)
+        List all keywords (tags, skills) or result list if you use ?search=term%of%search
+        ---
+        parameters:
+        - name: search
+          required: false
+          type: string
+          paramType: query
         """
-        keywords = get_list_or_404(Keyword)
+        if request.GET.get('search'):
+            request_terms = request.GET.get('search')
+            search_terms_array = request_terms.split()
+
+            initial_term = search_terms_array[0]
+            keywords = Keyword.objects.filter(Q(name__icontains=initial_term))
+
+            if len(search_terms_array) > 1:
+                for term in range(1, len(search_terms_array)):
+                    keywords = keywords.filter(Q(name__icontains=search_terms_array[term]))
+        else:
+            keywords = get_list_or_404(Keyword)
         paginator = AdministratorPagination()
         results = paginator.paginate_queryset(keywords, request)
         serializer = KeywordSerializer(results, many=True)
