@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/belatrix/BackendAllStars.svg?branch=master)](https://travis-ci.org/belatrix/BackendAllStars)
+[![Coverage Status](https://coveralls.io/repos/github/belatrix/BackendAllStars/badge.svg)](https://coveralls.io/github/belatrix/BackendAllStars)
+
 # Project: Belatrix AllStars
 
 This is part of Belatrix Gamification project. It is a proposal for backend using Django.
