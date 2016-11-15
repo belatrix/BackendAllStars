@@ -197,7 +197,7 @@ def employee_creation(request):
                 new_employee.generate_reset_password_code()
                 new_employee.save()
             except Exception as e:
-                print e
+                print(e)
                 content = {'detail': config.USER_EMAIL_ALREADY_REGISTERED % (email)}
                 return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
@@ -205,7 +205,7 @@ def employee_creation(request):
                 send_email = EmailMessage(subject, message, to=[email])
                 send_email.send()
             except Exception as e:
-                print e
+                print(e)
                 content = {'detail': config.USER_SUCCESSFULLY_CREATED_EMAIL_ERROR}
                 return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
@@ -491,7 +491,7 @@ def employee_reset_password(request, employee_email):
             send_email = EmailMessage(subject, message, to=[employee.email])
             send_email.send()
         except Exception as e:
-            print e
+            print(e)
             content = {'detail': config.EMAIL_SERVICE_ERROR}
             return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
@@ -527,7 +527,7 @@ def employee_reset_password_confirmation(request, employee_email, employee_uuid)
             send_email = EmailMessage(subject, message, to=[employee.email])
             send_email.send()
         except Exception as e:
-            print e
+            print(e)
             data = "<h1>%s</h1>" % config.EMAIL_SERVICE_ERROR
             return Response(data)
 
@@ -706,7 +706,7 @@ def employee_update(request, employee_id):
             serializer = EmployeeSerializer(employee)
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         except Exception as e:
-            print e
+            print(e)
             raise NotAcceptable(config.USER_DATA_IS_MISSING)
 
 
@@ -739,7 +739,7 @@ def employee_update_password(request, employee_id):
             current_password = request.data['current_password']
             new_password = request.data['new_password']
         except Exception as e:
-            print e
+            print(e)
             raise NotAcceptable(config.USER_DATA_IS_MISSING)
         employee = get_object_or_404(Employee, pk=employee_id)
         if current_password == new_password:
@@ -843,5 +843,5 @@ class CustomObtainAuthToken(ObtainAuthToken):
                              'is_password_reset_required': employee.is_password_reset_required,
                              'is_staff': employee.is_staff})
         except Exception as e:
-            print e
+            print(e)
             raise NotAcceptable(config.USER_UNABLE_TO_LOG)

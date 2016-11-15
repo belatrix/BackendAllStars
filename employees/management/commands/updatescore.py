@@ -56,7 +56,7 @@ class Command(BaseCommand):
                     send_email = EmailMessage(subject, message, to=[employee.email])
                     send_email.send()
             except Exception as e:
-                print e
+                print(e)
 
     def send_daily_email(self):
         subject = config.DAILY_EXECUTION_CONFIRMATION_SUBJECT

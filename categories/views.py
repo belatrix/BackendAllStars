@@ -144,7 +144,7 @@ def keyword_add(request):
                 serializer = KeywordListSerializer(keywords, many=True)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             except Exception as e:
-                print e
+                print(e)
                 raise NotAcceptable(config.KEYWORD_ALREADY_EXISTS)
 
 

@@ -67,7 +67,7 @@ class Command(BaseCommand):
                     self.send_blocked_notification_email(employee)
                     send_push_notification(employee, config.USER_BLOCKED_NOTIFICATION_MESSAGE % employee.username)
             except Exception as e:
-                print e
+                print(e)
 
     def handle(self, *args, **options):
         today = datetime.now()
@@ -77,7 +77,7 @@ class Command(BaseCommand):
         try:
             self.send_daily_email()
         except Exception as e:
-            print e
+            print(e)
 
         if today.day == 1:
             self.change_month()

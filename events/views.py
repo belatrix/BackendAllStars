@@ -239,7 +239,7 @@ def event_register_participant(request, event_id, participant_id):
             attendance = Attendance(participant=participant, event=event, datetime_register=datetime.now())
             attendance.save()
         except Exception as e:
-            print e
+            print(e)
             content = {'detail': config.PARTICIPANT_ALREADY_REGISTERED_TO_EVENT}
             return Response(content, status=status.HTTP_400_BAD_REQUEST)
         serializer = AttendanceSerializer(attendance)
