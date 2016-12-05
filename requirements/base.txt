@@ -12,3 +12,4 @@ Pillow==3.1.1                   # Requirements: OSX:libjpeg, Ubuntu14.04:libjpeg
 django-cors-headers==1.1.0
 djoser==0.4.3
 requests==2.10.0
+Sphinx==1.4.9
