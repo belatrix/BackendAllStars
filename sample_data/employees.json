@@ -34,8 +34,7 @@
 		"current_month_score": 40,
 		"current_year_score": 40,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1, 2, 5]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -73,8 +72,7 @@
 		"current_month_score": 2,
 		"current_year_score": 0,
 		"groups": [1],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -112,8 +110,7 @@
 		"current_month_score": 38,
 		"current_year_score": 0,
 		"groups": [1],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -151,8 +148,7 @@
 		"current_month_score": 0,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [3]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -190,8 +186,7 @@
 		"current_month_score": 6,
 		"current_year_score": 4,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [4]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -229,8 +224,7 @@
 		"current_month_score": 2,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [2]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -268,8 +262,7 @@
 		"current_month_score": 4,
 		"current_year_score": 3,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1, 2, 3, 4, 5]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -307,8 +300,7 @@
 		"current_month_score": 2,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1, 2, 3, 4, 5]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -346,8 +338,7 @@
 		"current_month_score": 11,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -385,8 +376,7 @@
 		"current_month_score": 6,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [2, 5]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -424,8 +414,7 @@
 		"current_month_score": 4,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -463,8 +452,7 @@
 		"current_month_score": 1,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -502,8 +490,7 @@
 		"current_month_score": 0,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -541,8 +528,7 @@
 		"current_month_score": 0,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -580,8 +566,7 @@
 		"current_month_score": 0,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -619,8 +604,7 @@
 		"current_month_score": 0,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -658,8 +642,7 @@
 		"current_month_score": 0,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -697,8 +680,7 @@
 		"current_month_score": 0,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -736,8 +718,7 @@
 		"current_month_score": 0,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -775,8 +756,7 @@
 		"current_month_score": 0,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -814,8 +794,7 @@
 		"current_month_score": 0,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -853,8 +832,7 @@
 		"current_month_score": 0,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -892,8 +870,7 @@
 		"current_month_score": 0,
 		"current_year_score": 0,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }, {
 	"model": "employees.employee",
@@ -931,7 +908,6 @@
 		"current_month_score": 24,
 		"current_year_score": 24,
 		"groups": [],
-		"user_permissions": [],
-		"categories": [1]
+		"user_permissions": []
 	}
 }]

@@ -1,6 +1,5 @@
 from __future__ import unicode_literals
 
-from categories.models import Category
 from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save
@@ -37,22 +36,30 @@ class Role(models.Model):
         ordering = ['name']
 
 
+@python_2_unicode_compatible
+class Position(models.Model):
+    name = models.CharField(max_length=100)
+    weight = models.PositiveSmallIntegerField(default=1)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'positions'
+        ordering = ['weight']
+
+
 def avatar_filename(instance, filename):
     timestamp = int(time())
     return 'avatar/%s%d.jpg' % (instance, timestamp)
 
 
-def get_default_category():
-    return Category.objects.get(name__icontains='Coworker')
-
-
 class Employee(AbstractUser):
     role = models.ManyToManyField(Role, blank=True)
+    position = models.ManyToManyField(Position, blank=True)
     location = models.ForeignKey(Location, null=True, blank=True)
     skype_id = models.CharField(max_length=200, null=True, blank=True)
     level = models.PositiveIntegerField(default=0)
-    categories = models.ManyToManyField('categories.Category', blank=True)
-    skills = models.ManyToManyField('categories.Keyword', blank=True)
     reset_password_code = models.UUIDField(default=None, null=True, blank=True)
     avatar = models.ImageField(upload_to=avatar_filename, null=True, blank=True)
     is_base_profile_complete = models.BooleanField(default=False)
@@ -103,10 +110,6 @@ class Employee(AbstractUser):
         return self.reset_password_code
 
     def save(self, *args, **kwargs):
-        is_new = False
-        if not self.pk:
-            is_new = True
-
         first_name = self.first_name
         last_name = self.last_name
         avatar = self.avatar
@@ -116,9 +119,6 @@ class Employee(AbstractUser):
         else:
             self.is_base_profile_complete = False
         super(Employee, self).save(*args, **kwargs)
-
-        if is_new:
-            self.categories.add(get_default_category())
 
     class Meta:
         ordering = ['first_name', 'last_name', 'username']
