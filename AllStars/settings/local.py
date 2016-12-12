@@ -21,9 +21,9 @@ DATABASES = {
 }
 
 # Email
-EMAIL_HOST = 'smtp.belatrixsf.com'
-EMAIL_HOST_PASSWORD = 'XXXXXX'
-EMAIL_HOST_USER = 'allstars@belatrixsf.com'
+EMAIL_HOST = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = ''
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST
 
