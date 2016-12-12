@@ -1,16 +1,14 @@
-.. Belatrix Connect documentation master file, created by
-   sphinx-quickstart on Thu Nov 24 10:58:31 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Belatrix Connect's API documentation!
+=====================================
 
-Welcome to Belatrix Connect's documentation!
-============================================
+Belatrix Connect is a platform to connect and communicate entire firm staff of Belatrix Software.
+We are using gamification techniques in digital platforms (mobile, IoT, web) to promote good work environment and motivated teams.
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
-
+     employees <employees.md>
 
 
 Indices and tables
@@ -20,3 +18,7 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+Endpoints
+=========
+
+* [Employees](employees.md)
