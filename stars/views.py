@@ -5,7 +5,7 @@ from .models import Star
 from constance import config
 from activities.models import Activity
 from employees.models import Employee
-from categories.models import Category, Keyword, Subcategory
+from categories.models import Category, Keyword
 from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404
 from rest_framework import status

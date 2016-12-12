@@ -7,7 +7,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 1,
-		"subcategory": 1,
 		"keyword": 1
 	}
 }, {
@@ -19,7 +18,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 1,
-		"subcategory": 1,
 		"keyword": 1
 	}
 }, {
@@ -31,7 +29,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 1,
-		"subcategory": 1,
 		"keyword": 1
 	}
 }, {
@@ -43,7 +40,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 1,
-		"subcategory": 1,
 		"keyword": 1
 	}
 }, {
@@ -55,7 +51,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 1,
-		"subcategory": 1,
 		"keyword": 1
 	}
 }, {
@@ -67,7 +62,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 1,
-		"subcategory": 1,
 		"keyword": 1
 	}
 }, {
@@ -79,7 +73,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 1,
-		"subcategory": 1,
 		"keyword": 1
 	}
 }, {
@@ -91,7 +84,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 1,
-		"subcategory": 1,
 		"keyword": 1
 	}
 }, {
@@ -103,7 +95,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 1,
-		"subcategory": 1,
 		"keyword": 1
 	}
 }, {
@@ -115,7 +106,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 1,
-		"subcategory": 1,
 		"keyword": 2
 	}
 }, {
@@ -127,7 +117,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 1,
-		"subcategory": 1,
 		"keyword": 2
 	}
 }, {
@@ -139,7 +128,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 1,
-		"subcategory": 1,
 		"keyword": 2
 	}
 }, {
@@ -151,7 +139,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 1,
-		"subcategory": 2,
 		"keyword": 2
 	}
 }, {
@@ -163,7 +150,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 1,
-		"subcategory": 2,
 		"keyword": 2
 	}
 }, {
@@ -175,7 +161,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 1,
-		"subcategory": 2,
 		"keyword": 2
 	}
 }, {
@@ -187,7 +172,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 2,
-		"subcategory": 2,
 		"keyword": 2
 	}
 }, {
@@ -199,7 +183,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 2,
-		"subcategory": 2,
 		"keyword": 2
 	}
 }, {
@@ -211,7 +194,6 @@
 		"from_user": 1,
 		"to_user": 2,
 		"category": 2,
-		"subcategory": 2,
 		"keyword": 2
 	}
 }, {
@@ -223,7 +205,6 @@
 		"from_user": 2,
 		"to_user": 1,
 		"category": 2,
-		"subcategory": 2,
 		"keyword": 2
 	}
 }, {
@@ -235,7 +216,6 @@
 		"from_user": 2,
 		"to_user": 1,
 		"category": 2,
-		"subcategory": 2,
 		"keyword": 2
 	}
 }, {
@@ -247,7 +227,6 @@
 		"from_user": 2,
 		"to_user": 1,
 		"category": 2,
-		"subcategory": 2,
 		"keyword": 2
 	}
 }, {
@@ -259,7 +238,6 @@
 		"from_user": 2,
 		"to_user": 1,
 		"category": 2,
-		"subcategory": 2,
 		"keyword": 2
 	}
 }, {
@@ -271,7 +249,6 @@
 		"from_user": 3,
 		"to_user": 2,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 5
 	}
 }, {
@@ -283,7 +260,6 @@
 		"from_user": 3,
 		"to_user": 2,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 5
 	}
 }, {
@@ -295,7 +271,6 @@
 		"from_user": 3,
 		"to_user": 2,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 5
 	}
 }, {
@@ -307,7 +282,6 @@
 		"from_user": 3,
 		"to_user": 2,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 5
 	}
 }, {
@@ -319,7 +293,6 @@
 		"from_user": 3,
 		"to_user": 2,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 5
 	}
 }, {
@@ -331,7 +304,6 @@
 		"from_user": 3,
 		"to_user": 2,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 6
 	}
 }, {
@@ -343,7 +315,6 @@
 		"from_user": 3,
 		"to_user": 2,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 6
 	}
 }, {
@@ -355,7 +326,6 @@
 		"from_user": 3,
 		"to_user": 2,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 6
 	}
 }, {
@@ -367,7 +337,6 @@
 		"from_user": 3,
 		"to_user": 2,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 6
 	}
 }, {
@@ -379,7 +348,6 @@
 		"from_user": 3,
 		"to_user": 7,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 6
 	}
 }, {
@@ -391,7 +359,6 @@
 		"from_user": 3,
 		"to_user": 7,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 6
 	}
 }, {
@@ -403,7 +370,6 @@
 		"from_user": 3,
 		"to_user": 7,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 6
 	}
 }, {
@@ -415,7 +381,6 @@
 		"from_user": 3,
 		"to_user": 7,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 6
 	}
 }, {
@@ -427,7 +392,6 @@
 		"from_user": 3,
 		"to_user": 7,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 3
 	}
 }, {
@@ -439,7 +403,6 @@
 		"from_user": 3,
 		"to_user": 7,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 3
 	}
 }, {
@@ -451,7 +414,6 @@
 		"from_user": 3,
 		"to_user": 7,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 3
 	}
 }, {
@@ -463,7 +425,6 @@
 		"from_user": 3,
 		"to_user": 7,
 		"category": 2,
-		"subcategory": 4,
 		"keyword": 3
 	}
 }]

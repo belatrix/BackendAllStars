@@ -20,20 +20,6 @@ class Category(models.Model):
 
 
 @python_2_unicode_compatible
-class Subcategory(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    category = models.ManyToManyField(Category)
-    is_active = models.BooleanField(default=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = 'subcategories'
-        ordering = ['name']
-
-
-@python_2_unicode_compatible
 class Keyword(models.Model):
     name = models.CharField(max_length=100, unique=True)
     is_active = models.BooleanField(default=True)

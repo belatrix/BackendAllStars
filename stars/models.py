@@ -11,7 +11,6 @@ class Star(models.Model):
     to_user = models.ForeignKey('employees.Employee',
                                 related_name='%(class)s_to')
     category = models.ForeignKey('categories.Category')
-    subcategory = models.ForeignKey('categories.Subcategory')
     keyword = models.ForeignKey('categories.Keyword')
 
     class Meta:

@@ -3,6 +3,6 @@ from .models import Star
 
 
 class StarAdmin(admin.ModelAdmin):
-    list_display = ('date', 'from_user', 'to_user', 'category', 'subcategory', 'keyword')
+    list_display = ('date', 'from_user', 'to_user', 'category', 'keyword')
 
 admin.site.register(Star, StarAdmin)

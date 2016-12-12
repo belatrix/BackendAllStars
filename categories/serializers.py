@@ -1,4 +1,4 @@
-from .models import Category, Keyword, Subcategory
+from .models import Category, Keyword
 from rest_framework import serializers
 
 
@@ -16,14 +16,14 @@ class KeywordListSerializer(serializers.ModelSerializer):
 
 class SubcategoryDetailSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Subcategory
+        # model = Subcategory
         depth = 1
         fields = ('pk', 'name', 'category')
 
 
 class SubcategoryListSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Subcategory
+        # model = Subcategory
         fields = ('pk', 'name')
 
 
