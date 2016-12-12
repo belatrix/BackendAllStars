@@ -8,7 +8,6 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
-     employees <employees.md>
 
 
 Indices and tables
