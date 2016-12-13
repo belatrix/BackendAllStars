@@ -22,7 +22,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import api_view, permission_classes, renderer_classes
 from rest_framework.exceptions import APIException, NotAcceptable
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.renderers import StaticHTMLRenderer
 from rest_framework.response import Response
 
@@ -72,7 +72,7 @@ def employee_activate(request, employee_id):
 
 
 @api_view(['POST', ])
-@permission_classes((IsAuthenticated,))
+@permission_classes((IsAdminUser, IsAuthenticated))
 def employee_bulk_creation(request):
     """
     Endpoint to create users using email list
@@ -98,8 +98,8 @@ def employee_bulk_creation(request):
         users_created = 0
         if serializer.is_valid():
             email_list = request.data
-            for email in email_list['emails']:
-                email = email.lower()
+            for email_object in email_list['emails']:
+                email = email_object['email'].lower()
                 if regex_match(r"[^@]+@[^@]+\.[^@]+", email):
                     username = email.split('@')[0].lower()
                     domain = email.split('@')[1].lower()
