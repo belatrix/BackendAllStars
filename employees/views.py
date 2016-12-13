@@ -241,7 +241,7 @@ def employee_deactivate(request, employee_id):
 
 @api_view(['GET', ])
 @permission_classes((IsAuthenticated,))
-def employee_deactivated_list(request):
+def employee_deactivated_list(request, format=None):
     """
     Returns the full employee deactivated list
     ---

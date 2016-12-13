@@ -208,3 +208,74 @@ X-Frame-Options: SAMEORIGIN
     ]
 }
 ```
+
+List deactivated
+================
+
+**/api/employee/list/deactivated/**
+
+* Using curl:
+
+```bash
+curl -X GET https://bxconnect.herokuapp.com:443/api/employee/list/deactivated/ -H 'Authorization: Token 949663fa5ac153d6fb57ac95251380a2ad8e3453'
+```
+or
+```bash
+curl -X GET https://bxconnect.herokuapp.com:443/api/employee/list/deactivated.json -H 'Authorization: Token 949663fa5ac153d6fb57ac95251380a2ad8e3453'
+```
+
+* Using postman:
+
+![Employee list deactivated using POSTMAN](http://i.imgur.com/ivnMps7.png 'Employee list deactivated using POSTMAN')
+
+* Using httpie:
+
+```bash
+http GET https://bxconnect.herokuapp.com:443/api/employee/list/deactivated/ 'Authorization: Token 949663fa5ac153d6fb57ac95251380a2ad8e3453'
+```
+or
+```bash
+http GET https://bxconnect.herokuapp.com:443/api/employee/list/deactivated.json 'Authorization: Token 949663fa5ac153d6fb57ac95251380a2ad8e3453'
+```
+
+#### List response
+```bash
+HTTP/1.1 200 OK
+Allow: OPTIONS, GET
+Connection: keep-alive
+Content-Type: application/json
+Date: Tue, 13 Dec 2016 19:34:38 GMT
+Server: gunicorn/19.4.5
+Transfer-Encoding: chunked
+Vary: Cookie
+Via: 1.1 vegur
+X-Frame-Options: SAMEORIGIN
+
+{
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "avatar": null,
+            "current_month_score": 0,
+            "current_year_score": 0,
+            "email": "dsanchez@belatrixsf.com",
+            "first_name": "Daniel",
+            "is_blocked": true,
+            "last_month_score": 0,
+            "last_name": "Sanchez",
+            "last_year_score": 0,
+            "level": 0,
+            "location": {
+                "icon": "https://i.imgur.com/CpYIGjr.png",
+                "id": 1,
+                "name": "Lima"
+            },
+            "pk": 17,
+            "total_score": 0,
+            "username": "dsanchez"
+        }
+    ]
+}
+```
