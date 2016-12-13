@@ -5,6 +5,7 @@ from .views import employee_reset_password, employee_reset_password_confirmation
 from .views import CustomObtainAuthToken, top, employee_logout
 from .views import employee_skills, employee_skill_add, employee_skill_remove, employee_skills_search
 from django.conf.urls import url
+from rest_framework.urlpatterns import format_suffix_patterns
 
 
 urlpatterns = [
@@ -33,3 +34,5 @@ urlpatterns = [
     url(r'^(?P<employee_id>\d+)/update/$', employee_update, name='employee_update'),
     url(r'^(?P<employee_id>\d+)/update/password/$', employee_update_password, name='employee_update_password'),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json'])

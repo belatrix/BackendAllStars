@@ -41,8 +41,6 @@ class EmployeeCreationListSerializer(serializers.Serializer):
 
 
 class EmployeeListSerializer(serializers.ModelSerializer):
-    skills = serializers.StringRelatedField(many=True, read_only=True)
-
     class Meta:
         model = Employee
         depth = 1
@@ -53,7 +51,6 @@ class EmployeeListSerializer(serializers.ModelSerializer):
                   'last_name',
                   'location',
                   'level',
-                  'skills',
                   'avatar',
                   'total_score',
                   'is_blocked',

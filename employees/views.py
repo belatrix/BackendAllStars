@@ -264,7 +264,7 @@ def employee_deactivated_list(request):
 
 @api_view(['GET', ])
 @permission_classes((IsAuthenticated,))
-def employee_list(request):
+def employee_list(request, format=None):
     """
     Returns the full employee list or result list if you use ?search=
     ---
