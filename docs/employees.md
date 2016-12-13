@@ -128,3 +128,83 @@ X-Frame-Options: SAMEORIGIN
     "detail": "User(s) successfully created."
 }
 ```
+
+List
+====
+
+**/api/employee/list/**
+
+* Using curl:
+
+```bash
+curl -X GET https://bxconnect.herokuapp.com:443/api/employee/list/ -H 'Authorization: Token 949663fa5ac153d6fb57ac95251380a2ad8e3453'
+```
+or
+```bash
+curl -X GET https://bxconnect.herokuapp.com:443/api/employee/list.json -H 'Authorization: Token 949663fa5ac153d6fb57ac95251380a2ad8e3453'
+```
+or if you want to perform a search
+```bash
+curl -X GET 'https://bxconnect.herokuapp.com:443/api/employee/list.json?search=ser' -H 'Authorization: Token 949663fa5ac153d6fb57ac95251380a2ad8e3453'
+```
+
+
+* Using postman:
+
+![Employee list using POSTMAN](http://i.imgur.com/kbbrtuF.png 'Employee list using POSTMAN')
+
+* Using httpie:
+
+```bash
+http GET https://bxconnect.herokuapp.com:443/api/employee/list/ 'Authorization: Token 949663fa5ac153d6fb57ac95251380a2ad8e3453'
+```
+or
+```bash
+http GET https://bxconnect.herokuapp.com:443/api/employee/list.json 'Authorization: Token 949663fa5ac153d6fb57ac95251380a2ad8e3453'
+```
+or if you want to perform a search
+```bash
+http GET https://bxconnect.herokuapp.com:443/api/employee/list.json search==ser 'Authorization: Token 949663fa5ac153d6fb57ac95251380a2ad8e3453'
+```
+
+#### List response
+```bash
+HTTP/1.1 200 OK
+Allow: OPTIONS, GET
+Connection: keep-alive
+Content-Type: application/json
+Date: Tue, 13 Dec 2016 19:13:03 GMT
+Server: gunicorn/19.4.5
+Transfer-Encoding: chunked
+Vary: Cookie
+Via: 1.1 vegur
+X-Frame-Options: SAMEORIGIN
+
+{
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "avatar": null,
+            "current_month_score": 40,
+            "current_year_score": 40,
+            "email": "sinfante@belatrixsf.com",
+            "first_name": "Sergio",
+            "is_blocked": false,
+            "last_month_score": 0,
+            "last_name": "Infante Montero",
+            "last_year_score": 0,
+            "level": 1,
+            "location": {
+                "icon": "https://i.imgur.com/CpYIGjr.png",
+                "id": 1,
+                "name": "Lima"
+            },
+            "pk": 1,
+            "total_score": 40,
+            "username": "sinfante"
+        }
+    ]
+}
+```
