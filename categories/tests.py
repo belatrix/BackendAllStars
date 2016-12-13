@@ -19,11 +19,3 @@ class CategoryTestCase(APITestCase):
         category2 = Category.objects.get(name='Category2')
         self.assertEqual(category1.weight, 2)
         self.assertEqual(category2.weight, 1)
-
-    def test_category_list(self):
-        categories = Category.objects.all()
-        response_data = CategorySerializer(categories, many=True).data
-        url = reverse('categories:category_list')
-        response = self.client.get(url, format='json')
-        self.assertEqual(response.data, response_data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
