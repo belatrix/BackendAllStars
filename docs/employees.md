@@ -350,3 +350,38 @@ X-Frame-Options: SAMEORIGIN
 ]
 ```
 
+Logout
+======
+
+**/api/employee/logout/**
+
+* Using curl:
+
+```bash
+curl -X GET https://bxconnect.herokuapp.com:443/api/employee/logout/ -H 'Authorization: Token 9f04499a53c148dab458109e3e3cb08e6a7a4b63'
+```
+
+* Using postman:
+
+![Employee logout using POSTMAN](http://i.imgur.com/wfxPGjX.png 'Employee logout using POSTMAN')
+
+* Using httpie:
+
+```bash
+http GET https://bxconnect.herokuapp.com:443/api/employee/logout/ 'Authorization: Token 9f04499a53c148dab458109e3e3cb08e6a7a4b63'
+```
+
+#### Logout response
+```bash
+HTTP/1.0 202 Accepted
+Allow: OPTIONS, GET
+Content-Type: application/json
+Date: Tue, 20 Dec 2016 15:30:24 GMT
+Server: WSGIServer/0.1 Python/2.7.12
+Vary: Cookie
+X-Frame-Options: SAMEORIGIN
+
+{
+    "detail": "User logout successfully"
+}
+```
