@@ -385,3 +385,114 @@ X-Frame-Options: SAMEORIGIN
     "detail": "User logout successfully"
 }
 ```
+
+Location List
+=============
+
+**/api/employee/location/list/**
+
+* Using curl:
+
+```bash
+curl -X GET https://bxconnect.herokuapp.com:443/api/employee/location/list/ -H 'Authorization: Token 9f04499a53c148dab458109e3e3cb08e6a7a4b63'
+```
+
+* Using postman:
+
+![Employee location list using POSTMAN](http://i.imgur.com/XF7OAIM.png 'Employee location list using POSTMAN')
+
+* Using httpie:
+
+```bash
+http GET http://localhost:8000/api/employee/location/list/ 'Authorization: Token 9f04499a53c148dab458109e3e3cb08e6a7a4b63'
+```
+
+#### Location List response
+```bash
+HTTP/1.0 200 OK
+Allow: OPTIONS, GET
+Content-Type: application/json
+Date: Tue, 20 Dec 2016 15:44:39 GMT
+Server: WSGIServer/0.1 Python/2.7.12
+Vary: Cookie
+X-Frame-Options: SAMEORIGIN
+
+[
+    {
+        "icon": "https://i.imgur.com/XRRUt6D.png",
+        "name": "Buenos Aires",
+        "pk": 3
+    },
+    {
+        "icon": "https://i.imgur.com/CpYIGjr.png",
+        "name": "Lima",
+        "pk": 1
+    },
+    {
+        "icon": "https://i.imgur.com/XRRUt6D.png",
+        "name": "Mendoza",
+        "pk": 2
+    },
+    {
+        "icon": "https://i.imgur.com/A7Jdujn.png",
+        "name": "USA",
+        "pk": 4
+    }
+]
+```
+
+Role list
+=========
+
+**/api/employee/role/list/**
+
+* Using curl:
+
+```bash
+curl -X GET https://bxconnect.herokuapp.com:443/api/employee/role/list/ -H 'Authorization: Token 9f04499a53c148dab458109e3e3cb08e6a7a4b63'
+```
+
+* Using postman:
+
+![Employee role list using POSTMAN](http://i.imgur.com/gXZYcor.png 'Employee role list using POSTMAN')
+
+* Using httpie:
+
+```bash
+http GET http://localhost:8000/api/employee/role/list/ 'Authorization: Token 9f04499a53c148dab458109e3e3cb08e6a7a4b63'
+```
+
+#### Role List response
+```bash
+HTTP/1.0 200 OK
+Allow: OPTIONS, GET
+Content-Type: application/json
+Date: Tue, 20 Dec 2016 15:44:39 GMT
+Server: WSGIServer/0.1 Python/2.7.12
+Vary: Cookie
+X-Frame-Options: SAMEORIGIN
+
+[
+    {
+        "icon": "https://i.imgur.com/XRRUt6D.png",
+        "name": "Buenos Aires",
+        "pk": 3
+    },
+    {
+        "icon": "https://i.imgur.com/CpYIGjr.png",
+        "name": "Lima",
+        "pk": 1
+    },
+    {
+        "icon": "https://i.imgur.com/XRRUt6D.png",
+        "name": "Mendoza",
+        "pk": 2
+    },
+    {
+        "icon": "https://i.imgur.com/A7Jdujn.png",
+        "name": "USA",
+        "pk": 4
+    }
+]
+```
+
