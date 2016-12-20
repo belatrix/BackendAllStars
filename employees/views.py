@@ -635,38 +635,6 @@ def employee_skill_remove(request, employee_id):
             return paginator.get_paginated_response(serializer.data)
 
 
-@api_view(['GET', ])
-@permission_classes((IsAuthenticated, ))
-def employee_skills_search(request, terms):
-    """
-    Returns the full employee list or result list from search skill terms
-    ---
-    serializer: employees.serializers.EmployeeListSerializer
-    responseMessages:
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden.
-    - code: 404
-      message: Not found
-    - code: 500
-      message: Internal server error.
-    """
-    if request.method == 'GET':
-        search_terms_array = terms.split()
-
-        initial_term = search_terms_array[0]
-        employee_list = Employee.objects.filter(skills__name__icontains=initial_term).annotate(Count('id'))
-
-        if len(search_terms_array) > 1:
-            for term in range(1, len(search_terms_array)):
-                employee_list = employee_list.filter(search_terms_array[term])
-    paginator = PageNumberPagination()
-    results = paginator.paginate_queryset(employee_list, request)
-    serializer = EmployeeListSerializer(results, many=True)
-    return paginator.get_paginated_response(serializer.data)
-
-
 @api_view(['PATCH', ])
 @permission_classes((IsAuthenticated,))
 def employee_update(request, employee_id):
