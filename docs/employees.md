@@ -496,3 +496,48 @@ X-Frame-Options: SAMEORIGIN
 ]
 ```
 
+Reset Password
+==============
+
+**/api/employee/reset/password/{employee_email}/
+
+| Parameter        | Description                                                           |
+|------------------|-----------------------------------------------------------------------|
+| {employee_email} | Email address associated to employee username in registration process |
+
+* Using curl:
+
+```bash
+curl -X GET https://bxconnect.herokuapp.com:443/api/employee/reset/password/sinfante@belatrixsf.com/ -H 'Authorization: Token 9f04499a53c148dab458109e3e3cb08e6a7a4b63'
+```
+
+* Using postman:
+
+![Employee logout using POSTMAN](http://i.imgur.com/W7xACAc.png 'Employee logout using POSTMAN')
+
+* Using httpie:
+
+```bash
+http GET https://bxconnect.herokuapp.com:443/api/employee/reset/password/sinfante@belatrixsf.com/ 'Authorization: Token 9f04499a53c148dab458109e3e3cb08e6a7a4b63'
+```
+
+#### Reset password response
+```bash
+HTTP/1.1 200 OK
+Allow: OPTIONS, GET
+Connection: keep-alive
+Content-Type: application/json
+Date: Tue, 20 Dec 2016 19:01:11 GMT
+Server: gunicorn/19.4.5
+Transfer-Encoding: chunked
+Vary: Cookie
+Via: 1.1 vegur
+X-Frame-Options: SAMEORIGIN
+
+{
+    "detail": "Confirmation email sent.",
+    "email": "sinfante@belatrixsf.com",
+    "reset_password_code": "da4446c2-1786-496f-a9c6-64b661f98d4a"
+}
+
+```
