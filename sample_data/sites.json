@@ -2,7 +2,7 @@
 	"model": "sites.site",
 	"pk": 1,
 	"fields": {
-		"domain": "https://belatrix-connect.herokuapp.com",
-		"name": "belatrix-connect.herokuapp.com"
+		"domain": "https://bxconnect.herokuapp.com",
+		"name": "bxconnect.herokuapp.com"
 	}
 }]

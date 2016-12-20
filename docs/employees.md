@@ -499,7 +499,7 @@ X-Frame-Options: SAMEORIGIN
 Reset Password
 ==============
 
-**/api/employee/reset/password/{employee_email}/
+**/api/employee/reset/password/{employee_email}/**
 
 | Parameter        | Description                                                           |
 |------------------|-----------------------------------------------------------------------|
@@ -513,7 +513,7 @@ curl -X GET https://bxconnect.herokuapp.com:443/api/employee/reset/password/sinf
 
 * Using postman:
 
-![Employee logout using POSTMAN](http://i.imgur.com/W7xACAc.png 'Employee logout using POSTMAN')
+![Employee reset password using POSTMAN](http://i.imgur.com/W7xACAc.png 'Employee reset password using POSTMAN')
 
 * Using httpie:
 
@@ -539,5 +539,50 @@ X-Frame-Options: SAMEORIGIN
     "email": "sinfante@belatrixsf.com",
     "reset_password_code": "da4446c2-1786-496f-a9c6-64b661f98d4a"
 }
+
+```
+
+Reset Password Confirmation
+===========================
+
+**/api/employee/reset/password/{employee_email}/{employee_uuid}/**
+
+| Parameter        | Description                                                                         |
+|------------------|-------------------------------------------------------------------------------------|
+| {employee_email} | Email address associated to employee username in registration process               |
+| {employee_uuid}  | UUID employee number, you will get that number in reset password confirmation email |
+
+
+* Using curl:
+
+```bash
+curl -X GET https://belatrix-connect.herokuapp.com/api/employee/reset/password/sinfante@belatrixsf.com/93d9f4db-d06f-4dd3-b6d0-e87a40aacefe
+```
+
+* Using postman:
+
+![Employee reset password confirmation using POSTMAN](http://i.imgur.com/S2fHQUN.png 'Employee reset password confirmation using POSTMAN')
+
+* Using httpie:
+
+```bash
+http GET https://belatrix-connect.herokuapp.com/api/employee/reset/password/sinfante@belatrixsf.com/93d9f4db-d06f-4dd3-b6d0-e87a40aacefe
+```
+
+#### Reset Password Confirmation response
+
+```bash
+HTTP/1.1 200 OK
+Allow: GET, OPTIONS
+Connection: keep-alive
+Content-Type: text/html; charset=utf-8
+Date: Tue, 20 Dec 2016 19:56:35 GMT
+Server: gunicorn/19.4.5
+Transfer-Encoding: chunked
+Vary: Cookie
+Via: 1.1 vegur
+X-Frame-Options: SAMEORIGIN
+
+<h1>Successfully password creation, email has been sent.</h1>
 
 ```
