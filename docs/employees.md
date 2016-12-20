@@ -209,7 +209,7 @@ X-Frame-Options: SAMEORIGIN
 }
 ```
 
-List deactivated
+Deactivated List
 ================
 
 **/api/employee/list/deactivated/**
@@ -238,7 +238,7 @@ or
 http GET https://bxconnect.herokuapp.com:443/api/employee/list/deactivated.json 'Authorization: Token 949663fa5ac153d6fb57ac95251380a2ad8e3453'
 ```
 
-#### List response
+#### Deactivated List response
 ```bash
 HTTP/1.1 200 OK
 Allow: OPTIONS, GET
@@ -279,3 +279,74 @@ X-Frame-Options: SAMEORIGIN
     ]
 }
 ```
+
+Top List
+========
+
+**/api/employee/list/top/{kind}/{quantity}/**
+
+| **{kind}**          |
+|---------------------|
+| total_score         |
+| level               |
+| current_month_score |
+| current_year_score  |
+| last_month_score    |
+| last_year_score     |
+
+**{quantity}**:  # of result elements
+
+* Using curl (example top 3 of total_score):
+
+```bash
+curl -X GET https://bxconnect.herokuapp.com:443/api/employee/list/top/total_score/3/ -H 'Authorization: Token 9f04499a53c148dab458109e3e3cb08e6a7a4b63'
+```
+
+* Using postman:
+
+![Employee top list using POSTMAN](http://i.imgur.com/LZhFplq.png 'Employee top list using POSTMAN')
+
+* Using httpie (example top 3 of total_score):
+
+```bash
+http GET https://bxconnect.herokuapp.com:443/api/employee/list/top/total_score/3/ 'Authorization: Token 9f04499a53c148dab458109e3e3cb08e6a7a4b63'
+```
+
+#### Top List response
+```bash
+HTTP/1.0 200 OK
+Allow: OPTIONS, GET
+Content-Type: application/json
+Date: Tue, 20 Dec 2016 14:52:35 GMT
+Server: WSGIServer/0.1 Python/2.7.12
+Vary: Cookie
+X-Frame-Options: SAMEORIGIN
+
+[
+    {
+        "avatar": null,
+        "first_name": "Sergio",
+        "last_name": "Infante Montero",
+        "pk": 1,
+        "username": "sinfante",
+        "value": 40
+    },
+    {
+        "avatar": null,
+        "first_name": "pedro",
+        "last_name": "carrillo chero",
+        "pk": 3,
+        "username": "pcarrillo",
+        "value": 38
+    },
+    {
+        "avatar": "/media/avatar/jnunez1482163617.jpg",
+        "first_name": "Alex",
+        "last_name": "Nuñez",
+        "pk": 24,
+        "username": "jnunez",
+        "value": 24
+    }
+]
+```
+
