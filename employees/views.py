@@ -1,10 +1,9 @@
-from .models import Employee, Location, Role, EmployeeDevice
+from .models import Employee, Location, Position, Role, EmployeeDevice
 from .serializers import EmployeeSerializer, EmployeeAvatarSerializer, EmployeeListSerializer, EmployeeCreationListSerializer
-from .serializers import EmployeeLocationListSerializer, EmployeeRoleListSerializer
+from .serializers import EmployeeLocationListSerializer, EmployeePositionListSerializer, EmployeeRoleListSerializer
 from .serializers import EmployeeTopTotalScoreList, EmployeeTopLevelList
 from .serializers import EmployeeTopCurrentMonthList, EmployeeTopLastMonthList
 from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList, EmployeeDeviceSerializer
-from categories.serializers import CategorySerializer
 from constance import config
 from django.conf import settings
 from django.contrib.auth import logout
@@ -302,6 +301,27 @@ def employee_location_list(request):
     if request.method == 'GET':
         location_list = get_list_or_404(Location)
         serializer = EmployeeLocationListSerializer(location_list, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def employee_position_list(request):
+    """
+    Returns employee position full list
+    ---
+    serializer: employees.serializers.EmployeePositionListSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'GET':
+        position_list = get_list_or_404(Position)
+        serializer = EmployeePositionListSerializer(position_list, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

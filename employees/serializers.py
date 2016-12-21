@@ -1,4 +1,4 @@
-from .models import Employee, Location, Role, EmployeeDevice
+from .models import Employee, Location, Role, EmployeeDevice, Position
 from rest_framework import serializers
 
 
@@ -69,6 +69,12 @@ class EmployeeRoleListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Role
         fields = ('pk', 'name')
+
+
+class EmployeePositionListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Position
+        fields = ('pk', 'name', 'weight')
 
 
 class EmployeeTopListSerializer(serializers.Serializer):
