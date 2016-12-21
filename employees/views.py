@@ -47,10 +47,10 @@ def employee(request, employee_id):
 
 
 @api_view(['PATCH', ])
-@permission_classes((IsAuthenticated,))
-def employee_activate(request, employee_id):
+@permission_classes((IsAuthenticated, IsAdminUser))
+def employee_activate(request, employee_id, action):
     """
-    Activate employee account
+    Activate employee account, action could be true or false
     ---
     response_serializer: employees.serializers.EmployeeSerializer
     responseMessages:
@@ -63,7 +63,12 @@ def employee_activate(request, employee_id):
     """
     if request.method == 'PATCH':
         employee = get_object_or_404(Employee, pk=employee_id)
-        employee.is_active = True
+        if action == 'true':
+            employee.is_active = True
+        elif action == 'false':
+            employee.is_active = False
+        else:
+            pass
         employee.save()
         serializer = EmployeeSerializer(employee)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
@@ -127,11 +132,11 @@ def employee_bulk_creation(request):
             return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
-@api_view(['POST', ])
-@permission_classes((IsAuthenticated,))
+@api_view(['PATCH', ])
+@permission_classes((IsAuthenticated, IsAdminUser))
 def employee_block(request, employee_id, action):
     """
-    Block employee account
+    Block employee account, action could be true or false
     ---
     response_serializer: employees.serializers.EmployeeSerializer
     responseMessages:
@@ -142,7 +147,7 @@ def employee_block(request, employee_id, action):
     - code: 404
       message: Not found
     """
-    if request.method == 'POST':
+    if request.method == 'PATCH':
         employee = get_object_or_404(Employee, pk=employee_id)
         if action == 'true':
             employee.is_blocked = True
@@ -212,29 +217,6 @@ def employee_creation(request):
         else:
             content = {'detail': config.EMAIL_DOMAIN_FORBIDDEN % (domain)}
             return Response(content, status=status.HTTP_401_UNAUTHORIZED)
-
-
-@api_view(['PATCH', ])
-@permission_classes((IsAuthenticated,))
-def employee_deactivate(request, employee_id):
-    """
-    Deactivate employee account
-    ---
-    response_serializer: employees.serializers.EmployeeSerializer
-    responseMessages:
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden.
-    - code: 404
-      message: Not found
-    """
-    if request.method == 'PATCH':
-        employee = get_object_or_404(Employee, pk=employee_id)
-        employee.is_active = False
-        employee.save()
-        serializer = EmployeeSerializer(employee)
-        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
 @api_view(['GET', ])
