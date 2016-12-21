@@ -219,7 +219,7 @@ def employee_creation(request):
 
 
 @api_view(['GET', ])
-@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated, IsAdminUser))
 def employee_deactivated_list(request, format=None):
     """
     Returns the full employee deactivated list
