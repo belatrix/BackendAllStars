@@ -1,5 +1,4 @@
 from .models import Employee, Location, Role, EmployeeDevice
-from categories.models import Keyword
 from rest_framework import serializers
 
 
@@ -144,9 +143,3 @@ class EmployeeDeviceSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmployeeDevice
         fields = ('username', 'android_device', 'ios_device')
-
-
-class EmployeeSkillsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Keyword
-        fields = ('pk', 'name')
