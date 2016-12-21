@@ -8,7 +8,7 @@ install:
   - pip install coveralls
 script:
   - python manage.py test
-  - coverage run --source=employees manage.py test employees
+  - coverage run manage.py test
 env:
   - DJANGO_SETTINGS_MODULE=AllStars.settings.local
 after_success: coveralls
