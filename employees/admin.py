@@ -1,4 +1,4 @@
-from .models import Employee, Location, Role, EmployeeDevice
+from .models import Employee, Position, Location, Role, EmployeeDevice
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
@@ -28,6 +28,10 @@ class RoleAdmin(admin.ModelAdmin):
     list_display = ("name",)
 
 
+class PositionAdmin(admin.ModelAdmin):
+    list_display = ("name", "weight")
+
+
 class EmployeeAdmin(ImportExportMixin, BaseUserAdmin):
     form = UserChangeForm
     list_display = ("username", "first_name", "last_name", "email", 'location', 'level', 'total_score', 'is_blocked')
@@ -39,8 +43,7 @@ class EmployeeAdmin(ImportExportMixin, BaseUserAdmin):
                                       'skype_id',
                                       'avatar',
                                       'is_base_profile_complete')}),
-        ('Professional information', {'fields': ('skills',
-                                                 'categories',
+        ('Professional information', {'fields': ('position',
                                                  'role')}),
         ('Personal score daily', {'fields': ('today_given',
                                              'today_received',
@@ -74,4 +77,5 @@ class EmployeeDeviceAdmin(admin.ModelAdmin):
 admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Role, RoleAdmin)
+admin.site.register(Position, PositionAdmin)
 admin.site.register(EmployeeDevice, EmployeeDeviceAdmin)

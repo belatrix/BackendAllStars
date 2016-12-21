@@ -1,22 +1,27 @@
-.. Belatrix Connect documentation master file, created by
-   sphinx-quickstart on Thu Nov 24 10:58:31 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Belatrix Connect's API documentation!
+=====================================
 
-Welcome to Belatrix Connect's documentation!
-============================================
+Belatrix Connect is a platform to connect and communicate entire firm staff of Belatrix Software.
+We are using gamification techniques in digital platforms (mobile, IoT, web) to promote good work environment and motivated teams.
 
-Contents:
+This platform is hosted in heroku, and current URL is:
 
-.. toctree::
-   :maxdepth: 2
+<https://bxconnect.herokuapp.com:443>
 
+Swagger documentation
+---------------------
 
+You can access to Swagger documentation using this path:
 
-Indices and tables
-==================
+<https://bxconnect.herokuapp.com/api/docs/>
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+However you need to be an identified developer in Belatrix Connect team, and log into platform:
 
+<https://bxconnect.herokuapp.com/admin/>
+
+**Note:** To be part of Belatrix Connect development team, please contact: **sinfante** *at* **belatrixsf** *dot* **com**
+
+Endpoints
+---------
+
+* [Employees](employees.md)

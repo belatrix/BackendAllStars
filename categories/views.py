@@ -1,4 +1,4 @@
-from .models import Category, Keyword, Subcategory
+from .models import Category, Keyword
 from .serializers import CategorySerializer, CategorySimpleSerializer
 from .serializers import KeywordListSerializer, SubcategoryListSerializer, SubcategoryDetailSerializer
 from constance import config

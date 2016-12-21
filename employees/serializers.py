@@ -1,5 +1,4 @@
-from .models import Employee, Location, Role, EmployeeDevice
-from categories.models import Keyword
+from .models import Employee, Location, Role, EmployeeDevice, Position
 from rest_framework import serializers
 
 
@@ -41,8 +40,6 @@ class EmployeeCreationListSerializer(serializers.Serializer):
 
 
 class EmployeeListSerializer(serializers.ModelSerializer):
-    skills = serializers.StringRelatedField(many=True, read_only=True)
-
     class Meta:
         model = Employee
         depth = 1
@@ -53,7 +50,6 @@ class EmployeeListSerializer(serializers.ModelSerializer):
                   'last_name',
                   'location',
                   'level',
-                  'skills',
                   'avatar',
                   'total_score',
                   'is_blocked',
@@ -73,6 +69,12 @@ class EmployeeRoleListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Role
         fields = ('pk', 'name')
+
+
+class EmployeePositionListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Position
+        fields = ('pk', 'name', 'weight')
 
 
 class EmployeeTopListSerializer(serializers.Serializer):
@@ -147,9 +149,3 @@ class EmployeeDeviceSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmployeeDevice
         fields = ('username', 'android_device', 'ios_device')
-
-
-class EmployeeSkillsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Keyword
-        fields = ('pk', 'name')

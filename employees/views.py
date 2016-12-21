@@ -1,19 +1,16 @@
-from .models import Employee, Location, Role, EmployeeDevice
+from .models import Employee, Location, Position, Role, EmployeeDevice
 from .serializers import EmployeeSerializer, EmployeeAvatarSerializer, EmployeeListSerializer, EmployeeCreationListSerializer
-from .serializers import EmployeeLocationListSerializer, EmployeeRoleListSerializer
+from .serializers import EmployeeLocationListSerializer, EmployeePositionListSerializer, EmployeeRoleListSerializer
 from .serializers import EmployeeTopTotalScoreList, EmployeeTopLevelList
 from .serializers import EmployeeTopCurrentMonthList, EmployeeTopLastMonthList
 from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList, EmployeeDeviceSerializer
-from .serializers import EmployeeSkillsSerializer
-from categories.models import Keyword
-from categories.serializers import CategorySerializer
 from constance import config
 from django.conf import settings
 from django.contrib.auth import logout
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMessage
 from django.core.urlresolvers import reverse
-from django.db.models import Count, Q
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, get_list_or_404
 from re import match as regex_match
 from rest_framework import status
@@ -22,7 +19,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.decorators import api_view, permission_classes, renderer_classes
 from rest_framework.exceptions import APIException, NotAcceptable
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.renderers import StaticHTMLRenderer
 from rest_framework.response import Response
 
@@ -49,10 +46,10 @@ def employee(request, employee_id):
 
 
 @api_view(['PATCH', ])
-@permission_classes((IsAuthenticated,))
-def employee_activate(request, employee_id):
+@permission_classes((IsAuthenticated, IsAdminUser))
+def employee_activate(request, employee_id, action):
     """
-    Activate employee account
+    Activate employee account, action could be true or false
     ---
     response_serializer: employees.serializers.EmployeeSerializer
     responseMessages:
@@ -65,14 +62,19 @@ def employee_activate(request, employee_id):
     """
     if request.method == 'PATCH':
         employee = get_object_or_404(Employee, pk=employee_id)
-        employee.is_active = True
+        if action == 'true':
+            employee.is_active = True
+        elif action == 'false':
+            employee.is_active = False
+        else:
+            pass
         employee.save()
         serializer = EmployeeSerializer(employee)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
 @api_view(['POST', ])
-@permission_classes((IsAuthenticated,))
+@permission_classes((IsAdminUser, IsAuthenticated))
 def employee_bulk_creation(request):
     """
     Endpoint to create users using email list
@@ -98,8 +100,8 @@ def employee_bulk_creation(request):
         users_created = 0
         if serializer.is_valid():
             email_list = request.data
-            for email in email_list['emails']:
-                email = email.lower()
+            for email_object in email_list['emails']:
+                email = email_object['email'].lower()
                 if regex_match(r"[^@]+@[^@]+\.[^@]+", email):
                     username = email.split('@')[0].lower()
                     domain = email.split('@')[1].lower()
@@ -129,11 +131,11 @@ def employee_bulk_creation(request):
             return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
-@api_view(['POST', ])
-@permission_classes((IsAuthenticated,))
+@api_view(['PATCH', ])
+@permission_classes((IsAuthenticated, IsAdminUser))
 def employee_block(request, employee_id, action):
     """
-    Block employee account
+    Block employee account, action could be true or false
     ---
     response_serializer: employees.serializers.EmployeeSerializer
     responseMessages:
@@ -144,7 +146,7 @@ def employee_block(request, employee_id, action):
     - code: 404
       message: Not found
     """
-    if request.method == 'POST':
+    if request.method == 'PATCH':
         employee = get_object_or_404(Employee, pk=employee_id)
         if action == 'true':
             employee.is_blocked = True
@@ -216,32 +218,9 @@ def employee_creation(request):
             return Response(content, status=status.HTTP_401_UNAUTHORIZED)
 
 
-@api_view(['PATCH', ])
-@permission_classes((IsAuthenticated,))
-def employee_deactivate(request, employee_id):
-    """
-    Deactivate employee account
-    ---
-    response_serializer: employees.serializers.EmployeeSerializer
-    responseMessages:
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden.
-    - code: 404
-      message: Not found
-    """
-    if request.method == 'PATCH':
-        employee = get_object_or_404(Employee, pk=employee_id)
-        employee.is_active = False
-        employee.save()
-        serializer = EmployeeSerializer(employee)
-        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-
-
 @api_view(['GET', ])
 @permission_classes((IsAuthenticated,))
-def employee_deactivated_list(request):
+def employee_deactivated_list(request, format=None):
     """
     Returns the full employee deactivated list
     ---
@@ -264,7 +243,7 @@ def employee_deactivated_list(request):
 
 @api_view(['GET', ])
 @permission_classes((IsAuthenticated,))
-def employee_list(request):
+def employee_list(request, format=None):
     """
     Returns the full employee list or result list if you use ?search=
     ---
@@ -327,6 +306,27 @@ def employee_location_list(request):
 
 @api_view(['GET', ])
 @permission_classes((IsAuthenticated,))
+def employee_position_list(request):
+    """
+    Returns employee position full list
+    ---
+    serializer: employees.serializers.EmployeePositionListSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'GET':
+        position_list = get_list_or_404(Position)
+        serializer = EmployeePositionListSerializer(position_list, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def employee_role_list(request):
     """
     Returns employee role full list
@@ -343,27 +343,6 @@ def employee_role_list(request):
     if request.method == 'GET':
         role_list = get_list_or_404(Role)
         serializer = EmployeeRoleListSerializer(role_list, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-@api_view(['GET', ])
-@permission_classes((IsAuthenticated,))
-def employee_categories(request, employee_id):
-    """
-    Returns employee category list
-    ---
-    serializer: categories.serializers.CategorySerializer
-    responseMessages:
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden.
-    - code: 404
-      message: Not found
-    """
-    if request.method == 'GET':
-        employee = get_object_or_404(Employee, pk=employee_id)
-        serializer = CategorySerializer(employee.categories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -535,138 +514,6 @@ def employee_reset_password_confirmation(request, employee_email, employee_uuid)
         return Response(data)
 
 
-@api_view(['GET', ])
-@permission_classes((IsAuthenticated, ))
-def employee_skills(request, employee_id):
-    """
-    Get employee skills
-    ---
-    response_serializer: employees.serializers.EmployeeSkillsSerializer
-    responseMessages:
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden.
-    - code: 404
-      message: Not found
-    - code: 500
-      message: Internal Server Error
-    """
-    if request.method == 'GET':
-        employee = get_object_or_404(Employee, pk=employee_id)
-        skills = employee.skills.all()
-        paginator = PageNumberPagination()
-        results = paginator.paginate_queryset(skills, request)
-        serializer = EmployeeSkillsSerializer(results, many=True)
-        return paginator.get_paginated_response(serializer.data)
-
-
-@api_view(['PATCH', ])
-@permission_classes((IsAuthenticated, ))
-def employee_skill_add(request, employee_id):
-    """
-    Add employee skill
-    ---
-    response_serializer: employees.serializers.EmployeeSkillsSerializer
-    parameters:
-    - name: skill
-      type: string
-      required: true
-    responseMessages:
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden.
-    - code: 404
-      message: Not found
-    - code: 500
-      message: Internal Server Error
-    """
-    if request.method == 'PATCH':
-        if 'skill' in request.data:
-            skill = request.data['skill'].upper()
-            try:
-                keyword = Keyword.objects.get(name=skill)
-            except:
-                keyword = Keyword.objects.create(name=skill)
-                keyword.save()
-            employee = get_object_or_404(Employee, pk=employee_id)
-            employee.skills.add(keyword)
-            employee.save()
-            skills = employee.skills.all()
-            paginator = PageNumberPagination()
-            results = paginator.paginate_queryset(skills, request)
-            serializer = EmployeeSkillsSerializer(results, many=True)
-            return paginator.get_paginated_response(serializer.data)
-
-
-@api_view(['PATCH', ])
-@permission_classes((IsAuthenticated, ))
-def employee_skill_remove(request, employee_id):
-    """
-    Remove employee skill
-    ---
-    response_serializer: employees.serializers.EmployeeSkillsSerializer
-    parameters:
-    - name: skill
-      type: string
-      required: true
-    responseMessages:
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden.
-    - code: 404
-      message: Not found
-    - code: 500
-      message: Internal Server Error
-    """
-    if request.method == 'PATCH':
-        if 'skill' in request.data:
-            skill = request.data['skill'].upper()
-            keyword = get_object_or_404(Keyword, name=skill)
-            employee = get_object_or_404(Employee, pk=employee_id)
-            employee.skills.remove(keyword)
-            employee.save()
-            skills = employee.skills.all()
-            paginator = PageNumberPagination()
-            results = paginator.paginate_queryset(skills, request)
-            serializer = EmployeeSkillsSerializer(results, many=True)
-            return paginator.get_paginated_response(serializer.data)
-
-
-@api_view(['GET', ])
-@permission_classes((IsAuthenticated, ))
-def employee_skills_search(request, terms):
-    """
-    Returns the full employee list or result list from search skill terms
-    ---
-    serializer: employees.serializers.EmployeeListSerializer
-    responseMessages:
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden.
-    - code: 404
-      message: Not found
-    - code: 500
-      message: Internal server error.
-    """
-    if request.method == 'GET':
-        search_terms_array = terms.split()
-
-        initial_term = search_terms_array[0]
-        employee_list = Employee.objects.filter(skills__name__icontains=initial_term).annotate(Count('id'))
-
-        if len(search_terms_array) > 1:
-            for term in range(1, len(search_terms_array)):
-                employee_list = employee_list.filter(search_terms_array[term])
-    paginator = PageNumberPagination()
-    results = paginator.paginate_queryset(employee_list, request)
-    serializer = EmployeeListSerializer(results, many=True)
-    return paginator.get_paginated_response(serializer.data)
-
-
 @api_view(['PATCH', ])
 @permission_classes((IsAuthenticated,))
 def employee_update(request, employee_id):
@@ -833,6 +680,12 @@ class CustomObtainAuthToken(ObtainAuthToken):
           :paramType: string
         """
         try:
+            # Filter username when email is used
+            mutable = request.POST._mutable
+            request.POST._mutable = True
+            request.POST['username'] = request.POST['username'].split('@')[0]
+            request.POST._mutable = mutable
+
             response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
             token = Token.objects.get(key=response.data['token'])
             employee = get_object_or_404(Employee, pk=token.user_id)

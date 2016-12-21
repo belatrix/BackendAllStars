@@ -1,0 +1,29 @@
+[{
+	"model": "employees.position",
+	"pk": 1,
+	"fields": {
+		"name": "SME",
+		"weight": 3
+	}
+}, {
+	"model": "employees.position",
+	"pk": 2,
+	"fields": {
+		"name": "Team Leader / Team Manager",
+		"weight": 4
+	}
+}, {
+	"model": "employees.position",
+	"pk": 3,
+	"fields": {
+		"name": "Manager",
+		"weight": 5
+	}
+}, {
+	"model": "employees.position",
+	"pk": 4,
+	"fields": {
+		"name": "Director",
+		"weight": 10
+	}
+}]

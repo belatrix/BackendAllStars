@@ -2,139 +2,85 @@
 	"model": "categories.category",
 	"pk": 1,
 	"fields": {
-		"name": "Coworker",
-		"weight": 1,
-		"comment_required": false
+		"name": "Demo"
 	}
 }, {
 	"model": "categories.category",
 	"pk": 2,
 	"fields": {
-		"name": "SME",
-		"weight": 3,
-		"comment_required": true
+		"name": "Innovation"
 	}
 }, {
 	"model": "categories.category",
 	"pk": 3,
 	"fields": {
-		"name": "Team Leader / Team Manager",
-		"weight": 4,
-		"comment_required": true
+		"name": "Teamwork"
 	}
 }, {
 	"model": "categories.category",
 	"pk": 4,
 	"fields": {
-		"name": "Manager",
-		"weight": 5,
-		"comment_required": true
+		"name": "Commitment"
 	}
 }, {
 	"model": "categories.category",
 	"pk": 5,
 	"fields": {
-		"name": "Director",
-		"weight": 10,
-		"comment_required": true
+		"name": "Empowerment"
 	}
 }, {
-	"model": "categories.subcategory",
-	"pk": 1,
-	"fields": {
-		"name": "Demo",
-		"category": [1, 2, 3, 4, 5]
-	}
-}, {
-	"model": "categories.subcategory",
-	"pk": 2,
-	"fields": {
-		"name": "Innovation",
-		"category": [1, 2, 3, 4, 5]
-	}
-}, {
-	"model": "categories.subcategory",
-	"pk": 3,
-	"fields": {
-		"name": "Teamwork",
-		"category": [1, 2, 3, 4, 5]
-	}
-}, {
-	"model": "categories.subcategory",
-	"pk": 4,
-	"fields": {
-		"name": "Commitment",
-		"category": [1, 2, 3, 4, 5]
-	}
-}, {
-	"model": "categories.subcategory",
-	"pk": 5,
-	"fields": {
-		"name": "Empowerment",
-		"category": [1, 2, 3, 4, 5]
-	}
-}, {
-	"model": "categories.subcategory",
+	"model": "categories.category",
 	"pk": 6,
 	"fields": {
-		"name": "Trust",
-		"category": [1, 2, 3, 4, 5]
+		"name": "Trust"
 	}
 }, {
-	"model": "categories.subcategory",
+	"model": "categories.category",
 	"pk": 7,
 	"fields": {
-		"name": "Technical Guidance",
-		"category": [1, 2, 3, 4, 5]
+		"name": "Technical Guidance"
 	}
 }, {
-	"model": "categories.subcategory",
+	"model": "categories.category",
 	"pk": 8,
 	"fields": {
-		"name": "Code Review",
-		"category": [1, 2, 3]
+		"name": "Code Review"
 	}
 }, {
-	"model": "categories.subcategory",
+	"model": "categories.category",
 	"pk": 9,
 	"fields": {
-		"name": "Technical Interview",
-		"category": [1, 2, 3, 4, 5]
+		"name": "Technical Interview"
 	}
 }, {
-	"model": "categories.subcategory",
+	"model": "categories.category",
 	"pk": 10,
 	"fields": {
-		"name": "Speaker",
-		"category": [1, 2, 3, 4, 5]
+		"name": "Speaker"
 	}
 }, {
-	"model": "categories.subcategory",
+	"model": "categories.category",
 	"pk": 11,
 	"fields": {
-		"name": "Blogger",
-		"category": [1, 2, 3, 4, 5]
+		"name": "Blogger"
 	}
 }, {
-	"model": "categories.subcategory",
+	"model": "categories.category",
 	"pk": 12,
 	"fields": {
-		"name": "Event collaborator",
-		"category": [1, 2, 3, 4, 5]
+		"name": "Event collaborator"
 	}
 }, {
-	"model": "categories.subcategory",
+	"model": "categories.category",
 	"pk": 13,
 	"fields": {
-		"name": "Training",
-		"category": [1, 2, 3, 4, 5]
+		"name": "Training"
 	}
 }, {
-	"model": "categories.subcategory",
+	"model": "categories.category",
 	"pk": 14,
 	"fields": {
-		"name": "Partnership",
-		"category": [1]
+		"name": "Partnership"
 	}
 }, {
 	"model": "categories.keyword",
