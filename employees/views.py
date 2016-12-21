@@ -326,27 +326,6 @@ def employee_role_list(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-@api_view(['GET', ])
-@permission_classes((IsAuthenticated,))
-def employee_categories(request, employee_id):
-    """
-    Returns employee category list
-    ---
-    serializer: categories.serializers.CategorySerializer
-    responseMessages:
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden.
-    - code: 404
-      message: Not found
-    """
-    if request.method == 'GET':
-        employee = get_object_or_404(Employee, pk=employee_id)
-        serializer = CategorySerializer(employee.categories, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
 @api_view(['GET', 'POST'])
 @permission_classes((IsAuthenticated,))
 def employee_image(request, employee_id):
