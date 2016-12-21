@@ -1,4 +1,4 @@
-from .serializers import StarSerializer, StarSmallSerializer, StarBulkSerializer
+from .serializers import StarSerializer, StarBulkSerializer
 from .serializers import StarEmployeesSubcategoriesSerializer, StarTopEmployeeLists
 from .serializers import StarKeywordList, StarInputSerializer
 from .models import Star
@@ -59,7 +59,6 @@ def give_star_to(request, from_employee_id, to_employee_id):
         from_user = get_object_or_404(Employee, pk=from_employee_id)
         to_user = get_object_or_404(Employee, pk=to_employee_id)
         category = get_object_or_404(Category, pk=request.data['category'])
-        subcategory = get_object_or_404(Subcategory, pk=request.data['subcategory'])
         keyword = get_object_or_404(Keyword, pk=request.data['keyword'])
 
         if from_user.is_blocked:
@@ -71,7 +70,6 @@ def give_star_to(request, from_employee_id, to_employee_id):
 
         # Create data object to save
         data = {"category": category.id,
-                "subcategory": subcategory.id,
                 "keyword": keyword.id,
                 "text": text,
                 "from_user": from_user.id,
@@ -140,12 +138,10 @@ def give_star_to_many(request, from_employee_id):
             text = (request.data['text'] if 'text' in request.data.keys() else None)
             from_user = get_object_or_404(Employee, pk=from_employee_id)
             category = get_object_or_404(Category, pk=request.data['category'])
-            subcategory = get_object_or_404(Subcategory, pk=request.data['subcategory'])
             keyword = get_object_or_404(Keyword, pk=request.data['keyword'])
 
             # Create data object to save
             data = {"category": category.id,
-                    "subcategory": subcategory.id,
                     "keyword": keyword.id,
                     "text": text,
                     "from_user": from_user.id}
@@ -256,31 +252,6 @@ def stars_employee_subcategory_list(request, employee_id):
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(employee_stars, request)
         serializer = StarEmployeesSubcategoriesSerializer(results, many=True)
-        return paginator.get_paginated_response(serializer.data)
-
-
-@api_view(['GET', ])
-@permission_classes((IsAuthenticated,))
-def stars_employee_subcategory_detail_list(request, employee_id, subcategory_id):
-    """
-    Returns stars list detail from employee divided by subcategory
-    ---
-    serializer: stars.serializers.StarSmallSerializer
-    responseMessages:
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden, authentication credentials were not provided
-    - code: 404
-      message: Not found
-    """
-    if request.method == 'GET':
-        employee = get_object_or_404(Employee, pk=employee_id)
-        subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
-        stars = Star.objects.filter(to_user=employee, subcategory=subcategory).order_by('-date')
-        paginator = PageNumberPagination()
-        results = paginator.paginate_queryset(stars, request)
-        serializer = StarSmallSerializer(results, many=True)
         return paginator.get_paginated_response(serializer.data)
 
 

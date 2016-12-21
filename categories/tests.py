@@ -1,8 +1,5 @@
 from .models import Category
-from .serializers import CategorySerializer
 from employees.models import Employee
-from django.core.urlresolvers import reverse
-from rest_framework import status
 from rest_framework.test import APITestCase
 
 

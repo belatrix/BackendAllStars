@@ -1,6 +1,6 @@
 from .models import Category, Keyword
 from .serializers import CategorySerializer, CategorySimpleSerializer
-from .serializers import KeywordListSerializer, SubcategoryListSerializer, SubcategoryDetailSerializer
+from .serializers import KeywordListSerializer, SubcategoryListSerializer
 from constance import config
 from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
@@ -172,77 +172,3 @@ def subcategory_add(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         content = {'detail': config.SUBCATEGORY_BAD_REQUEST}
         return Response(content, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['DELETE', 'GET', 'PUT'])
-@permission_classes((IsAuthenticated,))
-def subcategory_detail(request, subcategory_id):
-    """
-    Returns subcategory detail category list
-    ---
-    serializer: categories.serializers.SubcategoryDetailSerializer
-    responseMessages:
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden.
-    - code: 404
-      message: Not found
-    """
-    subcategory = get_object_or_404(Subcategory, pk=subcategory_id)
-    if request.method == 'GET':
-        serializer = SubcategoryDetailSerializer(subcategory)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    elif request.method == 'PUT':
-        serializer = SubcategoryListSerializer(subcategory, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-        content = {'detail': config.SUBCATEGORY_BAD_REQUEST}
-        return Response(content, status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == 'DELETE':
-        subcategory.is_active = False
-        subcategory.save()
-        return Response(status=status.HTTP_202_ACCEPTED)
-
-
-@api_view(['GET'])
-@permission_classes((IsAuthenticated,))
-def subcategory_list(request):
-    """
-    Returns full subcategory list ordered by name
-    ---
-    serializer: categories.serializers.SubcategoryListSerializer
-    responseMessages:
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden.
-    - code: 404
-      message: Not found
-    """
-    if request.method == 'GET':
-        subcategories = get_list_or_404(Subcategory, is_active=True)
-        serializer = SubcategoryListSerializer(subcategories, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-@api_view(['GET'])
-@permission_classes((IsAuthenticated,))
-def subcategory_list_by_category(request, category_id):
-    """
-    Returns full subcategory list according to category id
-    ---
-    serializer: categories.serializers.SubcategoryListSerializer
-    responseMessages:
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden.
-    - code: 404
-      message: Not found
-    """
-    if request.method == 'GET':
-        subcategories = Subcategory.objects.filter(category=category_id, is_active=True)
-        serializer = SubcategoryListSerializer(subcategories, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
