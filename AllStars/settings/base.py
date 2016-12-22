@@ -53,7 +53,6 @@ PROJECT_APPS = [
     'activities',
     'categories',
     'employees',
-    'events',
     'stars',
 ]
 
@@ -109,10 +108,6 @@ CONSTANCE_CONFIG = {
     'DAILY_EXECUTION_CONFIRMATION_EMAIL': ('sergio@neosergio.net', 'Email address to send daily message for daily tasks.'),
     'USER_BLOCKED_NOTIFICATION_SUBJECT': ('[BELATRIX CONNECT] Your user account is blocked in BELATRIX CONNECT', 'Email notificacion subject when user is blocked'),
     'USER_BLOCKED_NOTIFICATION_MESSAGE': ('Your username %s is blocked. Please contact with your project leader for more details.', 'Email notificacion message when user is blocked'),
-
-    # Events messages
-    'PARTICIPANT_ALREADY_REGISTERED_OR_BAD_REQUEST': ('Participant is already registered or bad request.', 'Error message when participant is already registered or there is a bad request to participant creation'),
-    'PARTICIPANT_ALREADY_REGISTERED_TO_EVENT': ('Participant is already registered to this event or bad request', 'Error message when something goes wrong after participant wants to register to a event'),
 
     # Activities messages
     'NO_MESSAGE': ('Message is empty.', 'Error message when message is empty'),
