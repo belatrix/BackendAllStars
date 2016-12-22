@@ -1,5 +1,5 @@
 from .models import Star
-from categories.serializers import CategorySimpleSerializer, KeywordSerializer
+from categories.serializers import CategorySerializer, KeywordSerializer
 from employees.models import Employee
 from rest_framework import serializers
 
@@ -16,18 +16,17 @@ class StarSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Star
-        fields = ('pk', 'date', 'text', 'from_user', 'to_user', 'category', 'subcategory', 'keyword')
+        fields = ('pk', 'date', 'text', 'from_user', 'to_user', 'category', 'keyword')
 
 
 class StarInputSerializer(serializers.ModelSerializer):
     class Meta:
         model = Star
-        fields = ('pk', 'date', 'text', 'from_user', 'to_user', 'category', 'subcategory', 'keyword')
+        fields = ('pk', 'date', 'text', 'from_user', 'to_user', 'category', 'keyword')
 
 
 class StarBulkSerializer(serializers.Serializer):
     category = serializers.IntegerField()
-    subcategory = serializers.IntegerField()
     keyword = serializers.IntegerField()
     text = serializers.CharField()
     to_users = serializers.ListField(
@@ -37,7 +36,7 @@ class StarBulkSerializer(serializers.Serializer):
 
 class StarSmallSerializer(serializers.ModelSerializer):
     from_user = EmployeeSimpleSerializer()
-    category = CategorySimpleSerializer()
+    category = CategorySerializer()
     keyword = KeywordSerializer()
 
     class Meta:
@@ -49,13 +48,7 @@ class StarSmallSerializer(serializers.ModelSerializer):
 class StarSwaggerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Star
-        fields = ('pk', 'category', 'subcategory', 'keyword', 'text')
-
-
-class StarEmployeesSubcategoriesSerializer(serializers.Serializer):
-    pk = serializers.IntegerField(source='subcategory__pk')
-    name = serializers.CharField(max_length=100, source='subcategory__name')
-    num_stars = serializers.IntegerField()
+        fields = ('pk', 'category', 'keyword', 'text')
 
 
 class StarTopEmployeeLists(serializers.Serializer):

@@ -53,7 +53,6 @@ PROJECT_APPS = [
     'activities',
     'categories',
     'employees',
-    'events',
     'stars',
 ]
 
@@ -75,7 +74,6 @@ CONSTANCE_CONFIG = {
     # Categories messages
     'KEYWORD_ALREADY_EXISTS': ('Data already exists or is invalid.', 'Error message when a keyword already exists or is not set.'),
     'CATEGORY_BAD_REQUEST': ('Bad request on creation or edition category, please review if category already exists.', 'Error message when a category can not be added or edited.'),
-    'SUBCATEGORY_BAD_REQUEST': ('Bad request on creation or edition subcategory, please review if subcategory already exists.', 'Error message when a subcategory can not be added or edited.'),
 
     # User messages
     'EMPLOYEE_CREATION_SUBJECT': ('[BELATRIX CONNECT] Your account has been successfully created.', 'Email subject when new account is created.'),
@@ -110,10 +108,6 @@ CONSTANCE_CONFIG = {
     'DAILY_EXECUTION_CONFIRMATION_EMAIL': ('sergio@neosergio.net', 'Email address to send daily message for daily tasks.'),
     'USER_BLOCKED_NOTIFICATION_SUBJECT': ('[BELATRIX CONNECT] Your user account is blocked in BELATRIX CONNECT', 'Email notificacion subject when user is blocked'),
     'USER_BLOCKED_NOTIFICATION_MESSAGE': ('Your username %s is blocked. Please contact with your project leader for more details.', 'Email notificacion message when user is blocked'),
-
-    # Events messages
-    'PARTICIPANT_ALREADY_REGISTERED_OR_BAD_REQUEST': ('Participant is already registered or bad request.', 'Error message when participant is already registered or there is a bad request to participant creation'),
-    'PARTICIPANT_ALREADY_REGISTERED_TO_EVENT': ('Participant is already registered to this event or bad request', 'Error message when something goes wrong after participant wants to register to a event'),
 
     # Activities messages
     'NO_MESSAGE': ('Message is empty.', 'Error message when message is empty'),
