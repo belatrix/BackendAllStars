@@ -3,13 +3,13 @@ from rest_framework import serializers
 
 
 class EmployeeRoleListSerializer(serializers.ModelSerializer):
-    class Meta:
+    class Meta(object):
         model = Role
         fields = ('pk', 'name')
 
 
 class EmployeePositionListSerializer(serializers.ModelSerializer):
-    class Meta:
+    class Meta(object):
         model = Position
         fields = ('pk', 'name', 'weight')
 
@@ -19,7 +19,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
     positions = EmployeePositionListSerializer(source='position', many=True)
     roles = EmployeeRoleListSerializer(source='role', many=True)
 
-    class Meta:
+    class Meta(object):
         model = Employee
         depth = 1
         fields = ('pk',
@@ -66,7 +66,7 @@ class EmployeeSetListSerializer(serializers.Serializer):
 
 
 class EmployeeListSerializer(serializers.ModelSerializer):
-    class Meta:
+    class Meta(object):
         model = Employee
         depth = 1
         fields = ('pk',
@@ -86,7 +86,7 @@ class EmployeeListSerializer(serializers.ModelSerializer):
 
 
 class EmployeeLocationListSerializer(serializers.ModelSerializer):
-    class Meta:
+    class Meta(object):
         model = Location
         fields = ('pk', 'name', 'icon')
 
@@ -103,7 +103,7 @@ class EmployeeTopListSerializer(serializers.Serializer):
 class EmployeeTopTotalScoreList(serializers.ModelSerializer):
     value = serializers.IntegerField(source='total_score')
 
-    class Meta:
+    class Meta(object):
         model = Employee
         fields = ('pk', 'username', 'first_name', 'last_name', 'avatar', 'value')
 
@@ -111,7 +111,7 @@ class EmployeeTopTotalScoreList(serializers.ModelSerializer):
 class EmployeeTopLevelList(serializers.ModelSerializer):
     value = serializers.IntegerField(source='level')
 
-    class Meta:
+    class Meta(object):
         model = Employee
         fields = ('pk', 'username', 'first_name', 'last_name', 'avatar', 'value')
 
@@ -119,7 +119,7 @@ class EmployeeTopLevelList(serializers.ModelSerializer):
 class EmployeeTopCurrentMonthList(serializers.ModelSerializer):
     value = serializers.IntegerField(source='current_month_score')
 
-    class Meta:
+    class Meta(object):
         model = Employee
         fields = ('pk', 'username', 'first_name', 'last_name', 'avatar', 'value')
 
@@ -127,7 +127,7 @@ class EmployeeTopCurrentMonthList(serializers.ModelSerializer):
 class EmployeeTopCurrentYearList(serializers.ModelSerializer):
     value = serializers.IntegerField(source='current_year_score')
 
-    class Meta:
+    class Meta(object):
         model = Employee
         fields = ('pk', 'username', 'first_name', 'last_name', 'avatar', 'value')
 
@@ -135,7 +135,7 @@ class EmployeeTopCurrentYearList(serializers.ModelSerializer):
 class EmployeeTopLastMonthList(serializers.ModelSerializer):
     value = serializers.IntegerField(source='last_month_score')
 
-    class Meta:
+    class Meta(object):
         model = Employee
         fields = ('pk', 'username', 'first_name', 'last_name', 'avatar', 'value')
 
@@ -143,13 +143,13 @@ class EmployeeTopLastMonthList(serializers.ModelSerializer):
 class EmployeeTopLastYearList(serializers.ModelSerializer):
     value = serializers.IntegerField(source='last_year_score')
 
-    class Meta:
+    class Meta(object):
         model = Employee
         fields = ('pk', 'username', 'first_name', 'last_name', 'avatar', 'value')
 
 
 class EmployeeAvatarSerializer(serializers.ModelSerializer):
-    class Meta:
+    class Meta(object):
         model = Employee
         fields = ('pk', 'avatar')
 
@@ -160,6 +160,6 @@ class EmployeeAuthenticationResponse(serializers.Serializer):
 
 
 class EmployeeDeviceSerializer(serializers.ModelSerializer):
-    class Meta:
+    class Meta(object):
         model = EmployeeDevice
         fields = ('username', 'android_device', 'ios_device')
