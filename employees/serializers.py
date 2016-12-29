@@ -2,8 +2,22 @@ from .models import Employee, Location, Role, EmployeeDevice, Position
 from rest_framework import serializers
 
 
+class EmployeeRoleListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Role
+        fields = ('pk', 'name')
+
+
+class EmployeePositionListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Position
+        fields = ('pk', 'name', 'weight')
+
+
 class EmployeeSerializer(serializers.ModelSerializer):
     is_admin = serializers.CharField(source='is_staff')
+    positions = EmployeePositionListSerializer(source='position', many=True)
+    roles = EmployeeRoleListSerializer(source='role', many=True)
 
     class Meta:
         model = Employee
@@ -28,7 +42,9 @@ class EmployeeSerializer(serializers.ModelSerializer):
                   'is_blocked',
                   'is_admin',
                   'last_login',
-                  'total_given')
+                  'total_given',
+                  'positions',
+                  'roles')
 
 
 class EmployeeCreationSerializer(serializers.Serializer):
@@ -73,18 +89,6 @@ class EmployeeLocationListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
         fields = ('pk', 'name', 'icon')
-
-
-class EmployeeRoleListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Role
-        fields = ('pk', 'name')
-
-
-class EmployeePositionListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Position
-        fields = ('pk', 'name', 'weight')
 
 
 class EmployeeTopListSerializer(serializers.Serializer):

@@ -96,7 +96,7 @@ CONSTANCE_CONFIG = {
     'WRONG_CURRENT_PASSWORD': ('Current password is wrong.', 'Error message when current password is wrong.'),
 
     # Administrator errors messages
-    'SET_LIST_TYPE_UNKNOWN' : ('Field type unknown', 'Error message when field type is unknown'),
+    'SET_LIST_TYPE_UNKNOWN': ('Field type unknown', 'Error message when field type is unknown'),
 
     # Stars messages
     'SUCCESSFULLY_STARS_ADDED': ('Successfully points added', 'Successfully message when bulk points added.'),
