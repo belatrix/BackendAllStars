@@ -3,6 +3,8 @@ from rest_framework import serializers
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
+    is_admin = serializers.CharField(source='is_staff')
+
     class Meta:
         model = Employee
         depth = 1
@@ -24,6 +26,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
                   'total_score',
                   'is_active',
                   'is_blocked',
+                  'is_admin',
                   'last_login',
                   'total_given')
 

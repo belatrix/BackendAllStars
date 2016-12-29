@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from .views import CategoryDetail, CategoryList, KeywordDetail, KeywordList
 from .views import CategoriesModelsDelete
+from .views import employee_admin
 from employees.views import employee_bulk_creation, employee_deactivated_list, employee_activate, employee_block
 from rest_framework.urlpatterns import format_suffix_patterns
 
@@ -14,6 +15,7 @@ urlpatterns = [
     url(r'^employee/deactivated/list/$', employee_deactivated_list, name='employee_deactivated_list'),
     url(r'^employee/(?P<employee_id>\d+)/activate/(?P<action>\w+)/$', employee_activate, name='employee_activate'),
     url(r'^employee/(?P<employee_id>\d+)/block/(?P<action>\w+)/$', employee_block, name='employee_block'),
+    url(r'^employee/(?P<employee_id>\d+)/admin/(?P<action>\w+)/$', employee_admin, name='employee_admin'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json'])
