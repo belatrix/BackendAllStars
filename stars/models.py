@@ -13,5 +13,5 @@ class Star(models.Model):
     category = models.ForeignKey('categories.Category')
     keyword = models.ForeignKey('categories.Keyword')
 
-    class Meta:
+    class Meta(object):
         ordering = ['date', 'to_user']

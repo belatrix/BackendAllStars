@@ -5,7 +5,7 @@ from rest_framework import serializers
 
 
 class EmployeeSimpleSerializer(serializers.ModelSerializer):
-    class Meta:
+    class Meta(object):
         model = Employee
         fields = ('pk', 'username', 'first_name', 'last_name', 'avatar')
 
@@ -14,13 +14,13 @@ class StarSerializer(serializers.ModelSerializer):
     from_user = EmployeeSimpleSerializer()
     keyword = KeywordSerializer()
 
-    class Meta:
+    class Meta(object):
         model = Star
         fields = ('pk', 'date', 'text', 'from_user', 'to_user', 'category', 'keyword')
 
 
 class StarInputSerializer(serializers.ModelSerializer):
-    class Meta:
+    class Meta(object):
         model = Star
         fields = ('pk', 'date', 'text', 'from_user', 'to_user', 'category', 'keyword')
 
@@ -39,16 +39,28 @@ class StarSmallSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     keyword = KeywordSerializer()
 
-    class Meta:
+    class Meta(object):
         model = Star
         depth = 1
         fields = ('pk', 'date', 'text', 'category', 'from_user', 'keyword')
 
 
 class StarSwaggerSerializer(serializers.ModelSerializer):
-    class Meta:
+    class Meta(object):
         model = Star
         fields = ('pk', 'category', 'keyword', 'text')
+
+
+class StarEmployeeCategoriesSerializer(serializers.Serializer):
+    pk = serializers.IntegerField(source='category__pk')
+    name = serializers.CharField(max_length=100, source='category__name')
+    num_stars = serializers.IntegerField()
+
+
+class StarEmployeeKeywordsSerializer(serializers.Serializer):
+    pk = serializers.IntegerField(source='keyword__pk')
+    name = serializers.CharField(max_length=100, source='keyword__name')
+    num_stars = serializers.IntegerField()
 
 
 class StarTopEmployeeLists(serializers.Serializer):
