@@ -302,6 +302,31 @@ def stars_employee_list_group_by_category_detail(request, employee_id, category_
 
 @api_view(['GET', ])
 @permission_classes((IsAuthenticated,))
+def stars_employee_list_group_by_keyword_detail(request, employee_id, keyword_id):
+    """
+    Returns stars list detail from employee divided by keyword
+    ---
+    serializer: stars.serializers.StarSmallSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        keyword = get_object_or_404(Keyword, pk=keyword_id)
+        stars = Star.objects.filter(to_user=employee, keyword=keyword).order_by('-date')
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(stars, request)
+        serializer = StarSmallSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
 def stars_top_employee_lists(request, top_number, kind, id):
     """
     Returns stars top {top_number} list according to {kind} (category, keyword) {id} (kind_id)
