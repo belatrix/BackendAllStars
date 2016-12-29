@@ -57,6 +57,12 @@ class StarEmployeeCategoriesSerializer(serializers.Serializer):
     num_stars = serializers.IntegerField()
 
 
+class StarEmployeeKeywordsSerializer(serializers.Serializer):
+    pk = serializers.IntegerField(source='keyword__pk')
+    name = serializers.CharField(max_length=100, source='keyword__name')
+    num_stars = serializers.IntegerField()
+
+
 class StarTopEmployeeLists(serializers.Serializer):
 
     def get_avatar(self, data):
