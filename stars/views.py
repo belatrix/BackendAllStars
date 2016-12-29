@@ -1,6 +1,6 @@
 from .serializers import StarSerializer, StarBulkSerializer
 from .serializers import StarTopEmployeeLists, StarEmployeeCategoriesSerializer
-from .serializers import StarKeywordList, StarInputSerializer
+from .serializers import StarKeywordList, StarInputSerializer, StarSmallSerializer
 from .models import Star
 from constance import config
 from activities.models import Activity
@@ -248,6 +248,31 @@ def stars_employee_list_group_by_category(request, employee_id):
         paginator = PageNumberPagination()
         result = paginator.paginate_queryset(employee_stars, request)
         serializer = StarEmployeeCategoriesSerializer(result, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def stars_employee_list_group_by_category_detail(request, employee_id, category_id):
+    """
+    Returns stars list detail from employee divided by category
+    ---
+    serializer: stars.serializers.StarSmallSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        category = get_object_or_404(Category, pk=category_id)
+        stars = Star.objects.filter(to_user=employee, category=category).order_by('-date')
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(stars, request)
+        serializer = StarSmallSerializer(results, many=True)
         return paginator.get_paginated_response(serializer.data)
 
 
