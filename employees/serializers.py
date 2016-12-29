@@ -42,6 +42,13 @@ class EmployeeCreationListSerializer(serializers.Serializer):
     )
 
 
+class EmployeeSetListSerializer(serializers.Serializer):
+    type = serializers.CharField(max_length=100)
+    set_id_list = serializers.ListField(
+        child=serializers.IntegerField()
+    )
+
+
 class EmployeeListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee

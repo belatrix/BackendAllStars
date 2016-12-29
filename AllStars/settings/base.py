@@ -95,6 +95,9 @@ CONSTANCE_CONFIG = {
     'PASSWORD_EQUAL': ('New and current password are equal', 'Error message when new and current password are equal.'),
     'WRONG_CURRENT_PASSWORD': ('Current password is wrong.', 'Error message when current password is wrong.'),
 
+    # Administrator errors messages
+    'SET_LIST_TYPE_UNKNOWN' : ('Field type unknown', 'Error message when field type is unknown'),
+
     # Stars messages
     'SUCCESSFULLY_STARS_ADDED': ('Successfully points added', 'Successfully message when bulk points added.'),
     'USER_BLOCKED_TO_GIVE_STARS': ('User is blocked to give recommendations. Please contact your project leader.', 'Error message when user is blocked to give recommendations.'),

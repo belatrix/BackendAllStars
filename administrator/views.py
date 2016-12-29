@@ -1,6 +1,7 @@
 from categories.models import Category, Keyword
 from employees.models import Employee
-from employees.serializers import EmployeeSerializer
+from employees.serializers import EmployeeSerializer, EmployeeSetListSerializer
+from constance import config
 from django.db.models import Q
 from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
@@ -200,3 +201,52 @@ def employee_admin(request, employee_id, action):
         employee.save()
         serializer = EmployeeSerializer(employee)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+@api_view(['PATCH', ])
+@permission_classes((IsAdminUser, IsAuthenticated))
+def employee_set_list(request, employee_id):
+    """
+    Endpoint to set list of positions to employee, type can be position or role
+    ---
+    parameters:
+    - name: body
+      required: true
+      paramType: body
+      pytype: employees.serializers.EmployeeSetListSerializer
+    responseMessages:
+    - code: 400
+      message: Bad request
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 406
+      message: Request not acceptable
+    """
+    if request.method == 'PATCH':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        serializer = EmployeeSetListSerializer(data=request.data)
+        errors = []
+        if serializer.is_valid():
+            type = request.data['type']
+            elements_list = request.data['set_id_list']
+            if type == 'position':
+                employee.position = elements_list
+                employee.save()
+            elif type == 'role':
+                employee.role = elements_list
+                employee.save()
+            else:
+                errors.append(config.SET_LIST_TYPE_UNKNOWN)
+        else:
+            errors.append(serializer.errors)
+
+        if len(errors) == 0:
+            serializer = EmployeeSerializer(employee)
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        else:
+            content = {'detail': errors}
+            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
