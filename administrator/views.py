@@ -231,12 +231,12 @@ def employee_set_list(request, employee_id):
         serializer = EmployeeSetListSerializer(data=request.data)
         errors = []
         if serializer.is_valid():
-            type = request.data['type']
+            list_type = request.data['type']
             elements_list = request.data['set_id_list']
-            if type == 'position':
+            if list_type == 'position':
                 employee.position = elements_list
                 employee.save()
-            elif type == 'role':
+            elif list_type == 'role':
                 employee.role = elements_list
                 employee.save()
             else:
