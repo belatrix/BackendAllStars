@@ -14,7 +14,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta:
+    class Meta(object):
         verbose_name_plural = 'categories'
         ordering = ['weight']
 
@@ -27,6 +27,6 @@ class Keyword(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta:
+    class Meta(object):
         verbose_name_plural = 'keywords'
         ordering = ['name']

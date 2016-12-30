@@ -12,7 +12,7 @@ class UserChangeForm(forms.ModelForm):
                                                     "this user's password, but you can change the password using "
                                                     "<a href=\'../password/\'>this form</a>."))
 
-    class Meta:
+    class Meta(object):
         model = Employee
         fields = ('email',)
 

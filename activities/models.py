@@ -8,7 +8,7 @@ class Activity(models.Model):
     text = models.CharField(max_length=140)
     to_user = models.ForeignKey('employees.Employee', related_name='%(class)s_to', blank=True, null=True)
 
-    class Meta:
+    class Meta(object):
         ordering = ['-datetime']
         verbose_name_plural = 'activities'
 
@@ -19,6 +19,6 @@ class Message(models.Model):
     from_user = models.ForeignKey('employees.Employee', related_name='%(class)s_from')
     to_user = models.CharField(max_length=250)
 
-    class Meta:
+    class Meta(object):
         ordering = ['-datetime']
         verbose_name_plural = 'messages'
