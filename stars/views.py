@@ -244,7 +244,9 @@ def stars_employee_list_group_by_category(request, employee_id):
     """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
-        employee_stars = Star.objects.filter(to_user=employee).values('category__pk', 'category__name').annotate(num_stars=Count('category')).order_by('-num_stars', 'category__name')
+        employee_stars = Star.objects.filter(to_user=employee).values('category__pk',
+                                                                      'category__name').annotate(num_stars=Count('category')).order_by('-num_stars',
+                                                                                                                                       'category__name')
         paginator = PageNumberPagination()
         result = paginator.paginate_queryset(employee_stars, request)
         serializer = StarEmployeeCategoriesSerializer(result, many=True)
@@ -268,7 +270,9 @@ def stars_employee_list_group_by_keyword(request, employee_id):
     """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
-        employee_stars = Star.objects.filter(to_user=employee).values('keyword__pk', 'keyword__name').annotate(num_stars=Count('keyword')).order_by('-num_stars', 'keyword__name')
+        employee_stars = Star.objects.filter(to_user=employee).values('keyword__pk',
+                                                                      'keyword__name').annotate(num_stars=Count('keyword')).order_by('-num_stars',
+                                                                                                                                     'keyword__name')
         paginator = PageNumberPagination()
         result = paginator.paginate_queryset(employee_stars, request)
         serializer = StarEmployeeKeywordsSerializer(result, many=True)
@@ -345,19 +349,21 @@ def stars_top_employee_lists(request, top_number, kind, id):
     try:
         if request.method == 'GET':
             if kind == 'category':
-                top_list = Star.objects.filter(category__id=id).values('to_user__pk',
-                                                                       'to_user__username',
-                                                                       'to_user__first_name',
-                                                                       'to_user__last_name',
-                                                                       'to_user__level'
-                                                                       'to_user__avatar').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
+                top_list = Star.objects.filter(category__id=id).values(
+                    'to_user__pk',
+                    'to_user__username',
+                    'to_user__first_name',
+                    'to_user__last_name',
+                    'to_user__level'
+                    'to_user__avatar').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
             elif kind == 'keyword':
-                top_list = Star.objects.filter(keyword__id=id).values('to_user__pk',
-                                                                      'to_user__username',
-                                                                      'to_user__first_name',
-                                                                      'to_user__last_name',
-                                                                      'to_user__level',
-                                                                      'to_user__avatar').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
+                top_list = Star.objects.filter(keyword__id=id).values(
+                    'to_user__pk',
+                    'to_user__username',
+                    'to_user__first_name',
+                    'to_user__last_name',
+                    'to_user__level',
+                    'to_user__avatar').annotate(num_stars=Count('to_user')).order_by('-num_stars')[:top_number]
             else:
                 return Response(status=status.HTTP_412_PRECONDITION_FAILED)
             serializer = StarTopEmployeeLists(top_list, many=True)

@@ -73,18 +73,23 @@ CONSTANCE_CONFIG = {
 
     # Categories messages
     'KEYWORD_ALREADY_EXISTS': ('Data already exists or is invalid.', 'Error message when a keyword already exists or is not set.'),
-    'CATEGORY_BAD_REQUEST': ('Bad request on creation or edition category, please review if category already exists.', 'Error message when a category can not be added or edited.'),
+    'CATEGORY_BAD_REQUEST': ('Bad request on creation or edition category, please review if category already exists.',
+                             'Error message when a category can not be added or edited.'),
 
     # User messages
     'EMPLOYEE_CREATION_SUBJECT': ('[BELATRIX CONNECT] Your account has been successfully created.', 'Email subject when new account is created.'),
     'EMPLOYEE_CREATION_MESSAGE': ('Your username is: %s and your initial random password is %s', 'Email message when new account is created'),
-    'EMPLOYEE_RESET_PASSWORD_CONFIRMATION_SUBJECT': ('[BELATRIX CONNECT] Please confirm if you want a password reset.', 'Confirmation reset password email subject.'),
-    'EMPLOYEE_RESET_PASSWORD_CONFIRMATION_MESSAGE': ('If you want to reset your password please confirm the request, clicking here: %s', 'Confirmation reset password email message.'),
-    'EMPLOYEE_RESET_PASSWORD_SUCCESSFULLY_SUBJECT': ('[BELATRIX CONNECT] Your new password has been successfully created.', 'Reset password successfully email subject '),
+    'EMPLOYEE_RESET_PASSWORD_CONFIRMATION_SUBJECT': ('[BELATRIX CONNECT] Please confirm if you want a password reset.',
+                                                     'Confirmation reset password email subject.'),
+    'EMPLOYEE_RESET_PASSWORD_CONFIRMATION_MESSAGE': ('If you want to reset your password please confirm the request, clicking here: %s',
+                                                     'Confirmation reset password email message.'),
+    'EMPLOYEE_RESET_PASSWORD_SUCCESSFULLY_SUBJECT': ('[BELATRIX CONNECT] Your new password has been successfully created.',
+                                                     'Reset password successfully email subject '),
     'EMPLOYEE_RESET_PASSWORD_SUCCESSFULLY_MESSAGE': ('Your new password is: %s', 'Reset password successfully email message.'),
     'USER_EMAIL_ALREADY_REGISTERED': ('email %s is already registered.', 'Error message when user already exists.'),
     'USER_SUCCESSFULLY_CREATED': ('User(s) successfully created.', 'Message when an account has been created successfully.'),
-    'USER_SUCCESSFULLY_CREATED_EMAIL_ERROR': ('User was created, but there are problems with email service, please contact an administrator.', 'Message when an account has been created successfully but no email was sent.'),
+    'USER_SUCCESSFULLY_CREATED_EMAIL_ERROR': ('User was created, but there are problems with email service, please contact an administrator.',
+                                              'Message when an account has been created successfully but no email was sent.'),
     'USER_SUCCESSFULLY_RESET_PASSWORD': ('Successfully password creation, email has been sent.', 'Successfully user reset password.'),
     'USER_UNABLE_TO_LOG': ('User is unable to log in with provided credentials.', 'Error message when user are not able to log in'),
     'USER_LOGOUT': ('User logout successfully', 'Message when user logout'),
@@ -100,17 +105,21 @@ CONSTANCE_CONFIG = {
 
     # Stars messages
     'SUCCESSFULLY_STARS_ADDED': ('Successfully points added', 'Successfully message when bulk points added.'),
-    'USER_BLOCKED_TO_GIVE_STARS': ('User is blocked to give recommendations. Please contact your project leader.', 'Error message when user is blocked to give recommendations.'),
+    'USER_BLOCKED_TO_GIVE_STARS': ('User is blocked to give recommendations. Please contact your project leader.',
+                                   'Error message when user is blocked to give recommendations.'),
     'USER_BLOCKED_TO_RECEIVED_STARS': ('User is blocked to received recommendations.', 'Error message when user is blocked to received recommendations.'),
-    'USER_UNABLE_TO_GIVE_STARS_ITSELF': ('User is unable to give recommendations to itself.', 'Error message when user is unable to give recommendations to itself.'),
+    'USER_UNABLE_TO_GIVE_STARS_ITSELF': ('User is unable to give recommendations to itself.',
+                                         'Error message when user is unable to give recommendations to itself.'),
     'NO_STARS_RECEIVED': ('No recommendations yet.', "Message when user doesn't have recommendations yet."),
 
     # Daily cron tasks messages
     'DAILY_EXECUTION_CONFIRMATION_SUBJECT': ('[BELATRIX CONNECT] Daily check has been executed.', 'Email confirmation subject for daily tasks.'),
     'DAILY_EXECUTION_CONFIRMATION_MESSAGE': ('Your daily check scores and rules has been executed.', 'Email confirmation message for daily tasks.'),
     'DAILY_EXECUTION_CONFIRMATION_EMAIL': ('sergio@neosergio.net', 'Email address to send daily message for daily tasks.'),
-    'USER_BLOCKED_NOTIFICATION_SUBJECT': ('[BELATRIX CONNECT] Your user account is blocked in BELATRIX CONNECT', 'Email notificacion subject when user is blocked'),
-    'USER_BLOCKED_NOTIFICATION_MESSAGE': ('Your username %s is blocked. Please contact with your project leader for more details.', 'Email notificacion message when user is blocked'),
+    'USER_BLOCKED_NOTIFICATION_SUBJECT': ('[BELATRIX CONNECT] Your user account is blocked in BELATRIX CONNECT',
+                                          'Email notificacion subject when user is blocked'),
+    'USER_BLOCKED_NOTIFICATION_MESSAGE': ('Your username %s is blocked. Please contact with your project leader for more details.',
+                                          'Email notificacion message when user is blocked'),
 
     # Activities messages
     'NO_MESSAGE': ('Message is empty.', 'Error message when message is empty'),
