@@ -1,0 +1,29 @@
+[{
+	"model": "stars.badge",
+	"pk": 1,
+	"fields": {
+		"name": "Technical Blogger",
+		"icon": "http://i.imgur.com/0TDVbPV.png"
+	}
+}, {
+	"model": "stars.badge",
+	"pk": 2,
+	"fields": {
+		"name": "Great Performance",
+		"icon": "http://i.imgur.com/GoxhsuT.png"
+	}
+}, {
+	"model": "stars.badge",
+	"pk": 3,
+	"fields": {
+		"name": "Social Media Enthusiast",
+		"icon": "http://i.imgur.com/IAoqp2f.png"
+	}
+}, {
+	"model": "stars.badge",
+	"pk": 4,
+	"fields": {
+		"name": "Speaker",
+		"icon": "http://i.imgur.com/e6FqXtV.png"
+	}
+}]
