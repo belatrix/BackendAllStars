@@ -11,7 +11,7 @@ class BadgeAdmin(admin.ModelAdmin):
 
 
 class EmployeeBadgeAdmin(admin.ModelAdmin):
-    list_display = ('date', 'to_user', 'assigned_by')
+    list_display = ('date', 'to_user', 'assigned_by', 'badge')
 
 
 admin.site.register(Badge, BadgeAdmin)

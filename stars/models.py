@@ -35,6 +35,8 @@ class EmployeeBadge(models.Model):
                                 related_name='%(class)s_to')
     assigned_by = models.ForeignKey('employees.Employee',
                                     related_name='%(class)s_assigned_by')
+    badge = models.ForeignKey(Badge)
 
     class Meta(object):
         ordering = ['date', 'to_user']
+        unique_together = ("to_user", "badge")
