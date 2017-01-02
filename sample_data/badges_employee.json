@@ -1,0 +1,55 @@
+[{
+	"model": "stars.employeebadge",
+	"pk": 1,
+	"fields": {
+		"date": "2017-01-02T18:05:31.883Z",
+		"to_user": 5,
+		"assigned_by": 7,
+		"badge": 2
+	}
+}, {
+	"model": "stars.employeebadge",
+	"pk": 2,
+	"fields": {
+		"date": "2017-01-02T18:10:53.314Z",
+		"to_user": 24,
+		"assigned_by": 10,
+		"badge": 4
+	}
+}, {
+	"model": "stars.employeebadge",
+	"pk": 3,
+	"fields": {
+		"date": "2017-01-02T18:10:26.796Z",
+		"to_user": 9,
+		"assigned_by": 8,
+		"badge": 1
+	}
+}, {
+	"model": "stars.employeebadge",
+	"pk": 4,
+	"fields": {
+		"date": "2017-01-02T18:20:13.447Z",
+		"to_user": 6,
+		"assigned_by": 7,
+		"badge": 1
+	}
+}, {
+	"model": "stars.employeebadge",
+	"pk": 5,
+	"fields": {
+		"date": "2017-01-02T18:32:35.627Z",
+		"to_user": 5,
+		"assigned_by": 7,
+		"badge": 4
+	}
+}, {
+	"model": "stars.employeebadge",
+	"pk": 6,
+	"fields": {
+		"date": "2017-01-02T18:33:05.181Z",
+		"to_user": 4,
+		"assigned_by": 10,
+		"badge": 3
+	}
+}]

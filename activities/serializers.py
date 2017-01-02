@@ -15,7 +15,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
     avatar = serializers.SerializerMethodField()
 
-    class Meta:
+    class Meta(object):
         model = Message
         fields = ('id', 'datetime', 'text', 'to_user', 'from_user', 'avatar')
 
@@ -32,7 +32,7 @@ class ActivitySerializer(serializers.ModelSerializer):
 
     avatar = serializers.SerializerMethodField()
 
-    class Meta:
+    class Meta(object):
         model = Activity
         fields = ('id', 'datetime', 'text', 'to_user', 'avatar')
 

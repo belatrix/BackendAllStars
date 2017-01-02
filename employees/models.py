@@ -19,7 +19,7 @@ class Location(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta:
+    class Meta(object):
         verbose_name_plural = 'locations'
         ordering = ['name']
 
@@ -31,7 +31,7 @@ class Role(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta:
+    class Meta(object):
         verbose_name_plural = 'roles'
         ordering = ['name']
 
@@ -44,7 +44,7 @@ class Position(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta:
+    class Meta(object):
         verbose_name_plural = 'positions'
         ordering = ['weight']
 
@@ -120,7 +120,7 @@ class Employee(AbstractUser):
             self.is_base_profile_complete = False
         super(Employee, self).save(*args, **kwargs)
 
-    class Meta:
+    class Meta(object):
         ordering = ['first_name', 'last_name', 'username']
 
 
