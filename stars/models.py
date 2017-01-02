@@ -15,3 +15,26 @@ class Star(models.Model):
 
     class Meta(object):
         ordering = ['date', 'to_user']
+
+
+class Badge(models.Model):
+    name = models.CharField(max_length=100)
+    icon = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta(object):
+        verbose_name_plural = 'badges'
+        ordering = ['name']
+
+
+class EmployeeBadge(models.Model):
+    date = models.DateTimeField(auto_now=True)
+    to_user = models.ForeignKey('employees.Employee',
+                                related_name='%(class)s_to')
+    assigned_by = models.ForeignKey('employees.Employee',
+                                    related_name='%(class)s_assigned_by')
+
+    class Meta(object):
+        ordering = ['date', 'to_user']

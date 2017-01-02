@@ -250,7 +250,7 @@ def stars_employee_list_group_by_category(request, employee_id):
         paginator = PageNumberPagination()
         result = paginator.paginate_queryset(employee_stars, request)
         serializer = StarEmployeeCategoriesSerializer(result, many=True)
-        return paginator.get_paginated_response(serializer.data)\
+        return paginator.get_paginated_response(serializer.data)
 
 
 @api_view(['GET', ])
