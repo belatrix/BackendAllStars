@@ -7,7 +7,7 @@ class StarAdmin(admin.ModelAdmin):
 
 
 class BadgeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'icon')
+    list_display = ('name', 'icon', 'description')
 
 
 class EmployeeBadgeAdmin(admin.ModelAdmin):
