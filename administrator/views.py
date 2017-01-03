@@ -38,6 +38,43 @@ class BadgeList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class BagdeDetail(APIView):
+    permission_classes = (IsAdminUser, IsAuthenticated)
+
+    def get(self, request, badge_id, format=None):
+        """
+        Get badge details
+        """
+        badge = get_object_or_404(Badge, pk=badge_id)
+        serializer = BadgeSerializer(badge)
+        return Response(serializer.data)
+
+    def put(self, request, badge_id, format=None):
+        """
+        Edit badge
+        ---
+        serializer: administrator.serializers.BadgeSerializer
+        """
+        badge = get_object_or_404(Badge, pk=badge_id)
+        serializer = BadgeSerializer(badge, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, badge_id, format=None):
+        """
+        Delete badge (inactive badge, you should edit is_active attribute to revert this change)
+        ---
+        serializer: administrator.serializers.BadgeSerializer
+        """
+        badge = get_object_or_404(Badge, pk=badge_id)
+        badge.is_active = False
+        badge.save()
+        serializer = BadgeSerializer(badge)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
 class CategoryList(APIView):
     permission_classes = (IsAdminUser, IsAuthenticated)
 
