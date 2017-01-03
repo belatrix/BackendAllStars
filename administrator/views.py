@@ -1,21 +1,45 @@
 from categories.models import Category, Keyword
-from employees.models import Employee
-from employees.serializers import EmployeeSerializer, EmployeeSetListSerializer
-from constance import config
+from stars.models import Badge
 from django.db.models import Q
 from django.shortcuts import get_list_or_404, get_object_or_404
-from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from .serializers import CategorySerializer
 from .serializers import KeywordSerializer
+from .serializers import BadgeSerializer
 from .pagination import AdministratorPagination
 
 
+class BadgeList(APIView):
+    permission_classes = (IsAdminUser, IsAuthenticated)
+
+    def get(self, request, format=None):
+        """
+        List all badges
+        """
+        badges = get_list_or_404(Badge)
+        paginator = AdministratorPagination()
+        results = paginator.paginate_queryset(badges, request)
+        serializer = BadgeSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+    def post(self, request, format=None):
+        """
+        Create new badge
+        ---
+        serializer: administrator.serializers.BadgeSerializer
+        """
+        serializer = BadgeSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 class CategoryList(APIView):
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsAdminUser, IsAuthenticated)
 
     def get(self, request, format=None):
         """
@@ -41,7 +65,7 @@ class CategoryList(APIView):
 
 
 class CategoryDetail(APIView):
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsAdminUser, IsAuthenticated)
 
     def get(self, request, category_id, format=None):
         """
@@ -78,7 +102,7 @@ class CategoryDetail(APIView):
 
 
 class KeywordList(APIView):
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsAdminUser, IsAuthenticated)
 
     def get(self, request, format=None):
         """
@@ -121,7 +145,7 @@ class KeywordList(APIView):
 
 
 class KeywordDetail(APIView):
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsAdminUser, IsAuthenticated)
 
     def get(self, request, keyword_id, format=None):
         """
@@ -158,7 +182,7 @@ class KeywordDetail(APIView):
 
 
 class CategoriesModelsDelete(APIView):
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsAdminUser, IsAuthenticated)
 
     def delete(self, request, id, kind, format=None):
         """
@@ -173,80 +197,3 @@ class CategoriesModelsDelete(APIView):
 
         kind.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-@api_view(['PATCH', ])
-@permission_classes((IsAdminUser, IsAuthenticated))
-def employee_admin(request, employee_id, action):
-    """
-    Set or unset admin permission to employee, action could be true or false
-    ---
-    response_serializer: employees.serializers.EmployeeSerializer
-    responseMessages:
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden.
-    - code: 404
-      message: Not found
-    """
-    if request.method == 'PATCH':
-        employee = get_object_or_404(Employee, pk=employee_id)
-        if action == 'true':
-            employee.is_staff = True
-        elif action == 'false':
-            employee.is_staff = False
-        else:
-            pass
-        employee.save()
-        serializer = EmployeeSerializer(employee)
-        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-
-
-@api_view(['PATCH', ])
-@permission_classes((IsAdminUser, IsAuthenticated))
-def employee_set_list(request, employee_id):
-    """
-    Endpoint to set list of positions to employee, type can be position or role
-    ---
-    parameters:
-    - name: body
-      required: true
-      paramType: body
-      pytype: employees.serializers.EmployeeSetListSerializer
-    responseMessages:
-    - code: 400
-      message: Bad request
-    - code: 401
-      message: Unauthorized. Authentication credentials were not provided. Invalid token.
-    - code: 403
-      message: Forbidden.
-    - code: 404
-      message: Not found
-    - code: 406
-      message: Request not acceptable
-    """
-    if request.method == 'PATCH':
-        employee = get_object_or_404(Employee, pk=employee_id)
-        serializer = EmployeeSetListSerializer(data=request.data)
-        errors = []
-        if serializer.is_valid():
-            list_type = request.data['type']
-            elements_list = request.data['set_id_list']
-            if list_type == 'position':
-                employee.position = elements_list
-                employee.save()
-            elif list_type == 'role':
-                employee.role = elements_list
-                employee.save()
-            else:
-                errors.append(config.SET_LIST_TYPE_UNKNOWN)
-        else:
-            errors.append(serializer.errors)
-
-        if len(errors) == 0:
-            serializer = EmployeeSerializer(employee)
-            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-        else:
-            content = {'detail': errors}
-            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
