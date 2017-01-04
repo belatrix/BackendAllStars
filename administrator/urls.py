@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import CategoryDetail, CategoryList, CategoriesModelsDelete
+from .views import CategoryDetail, CategoryList, ObjectsDelete
 from .views import KeywordList, KeywordDetail
 from .views import BadgeList, BagdeDetail
 from employees.views import employee_admin, employee_set_list
@@ -7,7 +7,7 @@ from employees.views import employee_bulk_creation, employee_deactivated_list, e
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
-    url(r'^delete/categories/(?P<kind>\w+)/(?P<id>[0-9]+)/$', CategoriesModelsDelete.as_view()),
+    url(r'^delete/(?P<kind>\w+)/(?P<id>[0-9]+)/$', ObjectsDelete.as_view()),
     url(r'^badge/$', BadgeList.as_view()),
     url(r'^badge/(?P<badge_id>[0-9]+)/$', BagdeDetail.as_view()),
     url(r'^category/$', CategoryList.as_view()),
