@@ -11,7 +11,6 @@ class EmployeeRoleListSerializer(serializers.ModelSerializer):
 class EmployeePositionListSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Position
-        fields = ('pk', 'name', 'weight')
 
 
 class EmployeeSerializer(serializers.ModelSerializer):

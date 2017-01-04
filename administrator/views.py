@@ -218,14 +218,16 @@ class KeywordDetail(APIView):
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
-class CategoriesModelsDelete(APIView):
+class ObjectsDelete(APIView):
     permission_classes = (IsAdminUser, IsAuthenticated)
 
     def delete(self, request, id, kind, format=None):
         """
         WARNING: Force delete
         """
-        if kind == 'category':
+        if kind == 'badge':
+            kind = get_object_or_404(Badge, pk=id)
+        elif kind == 'category':
             kind = get_object_or_404(Category, pk=id)
         elif kind == 'keyword':
             kind = get_object_or_404(Keyword, pk=id)
