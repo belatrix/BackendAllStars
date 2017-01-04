@@ -29,7 +29,7 @@ class RoleAdmin(admin.ModelAdmin):
 
 
 class PositionAdmin(admin.ModelAdmin):
-    list_display = ("name", "weight")
+    list_display = ("name", "weight", "comment_required")
 
 
 class EmployeeAdmin(ImportExportMixin, BaseUserAdmin):

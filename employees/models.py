@@ -40,6 +40,7 @@ class Role(models.Model):
 class Position(models.Model):
     name = models.CharField(max_length=100)
     weight = models.PositiveSmallIntegerField(default=1)
+    comment_required = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
