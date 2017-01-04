@@ -379,6 +379,11 @@ def stars_keyword_list(request):
     Returns stars list grouped by keyword or result list if you use ?search=
     ---
     serializer: stars.serializers.StarKeywordList
+    parameters:
+    - name: search
+      required: false
+      type: string
+      paramType: query
     responseMessages:
     - code: 401
       message: Unauthorized. Authentication credentials were not provided. Invalid token.
