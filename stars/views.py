@@ -1,7 +1,7 @@
 from .serializers import StarSerializer, StarBulkSerializer
 from .serializers import StarTopEmployeeLists, StarEmployeeCategoriesSerializer, StarEmployeeKeywordsSerializer
 from .serializers import StarKeywordList, StarInputSerializer, StarSmallSerializer
-from .serializers import EmployeeBadgeSerializer
+from .serializers import EmployeeBadgeListSerializer, EmployeeBadgeSerializer, EmployeeGroupedListSerializer
 from .models import Badge, EmployeeBadge, Star
 from constance import config
 from activities.models import Activity
@@ -493,4 +493,68 @@ def badges_employee_list(request, employee_id):
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(employee_bages, request)
         serializer = EmployeeBadgeSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def employee_list_group_by_badges(request):
+    """
+    Returns badge list with employee counter or result list if you use ?search=
+    ---
+    response_serializer: stars.serializers.EmployeeBadgeListSerializer
+    parameters:
+    - name: search
+      required: false
+      type: string
+      paramType: query
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'GET':
+        if request.GET.get('search'):
+            search_term = request.GET.get('search')
+            badge_list = EmployeeBadge.objects.filter(
+                Q(badge__name__icontains=search_term)).values('badge__pk',
+                                                              'badge__name').annotate(num_employees=Count('to_user')).order_by('-num_employees')
+        else:
+            badge_list = EmployeeBadge.objects.all().values('badge__pk', 'badge__name').annotate(num_employees=Count('to_user')).order_by('-num_employees')
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(badge_list, request)
+        serializer = EmployeeBadgeListSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def employee_list_group_by_badges_detail(request, badge_id):
+    """
+    Returns employee list grouped by badge, you should provide badge_id
+    ---
+    response_serializer: stars.serializers.EmployeeGroupedListSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'GET':
+        badge = get_object_or_404(Badge, pk=badge_id)
+        employee_list = EmployeeBadge.objects.filter(badge=badge).values(
+            'to_user__pk',
+            'to_user__username',
+            'to_user__first_name',
+            'to_user__last_name',
+            'to_user__level',
+            'to_user__avatar')
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(employee_list, request)
+        serializer = EmployeeGroupedListSerializer(results, many=True)
         return paginator.get_paginated_response(serializer.data)

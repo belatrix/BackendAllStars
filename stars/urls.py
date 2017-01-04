@@ -3,7 +3,7 @@ from .views import stars_top_employee_lists, stars_employee_list_group_by_catego
 from .views import stars_employee_list_group_by_category_detail, stars_employee_list_group_by_keyword_detail
 from .views import stars_employee_list_group_by_keyword
 from .views import stars_keyword_list, stars_keyword_list_detail
-from .views import badges_employee_list
+from .views import badges_employee_list, employee_list_group_by_badges, employee_list_group_by_badges_detail
 from django.conf.urls import url
 
 
@@ -21,6 +21,8 @@ urlpatterns = [
     url(r'^(?P<employee_id>\d+)/list/group/keyword/(?P<keyword_id>\d+)/$',
         stars_employee_list_group_by_keyword_detail,
         name='stars_employee_list_group_by_keyword_detail'),
+    url(r'^badge/employee/list/$', employee_list_group_by_badges, name='employee_list_group_by_badges'),
+    url(r'^badge/(?P<badge_id>\d+)/employee/list/$', employee_list_group_by_badges_detail, name='employee_list_group_by_badges_detail'),
     url(r'^keyword/list/$', stars_keyword_list, name='stars_keyword_list'),
     url(r'^keyword/(?P<keyword_id>\d+)/list/$', stars_keyword_list_detail, name='stars_keyword_list_detail'),
     url(r'^top/(?P<top_number>\d+)/(?P<kind>\w+)/(?P<id>\d+)/', stars_top_employee_lists, name='stars_top_employee_lists'),
