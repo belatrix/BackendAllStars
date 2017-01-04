@@ -1,4 +1,4 @@
-from .models import Star
+from .models import EmployeeBadge, Star, Badge
 from categories.serializers import CategorySerializer, KeywordSerializer
 from employees.models import Employee
 from rest_framework import serializers
@@ -86,3 +86,19 @@ class StarKeywordList(serializers.Serializer):
     pk = serializers.IntegerField(source='keyword__pk')
     name = serializers.CharField(source='keyword__name')
     num_stars = serializers.IntegerField()
+
+
+class BadgeSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = Badge
+        fields = ('pk', 'name', 'icon', 'description')
+
+
+class EmployeeBadgeSerializer(serializers.ModelSerializer):
+    to_user = EmployeeSimpleSerializer()
+    assigned_by = EmployeeSimpleSerializer()
+    badge = BadgeSerializer()
+
+    class Meta(object):
+        model = EmployeeBadge
+        fields = ('pk', 'date', 'to_user', 'assigned_by', 'badge')

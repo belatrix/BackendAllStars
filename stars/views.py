@@ -1,7 +1,8 @@
 from .serializers import StarSerializer, StarBulkSerializer
 from .serializers import StarTopEmployeeLists, StarEmployeeCategoriesSerializer, StarEmployeeKeywordsSerializer
 from .serializers import StarKeywordList, StarInputSerializer, StarSmallSerializer
-from .models import Star
+from .serializers import EmployeeBadgeSerializer
+from .models import Badge, EmployeeBadge, Star
 from constance import config
 from activities.models import Activity
 from employees.models import Employee
@@ -12,7 +13,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import APIException
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from utils.send_messages import send_push_notification
 
@@ -21,7 +22,6 @@ from utils.send_messages import send_push_notification
 @permission_classes((IsAuthenticated,))
 def give_star_to(request, from_employee_id, to_employee_id):
     """
-    This endpoint saves stars on both employees (from and to).
     This endpoint saves stars on both employees (from and to).
     ---
     response_serializer: stars.serializers.StarInputSerializer
@@ -429,3 +429,39 @@ def stars_keyword_list_detail(request, keyword_id):
         results = paginator.paginate_queryset(stars, request)
         serializer = StarTopEmployeeLists(results, many=True)
         return paginator.get_paginated_response(serializer.data)
+
+
+@api_view(['POST', ])
+@permission_classes((IsAuthenticated, IsAdminUser))
+def give_badge_to(request, badge_id, to_employee_id, from_employee_id):
+    """
+    This endpoint saves badge assignation to employee
+    ---
+    response_serializer: stars.serializers.EmployeeBadgeSerializer
+    responseMessages:
+    - code: 400
+      message: Bad request
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
+    - code: 404
+      message: Not found (from_employee_id or to_employee_id or badge_id)
+    - code: 406
+      message: User is unable to give stars to itself.
+    """
+    if to_employee_id == from_employee_id:
+        content = {'detail': config.USER_UNABLE_TO_GIVE_BADGES_ITSELF}
+        return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
+    elif request.method == 'POST':
+        badge = get_object_or_404(Badge, pk=badge_id)
+        to_employee = get_object_or_404(Employee, pk=to_employee_id)
+        from_employee = get_object_or_404(Employee, pk=from_employee_id)
+        try:
+            employee_badge = EmployeeBadge.objects.create(to_user=to_employee, assigned_by=from_employee, badge=badge)
+        except Exception as e:
+            print(e)
+            content = {'detail': config.BADGE_UNIQUE_CONSTRAINT_FAILED}
+            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
+        serializer = EmployeeBadgeSerializer(employee_badge)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -104,12 +104,15 @@ CONSTANCE_CONFIG = {
     'SET_LIST_TYPE_UNKNOWN': ('Field type unknown', 'Error message when field type is unknown'),
 
     # Stars messages
+    'BADGE_UNIQUE_CONSTRAINT_FAILED': ('User already have this badge, it was previously earned.',
+                                       'Message when employee and badge combination has been already assigned'),
     'SUCCESSFULLY_STARS_ADDED': ('Successfully points added', 'Successfully message when bulk points added.'),
     'USER_BLOCKED_TO_GIVE_STARS': ('User is blocked to give recommendations. Please contact your project leader.',
                                    'Error message when user is blocked to give recommendations.'),
     'USER_BLOCKED_TO_RECEIVED_STARS': ('User is blocked to received recommendations.', 'Error message when user is blocked to received recommendations.'),
     'USER_UNABLE_TO_GIVE_STARS_ITSELF': ('User is unable to give recommendations to itself.',
                                          'Error message when user is unable to give recommendations to itself.'),
+    'USER_UNABLE_TO_GIVE_BADGES_ITSELF': ('User is unable to give badges to itself.', 'Error message when user is unable to give badges to itself.'),
     'NO_STARS_RECEIVED': ('No recommendations yet.', "Message when user doesn't have recommendations yet."),
 
     # Daily cron tasks messages

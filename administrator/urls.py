@@ -4,12 +4,14 @@ from .views import KeywordList, KeywordDetail
 from .views import BadgeList, BagdeDetail
 from employees.views import employee_admin, employee_set_list
 from employees.views import employee_bulk_creation, employee_deactivated_list, employee_activate, employee_block
+from stars.views import give_badge_to
 from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     url(r'^delete/(?P<kind>\w+)/(?P<id>[0-9]+)/$', ObjectsDelete.as_view()),
     url(r'^badge/$', BadgeList.as_view()),
     url(r'^badge/(?P<badge_id>[0-9]+)/$', BagdeDetail.as_view()),
+    url(r'^badge/(?P<badge_id>[0-9]+)/to/(?P<to_employee_id>[0-9]+)/from/(?P<from_employee_id>[0-9]+)/$', give_badge_to, name='give_badge_to'),
     url(r'^category/$', CategoryList.as_view()),
     url(r'^category/(?P<category_id>[0-9]+)/$', CategoryDetail.as_view()),
     url(r'^keyword/$', KeywordList.as_view()),
