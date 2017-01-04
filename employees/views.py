@@ -3,7 +3,7 @@ from .serializers import EmployeeSerializer, EmployeeAvatarSerializer, EmployeeL
 from .serializers import EmployeeLocationListSerializer, EmployeePositionListSerializer, EmployeeRoleListSerializer
 from .serializers import EmployeeTopTotalScoreList, EmployeeTopLevelList
 from .serializers import EmployeeTopCurrentMonthList, EmployeeTopLastMonthList
-from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList, EmployeeDeviceSerializer
+from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList, EmployeeDeviceSerializer, EmployeeSetListSerializer
 from constance import config
 from django.conf import settings
 from django.contrib.auth import logout
@@ -658,6 +658,83 @@ def top(request, kind, quantity):
             return Response(serializer.data, status=status.HTTP_200_OK)
     except Exception as e:
         raise APIException(e)
+
+
+@api_view(['PATCH', ])
+@permission_classes((IsAdminUser, IsAuthenticated))
+def employee_admin(request, employee_id, action):
+    """
+    Set or unset admin permission to employee, action could be true or false
+    ---
+    response_serializer: employees.serializers.EmployeeSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'PATCH':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        if action == 'true':
+            employee.is_staff = True
+        elif action == 'false':
+            employee.is_staff = False
+        else:
+            pass
+        employee.save()
+        serializer = EmployeeSerializer(employee)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+@api_view(['PATCH', ])
+@permission_classes((IsAdminUser, IsAuthenticated))
+def employee_set_list(request, employee_id):
+    """
+    Endpoint to set list of positions to employee, type can be position or role
+    ---
+    parameters:
+    - name: body
+      required: true
+      paramType: body
+      pytype: employees.serializers.EmployeeSetListSerializer
+    responseMessages:
+    - code: 400
+      message: Bad request
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 406
+      message: Request not acceptable
+    """
+    if request.method == 'PATCH':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        serializer = EmployeeSetListSerializer(data=request.data)
+        errors = []
+        if serializer.is_valid():
+            list_type = request.data['type']
+            elements_list = request.data['set_id_list']
+            if list_type == 'position':
+                employee.position = elements_list
+                employee.save()
+            elif list_type == 'role':
+                employee.role = elements_list
+                employee.save()
+            else:
+                errors.append(config.SET_LIST_TYPE_UNKNOWN)
+        else:
+            errors.append(serializer.errors)
+
+        if len(errors) == 0:
+            serializer = EmployeeSerializer(employee)
+            return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        else:
+            content = {'detail': errors}
+            return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
 
 
 class CustomObtainAuthToken(ObtainAuthToken):

@@ -18,9 +18,10 @@ class Star(models.Model):
 
 
 class Badge(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     icon = models.URLField(blank=True, null=True)
     description = models.CharField(max_length=140)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name

@@ -24,4 +24,5 @@ However you need to be an identified developer in Belatrix Connect team, and log
 Endpoints
 ---------
 
+* [Administrator](administrator.md)
 * [Employees](employees.md)
