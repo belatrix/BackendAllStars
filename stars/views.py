@@ -465,3 +465,27 @@ def give_badge_to(request, badge_id, to_employee_id, from_employee_id):
             return Response(content, status=status.HTTP_406_NOT_ACCEPTABLE)
         serializer = EmployeeBadgeSerializer(employee_badge)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def badges_employee_list(request, employee_id):
+    """
+    Returns badge list from employee
+    ---
+    response_serializer: stars.serializers.EmployeeBadgeSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden, authentication credentials were not provided
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'GET':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        employee_bages = EmployeeBadge.objects.filter(to_user=employee)
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(employee_bages, request)
+        serializer = EmployeeBadgeSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)

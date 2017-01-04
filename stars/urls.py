@@ -3,6 +3,7 @@ from .views import stars_top_employee_lists, stars_employee_list_group_by_catego
 from .views import stars_employee_list_group_by_category_detail, stars_employee_list_group_by_keyword_detail
 from .views import stars_employee_list_group_by_keyword
 from .views import stars_keyword_list, stars_keyword_list_detail
+from .views import badges_employee_list
 from django.conf.urls import url
 
 
@@ -11,6 +12,7 @@ urlpatterns = [
     url(r'^(?P<from_employee_id>\d+)/give/star/to/many/$', give_star_to_many, name='give_star_to_many'),
     url(r'^(?P<star_id>\d+)/$', star, name='star_detail'),
     url(r'^(?P<employee_id>\d+)/list/$', stars_employee_list, name='stars_employee_list'),
+    url(r'^(?P<employee_id>\d+)/badge/list/$', badges_employee_list, name='badges_employee_list'),
     url(r'^(?P<employee_id>\d+)/list/group/category/$', stars_employee_list_group_by_category, name='stars_employee_list_group_by_category'),
     url(r'^(?P<employee_id>\d+)/list/group/keyword/$', stars_employee_list_group_by_keyword, name='stars_employee_list_group_by_keyword'),
     url(r'^(?P<employee_id>\d+)/list/group/category/(?P<category_id>\d+)/$',
