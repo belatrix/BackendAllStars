@@ -3,7 +3,7 @@ from .models import Category, Keyword
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'weight', 'comment_required', 'is_active')
+    list_display = ('name', 'comment_required', 'is_active')
 
 
 class KeywordAdmin(admin.ModelAdmin):
