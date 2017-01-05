@@ -60,7 +60,7 @@ def avatar_filename(instance, filename):
 
 class Employee(AbstractUser):
     role = models.ManyToManyField(Role, blank=True)
-    position = models.ManyToManyField(Position, blank=True)
+    position = models.ForeignKey(Position, null=True, blank=True)
     location = models.ForeignKey(Location, null=True, blank=True)
     skype_id = models.CharField(max_length=200, null=True, blank=True)
     level = models.PositiveIntegerField(default=0)
