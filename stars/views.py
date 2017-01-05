@@ -84,8 +84,12 @@ def give_star_to(request, from_employee_id, to_employee_id):
             current_level = to_user.level
 
             # Add points to to_user according category weight
-            to_user.add_stars(category.weight)
-            message = config.RECOMMENDATION_MESSAGE % (category.weight, from_user.first_name, from_user.last_name)
+            if from_user.position:
+                weight = from_user.position.weight
+            else:
+                weight = 1
+            to_user.add_stars(weight)
+            message = config.RECOMMENDATION_MESSAGE % (weight, from_user.first_name, from_user.last_name)
             send_push_notification(to_user, message)
             to_user.evaluate_level()
             to_user.save()
@@ -156,7 +160,15 @@ def give_star_to_many(request, from_employee_id):
 
                     current_level = to_user.level
 
-                    to_user.add_stars(category.weight)
+                    # Add points to to_user according category weight
+                    if from_user.position:
+                        weight = from_user.position.weight
+                    else:
+                        weight = 1
+
+                    to_user.add_stars(weight)
+                    message = config.RECOMMENDATION_MESSAGE % (weight, from_user.first_name, from_user.last_name)
+                    send_push_notification(to_user, message)
                     to_user.evaluate_level()
                     to_user.save()
 
