@@ -1,5 +1,5 @@
 from categories.models import Category, Keyword
-from employees.models import Position, Role
+from employees.models import Location, Position, Role
 from stars.models import Badge
 from django.db.models import Q
 from django.shortcuts import get_list_or_404, get_object_or_404
@@ -7,7 +7,8 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from .serializers import CategorySerializer, KeywordSerializer, BadgeSerializer, PositionSerializer, RoleSerializer
+from .serializers import CategorySerializer, KeywordSerializer, BadgeSerializer
+from .serializers import LocationSerializer, PositionSerializer, RoleSerializer
 from .pagination import AdministratorPagination
 
 
@@ -217,6 +218,71 @@ class KeywordDetail(APIView):
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
+class LocationList(APIView):
+    permission_classes = (IsAdminUser, IsAuthenticated)
+
+    def get(self, request, format=None):
+        """
+        List all employee positions
+        ---
+        serializer: administrator.serializers.LocationSerializer
+        """
+        locations = get_list_or_404(Location)
+        paginator = AdministratorPagination()
+        results = paginator.paginate_queryset(locations, request)
+        serializer = LocationSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+    def post(self, request, format=None):
+        """
+        Create new location
+        ---
+        serializer: administrator.serializers.LocationSerializer
+        """
+        serializer = LocationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LocationDetail(APIView):
+    permission_classes = (IsAuthenticated, IsAdminUser)
+
+    def get(self, request, location_id, format=None):
+        """
+        Get location detail
+        """
+        location = get_object_or_404(Location, pk=location_id)
+        serializer = LocationSerializer(location)
+        return Response(serializer.data)
+
+    def put(self, request, location_id, format=None):
+        """
+        Edit location
+        ---
+        serializer: administrator.serializers.LocationSerializer
+        """
+        location = get_object_or_404(Location, pk=location_id)
+        serializer = LocationSerializer(location, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, location_id, format=None):
+        """
+        Deactivate location, you should edit is_active attribute to revert this change
+        ---
+        serializer: administrator.serializers.LocationSerializer
+        """
+        location = get_object_or_404(Location, pk=location_id)
+        location.is_active = False
+        location.save()
+        serializer = LocationSerializer(location)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
 class PositionList(APIView):
     permission_classes = (IsAdminUser, IsAuthenticated)
 
@@ -252,7 +318,7 @@ class PositionDetail(APIView):
         """
         position = get_object_or_404(Position, pk=position_id)
         serializer = PositionSerializer(position)
-        return Response(serializer.data)\
+        return Response(serializer.data)
 
     def put(self, request, position_id, format=None):
         """
@@ -360,6 +426,8 @@ class ObjectsDelete(APIView):
             kind = get_object_or_404(Category, pk=id)
         elif kind == 'keyword':
             kind = get_object_or_404(Keyword, pk=id)
+        elif kind == 'location':
+            kind = get_object_or_404(Location, pk=id)
         elif kind == 'position':
             kind = get_object_or_404(Position, pk=id)
         elif kind == 'role':

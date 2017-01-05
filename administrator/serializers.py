@@ -1,5 +1,5 @@
 from categories.models import Category, Keyword
-from employees.models import Position, Role
+from employees.models import Position, Role, Location
 from stars.models import Badge
 from rest_framework import serializers
 
@@ -27,3 +27,8 @@ class PositionSerializer(serializers.ModelSerializer):
 class RoleSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Role
+
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = Location
