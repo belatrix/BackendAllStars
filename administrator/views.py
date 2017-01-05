@@ -1,4 +1,5 @@
 from categories.models import Category, Keyword
+from employees.models import Position
 from stars.models import Badge
 from django.db.models import Q
 from django.shortcuts import get_list_or_404, get_object_or_404
@@ -6,9 +7,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from .serializers import CategorySerializer
-from .serializers import KeywordSerializer
-from .serializers import BadgeSerializer
+from .serializers import CategorySerializer, KeywordSerializer, BadgeSerializer, PositionSerializer
 from .pagination import AdministratorPagination
 
 
@@ -216,6 +215,32 @@ class KeywordDetail(APIView):
         keyword.save()
         serializer = KeywordSerializer(keyword)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+class PositionList(APIView):
+    permission_classes = (IsAdminUser, IsAuthenticated)
+
+    def get(self, request, format=None):
+        """
+        List all employee positions
+        """
+        positions = get_list_or_404(Position)
+        paginator = AdministratorPagination()
+        results = paginator.paginate_queryset(positions, request)
+        serializer = PositionSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+    def post(self, request, format=None):
+        """
+        Create new position
+        ---
+        serializer: administrator.serializers.PositionSerializer
+        """
+        serializer = PositionSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ObjectsDelete(APIView):
