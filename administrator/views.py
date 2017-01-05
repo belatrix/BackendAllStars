@@ -243,6 +243,43 @@ class PositionList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class PositionDetail(APIView):
+    permission_classes = (IsAuthenticated, IsAdminUser)
+
+    def get(self, request, position_id, format=None):
+        """
+        Get position detail
+        """
+        position = get_object_or_404(Position, pk=position_id)
+        serializer = PositionSerializer(position)
+        return Response(serializer.data)\
+
+    def put(self, request, position_id, format=None):
+        """
+        Edit position
+        ---
+        serializer: administrator.serializers.PositionSerializer
+        """
+        position = get_object_or_404(Position, pk=position_id)
+        serializer = PositionSerializer(position, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, position_id, format=None):
+        """
+        Deactivate position, you should edit is_active attribute to revert this change
+        ---
+        serializer: administrator.serializers.PositionSerializer
+        """
+        position = get_object_or_404(Position, pk=position_id)
+        position.is_active = False
+        position.save()
+        serializer = PositionSerializer(position)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
 class ObjectsDelete(APIView):
     permission_classes = (IsAdminUser, IsAuthenticated)
 
@@ -256,6 +293,8 @@ class ObjectsDelete(APIView):
             kind = get_object_or_404(Category, pk=id)
         elif kind == 'keyword':
             kind = get_object_or_404(Keyword, pk=id)
+        elif kind == 'position':
+            kind = get_object_or_404(Position, pk=id)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
