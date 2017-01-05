@@ -2,6 +2,9 @@ from django.conf.urls import url
 from .views import CategoryDetail, CategoryList, ObjectsDelete
 from .views import KeywordList, KeywordDetail
 from .views import BadgeList, BagdeDetail
+from .views import LocationList, LocationDetail
+from .views import PositionList, PositionDetail
+from .views import RoleList, RoleDetail
 from employees.views import employee_admin, employee_set_list
 from employees.views import employee_bulk_creation, employee_deactivated_list, employee_activate, employee_block
 from stars.views import give_badge_to
@@ -16,6 +19,12 @@ urlpatterns = [
     url(r'^category/(?P<category_id>[0-9]+)/$', CategoryDetail.as_view()),
     url(r'^keyword/$', KeywordList.as_view()),
     url(r'^keyword/(?P<keyword_id>[0-9]+)/$', KeywordDetail.as_view()),
+    url(r'^location/$', LocationList.as_view()),
+    url(r'^location/(?P<location_id>[0-9]+)/$', LocationDetail.as_view()),
+    url(r'^position/$', PositionList.as_view()),
+    url(r'^position/(?P<position_id>[0-9]+)/$', PositionDetail.as_view()),
+    url(r'^role/$', RoleList.as_view()),
+    url(r'^role/(?P<role_id>[0-9]+)/$', RoleDetail.as_view()),
     url(r'^employee/create/bulk/$', employee_bulk_creation, name='employee_bulk_creation'),
     url(r'^employee/deactivated/list/$', employee_deactivated_list, name='employee_deactivated_list'),
     url(r'^employee/(?P<employee_id>\d+)/activate/(?P<action>\w+)/$', employee_activate, name='employee_activate'),

@@ -15,6 +15,7 @@ from time import time
 class Location(models.Model):
     name = models.CharField(max_length=100)
     icon = models.URLField(blank=True, null=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -27,6 +28,7 @@ class Location(models.Model):
 @python_2_unicode_compatible
 class Role(models.Model):
     name = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -41,6 +43,7 @@ class Position(models.Model):
     name = models.CharField(max_length=100)
     weight = models.PositiveSmallIntegerField(default=1)
     comment_required = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -57,7 +60,7 @@ def avatar_filename(instance, filename):
 
 class Employee(AbstractUser):
     role = models.ManyToManyField(Role, blank=True)
-    position = models.ManyToManyField(Position, blank=True)
+    position = models.ForeignKey(Position, null=True, blank=True)
     location = models.ForeignKey(Location, null=True, blank=True)
     skype_id = models.CharField(max_length=200, null=True, blank=True)
     level = models.PositiveIntegerField(default=0)
