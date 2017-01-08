@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from .views import CategoryDetail, CategoryList, ObjectsDelete
+from .views import EventList, EventDetail
 from .views import KeywordList, KeywordDetail
 from .views import BadgeList, BagdeDetail
 from .views import LocationList, LocationDetail
@@ -17,6 +18,8 @@ urlpatterns = [
     url(r'^badge/(?P<badge_id>[0-9]+)/to/(?P<to_employee_id>[0-9]+)/from/(?P<from_employee_id>[0-9]+)/$', give_badge_to, name='give_badge_to'),
     url(r'^category/$', CategoryList.as_view()),
     url(r'^category/(?P<category_id>[0-9]+)/$', CategoryDetail.as_view()),
+    url(r'^event/$', EventList.as_view()),
+    url(r'^event/(?P<event_id>[0-9]+)/$', EventDetail.as_view()),
     url(r'^keyword/$', KeywordList.as_view()),
     url(r'^keyword/(?P<keyword_id>[0-9]+)/$', KeywordDetail.as_view()),
     url(r'^location/$', LocationList.as_view()),
