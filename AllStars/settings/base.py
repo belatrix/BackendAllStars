@@ -53,6 +53,7 @@ PROJECT_APPS = [
     'activities',
     'categories',
     'employees',
+    'events',
     'stars',
 ]
 
