@@ -106,4 +106,12 @@
 		"participant": 2,
 		"datetime": "2017-01-08T16:34:06.587Z"
 	}
+}, {
+	"model": "events.eventparticipant",
+	"pk": 6,
+	"fields": {
+		"event": 3,
+		"participant": 2,
+		"datetime": "2017-01-08T16:35:06.587Z"
+	}
 }]

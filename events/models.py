@@ -41,3 +41,4 @@ class EventParticipant(models.Model):
     class Meta(object):
         verbose_name_plural = 'event participants'
         ordering = ['-datetime']
+        unique_together = ("event", "participant")

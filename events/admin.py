@@ -3,7 +3,7 @@ from django.contrib import admin
 
 
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('name', 'is_active', 'is_next')
+    list_display = ('name', 'is_active', 'is_upcoming')
 
 
 class EventActivityAdmin(admin.ModelAdmin):
