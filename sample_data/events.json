@@ -51,6 +51,32 @@
 		"location": 4
 	}
 }, {
+	"model": "events.event",
+	"pk": 5,
+	"fields": {
+		"name": "Belatrix Summer event 2017",
+		"image": "",
+		"datetime": "2017-02-28T12:00:00Z",
+		"address": "",
+		"description": "summer event in 2017",
+		"is_active": true,
+		"is_upcoming": true,
+		"location": 3
+	}
+}, {
+	"model": "events.event",
+	"pk": 6,
+	"fields": {
+		"name": "Belatrix Fall Event 2017",
+		"image": "",
+		"datetime": "2017-04-20T18:00:00Z",
+		"address": "",
+		"description": "Fall event 2017",
+		"is_active": true,
+		"is_upcoming": true,
+		"location": 4
+	}
+}, {
 	"model": "events.eventactivity",
 	"pk": 1,
 	"fields": {
@@ -113,5 +139,21 @@
 		"event": 3,
 		"participant": 2,
 		"datetime": "2017-01-08T16:35:06.587Z"
+	}
+}, {
+	"model": "events.eventparticipant",
+	"pk": 7,
+	"fields": {
+		"event": 6,
+		"participant": 2,
+		"datetime": "2017-01-09T16:29:36.844Z"
+	}
+}, {
+	"model": "events.eventparticipant",
+	"pk": 8,
+	"fields": {
+		"event": 5,
+		"participant": 2,
+		"datetime": "2017-01-09T16:29:48.770Z"
 	}
 }]
