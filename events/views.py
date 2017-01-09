@@ -131,3 +131,46 @@ def event_detail(request, employee_id, event_id):
         if serializer.is_valid():
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PATCH', ])
+@permission_classes((IsAuthenticated,))
+def employee_event_registration(request, employee_id, event_id, action):
+    """
+    Register / unregister employee to event, action could be true or false
+    ---
+    response_serializer: employees.serializers.EmployeeSerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    """
+    if request.method == 'PATCH':
+        employee = get_object_or_404(Employee, pk=employee_id)
+        event = get_object_or_404(Event, pk=event_id)
+
+        if action == 'true':
+            EventParticipant.objects.create(event=event, participant=employee)
+            is_registered = True
+        elif action == 'false':
+            employee_registration = EventParticipant.objects.get(event=event, participant=employee)
+            employee_registration.delete()
+            is_registered = False
+        else:
+            pass
+
+        data = {"pk": event.id,
+                "name": event.name,
+                "image": event.image,
+                "datetime": event.datetime,
+                "address": event.address,
+                "description": event.description,
+                "is_registered": is_registered}
+
+        serializer = EventSimpleSerializer(data=data)
+        if serializer.is_valid():
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

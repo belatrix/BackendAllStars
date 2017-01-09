@@ -1,5 +1,5 @@
 from .views import my_upcoming_events, local_events, other_location_events
-from .views import event_detail
+from .views import event_detail, employee_event_registration
 from django.conf.urls import url
 
 
@@ -8,4 +8,7 @@ urlpatterns = [
     url(r'^employee/(?P<employee_id>\d+)/local/$', local_events, name='local_events'),
     url(r'^employee/(?P<employee_id>\d+)/others/$', other_location_events, name='other_location_events'),
     url(r'^employee/(?P<employee_id>\d+)/event/(?P<event_id>\d+)/$', event_detail, name='event_detail'),
+    url(r'^employee/(?P<employee_id>\d+)/event/(?P<event_id>\d+)/registration/(?P<action>\w+)/$',
+        employee_event_registration,
+        name='employee_event_registration'),
 ]
