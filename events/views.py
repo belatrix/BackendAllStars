@@ -152,15 +152,23 @@ def employee_event_registration(request, employee_id, event_id, action):
         employee = get_object_or_404(Employee, pk=employee_id)
         event = get_object_or_404(Event, pk=event_id)
 
-        if action == 'true':
-            EventParticipant.objects.create(event=event, participant=employee)
-            is_registered = True
-        elif action == 'false':
-            employee_registration = EventParticipant.objects.get(event=event, participant=employee)
-            employee_registration.delete()
-            is_registered = False
+        employee_registration = EventParticipant.objects.filter(event=event, participant=employee)
+        is_registered = False
+
+        if employee_registration:
+            if action == 'true':
+                is_registered = True
+            elif action == 'false':
+                employee_registration.delete()
+                is_registered = False
+            else:
+                pass
         else:
-            pass
+            if action == 'true':
+                EventParticipant.objects.create(event=event, participant=employee)
+                is_registered = True
+            else:
+                pass
 
         data = {"pk": event.id,
                 "name": event.name,
