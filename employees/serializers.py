@@ -15,7 +15,6 @@ class EmployeePositionListSerializer(serializers.ModelSerializer):
 
 class EmployeeSerializer(serializers.ModelSerializer):
     is_admin = serializers.CharField(source='is_staff')
-    positions = EmployeePositionListSerializer(source='position', many=True)
     roles = EmployeeRoleListSerializer(source='role', many=True)
 
     class Meta(object):
@@ -42,7 +41,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
                   'is_admin',
                   'last_login',
                   'total_given',
-                  'positions',
+                  'position',
                   'roles')
 
 

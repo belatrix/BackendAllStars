@@ -1,5 +1,6 @@
 from categories.models import Category, Keyword
 from employees.models import Location, Position, Role
+from events.models import Event
 from stars.models import Badge
 from django.db.models import Q
 from django.shortcuts import get_list_or_404, get_object_or_404
@@ -9,6 +10,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .serializers import CategorySerializer, KeywordSerializer, BadgeSerializer
 from .serializers import LocationSerializer, PositionSerializer, RoleSerializer
+from .serializers import EventSerializer
 from .pagination import AdministratorPagination
 
 
@@ -135,6 +137,73 @@ class CategoryDetail(APIView):
         category.is_active = False
         category.save()
         serializer = CategorySerializer(category)
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+class EventList(APIView):
+    permission_classes = (IsAdminUser, IsAuthenticated)
+
+    def get(self, request, format=None):
+        """
+        List all events
+        ---
+        serializer: administrator.serializers.EventSerializer
+        """
+        events = get_list_or_404(Event)
+        paginator = AdministratorPagination()
+        results = paginator.paginate_queryset(events, request)
+        serializer = EventSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+    def post(self, request, format=None):
+        """
+        Create new event
+        ---
+        serializer: administrator.serializers.EventSerializer
+        """
+        serializer = EventSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EventDetail(APIView):
+    permission_classes = (IsAdminUser, IsAuthenticated)
+
+    def get(self, request, event_id, format=None):
+        """
+        Get event details
+        ---
+        serializer: administrator.serializers.EventSerializer
+        """
+        event = get_object_or_404(Event, pk=event_id)
+        serializer = EventSerializer(event)
+        return Response(serializer.data)
+
+    def put(self, request, event_id, format=None):
+        """
+        Edit event
+        ---
+        serializer: administrator.serializers.EventSerializer
+        """
+        event = get_object_or_404(Category, pk=event_id)
+        serializer = EventSerializer(event, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, event_id, format=None):
+        """
+        Delete event (inactive event, you should edit is_active attribute to revert this change)
+        ---
+        serializer: administrator.serializers.EventSerializer
+        """
+        event = get_object_or_404(Event, pk=event_id)
+        event.is_active = False
+        event.save()
+        serializer = EventSerializer(event)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
@@ -424,6 +493,8 @@ class ObjectsDelete(APIView):
             kind = get_object_or_404(Badge, pk=id)
         elif kind == 'category':
             kind = get_object_or_404(Category, pk=id)
+        elif kind == 'event':
+            kind = get_object_or_404(Event, pk=id)
         elif kind == 'keyword':
             kind = get_object_or_404(Keyword, pk=id)
         elif kind == 'location':
