@@ -8,7 +8,7 @@
 		"address": "",
 		"description": "One belatrix event in 2017",
 		"is_active": true,
-		"is_next": true,
+		"is_upcoming": true,
 		"location": 1
 	}
 }, {
@@ -21,7 +21,7 @@
 		"address": "",
 		"description": "Belatrix event 2016",
 		"is_active": true,
-		"is_next": false,
+		"is_upcoming": false,
 		"location": 2
 	}
 }, {
@@ -34,7 +34,7 @@
 		"address": "",
 		"description": "Postponed event",
 		"is_active": false,
-		"is_next": true,
+		"is_upcoming": true,
 		"location": 2
 	}
 }, {
@@ -47,7 +47,7 @@
 		"address": "",
 		"description": "No longer active",
 		"is_active": false,
-		"is_next": false,
+		"is_upcoming": false,
 		"location": 4
 	}
 }, {

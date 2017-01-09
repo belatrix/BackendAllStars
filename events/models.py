@@ -12,7 +12,7 @@ class Event(models.Model):
     address = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField()
     is_active = models.BooleanField(default=True)
-    is_next = models.BooleanField(default=True)
+    is_upcoming = models.BooleanField(default=True)
     location = models.ForeignKey('employees.Location')
 
     def __str__(self):
