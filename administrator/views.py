@@ -1,6 +1,6 @@
 from categories.models import Category, Keyword
 from employees.models import Location, Position, Role
-from events.models import Event
+from events.models import Event, EventActivity
 from stars.models import Badge
 from django.db.models import Q
 from django.shortcuts import get_list_or_404, get_object_or_404
@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from .serializers import CategorySerializer, KeywordSerializer, BadgeSerializer
 from .serializers import LocationSerializer, PositionSerializer, RoleSerializer
-from .serializers import EventSerializer
+from .serializers import EventSerializer, EventActivitySerializer
 from .pagination import AdministratorPagination
 
 
@@ -205,6 +205,47 @@ class EventDetail(APIView):
         event.save()
         serializer = EventSerializer(event)
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
+
+class EventActivityList(APIView):
+    permission_classes = (IsAdminUser, IsAuthenticated)
+
+    def get(self, request, event_id, format=None):
+        """
+        List all activities for an event
+        ---
+        serializer: administrator.serializers.EventActivitySerializer
+        """
+        event = get_object_or_404(Event, pk=event_id)
+        activities = EventActivity.objects.filter(event=event)
+        paginator = AdministratorPagination()
+        results = paginator.paginate_queryset(activities, request)
+        serializer = EventActivitySerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
+
+
+class EventActivityDetail(APIView):
+    permission_classes = (IsAdminUser, IsAuthenticated)
+
+    def get(self, request, event_id, news_id, format=None):
+        """
+        Get event activity detail
+        ---
+        serializer: administrator.serializers.EventActivitySerializer
+        """
+        event = get_object_or_404(Event, pk=event_id)
+        activity = get_object_or_404(EventActivity, event=event, pk=news_id)
+        serializer = EventActivitySerializer(activity)
+        return Response(serializer.data)
+
+    def delete(self, request, event_id, news_id, format=None):
+        """
+        Delete event activity (you cannot revert this change)
+        """
+        event = get_object_or_404(Event, pk=event_id)
+        activity = get_object_or_404(EventActivity, event=event, pk=news_id)
+        activity.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class KeywordList(APIView):

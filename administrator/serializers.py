@@ -1,6 +1,6 @@
 from categories.models import Category, Keyword
 from employees.models import Position, Role, Location
-from events.models import Event
+from events.models import Event, EventActivity
 from stars.models import Badge
 from rest_framework import serializers
 
@@ -43,3 +43,8 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta(object):
         model = Event
+
+
+class EventActivitySerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = EventActivity
