@@ -1,5 +1,6 @@
-from .models import Event, EventParticipant
+from .models import Event, EventParticipant, EventActivity
 from .serializers import EventSerializer, EventSimpleSerializer
+from .serializers import EventActivitySerializer
 from employees.models import Employee
 from django.shortcuts import get_object_or_404
 from rest_framework import status
@@ -182,3 +183,15 @@ def employee_event_registration(request, employee_id, event_id, action):
         if serializer.is_valid():
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET', ])
+@permission_classes((IsAuthenticated,))
+def event_activities(request, event_id):
+    if request.method == 'GET':
+        event = get_object_or_404(Event, pk=event_id)
+        activities = EventActivity.objects.filter(event=event)
+        paginator = PageNumberPagination()
+        results = paginator.paginate_queryset(activities, request)
+        serializer = EventActivitySerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
