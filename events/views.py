@@ -188,6 +188,18 @@ def employee_event_registration(request, employee_id, event_id, action):
 @api_view(['GET', ])
 @permission_classes((IsAuthenticated,))
 def event_activities(request, event_id):
+    """
+    Returns activity list for event
+    ---
+    serializer: events.serializers.EventActivitySerializer
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    """
     if request.method == 'GET':
         event = get_object_or_404(Event, pk=event_id)
         activities = EventActivity.objects.filter(event=event)
