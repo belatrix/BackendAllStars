@@ -1,3 +1,4 @@
+from activities.models import Message
 from categories.models import Category, Keyword
 from employees.models import Position, Role, Location
 from events.models import Event, EventActivity
@@ -48,3 +49,8 @@ class EventSerializer(serializers.ModelSerializer):
 class EventActivitySerializer(serializers.ModelSerializer):
     class Meta(object):
         model = EventActivity
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = Message
