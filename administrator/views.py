@@ -1,6 +1,6 @@
 from activities.models import Message
 from categories.models import Category, Keyword
-from employees.models import Location, Position, Role
+from employees.models import Employee, Location, Position, Role
 from events.models import Event, EventActivity
 from stars.models import Badge
 from django.db.models import Q
@@ -247,6 +247,23 @@ class MessageDetail(APIView):
         message = get_object_or_404(Event, pk=message_id)
         message.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class MessageListFromEmployee(APIView):
+    permission_classes = (IsAdminUser, IsAuthenticated)
+
+    def get(self, request, employee_id, format=None):
+        """
+        List all messages from employee
+        ---
+        serializer: administrator.serializers.MessageSerializer
+        """
+        employee = get_object_or_404(Employee, pk=employee_id)
+        messages = get_list_or_404(Message, from_user=employee)
+        paginator = AdministratorPagination()
+        results = paginator.paginate_queryset(messages, request)
+        serializer = MessageSerializer(results, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
 
 class EventActivityList(APIView):
