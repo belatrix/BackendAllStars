@@ -1002,7 +1002,7 @@
 		"level": 0,
 		"reset_password_code": null,
 		"avatar": "",
-		"is_base_profile_complete": false,
+		"is_base_profile_complete": true,
 		"is_blocked": false,
 		"is_password_reset_required": false,
 		"yesterday_given": 0,
