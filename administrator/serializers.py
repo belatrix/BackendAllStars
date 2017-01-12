@@ -1,6 +1,6 @@
 from activities.models import Message
 from categories.models import Category, Keyword
-from employees.models import Position, Role, Location
+from employees.models import Employee, Position, Role, Location
 from events.models import Event, EventActivity
 from stars.models import Badge
 from rest_framework import serializers
@@ -34,6 +34,12 @@ class RoleSerializer(serializers.ModelSerializer):
 class LocationSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Location
+
+
+class EmployeeSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = Employee
+        fields = ('pk', 'username', 'email', 'first_name', 'last_name')
 
 
 class EventSerializer(serializers.ModelSerializer):

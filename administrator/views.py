@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from .serializers import CategorySerializer, KeywordSerializer, BadgeSerializer
+from .serializers import EmployeeSerializer
 from .serializers import LocationSerializer, PositionSerializer, RoleSerializer
 from .serializers import EventSerializer, EventActivitySerializer
 from .serializers import MessageSerializer
@@ -22,12 +23,27 @@ class BadgeList(APIView):
     def get(self, request, format=None):
         """
         List all badges
+        ---
+        serializer: administrator.serializers.BadgeSerializer
+        parameters:
+        - name: pagination
+          required: false
+          type: string
+          paramType: query
         """
         badges = get_list_or_404(Badge)
-        paginator = AdministratorPagination()
-        results = paginator.paginate_queryset(badges, request)
-        serializer = BadgeSerializer(results, many=True)
-        return paginator.get_paginated_response(serializer.data)
+        if request.GET.get('pagination'):
+            pagination = request.GET.get('pagination')
+            if pagination == 'true':
+                paginator = AdministratorPagination()
+                results = paginator.paginate_queryset(badges, request)
+                serializer = BadgeSerializer(results, many=True)
+                return paginator.get_paginated_response(serializer.data)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = BadgeSerializer(badges, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
         """
@@ -85,12 +101,26 @@ class CategoryList(APIView):
     def get(self, request, format=None):
         """
         List all categories
+        ---
+        parameters:
+        - name: pagination
+          required: false
+          type: string
+          paramType: query
         """
         categories = get_list_or_404(Category)
-        paginator = AdministratorPagination()
-        results = paginator.paginate_queryset(categories, request)
-        serializer = CategorySerializer(results, many=True)
-        return paginator.get_paginated_response(serializer.data)
+        if request.GET.get('pagination'):
+            pagination = request.GET.get('pagination')
+            if pagination == 'true':
+                paginator = AdministratorPagination()
+                results = paginator.paginate_queryset(categories, request)
+                serializer = CategorySerializer(results, many=True)
+                return paginator.get_paginated_response(serializer.data)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = CategorySerializer(categories, many=True)
+            return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
     def post(self, request, format=None):
         """
@@ -142,6 +172,35 @@ class CategoryDetail(APIView):
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
+class EmployeeList(APIView):
+    permission_classes = (IsAdminUser, IsAuthenticated)
+
+    def get(self, request, format=None):
+        """
+        List all employees
+        ---
+        serializer: administrator.serializers.EmployeeSerializer
+        parameters:
+        - name: pagination
+          required: false
+          type: string
+          paramType: query
+        """
+        employees = get_list_or_404(Employee)
+        if request.GET.get('pagination'):
+            pagination = request.GET.get('pagination')
+            if pagination == 'true':
+                paginator = AdministratorPagination()
+                results = paginator.paginate_queryset(employees, request)
+                serializer = EmployeeSerializer(results, many=True)
+                return paginator.get_paginated_response(serializer.data)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = EmployeeSerializer(employees, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class EventList(APIView):
     permission_classes = (IsAdminUser, IsAuthenticated)
 
@@ -150,12 +209,25 @@ class EventList(APIView):
         List all events
         ---
         serializer: administrator.serializers.EventSerializer
+        parameters:
+        - name: pagination
+          required: false
+          type: string
+          paramType: query
         """
         events = get_list_or_404(Event)
-        paginator = AdministratorPagination()
-        results = paginator.paginate_queryset(events, request)
-        serializer = EventSerializer(results, many=True)
-        return paginator.get_paginated_response(serializer.data)
+        if request.GET.get('pagination'):
+            pagination = request.GET.get('pagination')
+            if pagination == 'true':
+                paginator = AdministratorPagination()
+                results = paginator.paginate_queryset(events, request)
+                serializer = EventSerializer(results, many=True)
+                return paginator.get_paginated_response(serializer.data)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = EventSerializer(events, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
         """
@@ -209,63 +281,6 @@ class EventDetail(APIView):
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
-class MessageList(APIView):
-    permission_classes = (IsAdminUser, IsAuthenticated)
-
-    def get(self, request, format=None):
-        """
-        List all messages
-        ---
-        serializer: administrator.serializers.MessageSerializer
-        """
-        messages = get_list_or_404(Message)
-        paginator = AdministratorPagination()
-        results = paginator.paginate_queryset(messages, request)
-        serializer = MessageSerializer(results, many=True)
-        return paginator.get_paginated_response(serializer.data)
-
-
-class MessageDetail(APIView):
-    permission_classes = (IsAdminUser, IsAuthenticated)
-
-    def get(self, request, message_id, format=None):
-        """
-        Get message detail
-        ---
-        serializer: administrator.serializers.MessageSerializer
-        """
-        message = get_object_or_404(Message, pk=message_id)
-        serializer = MessageSerializer(message)
-        return Response(serializer.data)
-
-    def delete(self, request, message_id, format=None):
-        """
-        Delete message (you cannot revert this change)
-        ---
-        serializer: administrator.serializers.MessageSerializer
-        """
-        message = get_object_or_404(Event, pk=message_id)
-        message.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class MessageListFromEmployee(APIView):
-    permission_classes = (IsAdminUser, IsAuthenticated)
-
-    def get(self, request, employee_id, format=None):
-        """
-        List all messages from employee
-        ---
-        serializer: administrator.serializers.MessageSerializer
-        """
-        employee = get_object_or_404(Employee, pk=employee_id)
-        messages = get_list_or_404(Message, from_user=employee)
-        paginator = AdministratorPagination()
-        results = paginator.paginate_queryset(messages, request)
-        serializer = MessageSerializer(results, many=True)
-        return paginator.get_paginated_response(serializer.data)
-
-
 class EventActivityList(APIView):
     permission_classes = (IsAdminUser, IsAuthenticated)
 
@@ -274,13 +289,26 @@ class EventActivityList(APIView):
         List all activities for an event
         ---
         serializer: administrator.serializers.EventActivitySerializer
+        parameters:
+        - name: pagination
+          required: false
+          type: string
+          paramType: query
         """
         event = get_object_or_404(Event, pk=event_id)
         activities = EventActivity.objects.filter(event=event)
-        paginator = AdministratorPagination()
-        results = paginator.paginate_queryset(activities, request)
-        serializer = EventActivitySerializer(results, many=True)
-        return paginator.get_paginated_response(serializer.data)
+        if request.GET.get('pagination'):
+            pagination = request.GET.get('pagination')
+            if pagination == 'true':
+                paginator = AdministratorPagination()
+                results = paginator.paginate_queryset(activities, request)
+                serializer = EventActivitySerializer(results, many=True)
+                return paginator.get_paginated_response(serializer.data)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = EventActivitySerializer(activities, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class EventActivityDetail(APIView):
@@ -319,6 +347,10 @@ class KeywordList(APIView):
           required: false
           type: string
           paramType: query
+        - name: pagination
+          required: false
+          type: string
+          paramType: query
         """
         if request.GET.get('search'):
             request_terms = request.GET.get('search')
@@ -332,10 +364,19 @@ class KeywordList(APIView):
                     keywords = keywords.filter(Q(name__icontains=search_terms_array[term]))
         else:
             keywords = get_list_or_404(Keyword)
-        paginator = AdministratorPagination()
-        results = paginator.paginate_queryset(keywords, request)
-        serializer = KeywordSerializer(results, many=True)
-        return paginator.get_paginated_response(serializer.data)
+
+        if request.GET.get('pagination'):
+            pagination = request.GET.get('pagination')
+            if pagination == 'true':
+                paginator = AdministratorPagination()
+                results = paginator.paginate_queryset(keywords, request)
+                serializer = KeywordSerializer(results, many=True)
+                return paginator.get_paginated_response(serializer.data)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = KeywordSerializer(keywords, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
         """
@@ -395,12 +436,25 @@ class LocationList(APIView):
         List all employee positions
         ---
         serializer: administrator.serializers.LocationSerializer
+        parameters:
+        - name: pagination
+          required: false
+          type: string
+          paramType: query
         """
         locations = get_list_or_404(Location)
-        paginator = AdministratorPagination()
-        results = paginator.paginate_queryset(locations, request)
-        serializer = LocationSerializer(results, many=True)
-        return paginator.get_paginated_response(serializer.data)
+        if request.GET.get('pagination'):
+            pagination = request.GET.get('pagination')
+            if pagination == 'true':
+                paginator = AdministratorPagination()
+                results = paginator.paginate_queryset(locations, request)
+                serializer = LocationSerializer(results, many=True)
+                return paginator.get_paginated_response(serializer.data)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = LocationSerializer(locations, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
         """
@@ -452,18 +506,116 @@ class LocationDetail(APIView):
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 
+class MessageList(APIView):
+    permission_classes = (IsAdminUser, IsAuthenticated)
+
+    def get(self, request, format=None):
+        """
+        List all messages
+        ---
+        serializer: administrator.serializers.MessageSerializer
+        parameters:
+        - name: pagination
+          required: false
+          type: string
+          paramType: query
+        """
+        messages = get_list_or_404(Message)
+        if request.GET.get('pagination'):
+            pagination = request.GET.get('pagination')
+            if pagination == 'true':
+                paginator = AdministratorPagination()
+                results = paginator.paginate_queryset(messages, request)
+                serializer = MessageSerializer(results, many=True)
+                return paginator.get_paginated_response(serializer.data)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = MessageSerializer(messages, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class MessageDetail(APIView):
+    permission_classes = (IsAdminUser, IsAuthenticated)
+
+    def get(self, request, message_id, format=None):
+        """
+        Get message detail
+        ---
+        serializer: administrator.serializers.MessageSerializer
+        """
+        message = get_object_or_404(Message, pk=message_id)
+        serializer = MessageSerializer(message)
+        return Response(serializer.data)
+
+    def delete(self, request, message_id, format=None):
+        """
+        Delete message (you cannot revert this change)
+        ---
+        serializer: administrator.serializers.MessageSerializer
+        """
+        message = get_object_or_404(Event, pk=message_id)
+        message.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class MessageListFromEmployee(APIView):
+    permission_classes = (IsAdminUser, IsAuthenticated)
+
+    def get(self, request, employee_id, format=None):
+        """
+        List all messages from employee
+        ---
+        serializer: administrator.serializers.MessageSerializer
+        parameters:
+        - name: pagination
+          required: false
+          type: string
+          paramType: query
+        """
+        employee = get_object_or_404(Employee, pk=employee_id)
+        messages = get_list_or_404(Message, from_user=employee)
+        if request.GET.get('pagination'):
+            pagination = request.GET.get('pagination')
+            if pagination == 'true':
+                paginator = AdministratorPagination()
+                results = paginator.paginate_queryset(messages, request)
+                serializer = MessageSerializer(results, many=True)
+                return paginator.get_paginated_response(serializer.data)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = MessageSerializer(messages, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 class PositionList(APIView):
     permission_classes = (IsAdminUser, IsAuthenticated)
 
     def get(self, request, format=None):
         """
         List all employee positions
+        ---
+        serializer: administrator.serializers.PositionSerializer
+        parameters:
+        - name: pagination
+          required: false
+          type: string
+          paramType: query
         """
         positions = get_list_or_404(Position)
-        paginator = AdministratorPagination()
-        results = paginator.paginate_queryset(positions, request)
-        serializer = PositionSerializer(results, many=True)
-        return paginator.get_paginated_response(serializer.data)
+        if request.GET.get('pagination'):
+            pagination = request.GET.get('pagination')
+            if pagination == 'true':
+                paginator = AdministratorPagination()
+                results = paginator.paginate_queryset(positions, request)
+                serializer = PositionSerializer(results, many=True)
+                return paginator.get_paginated_response(serializer.data)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = PositionSerializer(positions, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
         """
@@ -523,12 +675,25 @@ class RoleList(APIView):
         List all roles
         ---
         serializer: administrator.serializers.RoleSerializer
+        parameters:
+        - name: pagination
+          required: false
+          type: string
+          paramType: query
         """
         roles = get_list_or_404(Role)
-        paginator = AdministratorPagination()
-        results = paginator.paginate_queryset(roles, request)
-        serializer = RoleSerializer(results, many=True)
-        return paginator.get_paginated_response(serializer.data)
+        if request.GET.get('pagination'):
+            pagination = request.GET.get('pagination')
+            if pagination == 'true':
+                paginator = AdministratorPagination()
+                results = paginator.paginate_queryset(roles, request)
+                serializer = RoleSerializer(results, many=True)
+                return paginator.get_paginated_response(serializer.data)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = RoleSerializer(roles, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
         """

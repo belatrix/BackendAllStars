@@ -37,7 +37,7 @@
 		"current_year_score": 40,
 		"groups": [],
 		"user_permissions": [],
-		"role": []
+		"role": [1, 3]
 	}
 }, {
 	"model": "employees.employee",

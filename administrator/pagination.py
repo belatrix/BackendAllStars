@@ -4,8 +4,6 @@ from rest_framework.response import Response
 
 
 class AdministratorPagination(LimitOffsetPagination):
-    default_limit = 50
-
     def get_paginated_response(self, data):
         return Response({
             "status": True,
