@@ -5,12 +5,13 @@ from events.models import Event, EventActivity
 from stars.models import Badge
 from django.db.models import Q
 from django.shortcuts import get_list_or_404, get_object_or_404
+from rest_framework.exceptions import APIException
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from .serializers import CategorySerializer, KeywordSerializer, BadgeSerializer
-from .serializers import EmployeeSerializer
+from .serializers import EmployeeSerializer, EmployeeTopSerializer
 from .serializers import LocationSerializer, PositionSerializer, RoleSerializer
 from .serializers import EventSerializer, EventActivitySerializer
 from .serializers import MessageSerializer
@@ -198,6 +199,45 @@ class EmployeeList(APIView):
                 return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
             serializer = EmployeeSerializer(employees, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class EmployeeTopList(APIView):
+    permission_classes = (IsAdminUser, IsAuthenticated)
+
+    def get(self, request, kind, format=None):
+        """
+        List all employees
+        ---
+        serializer: administrator.serializers.EmployeeSerializer
+        parameters:
+        - name: pagination
+          required: false
+          type: string
+          paramType: query
+        - name: quantity
+          required: false
+          type: string
+          paramType: query
+        """
+        employee_list = Employee.objects.filter(is_active=True, is_base_profile_complete=True).order_by('-' + kind)
+        if request.GET.get('quantity'):
+            try:
+                quantity = request.GET.get('quantity')
+                employee_list = employee_list[:quantity]
+            except Exception as e:
+                raise APIException(e)
+        if request.GET.get('pagination'):
+            pagination = request.GET.get('pagination')
+            if pagination == 'true':
+                paginator = AdministratorPagination()
+                results = paginator.paginate_queryset(employee_list, request)
+                serializer = EmployeeTopSerializer(results, many=True)
+                return paginator.get_paginated_response(serializer.data)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = EmployeeTopSerializer(employee_list, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
 

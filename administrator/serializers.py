@@ -39,7 +39,24 @@ class LocationSerializer(serializers.ModelSerializer):
 class EmployeeSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Employee
-        fields = ('pk', 'username', 'email', 'first_name', 'last_name')
+        fields = ('pk', 'username', 'email', 'first_name', 'last_name', 'avatar')
+
+
+class EmployeeTopSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = Employee
+        fields = ('pk',
+                  'username',
+                  'email',
+                  'first_name',
+                  'last_name',
+                  'avatar',
+                  'current_month_score',
+                  'current_year_score',
+                  'last_month_score',
+                  'last_year_score',
+                  'total_score',
+                  'level')
 
 
 class EventSerializer(serializers.ModelSerializer):

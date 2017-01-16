@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from .views import MessageList, MessageDetail, MessageListFromEmployee
 from .views import CategoryDetail, CategoryList, ObjectsDelete
-from .views import EmployeeList
+from .views import EmployeeList, EmployeeTopList
 from .views import EventList, EventDetail, EventActivityList, EventActivityDetail
 from .views import KeywordList, KeywordDetail
 from .views import BadgeList, BagdeDetail
@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^category/$', CategoryList.as_view()),
     url(r'^category/(?P<category_id>[0-9]+)/$', CategoryDetail.as_view()),
     url(r'^employee/$', EmployeeList.as_view()),
+    url(r'^employee/top/(?P<kind>\w+)/$', EmployeeTopList.as_view()),
     url(r'^event/$', EventList.as_view()),
     url(r'^event/(?P<event_id>[0-9]+)/$', EventDetail.as_view()),
     url(r'^event/(?P<event_id>[0-9]+)/news/$', EventActivityList.as_view()),
