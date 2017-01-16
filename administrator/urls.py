@@ -1,6 +1,8 @@
 from django.conf.urls import url
+from .views import MessageList, MessageDetail, MessageListFromEmployee
 from .views import CategoryDetail, CategoryList, ObjectsDelete
-from .views import EventList, EventDetail
+from .views import EmployeeList, EmployeeTopList
+from .views import EventList, EventDetail, EventActivityList, EventActivityDetail
 from .views import KeywordList, KeywordDetail
 from .views import BadgeList, BagdeDetail
 from .views import LocationList, LocationDetail
@@ -18,8 +20,15 @@ urlpatterns = [
     url(r'^badge/(?P<badge_id>[0-9]+)/to/(?P<to_employee_id>[0-9]+)/from/(?P<from_employee_id>[0-9]+)/$', give_badge_to, name='give_badge_to'),
     url(r'^category/$', CategoryList.as_view()),
     url(r'^category/(?P<category_id>[0-9]+)/$', CategoryDetail.as_view()),
+    url(r'^employee/$', EmployeeList.as_view()),
+    url(r'^employee/top/(?P<kind>\w+)/$', EmployeeTopList.as_view()),
     url(r'^event/$', EventList.as_view()),
     url(r'^event/(?P<event_id>[0-9]+)/$', EventDetail.as_view()),
+    url(r'^event/(?P<event_id>[0-9]+)/news/$', EventActivityList.as_view()),
+    url(r'^event/(?P<event_id>[0-9]+)/news/(?P<news_id>[0-9]+)/$', EventActivityDetail.as_view()),
+    url(r'^message/$', MessageList.as_view()),
+    url(r'^message/from/employee/(?P<employee_id>[0-9]+)/$', MessageListFromEmployee.as_view()),
+    url(r'^message/(?P<message_id>[0-9]+)/$', MessageDetail.as_view()),
     url(r'^keyword/$', KeywordList.as_view()),
     url(r'^keyword/(?P<keyword_id>[0-9]+)/$', KeywordDetail.as_view()),
     url(r'^location/$', LocationList.as_view()),

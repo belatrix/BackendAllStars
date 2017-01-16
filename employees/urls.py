@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^authenticate/', CustomObtainAuthToken.as_view()),
     url(r'^create/$', employee_creation, name='employee_creation'),
     url(r'^list/$', employee_list, name='employee_list'),
-    url(r'^list/top/(?P<kind>\w+)/(?P<quantity>\d+)/$', top, name='employee_list_top'),
+    url(r'^list/top/(?P<quantity>\d+)/(?P<kind>\w+)/$', top, name='employee_list_top'),
     url(r'^logout/$', employee_logout, name='employee_logout'),
     url(r'^location/list/$', employee_location_list, name='employee_location_list'),
     url(r'^position/list/$', employee_position_list, name='employee_position_list'),

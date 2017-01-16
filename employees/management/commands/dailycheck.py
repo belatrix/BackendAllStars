@@ -1,14 +1,15 @@
 from constance import config
-from datetime import datetime
 from django.core.management.base import BaseCommand
 from django.core.mail import EmailMessage
 from django.shortcuts import get_list_or_404
+from django.utils import timezone
 from employees.models import Employee
+from events.models import Event
 from utils.send_messages import send_push_notification
 
 
 class Command(BaseCommand):
-    help = "Update scores daily."
+    help = "Update scores daily and evaluate events upcoming status."
 
     def change_day(self):
         employees = get_list_or_404(Employee)
@@ -36,6 +37,14 @@ class Command(BaseCommand):
             employee.current_year_given = 0
             employee.current_year_score = 0
             employee.save()
+
+    def evaluate_event(self):
+        today = timezone.now()
+        events = get_list_or_404(Event)
+        for event in events:
+            if today.date() <= event.datetime.date():
+                event.is_upcoming = False
+                event.save()
 
     def send_daily_email(self):
         subject = config.DAILY_EXECUTION_CONFIRMATION_SUBJECT
@@ -70,9 +79,10 @@ class Command(BaseCommand):
                 print(e)
 
     def handle(self, *args, **options):
-        today = datetime.now()
+        today = timezone.now()
         self.change_day()
         self.evaluate_block_users()
+        self.evaluate_event()
 
         try:
             self.send_daily_email()

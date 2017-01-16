@@ -3,6 +3,7 @@ from .permissions import SendPushPermission
 from .serializers import ActivitySerializer, MessageSerializer, NotificationSerializer
 from constance import config
 from employees.models import Employee, Location
+from events.models import Event, EventParticipant, EventActivity
 from django.db.models import F, Q
 from django.shortcuts import get_object_or_404
 from itertools import chain
@@ -123,6 +124,43 @@ def send_message_location(request, location_id):
             for employee in employee_list:
                 if employee.location == location:
                     send_push_notification(employee, message.text)
+            serializer = MessageSerializer(message)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            content = {'detail': config.NO_MESSAGE}
+            return Response(content, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST', ])
+@permission_classes((IsAuthenticated, SendPushPermission))
+def send_message_event(request, event_id):
+    """
+    Send message to all employees in event
+    ---
+    response_serializer: employees.serializers.EmployeeDeviceSerializer
+    parameters:
+    - name: message
+      type: string
+      required: true
+    responseMessages:
+    - code: 401
+      message: Unauthorized. Authentication credentials were not provided. Invalid token.
+    - code: 403
+      message: Forbidden.
+    - code: 404
+      message: Not found
+    - code: 500
+      message: Internal Server Error
+    """
+    if request.method == 'POST':
+        if 'message' in request.data:
+            event = get_object_or_404(Event, pk=event_id)
+            EventActivity.objects.create(event=event, text=request.data['message'])
+            event_participants = EventParticipant.objects.filter(event=event)
+            for record in event_participants:
+                employee = Employee.objects.get(pk=record.participant.id)
+                message = Message.objects.create(text=request.data['message'], from_user=request.user, to_user=employee.username)
+                send_push_notification(employee, message.text)
             serializer = MessageSerializer(message)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:

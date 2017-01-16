@@ -1,4 +1,4 @@
-from .models import Event
+from .models import Event, EventActivity
 from rest_framework import serializers
 
 
@@ -16,3 +16,8 @@ class EventSimpleSerializer(serializers.Serializer):
     address = serializers.CharField(allow_blank=True, required=False)
     description = serializers.CharField(allow_blank=True, required=False)
     is_registered = serializers.BooleanField()
+
+
+class EventActivitySerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = EventActivity
