@@ -78,6 +78,7 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Message
 
+
 class SiteInfoSerializer(serializers.Serializer):
     site = serializers.CharField(max_length=100)
     email_domain = serializers.CharField(max_length=100)

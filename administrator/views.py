@@ -819,7 +819,7 @@ class ObjectsDelete(APIView):
 
 
 class SiteInfoDetail(APIView):
-    permission_classes = (IsAuthenticated)
+    permission_classes = (IsAuthenticated, )
 
     def get(self, request, format=None):
         """

@@ -62,7 +62,7 @@ INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
     # Project information
-    'VERSION':(2.0, 'Belatrix Connect Backend version'),
+    'VERSION': (2.0, 'Belatrix Connect Backend version'),
 
     # Rules to block users
     'MAX_STARS_GIVEN_DAY': (10, 'Maximum number of points given by one employee daily'),
