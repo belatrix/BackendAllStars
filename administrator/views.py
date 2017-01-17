@@ -819,7 +819,14 @@ class ObjectsDelete(APIView):
 
 
 class SiteInfoDetail(APIView):
+    permission_classes = (IsAuthenticated)
+
     def get(self, request, format=None):
+        """
+        Get site info
+        ---
+        serializer: administrator.serializers.SiteInfoSerializer
+        """
         email_domain = settings.EMAIL_DOMAIN_LIST[0]
         current_site = Site.objects.get_current()
         version = config.VERSION
