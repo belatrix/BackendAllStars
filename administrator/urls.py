@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from .views import MessageList, MessageDetail, MessageListFromEmployee
+from .views import MessageList, MessageDetail, MessageListFromEmployee, SiteInfoDetail
 from .views import CategoryDetail, CategoryList, ObjectsDelete
 from .views import EmployeeList, EmployeeTopList
 from .views import EventList, EventDetail, EventActivityList, EventActivityDetail
@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'^employee/(?P<employee_id>\d+)/block/(?P<action>\w+)/$', employee_block, name='employee_block'),
     url(r'^employee/(?P<employee_id>\d+)/admin/(?P<action>\w+)/$', employee_admin, name='employee_admin'),
     url(r'^employee/(?P<employee_id>\d+)/set/list/$', employee_set_list, name='employee_set_list'),
+    url(r'^site/info/$', SiteInfoDetail.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json'])
