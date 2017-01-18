@@ -757,12 +757,6 @@ class CustomObtainAuthToken(ObtainAuthToken):
           :paramType: string
         """
         try:
-            # Filter username when email is used
-            mutable = request.POST._mutable
-            request.POST._mutable = True
-            request.POST['username'] = request.POST['username'].split('@')[0]
-            request.POST._mutable = mutable
-
             response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
             token = Token.objects.get(key=response.data['token'])
             employee = get_object_or_404(Employee, pk=token.user_id)

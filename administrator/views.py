@@ -1,8 +1,11 @@
 from activities.models import Message
 from categories.models import Category, Keyword
+from constance import config
 from employees.models import Employee, Location, Position, Role
 from events.models import Event, EventActivity
 from stars.models import Badge
+from django.conf import settings
+from django.contrib.sites.models import Site
 from django.db.models import Q
 from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.exceptions import APIException
@@ -14,7 +17,7 @@ from .serializers import CategorySerializer, KeywordSerializer, BadgeSerializer
 from .serializers import EmployeeSerializer, EmployeeTopSerializer
 from .serializers import LocationSerializer, PositionSerializer, RoleSerializer
 from .serializers import EventSerializer, EventActivitySerializer
-from .serializers import MessageSerializer
+from .serializers import MessageSerializer, SiteInfoSerializer
 from .pagination import AdministratorPagination
 
 
@@ -813,3 +816,24 @@ class ObjectsDelete(APIView):
 
         kind.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class SiteInfoDetail(APIView):
+    permission_classes = (IsAuthenticated, )
+
+    def get(self, request, format=None):
+        """
+        Get site info
+        ---
+        serializer: administrator.serializers.SiteInfoSerializer
+        """
+        email_domain = settings.EMAIL_DOMAIN_LIST[0]
+        current_site = Site.objects.get_current()
+        version = config.VERSION
+
+        data = {'site': current_site.domain,
+                'email_domain': email_domain,
+                'backend_version': version}
+
+        serializer = SiteInfoSerializer(data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
