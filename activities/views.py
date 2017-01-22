@@ -159,7 +159,8 @@ def send_message_event(request, event_id):
             event_participants = EventParticipant.objects.filter(event=event)
             for record in event_participants:
                 employee = Employee.objects.get(pk=record.participant.id)
-                message = Message.objects.create(text=request.data['message'], from_user=request.user, to_user=employee.username)
+                message = Message.objects.create(text=request.data['message'],
+                                                 from_user=request.user, to_user=employee.username)
                 send_push_notification(employee, message.text)
             serializer = MessageSerializer(message)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -187,7 +188,10 @@ def get_messages(request, employee_id):
     """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
-        messages = Message.objects.filter(Q(to_user='all') | Q(to_user=employee.location.name) | Q(to_user=employee.username))
+        messages = Message.objects.filter(
+            Q(to_user='all') |
+            Q(to_user=employee.location.name) |
+            Q(to_user=employee.username))
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(messages, request)
         serializer = MessageSerializer(results, many=True)

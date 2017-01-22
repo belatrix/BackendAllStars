@@ -4,7 +4,7 @@ If you use Heroku type this command line:
 heroku config:set DJANGO_SETTINGS_MODULE=AllStars.settings.production
 """
 import dj_database_url
-from .base import *
+from .base import *  # noqa: F403
 from os import environ
 
 

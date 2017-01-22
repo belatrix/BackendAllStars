@@ -5,7 +5,7 @@ export DJANGO_SETTINGS_MODULE=AllStars.settings.local
 
 """
 
-from .base import *
+from .base import *  # noqa: F403
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
