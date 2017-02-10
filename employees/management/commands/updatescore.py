@@ -7,7 +7,7 @@ from employees.models import Employee
 
 
 class Command(BaseCommand):
-    help = 'Update last month,current month, last year and current year scores when current date is 1st day of the month or year.'
+    help = 'Update last and current month and year scores, current date should be 1st day of the month or year.'
 
     def change_month(self):
         employees = get_list_or_404(Employee)

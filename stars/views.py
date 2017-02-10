@@ -256,9 +256,9 @@ def stars_employee_list_group_by_category(request, employee_id):
     """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
-        employee_stars = Star.objects.filter(to_user=employee).values('category__pk',
-                                                                      'category__name').annotate(num_stars=Count('category')).order_by('-num_stars',
-                                                                                                                                       'category__name')
+        employee_stars = Star.objects.filter(to_user=employee).values(
+            'category__pk',
+            'category__name').annotate(num_stars=Count('category')).order_by('-num_stars', 'category__name')
         paginator = PageNumberPagination()
         result = paginator.paginate_queryset(employee_stars, request)
         serializer = StarEmployeeCategoriesSerializer(result, many=True)
@@ -282,9 +282,9 @@ def stars_employee_list_group_by_keyword(request, employee_id):
     """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
-        employee_stars = Star.objects.filter(to_user=employee).values('keyword__pk',
-                                                                      'keyword__name').annotate(num_stars=Count('keyword')).order_by('-num_stars',
-                                                                                                                                     'keyword__name')
+        employee_stars = Star.objects.filter(to_user=employee).values(
+            'keyword__pk',
+            'keyword__name').annotate(num_stars=Count('keyword')).order_by('-num_stars', 'keyword__name')
         paginator = PageNumberPagination()
         result = paginator.paginate_queryset(employee_stars, request)
         serializer = StarEmployeeKeywordsSerializer(result, many=True)
@@ -408,10 +408,13 @@ def stars_keyword_list(request):
         if request.GET.get('search'):
             search_term = request.GET.get('search')
             star_list = Star.objects.filter(
-                Q(keyword__name__icontains=search_term)).values('keyword__pk',
-                                                                'keyword__name').annotate(num_stars=Count('keyword')).order_by('-num_stars')
+                Q(keyword__name__icontains=search_term)).values(
+                    'keyword__pk',
+                    'keyword__name').annotate(num_stars=Count('keyword')).order_by('-num_stars')
         else:
-            star_list = Star.objects.all().values('keyword__pk', 'keyword__name').annotate(num_stars=Count('keyword')).order_by('-num_stars')
+            star_list = Star.objects.all().values(
+                'keyword__pk',
+                'keyword__name').annotate(num_stars=Count('keyword')).order_by('-num_stars')
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(star_list, request)
         serializer = StarKeywordList(results, many=True)
@@ -532,10 +535,13 @@ def employee_list_group_by_badges(request):
         if request.GET.get('search'):
             search_term = request.GET.get('search')
             badge_list = EmployeeBadge.objects.filter(
-                Q(badge__name__icontains=search_term)).values('badge__pk',
-                                                              'badge__name').annotate(num_employees=Count('to_user')).order_by('-num_employees')
+                Q(badge__name__icontains=search_term)).values(
+                    'badge__pk',
+                    'badge__name').annotate(num_employees=Count('to_user')).order_by('-num_employees')
         else:
-            badge_list = EmployeeBadge.objects.all().values('badge__pk', 'badge__name').annotate(num_employees=Count('to_user')).order_by('-num_employees')
+            badge_list = EmployeeBadge.objects.all().values(
+                'badge__pk',
+                'badge__name').annotate(num_employees=Count('to_user')).order_by('-num_employees')
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(badge_list, request)
         serializer = EmployeeBadgeListSerializer(results, many=True)

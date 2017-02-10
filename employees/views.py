@@ -1,9 +1,10 @@
 from .models import Employee, Location, Position, Role, EmployeeDevice
-from .serializers import EmployeeSerializer, EmployeeAvatarSerializer, EmployeeListSerializer, EmployeeCreationListSerializer
+from .serializers import EmployeeSerializer, EmployeeAvatarSerializer, EmployeeListSerializer
 from .serializers import EmployeeLocationListSerializer, EmployeePositionListSerializer, EmployeeRoleListSerializer
 from .serializers import EmployeeTopTotalScoreList, EmployeeTopLevelList
 from .serializers import EmployeeTopCurrentMonthList, EmployeeTopLastMonthList
-from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList, EmployeeDeviceSerializer, EmployeeSetListSerializer
+from .serializers import EmployeeTopCurrentYearList, EmployeeTopLastYearList
+from .serializers import EmployeeDeviceSerializer, EmployeeSetListSerializer, EmployeeCreationListSerializer
 from constance import config
 from django.conf import settings
 from django.contrib.auth import logout
@@ -107,7 +108,9 @@ def employee_bulk_creation(request):
                     domain = email.split('@')[1].lower()
                     if domain in settings.EMAIL_DOMAIN_LIST:
                         if not Employee.objects.filter(email=email).exists():
-                            new_employee = Employee.objects.create_user(username, password=request.data['password'], email=email)
+                            new_employee = Employee.objects.create_user(username,
+                                                                        password=request.data['password'],
+                                                                        email=email)
                             new_employee.generate_reset_password_code()
                             new_employee.save()
                             users_created += 1
@@ -267,14 +270,16 @@ def employee_list(request, format=None):
             search_terms_array = request_terms.split()
 
             initial_term = search_terms_array[0]
-            employee_list = Employee.objects.filter(Q(first_name__icontains=initial_term) |
-                                                    Q(last_name__icontains=initial_term) |
-                                                    Q(username__icontains=initial_term)).filter(is_base_profile_complete=True)
+            employee_list = Employee.objects.filter(
+                Q(first_name__icontains=initial_term) |
+                Q(last_name__icontains=initial_term) |
+                Q(username__icontains=initial_term)).filter(is_base_profile_complete=True)
             if len(search_terms_array) > 1:
                 for term in range(1, len(search_terms_array)):
-                    employee_list = employee_list.filter(Q(first_name__icontains=search_terms_array[term]) |
-                                                         Q(last_name__icontains=search_terms_array[term]) |
-                                                         Q(username__icontains=search_terms_array[term])).filter(is_base_profile_complete=True)
+                    employee_list = employee_list.filter(
+                        Q(first_name__icontains=search_terms_array[term]) |
+                        Q(last_name__icontains=search_terms_array[term]) |
+                        Q(username__icontains=search_terms_array[term])).filter(is_base_profile_complete=True)
         else:
             employee_list = get_list_or_404(Employee, is_active=True, is_base_profile_complete=True)
         paginator = PageNumberPagination()
@@ -608,7 +613,8 @@ def employee_update_password(request, employee_id):
 @permission_classes((IsAuthenticated,))
 def top(request, kind, quantity):
     """
-    Returns top {quantity} list, {kind} (total_score, level, last_month_score, current_month_score, last_year_score, current_year_score)
+    Returns top {quantity} list, {kind} (total_score, level, last_month_score, current_month_score, last_year_score,
+    current_year_score)
     ---
     serializer: employees.serializers.EmployeeTopListSerializer
     responseMessages:
@@ -624,7 +630,8 @@ def top(request, kind, quantity):
     try:
         employee_list_filtered = []
         if request.method == 'GET':
-            employee_list = Employee.objects.filter(is_active=True, is_base_profile_complete=True).order_by('-' + kind)[:quantity]
+            employee_list = Employee.objects.filter(is_active=True,
+                                                    is_base_profile_complete=True).order_by('-' + kind)[:quantity]
             if kind == 'total_score':
                 for employee in employee_list:
                     if employee.total_score > 0:
