@@ -1,13 +1,20 @@
 from .models import EmployeeBadge, Star, Badge
 from categories.serializers import CategorySerializer, KeywordSerializer
-from employees.models import Employee
+from employees.models import Employee, Position
 from rest_framework import serializers
 
 
+class PositionSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = Position
+
+
 class EmployeeSimpleSerializer(serializers.ModelSerializer):
+    position = PositionSerializer()
+
     class Meta(object):
         model = Employee
-        fields = ('pk', 'username', 'first_name', 'last_name', 'avatar')
+        fields = ('pk', 'username', 'first_name', 'last_name', 'avatar', 'position')
 
 
 class StarSerializer(serializers.ModelSerializer):
