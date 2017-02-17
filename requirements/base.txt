@@ -5,7 +5,9 @@ django-filter==0.13.0
 django-import-export==0.4.5
 django-rest-swagger==0.3.5
 djangorestframework==3.3.3
+djangorestframework-jwt==1.9.0
 Markdown==2.6.6
+PyJWT==1.4.2
 PyYAML==3.11
 whitenoise==2.0.6
 Pillow==3.1.1                   # Requirements: OSX:libjpeg, Ubuntu14.04:libjpeg-dev, python-dev
