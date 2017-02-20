@@ -5,7 +5,7 @@ Employees endpoints.
 Authenticate
 ============
 
-**Note:** This endpoint gives authorization token, token is needed to use other endpoints.
+**Note:** This endpoint gives authorization token, token is needed to use other endpoints, this token doesn't have expiring time.
 
 **/api/employee/authenticate/**
 
@@ -48,6 +48,39 @@ X-Frame-Options: SAMEORIGIN
     "token": "0c82ba3493b9369e800fff58687c06220fa34d77",
     "user_id": 1
 }
+```
+
+
+**/api/employee/token-auth/**
+
+**Note:** This endpoint gives authorization JSON Web Token, token is needed to use other endpoints, this token has expiring time (30 min).
+
+* Using curl, response should be similar to previous above:
+
+```bash
+curl -X POST -d "username=sinfante&password=allstars" https://bxconnect.herokuapp.com:443/api/employee/token-auth/
+```
+
+To use this JWT Token with other endpoints you should replace:
+
+```
+-H 'Authorization: Token 949663fa5ac153d6fb57ac95251380a2ad8e3453'
+```
+
+with this
+
+```
+-H 'Authorization: JWT 949663fa5ac153d6fb57ac95251380a2ad8e3453'
+```
+
+**/api/employee/token-refresh/**
+
+**Note:** This endpoint gives authorization JSON Web Token, token is needed to use other endpoints, this token has expiring time (30 min).
+
+* Using curl, response should be similar to previous above:
+
+```bash
+curl -X POST -d "token=eyJ0eXAiOiJKV1QiLCJhbGciOi" https://bxconnect.herokuapp.com:443/api/employee/token-refresh/
 ```
 
 Create

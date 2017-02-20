@@ -776,3 +776,14 @@ class CustomObtainAuthToken(ObtainAuthToken):
         except Exception as e:
             print(e)
             raise NotAcceptable(config.USER_UNABLE_TO_LOG)
+
+
+def jwt_response_payload_handler(token, user=None, request=None):
+    return {
+        "token": token,
+        "user_id": user.id,
+        "reset_password_code": user.reset_password_code,
+        "is_base_profile_complete": user.is_base_profile_complete,
+        "is_password_reset_required": user.is_password_reset_required,
+        "is_staff": user.is_staff
+    }

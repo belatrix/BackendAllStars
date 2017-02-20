@@ -5,9 +5,12 @@ from .views import employee_reset_password, employee_reset_password_confirmation
 from .views import CustomObtainAuthToken, top, employee_logout
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 
 urlpatterns = [
+    url(r'^token-auth/', obtain_jwt_token, name='obtain_jwt_token'),
+    url(r'^token-refresh/', refresh_jwt_token, name='refresh_jwt_token'),
     url(r'^authenticate/', CustomObtainAuthToken.as_view()),
     url(r'^create/$', employee_creation, name='employee_creation'),
     url(r'^list/$', employee_list, name='employee_list'),

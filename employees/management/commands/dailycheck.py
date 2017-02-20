@@ -42,7 +42,7 @@ class Command(BaseCommand):
         today = timezone.now()
         events = get_list_or_404(Event)
         for event in events:
-            if today.date() <= event.datetime.date():
+            if today.date() >= event.datetime.date():
                 event.is_upcoming = False
                 event.save()
 
