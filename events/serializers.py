@@ -6,6 +6,7 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Event
         depth = 1
+        fields = ("pk", "name", "image", "datetime", "address", "description", "is_active", "is_upcoming", "location")
 
 
 class EventSimpleSerializer(serializers.Serializer):
