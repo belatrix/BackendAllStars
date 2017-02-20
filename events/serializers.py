@@ -1,8 +1,11 @@
 from .models import Event, EventActivity
+from employees.serializers import LocationSerializer
 from rest_framework import serializers
 
 
 class EventSerializer(serializers.ModelSerializer):
+    location = LocationSerializer()
+
     class Meta(object):
         model = Event
         depth = 1

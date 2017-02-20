@@ -2,6 +2,12 @@ from .models import Employee, Location, Role, EmployeeDevice, Position
 from rest_framework import serializers
 
 
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = Location
+        fields = ('pk', 'name', 'icon', 'is_active')
+
+
 class EmployeeRoleListSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Role
