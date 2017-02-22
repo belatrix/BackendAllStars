@@ -9,7 +9,7 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Event
         depth = 1
-        fields = ("pk", "name", "image", "datetime", "address", "description", "is_active", "is_upcoming", "location")
+        fields = ("pk", "name", "image", "datetime", "address", "description", "is_active", "location")
 
 
 class EventSimpleSerializer(serializers.Serializer):
@@ -25,3 +25,4 @@ class EventSimpleSerializer(serializers.Serializer):
 class EventActivitySerializer(serializers.ModelSerializer):
     class Meta(object):
         model = EventActivity
+        fields = ("pk", "datetime", "text", "event")
