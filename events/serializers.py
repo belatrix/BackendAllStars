@@ -1,11 +1,15 @@
 from .models import Event, EventActivity
+from employees.serializers import LocationSerializer
 from rest_framework import serializers
 
 
 class EventSerializer(serializers.ModelSerializer):
+    location = LocationSerializer()
+
     class Meta(object):
         model = Event
         depth = 1
+        fields = ("pk", "name", "image", "datetime", "address", "description", "is_active", "location")
 
 
 class EventSimpleSerializer(serializers.Serializer):
@@ -21,3 +25,4 @@ class EventSimpleSerializer(serializers.Serializer):
 class EventActivitySerializer(serializers.ModelSerializer):
     class Meta(object):
         model = EventActivity
+        fields = ("pk", "datetime", "text", "event")

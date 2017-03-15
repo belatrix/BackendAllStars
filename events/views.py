@@ -140,7 +140,7 @@ def employee_event_registration(request, employee_id, event_id, action):
     """
     Register / unregister employee to event, action could be true or false
     ---
-    response_serializer: employees.serializers.EmployeeSerializer
+    response_serializer: events.serializers.EventSimpleSerializer
     responseMessages:
     - code: 401
       message: Unauthorized. Authentication credentials were not provided. Invalid token.
