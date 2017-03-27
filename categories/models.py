@@ -23,6 +23,10 @@ class Keyword(models.Model):
     name = models.CharField(max_length=100, unique=True)
     is_active = models.BooleanField(default=True)
 
+    def clean(self):
+        if self.name:
+            self.name = self.name.replace(" ", "").lower()
+
     def __str__(self):
         return self.name
 

@@ -83,6 +83,8 @@ CONSTANCE_CONFIG = {
                                'Error message when a keyword already exists or is not set.'),
     'CATEGORY_BAD_REQUEST': ('Bad request on creation or edition category, please review if category already exists.',
                              'Error message when a category can not be added or edited.'),
+    'KEYWORD_NOT_ALLOWED': ('Tag name with whitespaces and uppercase are not allowed',
+                            'Error messages when tag name is not valid'),
 
     # User messages
     'EMPLOYEE_CREATION_SUBJECT': ('[BELATRIX CONNECT] Your account has been successfully created.',
