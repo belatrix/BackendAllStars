@@ -7,7 +7,7 @@ from django.utils.encoding import python_2_unicode_compatible
 @python_2_unicode_compatible
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
-    comment_required = models.BooleanField(default=False)
+    comment_required = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
