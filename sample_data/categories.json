@@ -2,7 +2,7 @@
 	"model": "categories.category",
 	"pk": 1,
 	"fields": {
-		"name": "Demo",
+		"name": "Colaboración para resolver problemas.",
 		"comment_required": true,
 		"is_active": true
 	}
@@ -10,7 +10,7 @@
 	"model": "categories.category",
 	"pk": 2,
 	"fields": {
-		"name": "Innovation",
+		"name": "Participación en la organización de eventos.",
 		"comment_required": true,
 		"is_active": true
 	}
@@ -18,7 +18,7 @@
 	"model": "categories.category",
 	"pk": 3,
 	"fields": {
-		"name": "Teamwork",
+		"name": "Excelente expositor.",
 		"comment_required": true,
 		"is_active": true
 	}
@@ -26,7 +26,7 @@
 	"model": "categories.category",
 	"pk": 4,
 	"fields": {
-		"name": "Commitment",
+		"name": "Proponer y empujar nuevas ideas.",
 		"comment_required": true,
 		"is_active": true
 	}
@@ -34,7 +34,7 @@
 	"model": "categories.category",
 	"pk": 5,
 	"fields": {
-		"name": "Empowerment",
+		"name": "Ayudar a mejorar procesos.",
 		"comment_required": true,
 		"is_active": true
 	}
@@ -42,71 +42,7 @@
 	"model": "categories.category",
 	"pk": 6,
 	"fields": {
-		"name": "Trust",
-		"comment_required": true,
-		"is_active": true
-	}
-}, {
-	"model": "categories.category",
-	"pk": 7,
-	"fields": {
-		"name": "Technical Guidance",
-		"comment_required": true,
-		"is_active": true
-	}
-}, {
-	"model": "categories.category",
-	"pk": 8,
-	"fields": {
-		"name": "Code Review",
-		"comment_required": true,
-		"is_active": true
-	}
-}, {
-	"model": "categories.category",
-	"pk": 9,
-	"fields": {
-		"name": "Technical Interview",
-		"comment_required": true,
-		"is_active": true
-	}
-}, {
-	"model": "categories.category",
-	"pk": 10,
-	"fields": {
-		"name": "Speaker",
-		"comment_required": true,
-		"is_active": true
-	}
-}, {
-	"model": "categories.category",
-	"pk": 11,
-	"fields": {
-		"name": "Blogger",
-		"comment_required": true,
-		"is_active": true
-	}
-}, {
-	"model": "categories.category",
-	"pk": 12,
-	"fields": {
-		"name": "Event collaborator",
-		"comment_required": true,
-		"is_active": true
-	}
-}, {
-	"model": "categories.category",
-	"pk": 13,
-	"fields": {
-		"name": "Training",
-		"comment_required": true,
-		"is_active": true
-	}
-}, {
-	"model": "categories.category",
-	"pk": 14,
-	"fields": {
-		"name": "Partnership",
+		"name": "Felicitaciones por parte del cliente.",
 		"comment_required": true,
 		"is_active": true
 	}
