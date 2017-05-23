@@ -2,228 +2,216 @@
 	"model": "categories.category",
 	"pk": 1,
 	"fields": {
-		"name": "Demo"
+		"name": "Colaboración para resolver problemas.",
+		"comment_required": true,
+		"is_active": true
 	}
 }, {
 	"model": "categories.category",
 	"pk": 2,
 	"fields": {
-		"name": "Innovation"
+		"name": "Participación en la organización de eventos.",
+		"comment_required": true,
+		"is_active": true
 	}
 }, {
 	"model": "categories.category",
 	"pk": 3,
 	"fields": {
-		"name": "Teamwork"
+		"name": "Excelente expositor.",
+		"comment_required": true,
+		"is_active": true
 	}
 }, {
 	"model": "categories.category",
 	"pk": 4,
 	"fields": {
-		"name": "Commitment"
+		"name": "Proponer y empujar nuevas ideas.",
+		"comment_required": true,
+		"is_active": true
 	}
 }, {
 	"model": "categories.category",
 	"pk": 5,
 	"fields": {
-		"name": "Empowerment"
+		"name": "Ayudar a mejorar procesos.",
+		"comment_required": true,
+		"is_active": true
 	}
 }, {
 	"model": "categories.category",
 	"pk": 6,
 	"fields": {
-		"name": "Trust"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 7,
-	"fields": {
-		"name": "Technical Guidance"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 8,
-	"fields": {
-		"name": "Code Review"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 9,
-	"fields": {
-		"name": "Technical Interview"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 10,
-	"fields": {
-		"name": "Speaker"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 11,
-	"fields": {
-		"name": "Blogger"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 12,
-	"fields": {
-		"name": "Event collaborator"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 13,
-	"fields": {
-		"name": "Training"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 14,
-	"fields": {
-		"name": "Partnership"
+		"name": "Felicitaciones por parte del cliente.",
+		"comment_required": true,
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 1,
 	"fields": {
-		"name": "PYTHON"
+		"name": "PYTHON",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 2,
 	"fields": {
-		"name": "PHP"
+		"name": "PHP",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 3,
 	"fields": {
-		"name": "ANDROID"
+		"name": "ANDROID",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 4,
 	"fields": {
-		"name": "JAVA"
+		"name": "JAVA",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 5,
 	"fields": {
-		"name": "IOS"
+		"name": "IOS",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 6,
 	"fields": {
-		"name": "SCRUM"
+		"name": "SCRUM",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 7,
 	"fields": {
-		"name": "JAVASCRIPT"
+		"name": "JAVASCRIPT",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 8,
 	"fields": {
-		"name": "ANGULAR"
+		"name": "ANGULAR",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 9,
 	"fields": {
-		"name": "RUBY"
+		"name": "RUBY",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 10,
 	"fields": {
-		"name": "RUBY ON RAILS"
+		"name": "RUBY ON RAILS",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 11,
 	"fields": {
-		"name": "DJANGO"
+		"name": "DJANGO",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 12,
 	"fields": {
-		"name": "C++"
+		"name": "C++",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 13,
 	"fields": {
-		"name": "C#"
+		"name": "C#",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 14,
 	"fields": {
-		"name": ".NET"
+		"name": ".NET",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 15,
 	"fields": {
-		"name": "PERL"
+		"name": "PERL",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 16,
 	"fields": {
-		"name": "MOBILE"
+		"name": "MOBILE",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 17,
 	"fields": {
-		"name": "QA"
+		"name": "QA",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 18,
 	"fields": {
-		"name": "AUTOMATION"
+		"name": "AUTOMATION",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 19,
 	"fields": {
-		"name": "EXCELLENCE"
+		"name": "EXCELLENCE",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 20,
 	"fields": {
-		"name": "RELIABILITY"
+		"name": "RELIABILITY",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 21,
 	"fields": {
-		"name": "TEAM SPIRIT"
+		"name": "TEAM SPIRIT",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 22,
 	"fields": {
-		"name": "SERVICE"
+		"name": "SERVICE",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 23,
 	"fields": {
-		"name": "INTEGRITY"
+		"name": "INTEGRITY",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
 	"pk": 24,
 	"fields": {
-		"name": "RESPONSIBILITY"
+		"name": "RESPONSIBILITY",
+		"is_active": true
 	}
 }]

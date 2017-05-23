@@ -98,7 +98,7 @@ class StarKeywordList(serializers.Serializer):
 class BadgeSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Badge
-        fields = ('pk', 'name', 'icon', 'description')
+        fields = ('pk', 'name', 'icon', 'description', 'sharing_text')
 
 
 class EmployeeBadgeSerializer(serializers.ModelSerializer):
