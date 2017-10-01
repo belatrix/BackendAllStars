@@ -9,7 +9,14 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta(object):
         model = Event
         depth = 1
-        fields = ("pk", "name", "image", "datetime", "address", "description", "is_active", "location")
+        fields = ("pk",
+                  "name",
+                  "image",
+                  "datetime",
+                  "address",
+                  "registration_url",
+                  "description", "is_active",
+                  "location")
 
 
 class EventSimpleSerializer(serializers.Serializer):
@@ -18,6 +25,7 @@ class EventSimpleSerializer(serializers.Serializer):
     image = serializers.CharField(allow_blank=True, required=False)
     datetime = serializers.DateTimeField(required=False)
     address = serializers.CharField(allow_blank=True, required=False)
+    registration_url = serializers.CharField(allow_blank=True, required=False)
     description = serializers.CharField(allow_blank=True, required=False)
     is_registered = serializers.BooleanField()
 
