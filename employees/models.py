@@ -118,7 +118,7 @@ class Employee(AbstractUser):
         last_name = self.last_name
         avatar = self.avatar
         skype = self.skype_id
-        if first_name and last_name and skype:
+        if first_name and last_name and avatar and skype:
             self.is_base_profile_complete = True
         else:
             self.is_base_profile_complete = False
