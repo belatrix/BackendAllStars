@@ -16,7 +16,8 @@ class EventSerializer(serializers.ModelSerializer):
                   "address",
                   "registration_url",
                   "description", "is_active",
-                  "location")
+                  "location",
+                  "updated_at")
 
 
 class EventSimpleSerializer(serializers.Serializer):

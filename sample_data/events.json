@@ -10,7 +10,8 @@
 		"description": "One belatrix event in 2017",
 		"is_active": true,
 		"is_upcoming": true,
-		"location": 1
+		"location": 1,
+		"updated_at": "2017-10-20T17:23:07.388Z"
 	}
 }, {
 	"model": "events.event",
@@ -24,7 +25,8 @@
 		"description": "Belatrix event 2016",
 		"is_active": true,
 		"is_upcoming": false,
-		"location": 2
+		"location": 2,
+		"updated_at": "2017-10-20T17:23:07.388Z"
 	}
 }, {
 	"model": "events.event",
@@ -38,7 +40,8 @@
 		"description": "Postponed event",
 		"is_active": false,
 		"is_upcoming": true,
-		"location": 2
+		"location": 2,
+		"updated_at": "2017-10-20T17:23:07.388Z"
 	}
 }, {
 	"model": "events.event",
@@ -52,7 +55,8 @@
 		"description": "No longer active",
 		"is_active": false,
 		"is_upcoming": false,
-		"location": 4
+		"location": 4,
+		"updated_at": "2017-10-20T17:23:07.388Z"
 	}
 }, {
 	"model": "events.event",
@@ -63,10 +67,11 @@
 		"datetime": "2017-02-28T12:00:00Z",
 		"address": "",
 		"registration_url": "http://belatrixsf.com",
-		"description": "summer event in 2017",
+		"description": "summer event in 2017 now",
 		"is_active": true,
 		"is_upcoming": true,
-		"location": 3
+		"location": 3,
+		"updated_at": "2017-10-20T17:23:07.388Z"
 	}
 }, {
 	"model": "events.event",
@@ -80,7 +85,8 @@
 		"description": "Fall event 2017",
 		"is_active": true,
 		"is_upcoming": true,
-		"location": 4
+		"location": 4,
+		"updated_at": "2017-10-20T17:23:07.388Z"
 	}
 }, {
 	"model": "events.eventactivity",

@@ -15,6 +15,7 @@ class Event(models.Model):
     is_active = models.BooleanField(default=True)
     is_upcoming = models.BooleanField(default=True)
     location = models.ForeignKey('employees.Location')
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return self.name
