@@ -273,13 +273,15 @@ def employee_list(request, format=None):
             employee_list = Employee.objects.filter(
                 Q(first_name__icontains=initial_term) |
                 Q(last_name__icontains=initial_term) |
-                Q(username__icontains=initial_term)).filter(is_base_profile_complete=True)
+                Q(username__icontains=initial_term)).filter(is_active=True, is_base_profile_complete=True)
             if len(search_terms_array) > 1:
                 for term in range(1, len(search_terms_array)):
                     employee_list = employee_list.filter(
                         Q(first_name__icontains=search_terms_array[term]) |
                         Q(last_name__icontains=search_terms_array[term]) |
-                        Q(username__icontains=search_terms_array[term])).filter(is_base_profile_complete=True)
+                        Q(username__icontains=search_terms_array[term])).filter(
+                                                                            is_active=True,
+                                                                            is_base_profile_complete=True)
         else:
             employee_list = get_list_or_404(Employee, is_active=True, is_base_profile_complete=True)
         paginator = PageNumberPagination()
