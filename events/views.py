@@ -126,6 +126,7 @@ def event_detail(request, employee_id, event_id):
                 "datetime": event.datetime,
                 "address": event.address,
                 "description": event.description,
+                "registration_url": event.registration_url,
                 "is_registered": is_registered}
 
         serializer = EventSimpleSerializer(data=data)
