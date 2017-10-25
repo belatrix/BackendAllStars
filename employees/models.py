@@ -63,6 +63,7 @@ class Employee(AbstractUser):
     position = models.ForeignKey(Position, null=True, blank=True)
     location = models.ForeignKey(Location, null=True, blank=True)
     skype_id = models.CharField(max_length=200, null=True, blank=True)
+    emergency_phone_contact = models.CharField(max_length=20, null=True, blank=True)
     level = models.PositiveIntegerField(default=0)
     reset_password_code = models.UUIDField(default=None, null=True, blank=True)
     avatar = models.ImageField(upload_to=avatar_filename, null=True, blank=True)
