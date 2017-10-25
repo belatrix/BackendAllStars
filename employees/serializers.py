@@ -80,7 +80,7 @@ class EmployeeListSerializer(serializers.ModelSerializer):
                   'first_name',
                   'last_name',
                   'location',
-                  'emergency_phone_contact'
+                  'emergency_phone_contact',
                   'level',
                   'avatar',
                   'total_score',
