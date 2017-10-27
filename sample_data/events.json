@@ -1,159 +1,94 @@
 [{
 	"model": "events.event",
-	"pk": 1,
+	"pk": 15,
 	"fields": {
-		"name": "Belatrix Event 2017",
-		"image": "http://i.imgur.com/ZRfVvza.png",
-		"datetime": "2017-06-30T12:00:00Z",
-		"address": "",
-		"description": "One belatrix event in 2017",
+		"name": "Aniversario Belatrix 2017",
+		"image": "http://i.imgur.com/mQlxX20.png",
+		"datetime": "2017-06-28T13:30:00Z",
+		"address": "Oficinas de Belatrix Lima. Comedor Piso 21",
+		"description": "\u00a1Particip\u00e1 del intercambio cultural!\r\n\r\nFestejemos este miercoles 28 de Junio el 15vo aniversario de Belatrix.\r\n\r\nTe esperamos a las 10.30 ARG / 8.30 PE-CO para compartir un desayuno, y arrancar con una jornada llena de juegos.\r\n\r\nPara finalizar tendremos un after office, donde disfrutaremos comidas, tragos t\u00edpicos, y se anunciaran los ganadores.\r\n\r\nDisclaimer: Se tomar\u00e1 en cuenta tu participaci\u00f3n en este evento, pero igual deber\u00e1s registrarte bajo la invitaci\u00f3n original de \u00e9ste en el link provisto por el remitente original.\r\n\r\n\u00a1Te esperamos!",
 		"is_active": true,
-		"is_upcoming": true,
+		"is_upcoming": false,
 		"location": 1
 	}
 }, {
-	"model": "events.event",
-	"pk": 2,
+	"model": "events.eventparticipant",
+	"pk": 96,
 	"fields": {
-		"name": "Belatrix Event 2016",
-		"image": "http://i.imgur.com/ZRfVvza.png",
-		"datetime": "2016-12-22T16:10:22Z",
-		"address": "",
-		"description": "Belatrix event 2016",
-		"is_active": true,
-		"is_upcoming": false,
-		"location": 2
-	}
-}, {
-	"model": "events.event",
-	"pk": 3,
-	"fields": {
-		"name": "Belatrix Event 2017 postponed",
-		"image": "http://i.imgur.com/ZRfVvza.png",
-		"datetime": "2017-01-20T16:25:42Z",
-		"address": "",
-		"description": "Postponed event",
-		"is_active": false,
-		"is_upcoming": true,
-		"location": 2
-	}
-}, {
-	"model": "events.event",
-	"pk": 4,
-	"fields": {
-		"name": "Belatrix Event 2015",
-		"image": "",
-		"datetime": "2015-09-09T12:00:00Z",
-		"address": "",
-		"description": "No longer active",
-		"is_active": false,
-		"is_upcoming": false,
-		"location": 4
-	}
-}, {
-	"model": "events.event",
-	"pk": 5,
-	"fields": {
-		"name": "Belatrix Summer event 2017",
-		"image": "",
-		"datetime": "2017-02-28T12:00:00Z",
-		"address": "",
-		"description": "summer event in 2017",
-		"is_active": true,
-		"is_upcoming": true,
-		"location": 3
-	}
-}, {
-	"model": "events.event",
-	"pk": 6,
-	"fields": {
-		"name": "Belatrix Fall Event 2017",
-		"image": "",
-		"datetime": "2017-04-20T18:00:00Z",
-		"address": "",
-		"description": "Fall event 2017",
-		"is_active": true,
-		"is_upcoming": true,
-		"location": 4
-	}
-}, {
-	"model": "events.eventactivity",
-	"pk": 1,
-	"fields": {
-		"event": 1,
-		"datetime": "2017-01-08T16:28:28.398Z",
-		"text": "Hurry up! register now"
-	}
-}, {
-	"model": "events.eventactivity",
-	"pk": 2,
-	"fields": {
-		"event": 3,
-		"datetime": "2017-01-08T16:29:24.193Z",
-		"text": "Soon you'll have news"
+		"event": 15,
+		"participant": 115,
+		"datetime": "2017-06-23T20:04:52.947Z"
 	}
 }, {
 	"model": "events.eventparticipant",
-	"pk": 1,
+	"pk": 97,
 	"fields": {
-		"event": 1,
-		"participant": 21,
-		"datetime": "2017-01-08T16:33:28.145Z"
+		"event": 15,
+		"participant": 102,
+		"datetime": "2017-06-23T20:07:38.060Z"
 	}
 }, {
 	"model": "events.eventparticipant",
-	"pk": 2,
+	"pk": 98,
 	"fields": {
-		"event": 1,
-		"participant": 12,
-		"datetime": "2017-01-08T16:33:36.351Z"
+		"event": 15,
+		"participant": 106,
+		"datetime": "2017-06-24T17:07:57.009Z"
 	}
 }, {
 	"model": "events.eventparticipant",
-	"pk": 3,
+	"pk": 99,
 	"fields": {
-		"event": 3,
-		"participant": 14,
-		"datetime": "2017-01-08T16:33:47.541Z"
+		"event": 15,
+		"participant": 119,
+		"datetime": "2017-06-26T13:39:00.705Z"
 	}
 }, {
 	"model": "events.eventparticipant",
-	"pk": 4,
+	"pk": 100,
 	"fields": {
-		"event": 1,
-		"participant": 4,
-		"datetime": "2017-01-08T16:33:55.446Z"
+		"event": 15,
+		"participant": 120,
+		"datetime": "2017-06-26T13:42:21.471Z"
 	}
 }, {
 	"model": "events.eventparticipant",
-	"pk": 5,
+	"pk": 101,
 	"fields": {
-		"event": 1,
-		"participant": 2,
-		"datetime": "2017-01-08T16:34:06.587Z"
+		"event": 15,
+		"participant": 122,
+		"datetime": "2017-06-26T16:29:06.451Z"
 	}
 }, {
 	"model": "events.eventparticipant",
-	"pk": 6,
+	"pk": 102,
 	"fields": {
-		"event": 3,
-		"participant": 2,
-		"datetime": "2017-01-08T16:35:06.587Z"
+		"event": 15,
+		"participant": 110,
+		"datetime": "2017-06-26T21:12:16.450Z"
 	}
 }, {
 	"model": "events.eventparticipant",
-	"pk": 7,
+	"pk": 103,
 	"fields": {
-		"event": 6,
-		"participant": 2,
-		"datetime": "2017-01-09T16:29:36.844Z"
+		"event": 15,
+		"participant": 112,
+		"datetime": "2017-06-27T04:07:07.218Z"
 	}
 }, {
 	"model": "events.eventparticipant",
-	"pk": 8,
+	"pk": 104,
 	"fields": {
-		"event": 5,
-		"participant": 2,
-		"datetime": "2017-01-09T16:29:48.770Z"
+		"event": 15,
+		"participant": 121,
+		"datetime": "2017-06-27T12:37:31.675Z"
+	}
+}, {
+	"model": "events.eventparticipant",
+	"pk": 105,
+	"fields": {
+		"event": 15,
+		"participant": 113,
+		"datetime": "2017-06-27T19:43:06.532Z"
 	}
 }]
