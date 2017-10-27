@@ -5,7 +5,7 @@
 		"name": "Technical Blogger",
 		"icon": "http://i.imgur.com/0TDVbPV.png",
 		"description": "Technical writer sharing knowledge in Belatrix Blogs",
-		"sharing_text": "Technical writer sharing knowledge in Belatrix Blogs sharing text",
+		"sharing_text": null,
 		"is_active": true
 	}
 }, {
@@ -15,7 +15,7 @@
 		"name": "Great Performance",
 		"icon": "http://i.imgur.com/GoxhsuT.png",
 		"description": "For demonstrate great performance at work",
-		"sharing_text": "For demonstrate great performance at work sharing text",
+		"sharing_text": null,
 		"is_active": true
 	}
 }, {
@@ -35,7 +35,7 @@
 		"name": "Speaker",
 		"icon": "http://i.imgur.com/e6FqXtV.png",
 		"description": "Give several talks and speeches representing Belatrix",
-		"sharing_text": null,
+		"sharing_text": "Give several talks and speeches representing Belatrix sharing text",
 		"is_active": true
 	}
 }]

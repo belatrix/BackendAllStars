@@ -1,430 +1,320 @@
 [{
 	"model": "stars.star",
-	"pk": 1,
+	"pk": 119,
 	"fields": {
-		"date": "2016-05-12T21:09:17.234Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
+		"date": "2017-06-20T16:51:25.990Z",
+		"text": "Great effort on events",
+		"from_user": 103,
+		"to_user": 102,
+		"category": 2,
+		"keyword": 43
+	}
+}, {
+	"model": "stars.star",
+	"pk": 120,
+	"fields": {
+		"date": "2017-06-23T20:50:58.061Z",
+		"text": "El pana Diego siempre dispuesto a ayudar :)",
+		"from_user": 101,
+		"to_user": 115,
 		"category": 1,
-		"keyword": 1
+		"keyword": 42
 	}
 }, {
 	"model": "stars.star",
-	"pk": 2,
+	"pk": 121,
 	"fields": {
-		"date": "2016-05-12T21:09:17.376Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
+		"date": "2017-06-26T13:48:12.334Z",
+		"text": "Good job at hackatrix organization",
+		"from_user": 120,
+		"to_user": 102,
+		"category": 2,
+		"keyword": 43
+	}
+}, {
+	"model": "stars.star",
+	"pk": 122,
+	"fields": {
+		"date": "2017-06-26T14:37:19.667Z",
+		"text": "Siempre apoyando en todo lo relacionado a nuevas tecnolog\u00edas, porque le apasiona lo que hace ;)",
+		"from_user": 102,
+		"to_user": 115,
 		"category": 1,
-		"keyword": 1
+		"keyword": 42
 	}
 }, {
 	"model": "stars.star",
-	"pk": 3,
+	"pk": 123,
 	"fields": {
-		"date": "2016-05-12T21:09:17.557Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
+		"date": "2017-06-26T17:13:12.594Z",
+		"text": "Muy buena direcci\u00f3n en la Hackatrix y r\u00e1pida coordinaci\u00f3n para el desarrollo de Brown Bag Trainings.",
+		"from_user": 106,
+		"to_user": 102,
+		"category": 2,
+		"keyword": 43
+	}
+}, {
+	"model": "stars.star",
+	"pk": 127,
+	"fields": {
+		"date": "2017-06-27T13:16:09.850Z",
+		"text": ":3",
+		"from_user": 122,
+		"to_user": 124,
+		"category": 3,
+		"keyword": 43
+	}
+}, {
+	"model": "stars.star",
+	"pk": 130,
+	"fields": {
+		"date": "2017-06-27T13:19:16.347Z",
+		"text": "Siempre est\u00e1 dispuesto a ayudar en lo que necesite :)",
+		"from_user": 121,
+		"to_user": 115,
+		"category": 5,
+		"keyword": 42
+	}
+}, {
+	"model": "stars.star",
+	"pk": 131,
+	"fields": {
+		"date": "2017-06-27T13:19:47.270Z",
+		"text": "<3",
+		"from_user": 124,
+		"to_user": 122,
+		"category": 2,
+		"keyword": 42
+	}
+}, {
+	"model": "stars.star",
+	"pk": 132,
+	"fields": {
+		"date": "2017-06-27T13:34:12.767Z",
+		"text": "Buena iniciativa con el Brown Bag Training",
+		"from_user": 102,
+		"to_user": 106,
+		"category": 3,
+		"keyword": 42
+	}
+}, {
+	"model": "stars.star",
+	"pk": 133,
+	"fields": {
+		"date": "2017-06-27T14:08:56.083Z",
+		"text": "Gracias por el excelente trabajo con el chequeo medico! muy buena organizaci\u00f3n.",
+		"from_user": 110,
+		"to_user": 121,
+		"category": 2,
+		"keyword": 44
+	}
+}, {
+	"model": "stars.star",
+	"pk": 134,
+	"fields": {
+		"date": "2017-06-27T18:47:01.752Z",
+		"text": ":)",
+		"from_user": 126,
+		"to_user": 110,
+		"category": 3,
+		"keyword": 44
+	}
+}, {
+	"model": "stars.star",
+	"pk": 135,
+	"fields": {
+		"date": "2017-06-27T20:00:55.570Z",
+		"text": "Improved working environment",
+		"from_user": 103,
+		"to_user": 120,
+		"category": 5,
+		"keyword": 44
+	}
+}, {
+	"model": "stars.star",
+	"pk": 136,
+	"fields": {
+		"date": "2017-06-27T20:03:56.788Z",
+		"text": "great agile resource",
+		"from_user": 108,
+		"to_user": 127,
 		"category": 1,
-		"keyword": 1
+		"keyword": 42
 	}
 }, {
 	"model": "stars.star",
-	"pk": 4,
+	"pk": 137,
 	"fields": {
-		"date": "2016-05-12T21:09:17.666Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
+		"date": "2017-06-27T20:08:05.871Z",
+		"text": "Gracias por apoyarme en la realizaci\u00f3n  del chequeo :)",
+		"from_user": 121,
+		"to_user": 110,
+		"category": 2,
+		"keyword": 44
+	}
+}, {
+	"model": "stars.star",
+	"pk": 138,
+	"fields": {
+		"date": "2017-06-27T20:17:28.618Z",
+		"text": "Experiencia en gesti\u00f3n y control de calidad de procesos un valor agregado para sus tareas de QA.",
+		"from_user": 127,
+		"to_user": 108,
+		"category": 5,
+		"keyword": 42
+	}
+}, {
+	"model": "stars.star",
+	"pk": 139,
+	"fields": {
+		"date": "2017-06-28T02:37:32.695Z",
+		"text": "Buenos consejos sobre scrum",
+		"from_user": 117,
+		"to_user": 120,
+		"category": 5,
+		"keyword": 42
+	}
+}, {
+	"model": "stars.star",
+	"pk": 140,
+	"fields": {
+		"date": "2017-07-01T21:54:47.956Z",
+		"text": "Great technical work fixing bugs and adding new features to Belatrix Connect",
+		"from_user": 138,
+		"to_user": 115,
+		"category": 4,
+		"keyword": 45
+	}
+}, {
+	"model": "stars.star",
+	"pk": 141,
+	"fields": {
+		"date": "2017-07-14T20:30:54.809Z",
+		"text": "kudos to Sergio for the new position",
+		"from_user": 149,
+		"to_user": 138,
 		"category": 1,
-		"keyword": 1
+		"keyword": 42
 	}
 }, {
 	"model": "stars.star",
-	"pk": 5,
+	"pk": 142,
 	"fields": {
-		"date": "2016-05-12T21:09:17.764Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
+		"date": "2017-07-27T15:08:03.149Z",
+		"text": "Muchas gracias por el apoyo! excelentes chilcanos :)",
+		"from_user": 110,
+		"to_user": 130,
+		"category": 2,
+		"keyword": 44
+	}
+}, {
+	"model": "stars.star",
+	"pk": 143,
+	"fields": {
+		"date": "2017-07-27T15:11:27.820Z",
+		"text": "Gracias por la instalacion de la musica para Fiestas Patrias :)",
+		"from_user": 110,
+		"to_user": 147,
+		"category": 2,
+		"keyword": 44
+	}
+}, {
+	"model": "stars.star",
+	"pk": 144,
+	"fields": {
+		"date": "2017-09-18T21:46:09.026Z",
+		"text": "que bonita :3",
+		"from_user": 122,
+		"to_user": 124,
 		"category": 1,
-		"keyword": 1
+		"keyword": 42
 	}
 }, {
 	"model": "stars.star",
-	"pk": 6,
+	"pk": 145,
 	"fields": {
-		"date": "2016-05-12T21:09:17.903Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
+		"date": "2017-10-16T17:37:28.580Z",
+		"text": "",
+		"from_user": 187,
+		"to_user": 154,
+		"category": 2,
+		"keyword": 43
+	}
+}, {
+	"model": "stars.star",
+	"pk": 146,
+	"fields": {
+		"date": "2017-10-19T16:56:02.872Z",
+		"text": "",
+		"from_user": 103,
+		"to_user": 121,
+		"category": 6,
+		"keyword": 44
+	}
+}, {
+	"model": "stars.star",
+	"pk": 147,
+	"fields": {
+		"date": "2017-10-19T17:05:17.492Z",
+		"text": "Tu si!",
+		"from_user": 103,
+		"to_user": 138,
 		"category": 1,
-		"keyword": 1
+		"keyword": 44
 	}
 }, {
 	"model": "stars.star",
-	"pk": 7,
+	"pk": 148,
 	"fields": {
-		"date": "2016-05-12T21:09:18.008Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
-		"category": 1,
-		"keyword": 1
+		"date": "2017-10-19T17:05:38.069Z",
+		"text": "",
+		"from_user": 103,
+		"to_user": 138,
+		"category": 3,
+		"keyword": 46
 	}
 }, {
 	"model": "stars.star",
-	"pk": 8,
+	"pk": 149,
 	"fields": {
-		"date": "2016-05-12T21:09:18.120Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
-		"category": 1,
-		"keyword": 1
+		"date": "2017-10-19T17:06:32.965Z",
+		"text": "",
+		"from_user": 103,
+		"to_user": 138,
+		"category": 3,
+		"keyword": 45
 	}
 }, {
 	"model": "stars.star",
-	"pk": 9,
+	"pk": 150,
 	"fields": {
-		"date": "2016-05-12T21:09:18.234Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
-		"category": 1,
-		"keyword": 1
+		"date": "2017-10-19T17:06:52.406Z",
+		"text": "",
+		"from_user": 103,
+		"to_user": 138,
+		"category": 6,
+		"keyword": 42
 	}
 }, {
 	"model": "stars.star",
-	"pk": 10,
+	"pk": 151,
 	"fields": {
-		"date": "2016-05-12T21:09:28.208Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
-		"category": 1,
-		"keyword": 2
+		"date": "2017-10-19T17:07:34.542Z",
+		"text": "",
+		"from_user": 103,
+		"to_user": 138,
+		"category": 5,
+		"keyword": 46
 	}
 }, {
 	"model": "stars.star",
-	"pk": 11,
+	"pk": 152,
 	"fields": {
-		"date": "2016-05-12T21:09:28.312Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
-		"category": 1,
-		"keyword": 2
-	}
-}, {
-	"model": "stars.star",
-	"pk": 12,
-	"fields": {
-		"date": "2016-05-12T21:09:28.771Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
-		"category": 1,
-		"keyword": 2
-	}
-}, {
-	"model": "stars.star",
-	"pk": 13,
-	"fields": {
-		"date": "2016-05-12T21:09:31.100Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
-		"category": 1,
-		"keyword": 2
-	}
-}, {
-	"model": "stars.star",
-	"pk": 14,
-	"fields": {
-		"date": "2016-05-12T21:09:31.255Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
-		"category": 1,
-		"keyword": 2
-	}
-}, {
-	"model": "stars.star",
-	"pk": 15,
-	"fields": {
-		"date": "2016-05-12T21:09:31.360Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
-		"category": 1,
-		"keyword": 2
-	}
-}, {
-	"model": "stars.star",
-	"pk": 16,
-	"fields": {
-		"date": "2016-05-12T21:09:33.912Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
-		"category": 2,
-		"keyword": 2
-	}
-}, {
-	"model": "stars.star",
-	"pk": 17,
-	"fields": {
-		"date": "2016-05-12T21:09:34.179Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
-		"category": 2,
-		"keyword": 2
-	}
-}, {
-	"model": "stars.star",
-	"pk": 18,
-	"fields": {
-		"date": "2016-05-12T21:09:34.312Z",
-		"text": null,
-		"from_user": 1,
-		"to_user": 2,
-		"category": 2,
-		"keyword": 2
-	}
-}, {
-	"model": "stars.star",
-	"pk": 19,
-	"fields": {
-		"date": "2016-05-12T21:09:37.596Z",
-		"text": null,
-		"from_user": 2,
-		"to_user": 1,
-		"category": 2,
-		"keyword": 2
-	}
-}, {
-	"model": "stars.star",
-	"pk": 20,
-	"fields": {
-		"date": "2016-05-12T21:09:37.747Z",
-		"text": null,
-		"from_user": 2,
-		"to_user": 1,
-		"category": 2,
-		"keyword": 2
-	}
-}, {
-	"model": "stars.star",
-	"pk": 21,
-	"fields": {
-		"date": "2016-05-12T21:09:37.866Z",
-		"text": null,
-		"from_user": 2,
-		"to_user": 1,
-		"category": 2,
-		"keyword": 2
-	}
-}, {
-	"model": "stars.star",
-	"pk": 22,
-	"fields": {
-		"date": "2016-05-12T21:09:38.042Z",
-		"text": null,
-		"from_user": 2,
-		"to_user": 1,
-		"category": 2,
-		"keyword": 2
-	}
-}, {
-	"model": "stars.star",
-	"pk": 23,
-	"fields": {
-		"date": "2016-05-12T21:09:47.129Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 2,
-		"category": 2,
-		"keyword": 5
-	}
-}, {
-	"model": "stars.star",
-	"pk": 24,
-	"fields": {
-		"date": "2016-05-12T21:09:47.276Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 2,
-		"category": 2,
-		"keyword": 5
-	}
-}, {
-	"model": "stars.star",
-	"pk": 25,
-	"fields": {
-		"date": "2016-05-12T21:09:47.381Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 2,
-		"category": 2,
-		"keyword": 5
-	}
-}, {
-	"model": "stars.star",
-	"pk": 26,
-	"fields": {
-		"date": "2016-05-12T21:09:47.527Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 2,
-		"category": 2,
-		"keyword": 5
-	}
-}, {
-	"model": "stars.star",
-	"pk": 27,
-	"fields": {
-		"date": "2016-05-12T21:09:47.665Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 2,
-		"category": 2,
-		"keyword": 5
-	}
-}, {
-	"model": "stars.star",
-	"pk": 28,
-	"fields": {
-		"date": "2016-05-12T21:09:51.068Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 2,
-		"category": 2,
-		"keyword": 6
-	}
-}, {
-	"model": "stars.star",
-	"pk": 29,
-	"fields": {
-		"date": "2016-05-12T21:09:51.165Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 2,
-		"category": 2,
-		"keyword": 6
-	}
-}, {
-	"model": "stars.star",
-	"pk": 30,
-	"fields": {
-		"date": "2016-05-12T21:09:51.294Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 2,
-		"category": 2,
-		"keyword": 6
-	}
-}, {
-	"model": "stars.star",
-	"pk": 31,
-	"fields": {
-		"date": "2016-05-12T21:09:51.406Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 2,
-		"category": 2,
-		"keyword": 6
-	}
-}, {
-	"model": "stars.star",
-	"pk": 32,
-	"fields": {
-		"date": "2016-05-12T21:09:55.170Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 7,
-		"category": 2,
-		"keyword": 6
-	}
-}, {
-	"model": "stars.star",
-	"pk": 33,
-	"fields": {
-		"date": "2016-05-12T21:09:55.313Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 7,
-		"category": 2,
-		"keyword": 6
-	}
-}, {
-	"model": "stars.star",
-	"pk": 34,
-	"fields": {
-		"date": "2016-05-12T21:09:55.584Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 7,
-		"category": 2,
-		"keyword": 6
-	}
-}, {
-	"model": "stars.star",
-	"pk": 35,
-	"fields": {
-		"date": "2016-05-12T21:09:55.728Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 7,
-		"category": 2,
-		"keyword": 6
-	}
-}, {
-	"model": "stars.star",
-	"pk": 36,
-	"fields": {
-		"date": "2016-05-12T21:09:58.949Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 7,
-		"category": 2,
-		"keyword": 3
-	}
-}, {
-	"model": "stars.star",
-	"pk": 37,
-	"fields": {
-		"date": "2016-05-12T21:09:59.094Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 7,
-		"category": 2,
-		"keyword": 3
-	}
-}, {
-	"model": "stars.star",
-	"pk": 38,
-	"fields": {
-		"date": "2016-05-12T21:09:59.241Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 7,
-		"category": 2,
-		"keyword": 3
-	}
-}, {
-	"model": "stars.star",
-	"pk": 39,
-	"fields": {
-		"date": "2016-05-12T21:09:59.473Z",
-		"text": null,
-		"from_user": 3,
-		"to_user": 7,
-		"category": 2,
-		"keyword": 3
+		"date": "2017-10-23T14:44:14.334Z",
+		"text": "",
+		"from_user": 187,
+		"to_user": 104,
+		"category": 3,
+		"keyword": 42
 	}
 }]

@@ -2,7 +2,7 @@
 	"model": "categories.category",
 	"pk": 1,
 	"fields": {
-		"name": "Colaboración para resolver problemas.",
+		"name": "Problem solving collaboration",
 		"comment_required": true,
 		"is_active": true
 	}
@@ -10,7 +10,7 @@
 	"model": "categories.category",
 	"pk": 2,
 	"fields": {
-		"name": "Participación en la organización de eventos.",
+		"name": "Event organization help",
 		"comment_required": true,
 		"is_active": true
 	}
@@ -18,7 +18,7 @@
 	"model": "categories.category",
 	"pk": 3,
 	"fields": {
-		"name": "Excelente expositor.",
+		"name": "Great speaker",
 		"comment_required": true,
 		"is_active": true
 	}
@@ -26,7 +26,7 @@
 	"model": "categories.category",
 	"pk": 4,
 	"fields": {
-		"name": "Proponer y empujar nuevas ideas.",
+		"name": "Propose and follow up new ideas",
 		"comment_required": true,
 		"is_active": true
 	}
@@ -34,7 +34,7 @@
 	"model": "categories.category",
 	"pk": 5,
 	"fields": {
-		"name": "Ayudar a mejorar procesos.",
+		"name": "Help with process improvements",
 		"comment_required": true,
 		"is_active": true
 	}
@@ -42,176 +42,43 @@
 	"model": "categories.category",
 	"pk": 6,
 	"fields": {
-		"name": "Felicitaciones por parte del cliente.",
+		"name": "Client acknowledge",
 		"comment_required": true,
 		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
-	"pk": 1,
+	"pk": 42,
 	"fields": {
-		"name": "PYTHON",
+		"name": "agile",
 		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
-	"pk": 2,
+	"pk": 43,
 	"fields": {
-		"name": "PHP",
+		"name": "marketing",
 		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
-	"pk": 3,
+	"pk": 44,
 	"fields": {
-		"name": "ANDROID",
+		"name": "peoplecare",
 		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
-	"pk": 4,
+	"pk": 45,
 	"fields": {
-		"name": "JAVA",
+		"name": "android",
 		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
-	"pk": 5,
+	"pk": 46,
 	"fields": {
-		"name": "IOS",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 6,
-	"fields": {
-		"name": "SCRUM",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 7,
-	"fields": {
-		"name": "JAVASCRIPT",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 8,
-	"fields": {
-		"name": "ANGULAR",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 9,
-	"fields": {
-		"name": "RUBY",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 10,
-	"fields": {
-		"name": "RUBY ON RAILS",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 11,
-	"fields": {
-		"name": "DJANGO",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 12,
-	"fields": {
-		"name": "C++",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 13,
-	"fields": {
-		"name": "C#",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 14,
-	"fields": {
-		"name": ".NET",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 15,
-	"fields": {
-		"name": "PERL",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 16,
-	"fields": {
-		"name": "MOBILE",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 17,
-	"fields": {
-		"name": "QA",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 18,
-	"fields": {
-		"name": "AUTOMATION",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 19,
-	"fields": {
-		"name": "EXCELLENCE",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 20,
-	"fields": {
-		"name": "RELIABILITY",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 21,
-	"fields": {
-		"name": "TEAM SPIRIT",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 22,
-	"fields": {
-		"name": "SERVICE",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 23,
-	"fields": {
-		"name": "INTEGRITY",
-		"is_active": true
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 24,
-	"fields": {
-		"name": "RESPONSIBILITY",
+		"name": "ios",
 		"is_active": true
 	}
 }]

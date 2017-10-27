@@ -3,27 +3,39 @@
 	"pk": 1,
 	"fields": {
 		"name": "Lima",
-		"icon": "https://i.imgur.com/CpYIGjr.png"
+		"icon": "https://i.imgur.com/CpYIGjr.png",
+		"is_active": true
 	}
 }, {
 	"model": "employees.location",
 	"pk": 2,
 	"fields": {
 		"name": "Mendoza",
-		"icon": "https://i.imgur.com/XRRUt6D.png"
+		"icon": "https://i.imgur.com/XRRUt6D.png",
+		"is_active": true
 	}
 }, {
 	"model": "employees.location",
 	"pk": 3,
 	"fields": {
 		"name": "Buenos Aires",
-		"icon": "https://i.imgur.com/XRRUt6D.png"
+		"icon": "https://i.imgur.com/XRRUt6D.png",
+		"is_active": true
 	}
 }, {
 	"model": "employees.location",
 	"pk": 4,
 	"fields": {
 		"name": "USA",
-		"icon": "https://i.imgur.com/A7Jdujn.png"
+		"icon": "https://i.imgur.com/A7Jdujn.png",
+		"is_active": true
+	}
+}, {
+	"model": "employees.location",
+	"pk": 5,
+	"fields": {
+		"name": "Bogot\u00e1",
+		"icon": "https://i.imgur.com/GGVaXm3.jpg",
+		"is_active": true
 	}
 }]
