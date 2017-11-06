@@ -525,7 +525,7 @@ def employee_reset_password_confirmation(request, employee_email, employee_uuid)
 @permission_classes((IsAuthenticated,))
 def employee_update(request, employee_id):
     """
-    This endpoint update skype, first_name, last_name, emergency phone contact and location
+    This endpoint update skype, first_name, last_name and location
     ---
     response_serializer: employees.serializers.EmployeeSerializer
     parameters:
@@ -540,8 +540,6 @@ def employee_update(request, employee_id):
       paramType: string
     - name: location
       description: location id
-      paramType: string
-    - name: emergency_phone_contact
       paramType: string
     responseMessages:
     - code: 401
@@ -558,7 +556,6 @@ def employee_update(request, employee_id):
             employee.first_name = request.data['first_name']
             employee.last_name = request.data['last_name']
             employee.location = get_object_or_404(Location, pk=request.data['location'])
-            employee.emergency_phone_contact = request.data['emergency_phone_contact']
             employee.save()
             serializer = EmployeeSerializer(employee)
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
