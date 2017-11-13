@@ -4,7 +4,9 @@
 	"fields": {
 		"name": "Technical Blogger",
 		"icon": "http://i.imgur.com/0TDVbPV.png",
-		"description": "Technical writer sharing knowledge in Belatrix Blogs"
+		"description": "Technical writer sharing knowledge in Belatrix Blogs",
+		"sharing_text": null,
+		"is_active": true
 	}
 }, {
 	"model": "stars.badge",
@@ -12,7 +14,9 @@
 	"fields": {
 		"name": "Great Performance",
 		"icon": "http://i.imgur.com/GoxhsuT.png",
-		"description": "For demonstrate great performance at work"
+		"description": "For demonstrate great performance at work",
+		"sharing_text": null,
+		"is_active": true
 	}
 }, {
 	"model": "stars.badge",
@@ -20,7 +24,9 @@
 	"fields": {
 		"name": "Social Media Enthusiast",
 		"icon": "http://i.imgur.com/IAoqp2f.png",
-		"description": "Several contributions to share Belatrix news and content in social media networks"
+		"description": "Several contributions to share Belatrix news and content in social media networks",
+		"sharing_text": null,
+		"is_active": true
 	}
 }, {
 	"model": "stars.badge",
@@ -28,6 +34,8 @@
 	"fields": {
 		"name": "Speaker",
 		"icon": "http://i.imgur.com/e6FqXtV.png",
-		"description": "Give several talks and speeches representing Belatrix"
+		"description": "Give several talks and speeches representing Belatrix",
+		"sharing_text": "Give several talks and speeches representing Belatrix sharing text",
+		"is_active": true
 	}
 }]

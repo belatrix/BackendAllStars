@@ -3,8 +3,8 @@
 	"pk": 1,
 	"fields": {
 		"date": "2017-01-02T18:05:31.883Z",
-		"to_user": 5,
-		"assigned_by": 7,
+		"to_user": 102,
+		"assigned_by": 103,
 		"badge": 2
 	}
 }, {
@@ -12,8 +12,8 @@
 	"pk": 2,
 	"fields": {
 		"date": "2017-01-02T18:10:53.314Z",
-		"to_user": 24,
-		"assigned_by": 10,
+		"to_user": 102,
+		"assigned_by": 103,
 		"badge": 4
 	}
 }, {
@@ -21,8 +21,8 @@
 	"pk": 3,
 	"fields": {
 		"date": "2017-01-02T18:10:26.796Z",
-		"to_user": 9,
-		"assigned_by": 8,
+		"to_user": 102,
+		"assigned_by": 103,
 		"badge": 1
 	}
 }, {
@@ -30,8 +30,8 @@
 	"pk": 4,
 	"fields": {
 		"date": "2017-01-02T18:20:13.447Z",
-		"to_user": 6,
-		"assigned_by": 7,
+		"to_user": 103,
+		"assigned_by": 102,
 		"badge": 1
 	}
 }, {
@@ -39,17 +39,17 @@
 	"pk": 5,
 	"fields": {
 		"date": "2017-01-02T18:32:35.627Z",
-		"to_user": 5,
-		"assigned_by": 7,
-		"badge": 4
+		"to_user": 102,
+		"assigned_by": 103,
+		"badge": 3
 	}
 }, {
 	"model": "stars.employeebadge",
 	"pk": 6,
 	"fields": {
 		"date": "2017-01-02T18:33:05.181Z",
-		"to_user": 4,
-		"assigned_by": 10,
+		"to_user": 103,
+		"assigned_by": 102,
 		"badge": 3
 	}
 }]

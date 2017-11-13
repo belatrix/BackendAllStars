@@ -2,228 +2,83 @@
 	"model": "categories.category",
 	"pk": 1,
 	"fields": {
-		"name": "Demo"
+		"name": "Problem solving collaboration",
+		"comment_required": true,
+		"is_active": true
 	}
 }, {
 	"model": "categories.category",
 	"pk": 2,
 	"fields": {
-		"name": "Innovation"
+		"name": "Event organization help",
+		"comment_required": true,
+		"is_active": true
 	}
 }, {
 	"model": "categories.category",
 	"pk": 3,
 	"fields": {
-		"name": "Teamwork"
+		"name": "Great speaker",
+		"comment_required": true,
+		"is_active": true
 	}
 }, {
 	"model": "categories.category",
 	"pk": 4,
 	"fields": {
-		"name": "Commitment"
+		"name": "Propose and follow up new ideas",
+		"comment_required": true,
+		"is_active": true
 	}
 }, {
 	"model": "categories.category",
 	"pk": 5,
 	"fields": {
-		"name": "Empowerment"
+		"name": "Help with process improvements",
+		"comment_required": true,
+		"is_active": true
 	}
 }, {
 	"model": "categories.category",
 	"pk": 6,
 	"fields": {
-		"name": "Trust"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 7,
-	"fields": {
-		"name": "Technical Guidance"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 8,
-	"fields": {
-		"name": "Code Review"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 9,
-	"fields": {
-		"name": "Technical Interview"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 10,
-	"fields": {
-		"name": "Speaker"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 11,
-	"fields": {
-		"name": "Blogger"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 12,
-	"fields": {
-		"name": "Event collaborator"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 13,
-	"fields": {
-		"name": "Training"
-	}
-}, {
-	"model": "categories.category",
-	"pk": 14,
-	"fields": {
-		"name": "Partnership"
+		"name": "Client acknowledge",
+		"comment_required": true,
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
-	"pk": 1,
+	"pk": 42,
 	"fields": {
-		"name": "PYTHON"
+		"name": "agile",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
-	"pk": 2,
+	"pk": 43,
 	"fields": {
-		"name": "PHP"
+		"name": "marketing",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
-	"pk": 3,
+	"pk": 44,
 	"fields": {
-		"name": "ANDROID"
+		"name": "peoplecare",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
-	"pk": 4,
+	"pk": 45,
 	"fields": {
-		"name": "JAVA"
+		"name": "android",
+		"is_active": true
 	}
 }, {
 	"model": "categories.keyword",
-	"pk": 5,
+	"pk": 46,
 	"fields": {
-		"name": "IOS"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 6,
-	"fields": {
-		"name": "SCRUM"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 7,
-	"fields": {
-		"name": "JAVASCRIPT"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 8,
-	"fields": {
-		"name": "ANGULAR"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 9,
-	"fields": {
-		"name": "RUBY"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 10,
-	"fields": {
-		"name": "RUBY ON RAILS"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 11,
-	"fields": {
-		"name": "DJANGO"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 12,
-	"fields": {
-		"name": "C++"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 13,
-	"fields": {
-		"name": "C#"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 14,
-	"fields": {
-		"name": ".NET"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 15,
-	"fields": {
-		"name": "PERL"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 16,
-	"fields": {
-		"name": "MOBILE"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 17,
-	"fields": {
-		"name": "QA"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 18,
-	"fields": {
-		"name": "AUTOMATION"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 19,
-	"fields": {
-		"name": "EXCELLENCE"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 20,
-	"fields": {
-		"name": "RELIABILITY"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 21,
-	"fields": {
-		"name": "TEAM SPIRIT"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 22,
-	"fields": {
-		"name": "SERVICE"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 23,
-	"fields": {
-		"name": "INTEGRITY"
-	}
-}, {
-	"model": "categories.keyword",
-	"pk": 24,
-	"fields": {
-		"name": "RESPONSIBILITY"
+		"name": "ios",
+		"is_active": true
 	}
 }]

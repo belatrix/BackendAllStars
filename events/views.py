@@ -25,18 +25,11 @@ def my_upcoming_events(request, employee_id):
     - code: 404
       message: Not found
     """
-    events = []
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
-        records = EventParticipant.objects.filter(participant=employee)
-
-        for record in records:
-            event = Event.objects.get(pk=record.event.id)
-            if event.is_active and event.is_upcoming:
-                events.append(event)
-
+        events_list = Event.objects.filter(location=employee.location, is_active=True, is_upcoming=True)
         paginator = PageNumberPagination()
-        results = paginator.paginate_queryset(events, request)
+        results = paginator.paginate_queryset(events_list, request)
         serializer = EventSerializer(results, many=True)
         return paginator.get_paginated_response(serializer.data)
 
@@ -58,7 +51,7 @@ def local_events(request, employee_id):
     """
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
-        events = Event.objects.filter(location=employee.location, is_active=True, is_upcoming=True)
+        events = Event.objects.filter(location=employee.location, is_active=True)
         paginator = PageNumberPagination()
         results = paginator.paginate_queryset(events, request)
         serializer = EventSerializer(results, many=True)
@@ -83,7 +76,7 @@ def other_location_events(request, employee_id):
     events = []
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
-        events_list = Event.objects.filter(is_active=True, is_upcoming=True)
+        events_list = Event.objects.filter(is_active=True)
 
         for event in events_list:
             if event.location != employee.location:
@@ -126,6 +119,7 @@ def event_detail(request, employee_id, event_id):
                 "datetime": event.datetime,
                 "address": event.address,
                 "description": event.description,
+                "registration_url": event.registration_url,
                 "is_registered": is_registered}
 
         serializer = EventSimpleSerializer(data=data)

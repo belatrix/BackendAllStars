@@ -41,6 +41,7 @@ class EmployeeAdmin(ImportExportMixin, BaseUserAdmin):
                                       'last_name',
                                       'location',
                                       'skype_id',
+                                      'emergency_phone_contact',
                                       'avatar',
                                       'is_base_profile_complete')}),
         ('Professional information', {'fields': ('position',

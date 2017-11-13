@@ -10,10 +10,12 @@ class Event(models.Model):
     image = models.URLField(blank=True, null=True)
     datetime = models.DateTimeField(blank=True, null=True)
     address = models.CharField(max_length=200, blank=True, null=True)
+    registration_url = models.URLField(blank=True, null=True)
     description = models.TextField()
     is_active = models.BooleanField(default=True)
     is_upcoming = models.BooleanField(default=True)
     location = models.ForeignKey('employees.Location')
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return self.name
