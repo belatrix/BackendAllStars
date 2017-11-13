@@ -25,7 +25,6 @@ def my_upcoming_events(request, employee_id):
     - code: 404
       message: Not found
     """
-    events = []
     if request.method == 'GET':
         employee = get_object_or_404(Employee, pk=employee_id)
         events_list = Event.objects.filter(location=employee.location, is_active=True, is_upcoming=True)
